@@ -1,4 +1,5 @@
 import { FC, FormEventHandler, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { SubmitButton, TextField } from "./ui/forms";
 
@@ -15,8 +16,12 @@ export const Layout: FC = (props) => {
   return (
     <>
       <header className="bg-gray-50">
-        <div className="container mx-auto flex">
-          <h1 className="py-8 text-2xl">Listomania</h1>
+        <div className="container mx-auto flex px-5">
+          <h1 className="py-8 text-2xl">
+            <Link href="/">
+              Listomania
+            </Link>
+          </h1>
           <form
             onSubmit={onSearch}
             className="flex items-center px-5 w-full space-x-3"

@@ -27,22 +27,20 @@ export const SessionGate: FC = (props) => {
 
   return (
     <>
-      <div className="pt-5 md:pt-20">
-        <div className="shadow text-3xl p-5 md:w-4/5 lg:w-1/2 mx-auto">
-          <form onSubmit={onSubmit} className="flex flex-col space-y-5">
-            <label htmlFor="idp" className="p-x-5">
-              Connect your Pod at:
-            </label>
-            <TextField
-              id="idp"
-              type="url"
-              value={idp}
-              onChange={setIdp}
-              className="p-5"
-            />
-            <SubmitButton value="Connect" className="p-5"/>
-          </form>
-        </div>
+      <div className="shadow text-3xl p-5">
+        <form onSubmit={onSubmit} className="flex flex-col space-y-5">
+          <label htmlFor="idp" className="p-x-5">
+            Connect your Pod at:
+          </label>
+          <TextField
+            id="idp"
+            type="url"
+            value={idp}
+            onChange={setIdp}
+            className="p-5"
+          />
+          <SubmitButton value="Connect" className="p-5"/>
+        </form>
       </div>
     </>
   );

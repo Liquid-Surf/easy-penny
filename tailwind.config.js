@@ -1,4 +1,7 @@
 /* eslint-env node */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   purge: [
     "./src/**/*.html",
@@ -12,6 +15,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
+    colors: colors,
   },
   variants: {
     extend: {},

@@ -12,9 +12,11 @@ const Home: React.FC = () => {
       <Head>
         <title>Listomania</title>
       </Head>
-      <SessionGate>
-        Welcome {info?.webId}!
-      </SessionGate>
+      <div className="md:w-4/5 lg:w-1/2 mx-auto pt-5 md:pt-20">
+        <SessionGate>
+          Welcome {info?.webId}!
+        </SessionGate>
+      </div>
     </Layout>
   );
 };

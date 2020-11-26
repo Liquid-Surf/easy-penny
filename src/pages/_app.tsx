@@ -1,9 +1,15 @@
 import App from "next/app";
 import { useEffect, useState } from "react";
+import Modal from "react-modal";
 
 import "../../styles/globals.css";
 import { SessionContext, SessionInfo } from "../contexts/session";
 import { getSession } from "../session";
+
+if (typeof document === "object") {
+  const appElement = document.querySelector("#appWrapper > *:first-child") as HTMLElement;
+  Modal.setAppElement(appElement);
+}
 
 const session = getSession();
 export const MyApp: App = ({ Component, pageProps }) => {

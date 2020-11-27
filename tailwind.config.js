@@ -18,7 +18,16 @@ module.exports = {
     colors: colors,
   },
   variants: {
-    extend: {},
+    extend: {
+      opacity: [
+        "responsive",
+        "group-hover",
+        "focus-within",
+        "hover",
+        "focus",
+        "motion-safe",
+      ],
+    },
   },
   plugins: [],
 };

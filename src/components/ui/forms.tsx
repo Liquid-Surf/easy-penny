@@ -34,7 +34,7 @@ export const Button: FC<ButtonProps> = (props) => {
 
 type SubmitButtonProps = InputHTMLAttributes<HTMLInputElement> & { value: string };
 export const SubmitButton: FC<SubmitButtonProps> = (props) => {
-  const className = `${props.className ?? ""} ${fieldClasses} bg-blue-500 text-white focus:bg-blue-600 hover:bg-blue-600`;
+  const className = `${props.className ?? ""} ${fieldClasses} cursor-pointer bg-blue-500 text-white focus:bg-blue-600 hover:bg-blue-600`;
   return (
     <input
       {...props}

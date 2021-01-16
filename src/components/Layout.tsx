@@ -1,28 +1,16 @@
-import { FC, FormEventHandler, useState } from "react";
+import { FC } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { SubmitButton, TextField } from "./ui/forms";
+import { UrlString } from "@inrupt/solid-client";
+import { LocationBar } from "./LocationBar";
 
-export const Layout: FC = (props) => {
-  const route = useRouter();
-  const [searchQuery, setSearchQuery] = useState(route.pathname === "/search/[query]" ? route.query.query : "");
-  const [isLoading, setIsLoading] = useState(false);
+interface Props {
+  path?: UrlString;
+}
 
-  const onSearch: FormEventHandler = (e) => {
-    e.preventDefault();
-
-    const listener1 = () => setIsLoading(true);
-    const listener2 = () => {
-      setIsLoading(false);
-      route.events.off("routeChangeStart", listener1);
-      route.events.off("routeChangeComplete", listener2);
-    };
-    route.events.on("routeChangeStart", listener1);
-    route.events.on("routeChangeComplete", listener2);
-    route.push(`/search/${encodeURIComponent(searchQuery)}`);
-  };
-
-  const submitClassName = isLoading ? "animate-pulse p-3" : "p-3";
+export const Layout: FC<Props> = (props) => {
+  const locationBar = props.path
+    ? <h2 className="py-8 px-20 text-xl"><LocationBar location={props.path}/></h2>
+    : null;
 
   return (
     <>
@@ -30,25 +18,10 @@ export const Layout: FC = (props) => {
         <div className="container mx-auto flex px-5">
           <h1 className="py-8 text-2xl">
             <Link href="/">
-              Listomania
+              Sodeto
             </Link>
           </h1>
-          <form
-            onSubmit={onSearch}
-            className="flex items-center px-5 w-full space-x-3"
-          >
-            <label htmlFor="searchQuery" className="sr-only">Search:</label>
-            <TextField
-              id="searchQuery"
-              value={searchQuery}
-              onChange={setSearchQuery}
-              className="w-full p-3"
-            />
-            <SubmitButton
-              value="Search"
-              className={submitClassName}
-            />
-          </form>
+          {locationBar}
         </div>
       </header>
       <main className="container mx-auto">

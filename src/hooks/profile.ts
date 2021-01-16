@@ -1,11 +1,11 @@
-import { getThing, setThing, Thing } from "@inrupt/solid-client";
+import { getThing, setThing, Thing, ThingPersisted } from "@inrupt/solid-client";
 import { useCallback } from "react";
 import { useSessionInfo } from "./sessionInfo";
-import { useDataset } from "./dataset";
+import { useProfileDoc } from "./profileDoc";
 
-export function useProfile() {
+export function useProfile(): { data: ThingPersisted, save: (profile: Thing) => void } | null {
   const sessionInfo = useSessionInfo();
-  const profileDoc = useDataset(sessionInfo?.webId ?? null);
+  const profileDoc = useProfileDoc();
 
   const update = useCallback((profile: Thing) => {
     if (!profileDoc?.data) {
@@ -15,7 +15,6 @@ export function useProfile() {
     const updatedProfileDoc = setThing(profileDoc.data, profile);
     profileDoc.save(updatedProfileDoc);
   }, [profileDoc]);
-
 
   if (profileDoc === null || typeof profileDoc.data === "undefined" || typeof sessionInfo?.webId === "undefined") {
     return null;

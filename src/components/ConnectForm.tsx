@@ -1,8 +1,7 @@
+import { login } from "@inrupt/solid-client-authn-browser";
 import { FC, FormEventHandler, useState } from "react";
-import { getSession } from "../session";
 import { SubmitButton, TextField } from "./ui/forms";
 
-const session = getSession();
 export const ConnectForm: FC = (props) => {
   const [idp, setIdp] = useState("https://solidcommunity.net");
   const [loading, setLoading] = useState(false);
@@ -16,7 +15,7 @@ export const ConnectForm: FC = (props) => {
 
     setLoading(true);
 
-    session.login({ oidcIssuer: idp });
+    login({ oidcIssuer: idp });
   };
 
   return (

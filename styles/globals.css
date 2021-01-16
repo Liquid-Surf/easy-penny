@@ -1,6 +1,9 @@
 @import "tailwindcss/base";
 
 /* Write your own custom base styles here */
+:root {
+  scroll-behavior: smooth;
+}
 
 /* Start purging... */
 @import "tailwindcss/components";

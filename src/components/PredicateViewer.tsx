@@ -1,7 +1,7 @@
-import { getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getStringNoLocaleAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeStringNoLocale, removeUrl, setThing, ThingPersisted, UrlString } from "@inrupt/solid-client";
+import { getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeStringNoLocale, removeUrl, setThing, ThingPersisted, UrlString } from "@inrupt/solid-client";
 import { FC } from "react";
 import { MdLink, MdRemove, MdTextFields } from "react-icons/md";
-import { VscCalendar, VscSymbolBoolean } from "react-icons/vsc";
+import { VscCalendar, VscQuestion, VscSymbolBoolean } from "react-icons/vsc";
 import { LoadedCachedDataset } from "../hooks/dataset";
 import { Url } from "./data/Url";
 import { ObjectViewer } from "./ObjectViewer";
@@ -20,6 +20,19 @@ export const PredicateViewer: FC<Props> = (props) => {
   const decimalValues = getDecimalAll(props.thing, props.predicate);
   const datetimeValues = getDatetimeAll(props.thing, props.predicate);
   const booleanValues = getBooleanAll(props.thing, props.predicate);
+  const allValues = getTermAll(props.thing, props.predicate);
+
+  const dataOfUnkownType = allValues.find(term => {
+    // TODO: Check for literal types we do not support.
+    return term.termType !== "Literal" && term.termType !== "NamedNode";
+  });
+  const unknownObject = dataOfUnkownType
+    ? (
+      <li className="pl-4">
+        <ObjectViewer type={<VscQuestion/>}>Data of unknown type.</ObjectViewer>
+      </li>
+    )
+    : null;
 
   const updateThing = (updatedThing: ThingPersisted) => {
     const updatedDataset = setThing(props.dataset.data, updatedThing);
@@ -129,6 +142,8 @@ export const PredicateViewer: FC<Props> = (props) => {
               </ObjectViewer>
             </li>
           ))}
+
+          {unknownObject}
 
         </ul>
       </dd>

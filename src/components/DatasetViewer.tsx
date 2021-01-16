@@ -12,11 +12,13 @@ export const DatasetViewer: FC<Props> = (props) => {
 
   return (
     <>
-      {things.map(thing => (
-        <div key={asUrl(thing as ThingPersisted)} className="py-2">
-          <ThingViewer dataset={props.dataset} thing={thing as ThingPersisted}/>
-        </div>
-      ))}
+      <div className="space-y-10 pb-10">
+        {things.map(thing => (
+          <div key={asUrl(thing as ThingPersisted)}>
+            <ThingViewer dataset={props.dataset} thing={thing as ThingPersisted}/>
+          </div>
+        ))}
+      </div>
     </>
   );
 };

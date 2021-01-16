@@ -65,7 +65,7 @@ export const ThingViewer: FC<Props> = (props) => {
       <button
         onClick={(e) => {e.preventDefault(); deleteThing();}}
         aria-label="Remove this Thing"
-        className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-coolGray-50 p-1 -m-3 rounded-full border-coolGray-50 border-4"
+        className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-coolGray-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-coolGray-700 border-4"
       >
         <MdRemove/>
       </button>

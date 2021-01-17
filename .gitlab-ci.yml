@@ -1,0 +1,28 @@
+include:
+  - project: 'vincenttunru/ci-templates'
+    file: '/spa.gitlab-ci.yml'
+
+cache:
+  paths:
+  - node_modules/
+
+test:
+  image: node:14
+  stage: test
+  script:
+  - npm install
+
+build:
+  image: node:14
+  stage: build
+  script:
+  - npm install
+  - npm run build
+  # Artifacts to be published should go into the `public` folder,
+  # but that already contains static assets. Thus, move that first:
+  - mv public public~
+  - mv out public
+  artifacts:
+    paths:
+    - node_modules
+    - public

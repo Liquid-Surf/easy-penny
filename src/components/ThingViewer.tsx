@@ -3,6 +3,7 @@ import { FC } from "react";
 import { MdRemove } from "react-icons/md";
 import { PredicateViewer } from "./PredicateViewer";
 import { LoadedCachedDataset } from "../hooks/dataset";
+import { LoggedIn } from "./LoggedIn";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -62,13 +63,15 @@ export const ThingViewer: FC<Props> = (props) => {
       <div className="p-5">
         {viewers}
       </div>
-      <button
-        onClick={(e) => {e.preventDefault(); deleteThing();}}
-        aria-label="Remove this Thing"
-        className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-red-700 border-4"
-      >
-        <MdRemove/>
-      </button>
+      <LoggedIn>
+        <button
+          onClick={(e) => {e.preventDefault(); deleteThing();}}
+          aria-label="Remove this Thing"
+          className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-red-700 border-4"
+        >
+          <MdRemove/>
+        </button>
+      </LoggedIn>
     </div>
   );
 };

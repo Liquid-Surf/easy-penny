@@ -9,7 +9,7 @@ import { ContainerViewer } from "../../components/ContainerViewer";
 
 const Explore: React.FC = () => {
   const router = useRouter();
-  const url = (router.query.url as [string])[0];
+  const url = (router.query.url as string[] ?? []).join("");
   const dataset = useDataset(url);
 
   const viewer = isLoaded(dataset)

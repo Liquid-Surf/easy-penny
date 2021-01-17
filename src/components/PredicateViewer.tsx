@@ -58,9 +58,11 @@ export const PredicateViewer: FC<Props> = (props) => {
               <ObjectViewer
                 type={<MdLink/>}
                 options={[
-                  <button onClick={(e) => {e.preventDefault(); deleteUrl(value);}} aria-label={`Remove "${value}"`}>
-                    <MdRemove/>
-                  </button>
+                  {
+                    element: <MdRemove aria-label={`Remove "${value}"`}/>,
+                    callback: () => deleteUrl(value),
+                    loggedIn: true,
+                  },
                 ]}
               >
                 <Url url={value}/>
@@ -73,9 +75,11 @@ export const PredicateViewer: FC<Props> = (props) => {
               <ObjectViewer
                 type={<MdTextFields/>}
                 options={[
-                  <button onClick={(e) => {e.preventDefault(); deleteStringNoLocale(value);}} aria-label={`Remove "${value}"`}>
-                    <MdRemove/>
-                  </button>
+                  {
+                    element: <MdRemove aria-label={`Remove "${value}"`}/>,
+                    callback: () => deleteStringNoLocale(value),
+                    loggedIn: true,
+                  },
                 ]}
               >
                 {value}
@@ -88,9 +92,11 @@ export const PredicateViewer: FC<Props> = (props) => {
               <ObjectViewer
                 type={<>1</>}
                 options={[
-                  <button onClick={(e) => {e.preventDefault(); deleteInteger(value);}} aria-label={`Remove "${value}"`}>
-                    <MdRemove/>
-                  </button>
+                  {
+                    element: <MdRemove aria-label={`Remove "${value}"`}/>,
+                    callback: () => deleteInteger(value),
+                    loggedIn: true,
+                  },
                 ]}
               >
                 {value}
@@ -103,9 +109,11 @@ export const PredicateViewer: FC<Props> = (props) => {
               <ObjectViewer
                 type={<>1.0</>}
                 options={[
-                  <button onClick={(e) => {e.preventDefault(); deleteDecimal(value);}} aria-label={`Remove "${value}"`}>
-                    <MdRemove/>
-                  </button>
+                  {
+                    element: <MdRemove aria-label={`Remove "${value}"`}/>,
+                    callback: () => deleteDecimal(value),
+                    loggedIn: true,
+                  },
                 ]}
               >
                 {value}
@@ -114,13 +122,15 @@ export const PredicateViewer: FC<Props> = (props) => {
           ))}
 
           {datetimeValues.map(value => (
-            <li key={value} className="pl-0">
+            <li key={value.toISOString()} className="pl-0">
               <ObjectViewer
                 type={<><VscCalendar/></>}
                 options={[
-                  <button onClick={(e) => {e.preventDefault(); deleteDatetime(value);}} aria-label={`Remove "${value.toLocaleString()}"`}>
-                    <MdRemove/>
-                  </button>
+                  {
+                    element: <MdRemove aria-label={`Remove "${value.toLocaleString()}"`}/>,
+                    callback: () => deleteDatetime(value),
+                    loggedIn: true,
+                  },
                 ]}
               >
                 <time title={value.toISOString()} dateTime={value.toISOString()}>{value.toLocaleString()}</time>
@@ -129,13 +139,15 @@ export const PredicateViewer: FC<Props> = (props) => {
           ))}
 
           {booleanValues.map(value => (
-            <li key={value} className="pl-0">
+            <li key={value.toString()} className="pl-0">
               <ObjectViewer
                 type={<><VscSymbolBoolean/></>}
                 options={[
-                  <button onClick={(e) => {e.preventDefault(); deleteBoolean(value);}} aria-label={`Remove "${value.toLocaleString()}"`}>
-                    <MdRemove/>
-                  </button>
+                  {
+                    element: <MdRemove aria-label={`Remove "${value}"`}/>,
+                    callback: () => deleteBoolean(value),
+                    loggedIn: true,
+                  },
                 ]}
               >
                 {value}

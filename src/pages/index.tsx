@@ -12,7 +12,7 @@ const Home: React.FC = () => {
 
   const name = profile
     ? getStringNoLocale(profile.data, foaf.name) ?? getStringNoLocale(profile.data, vcard.fn)
-    : "you";
+    : null;
   const webId = profile ? asUrl(profile.data) : "";
 
   const storages = profile ? getUrlAll(profile.data, space.storage) : [];
@@ -22,7 +22,7 @@ const Home: React.FC = () => {
       <Head>
         <title>Sodeto</title>
       </Head>
-      <div className="md:w-4/5 lg:w-1/2 mx-auto pt-5 md:pt-20">
+      <div className="md:w-4/5 lg:w-1/2 mx-auto p-5 md:pt-20">
         <SessionGate>
           <Link href={`/explore/${encodeURIComponent(webId)}`}>
             <a className="py-5 block hover:text-coolGray-700 focus:underline focus:text-coolGray-700 focus:outline-none">{name}</a>

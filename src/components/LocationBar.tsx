@@ -1,5 +1,5 @@
 import { UrlString } from "@inrupt/solid-client";
-import { FC, Fragment } from "react";
+import { FC } from "react";
 import Link from "next/link";
 
 interface Props {
@@ -16,14 +16,15 @@ export const LocationBar: FC<Props> = (props) => {
       pathUrl += "/";
     }
     return (
-      <Fragment key={pathUrl}>
-        &nbsp;/&nbsp;
+      <>
+        <span key={pathUrl + "separator"} className="mx-1">/</span>
         <Link
+          key={pathUrl}
           href={`/explore/${encodeURIComponent(pathUrl)}`}
         >
-          <a className="focus:underline focus:text-coolGray-700 focus:outline-none">{resourceName}</a>
+          <a className="focus:underline focus:text-coolGray-700 focus:outline-none break-words">{resourceName}</a>
         </Link>
-      </Fragment>
+      </>
     );
   }).slice(1);
 

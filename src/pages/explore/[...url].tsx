@@ -25,7 +25,7 @@ const Explore: React.FC = () => {
       <Head>
         <title>Sodeto</title>
       </Head>
-      <div className="md:w-4/5 lg:w-1/2 mx-auto pt-5 md:pt-20">
+      <div className="md:w-4/5 lg:w-1/2 mx-auto p-5 md:pt-20">
         {container}
         {viewer}
       </div>

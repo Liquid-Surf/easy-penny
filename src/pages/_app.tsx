@@ -1,6 +1,5 @@
 import { handleIncomingRedirect } from "@inrupt/solid-client-authn-browser";
-import App from "next/app";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Modal from "react-modal";
 import { ToastContainer, cssTransition, Slide } from "react-toastify";
 import { MdClose } from "react-icons/md";
@@ -8,6 +7,7 @@ import { MdClose } from "react-icons/md";
 import { SessionContext, SessionInfo } from "../contexts/session";
 import "../../styles/globals.css";
 import 'react-toastify/dist/ReactToastify.css';
+import { AppProps } from "next/app";
 
 if (typeof document === "object") {
   const appElement = document.querySelector("#appWrapper > *:first-child") as HTMLElement;
@@ -32,7 +32,7 @@ const Transition = motionMediaQueryList?.matches
   })
   : Slide;
 
-export const MyApp: App = ({ Component, pageProps }) => {
+export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   const [sessionInfo, setSessionInfo] = useState<SessionInfo | null | undefined>(null);
 
   useEffect(() => {

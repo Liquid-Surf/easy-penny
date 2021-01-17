@@ -36,7 +36,7 @@ export const ContainerViewer: FC<Props> = (props) => {
   );
 };
 
-function compareResourceUrls(a: UrlString, b: UrlString): -1 | 0 | 1 {
+function compareResourceUrls(a: UrlString, b: UrlString): number {
   const aIsContainer = a.endsWith("/");
   const bIsContainer = b.endsWith("/");
   if (aIsContainer && !bIsContainer) {

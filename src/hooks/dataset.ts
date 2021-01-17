@@ -1,4 +1,4 @@
-import { getSolidDataset, hasResourceInfo, saveSolidDatasetAt, SolidDataset, UrlString, WithResourceInfo } from "@inrupt/solid-client";
+import { FetchError, getSolidDataset, hasResourceInfo, saveSolidDatasetAt, SolidDataset, UrlString, WithResourceInfo } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { useCallback } from "react";
 import useSwr, { responseInterface } from "swr";
@@ -9,7 +9,7 @@ const fetcher = async (url: UrlString, userWebId?: UrlString): Promise<SolidData
   return dataset;
 };
 
-export type CachedDataset = responseInterface<SolidDataset & WithResourceInfo, unknown> & { save: (dataset: SolidDataset) => Promise<void> };
+export type CachedDataset = responseInterface<SolidDataset & WithResourceInfo, FetchError> & { save: (dataset: SolidDataset) => Promise<void> };
 export type LoadedCachedDataset = CachedDataset & { data: Exclude<CachedDataset['data'], undefined> };
 
 export function isLoaded(dataset: CachedDataset): dataset is LoadedCachedDataset {

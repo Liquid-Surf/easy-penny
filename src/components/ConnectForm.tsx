@@ -33,8 +33,9 @@ export const ConnectForm: FC = (props) => {
           className="p-5"
         />
         <datalist id="idps">
-          <option value="https://inrupt.net"/>
+          <option value="https://broker.pod.inrupt.com"/>
           <option value="https://solidcommunity.net"/>
+          <option value="https://inrupt.net"/>
         </datalist>
         <SubmitButton value="Connect" className="p-5"/>
       </form>

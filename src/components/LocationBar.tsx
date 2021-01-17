@@ -15,6 +15,7 @@ export const LocationBar: FC<Props> = (props) => {
     if (pathUrl.length < props.location.length) {
       pathUrl += "/";
     }
+    const activeClass = pathUrl === props.location ? "font-bold" : ""
     return (
       <>
         <span key={pathUrl + "separator"} className="mx-1">/</span>
@@ -22,7 +23,7 @@ export const LocationBar: FC<Props> = (props) => {
           key={pathUrl}
           href={`/explore/${encodeURIComponent(pathUrl)}`}
         >
-          <a key={pathUrl} className="focus:underline focus:text-coolGray-700 focus:outline-none break-words">{resourceName}</a>
+          <a key={pathUrl} className={`focus:underline focus:text-coolGray-700 focus:outline-none break-words ${activeClass}`}>{resourceName}</a>
         </Link>
       </>
     );

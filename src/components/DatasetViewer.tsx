@@ -36,6 +36,17 @@ export const DatasetViewer: FC<Props> = (props) => {
     );
   };
 
+  if (things.length === 0) {
+    return (
+      <div className="pb-10">
+        <div className="rounded bg-yellow-200 p-5">
+          This Resource is empty.
+        </div>
+      </div>
+    );
+  }
+
+
   return (
     <>
       <div className="space-y-10 pb-10">

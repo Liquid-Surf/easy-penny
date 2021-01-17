@@ -33,12 +33,15 @@ const Transition = motionMediaQueryList?.matches
   : Slide;
 
 export const MyApp: App = ({ Component, pageProps }) => {
-  const [sessionInfo, setSessionInfo] = useState<SessionInfo | null>(null);
+  const [sessionInfo, setSessionInfo] = useState<SessionInfo | null | undefined>(null);
 
   useEffect(() => {
+    setSessionInfo(undefined);
     handleIncomingRedirect(window.location.href).then((info) => {
       if (info && info.isLoggedIn) {
         setSessionInfo(info as SessionInfo);
+      } else {
+        setSessionInfo(null);
       }
     });
   }, []);

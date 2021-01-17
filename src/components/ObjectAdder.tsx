@@ -189,7 +189,7 @@ export const ObjectAdder: FC<Props> = (props) => {
   return (
     <>
       {form}
-      <div className="flex p-2 space-x-2 items-center pb-5">
+      <div className="flex flex-wrap p-2 space-y-2 space-x-2 items-center pb-5">
         <span className="text-coolGray-500 p-2 w-10"><MdAdd/></span>
         <AddButton icon={<MdLink/>} onClick={() => setObjectType("url")}>URL</AddButton>
         <AddButton icon={<MdTextFields/>} onClick={() => setObjectType("stringNoLocale")}>String</AddButton>

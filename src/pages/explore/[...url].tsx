@@ -28,7 +28,7 @@ const Explore: React.FC = () => {
   return (
     <Layout path={url}>
       <Head>
-        <title>Sodeto</title>
+        <title>Penny: {url}</title>
       </Head>
       <div className="md:w-4/5 lg:w-1/2 mx-auto p-5 md:pt-20">
         <FetchErrorViewer error={dataset.error}/>

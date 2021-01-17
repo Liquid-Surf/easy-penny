@@ -1,4 +1,4 @@
-import { getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeStringNoLocale, removeUrl, setThing, ThingPersisted, UrlString } from "@inrupt/solid-client";
+import { getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeStringNoLocale, removeUrl, setThing, solidDatasetAsMarkdown, thingAsMarkdown, ThingPersisted, UrlString } from "@inrupt/solid-client";
 import { FC } from "react";
 import { MdLink, MdRemove, MdTextFields } from "react-icons/md";
 import { VscCalendar, VscQuestion, VscSymbolBoolean } from "react-icons/vsc";
@@ -11,6 +11,7 @@ interface Props {
   dataset: LoadedCachedDataset;
   thing: ThingPersisted;
   predicate: UrlString;
+  onUpdate: (updatedThing: ThingPersisted) => void;
 }
 
 export const PredicateViewer: FC<Props> = (props) => {
@@ -34,9 +35,10 @@ export const PredicateViewer: FC<Props> = (props) => {
     )
     : null;
 
-  const updateThing = (updatedThing: ThingPersisted) => {
+  const updateThing = async (updatedThing: ThingPersisted) => {
     const updatedDataset = setThing(props.dataset.data, updatedThing);
-    props.dataset.save(updatedDataset);
+    await props.dataset.save(updatedDataset);
+    props.onUpdate(props.thing);
   };
 
   const deleteUrl = (url: UrlString) => updateThing(removeUrl(props.thing, props.predicate, url));

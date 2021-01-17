@@ -8,6 +8,7 @@ import { LoggedIn } from "./LoggedIn";
 interface Props {
   dataset: LoadedCachedDataset;
   thing: ThingPersisted;
+  onUpdate: (updatedThing: ThingPersisted) => void;
 }
 
 // Stand-in for what will hopefully be a solid-client function
@@ -18,12 +19,12 @@ function toRdfJsDataset(thing: Thing) {
 export const ThingViewer: FC<Props> = (props) => {
   const rdfJsDataset = toRdfJsDataset(props.thing);
   const predicates = Array.from(new Set(Array.from(rdfJsDataset).map(quad => quad.predicate.value)));
-  const viewers = predicates.map(predicate => (<PredicateViewer key={predicate} {...props} predicate={predicate}/>));
+  const viewers = predicates.map(predicate => (<PredicateViewer key={predicate} {...props} predicate={predicate} onUpdate={props.onUpdate}/>));
 
-  // TODO: Move this to the DatasetViewer and add an Undo function
-  const deleteThing = () => {
+  const deleteThing = async () => {
     const updatedDataset = removeThing(props.dataset.data, props.thing);
-    props.dataset.save(updatedDataset);
+    await props.dataset.save(updatedDataset);
+    props.onUpdate(props.thing);
   };
 
   const resourceUrl = getSourceUrl(props.dataset.data);

@@ -9,7 +9,7 @@ const fetcher = async (url: UrlString, userWebId?: UrlString): Promise<SolidData
   return dataset;
 };
 
-export type CachedDataset = responseInterface<SolidDataset & WithResourceInfo, unknown> & { save: (dataset: SolidDataset) => void };
+export type CachedDataset = responseInterface<SolidDataset & WithResourceInfo, unknown> & { save: (dataset: SolidDataset) => Promise<void> };
 export type LoadedCachedDataset = CachedDataset & { data: Exclude<CachedDataset['data'], undefined> };
 
 export function isLoaded(dataset: CachedDataset): dataset is LoadedCachedDataset {

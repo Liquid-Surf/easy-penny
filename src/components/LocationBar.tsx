@@ -22,15 +22,15 @@ export const LocationBar: FC<Props> = (props) => {
           key={pathUrl}
           href={`/explore/${encodeURIComponent(pathUrl)}`}
         >
-          <a className="focus:underline focus:text-coolGray-700 focus:outline-none break-words">{resourceName}</a>
+          <a key={pathUrl} className="focus:underline focus:text-coolGray-700 focus:outline-none break-words">{resourceName}</a>
         </Link>
       </>
     );
-  }).slice(1);
+  }).slice(1, url.pathname.endsWith("/") ? pathParts.length - 1 : pathParts.length);
 
   return (
     <>
-      <Link href={`/explore/${encodeURIComponent(url.origin)}/`}>
+      <Link key={url.origin} href={`/explore/${encodeURIComponent(url.origin)}/`}>
         <a className="focus:underline focus:text-coolGray-700 focus:outline-none">{url.hostname}</a>
       </Link>
       {pathElements}

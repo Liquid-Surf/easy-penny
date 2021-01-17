@@ -2,6 +2,7 @@ import { FC } from "react";
 import Link from "next/link";
 import { UrlString } from "@inrupt/solid-client";
 import { LocationBar } from "./LocationBar";
+import { LoggedOut } from "./LoggedOut";
 
 interface Props {
   path?: UrlString;

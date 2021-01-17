@@ -30,7 +30,7 @@ export const DatasetViewer: FC<Props> = (props) => {
 
     toast(
       <>
-        Removed. <button onClick={e => {e.preventDefault(); undo();}}>Undo.</button>
+        Saved. <button onClick={e => {e.preventDefault(); undo();}} className="underline hover:no-underline focus:no-underline">Undo.</button>
       </>,
       { type: "info" },
     );

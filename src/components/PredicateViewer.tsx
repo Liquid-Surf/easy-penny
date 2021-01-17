@@ -5,8 +5,10 @@ import { VscCalendar, VscQuestion, VscSymbolBoolean } from "react-icons/vsc";
 import { toast } from "react-toastify";
 import { LoadedCachedDataset } from "../hooks/dataset";
 import { Url } from "./data/Url";
+import { ObjectAdder } from "./ObjectAdder";
 import { ObjectViewer } from "./ObjectViewer";
 import { PredicateUrl } from "./PredicateUrl";
+import { LoggedIn } from "./LoggedIn";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -64,7 +66,7 @@ export const PredicateViewer: FC<Props> = (props) => {
       </dt>
       <dd>
         <ul>
-          {urlValues.map(value => (
+          {urlValues.sort().map(value => (
             <li key={value} className="pl-0">
               <ObjectViewer
                 type={<MdLink/>}
@@ -81,7 +83,7 @@ export const PredicateViewer: FC<Props> = (props) => {
             </li>
           ))}
 
-          {stringNoLocaleValues.map(value => (
+          {stringNoLocaleValues.sort().map(value => (
             <li key={value} className="pl-0">
               <ObjectViewer
                 type={<MdTextFields/>}
@@ -98,7 +100,7 @@ export const PredicateViewer: FC<Props> = (props) => {
             </li>
           ))}
 
-          {integerValues.map(value => (
+          {integerValues.sort().map(value => (
             <li key={value} className="pl-0">
               <ObjectViewer
                 type={<>1</>}
@@ -115,7 +117,7 @@ export const PredicateViewer: FC<Props> = (props) => {
             </li>
           ))}
 
-          {decimalValues.map(value => (
+          {decimalValues.sort().map(value => (
             <li key={value} className="pl-0">
               <ObjectViewer
                 type={<>1.0</>}
@@ -127,12 +129,12 @@ export const PredicateViewer: FC<Props> = (props) => {
                   },
                 ]}
               >
-                {value}
+                {Number.isInteger(value) ? value.toFixed(1) : value.toString()}
               </ObjectViewer>
             </li>
           ))}
 
-          {datetimeValues.map(value => (
+          {datetimeValues.sort((a, b) => a.getTime() - b.getTime()).map(value => (
             <li key={value.toISOString()} className="pl-0">
               <ObjectViewer
                 type={<><VscCalendar/></>}
@@ -167,6 +169,10 @@ export const PredicateViewer: FC<Props> = (props) => {
           ))}
 
           {unknownObject}
+
+          <LoggedIn>
+            <ObjectAdder {...props}/>
+          </LoggedIn>
 
         </ul>
       </dd>

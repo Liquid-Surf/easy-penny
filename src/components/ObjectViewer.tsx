@@ -33,7 +33,7 @@ export const ObjectViewer: FC<Props> = (props) => {
           >
             <button
               onClick={(e) => {e.preventDefault(); option.callback()}}
-              className="ml-1 bg-white border-2 border-white hover:bg-coolGray-700 hover:text-white p-3 rounded-lg block focus:border-coolGray-700 focus:outline-none"
+              className="ml-1 border-2 border-coolGray-50 hover:bg-coolGray-700 hover:text-white p-3 rounded-lg block focus:border-coolGray-700 focus:outline-none"
             >
               {option.element}
             </button>

@@ -27,6 +27,7 @@ module.exports = {
         "focus",
         "motion-safe",
       ],
+      borderStyle: ["hover", "focus"],
     },
   },
   plugins: [],

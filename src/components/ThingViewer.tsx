@@ -1,9 +1,10 @@
-import { asUrl, getSourceUrl, getThing, getThingAll, isContainer, removeThing, SolidDataset, Thing, ThingPersisted, UrlString, WithResourceInfo } from "@inrupt/solid-client";
+import { asUrl, FetchError, getSourceUrl, getThing, getThingAll, isContainer, removeThing, SolidDataset, Thing, ThingPersisted, UrlString, WithResourceInfo } from "@inrupt/solid-client";
 import { FC } from "react";
 import { MdRemove } from "react-icons/md";
 import { PredicateViewer } from "./PredicateViewer";
 import { LoadedCachedDataset } from "../hooks/dataset";
 import { LoggedIn } from "./LoggedIn";
+import { toast } from "react-toastify";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -23,8 +24,16 @@ export const ThingViewer: FC<Props> = (props) => {
 
   const deleteThing = async () => {
     const updatedDataset = removeThing(props.dataset.data, props.thing);
-    await props.dataset.save(updatedDataset);
-    props.onUpdate(props.thing);
+    try {
+      await props.dataset.save(updatedDataset);
+      props.onUpdate(props.thing);
+    } catch (e) {
+      if (e instanceof FetchError && e.statusCode === 403) {
+        toast("You do not have permission to do that.", { type: "error" });
+      } else {
+        throw e;
+      }
+    }
   };
 
   const resourceUrl = getSourceUrl(props.dataset.data);

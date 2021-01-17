@@ -1,7 +1,8 @@
-import { getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeStringNoLocale, removeUrl, setThing, solidDatasetAsMarkdown, thingAsMarkdown, ThingPersisted, UrlString } from "@inrupt/solid-client";
+import { FetchError, getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeStringNoLocale, removeUrl, setThing, solidDatasetAsMarkdown, thingAsMarkdown, ThingPersisted, UrlString } from "@inrupt/solid-client";
 import { FC } from "react";
 import { MdLink, MdRemove, MdTextFields } from "react-icons/md";
 import { VscCalendar, VscQuestion, VscSymbolBoolean } from "react-icons/vsc";
+import { toast } from "react-toastify";
 import { LoadedCachedDataset } from "../hooks/dataset";
 import { Url } from "./data/Url";
 import { ObjectViewer } from "./ObjectViewer";
@@ -37,8 +38,16 @@ export const PredicateViewer: FC<Props> = (props) => {
 
   const updateThing = async (updatedThing: ThingPersisted) => {
     const updatedDataset = setThing(props.dataset.data, updatedThing);
-    await props.dataset.save(updatedDataset);
-    props.onUpdate(props.thing);
+    try {
+      await props.dataset.save(updatedDataset);
+      props.onUpdate(props.thing);
+    } catch (e) {
+      if (e instanceof FetchError && e.statusCode === 403) {
+        toast("You do not have permission to do that.", { type: "error" });
+      } else {
+        throw e;
+      }
+    }
   };
 
   const deleteUrl = (url: UrlString) => updateThing(removeUrl(props.thing, props.predicate, url));

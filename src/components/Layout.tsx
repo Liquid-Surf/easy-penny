@@ -1,8 +1,10 @@
-import { FC } from "react";
+import { FC, FormEventHandler, useState } from "react";
 import Link from "next/link";
 import { UrlString } from "@inrupt/solid-client";
 import { LocationBar } from "./LocationBar";
 import { LoggedOut } from "./LoggedOut";
+import { SubmitButton, TextField } from "./ui/forms";
+import { useRouter } from "next/router";
 
 interface Props {
   path?: UrlString;
@@ -11,7 +13,7 @@ interface Props {
 export const Layout: FC<Props> = (props) => {
   const locationBar = props.path
     ? <h2 className="py-8 px-20 text-xl"><LocationBar location={props.path}/></h2>
-    : null;
+    : <UrlBar/>;
 
   return (
     <>
@@ -29,5 +31,23 @@ export const Layout: FC<Props> = (props) => {
         {props.children}
       </main>
     </>
+  );
+};
+
+const UrlBar: FC = () => {
+  const router = useRouter();
+  const [url, setUrl] = useState("");
+
+  const onSubmit: FormEventHandler = (e) => {
+    e.preventDefault();
+    router.push(`/explore/${encodeURIComponent(url)}`);
+  };
+
+  return (
+    <form onSubmit={onSubmit} className="px-20 flex items-center space-x-3 w-full">
+      <label htmlFor="urlInput">URL:</label>
+      <TextField type="url" name="urlInput" id="urlInput" value={url} onChange={setUrl} className="w-full p-2"/>
+      <SubmitButton value="Go" className="px-5 py-2"/>
+    </form>
   );
 };

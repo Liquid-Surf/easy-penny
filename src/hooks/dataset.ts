@@ -33,10 +33,15 @@ export function useDataset (url: UrlString | null): CachedDataset | null {
       // Optimistically update local view of the data
       result.mutate(dataset, false);
     }
-    const savedData = await saveSolidDatasetAt(resourceUrl, dataset, { fetch: fetch });
-    // Update local data with confirmed changes from the server,
-    // then refetch to fetch potential changes performed in a different tab:
-    result.mutate(savedData, true);
+    try {
+      const savedData = await saveSolidDatasetAt(resourceUrl, dataset, { fetch: fetch });
+      // Update local data with confirmed changes from the server,
+      // then refetch to fetch potential changes performed in a different tab:
+      result.mutate(savedData, true);
+    } catch (e) {
+      await result.revalidate();
+      throw e;
+    }
   }, [resourceUrl, result]);
 
   const cached: CachedDataset = {

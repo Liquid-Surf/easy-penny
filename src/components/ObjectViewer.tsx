@@ -23,7 +23,7 @@ export const ObjectViewer: FC<Props> = (props) => {
         {props.options.map((option, i) => (
           <li
             key={`option${i}`}
-            className="ml-1 bg-white p-2 rounded-lg"
+            className="ml-1 bg-white hover:bg-coolGray-700 hover:text-white p-2 rounded-lg"
           >
             {option}
           </li>

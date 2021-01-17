@@ -1,15 +1,15 @@
-import { getSolidDataset, saveSolidDatasetAt, SolidDataset, UrlString, WithResourceInfo } from "@inrupt/solid-client";
+import { getSolidDataset, hasResourceInfo, saveSolidDatasetAt, SolidDataset, UrlString, WithResourceInfo } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { useCallback } from "react";
 import useSwr, { responseInterface } from "swr";
 import { useSessionInfo } from "./sessionInfo";
 
-const fetcher = async (url: UrlString, userWebId?: UrlString): Promise<SolidDataset> => {
+const fetcher = async (url: UrlString, userWebId?: UrlString): Promise<SolidDataset & WithResourceInfo> => {
   const dataset = await getSolidDataset(url, { fetch: fetch });
   return dataset;
 };
 
-export type CachedDataset = responseInterface<SolidDataset, unknown> & { save: (dataset: SolidDataset) => void };
+export type CachedDataset = responseInterface<SolidDataset & WithResourceInfo, unknown> & { save: (dataset: SolidDataset) => void };
 export type LoadedCachedDataset = CachedDataset & { data: Exclude<CachedDataset['data'], undefined> };
 
 export function isLoaded(dataset: CachedDataset): dataset is LoadedCachedDataset {
@@ -29,8 +29,10 @@ export function useDataset (url: UrlString | null): CachedDataset | null {
       return;
     }
 
-    // Optimistically update local view of the data
-    result.mutate(dataset, false);
+    if (hasResourceInfo(dataset)) {
+      // Optimistically update local view of the data
+      result.mutate(dataset, false);
+    }
     const savedData = await saveSolidDatasetAt(resourceUrl, dataset, { fetch: fetch });
     // Update local data with confirmed changes from the server,
     // then refetch to fetch potential changes performed in a different tab:

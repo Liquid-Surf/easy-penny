@@ -25,9 +25,9 @@ export const ThingViewer: FC<Props> = (props) => {
     props.dataset.save(updatedDataset);
   };
 
-  const resourceUrl = getSourceUrl(props.dataset.data as SolidDataset & WithResourceInfo);
+  const resourceUrl = getSourceUrl(props.dataset.data);
   const thingUrl = asUrl(props.thing);
-  const resourcePartStart = isContainer(props.dataset.data as SolidDataset & WithResourceInfo)
+  const resourcePartStart = isContainer(props.dataset.data)
     ? resourceUrl.substring(0, resourceUrl.lastIndexOf("/")).lastIndexOf("/")
     : resourceUrl.lastIndexOf("/");
 
@@ -65,7 +65,7 @@ export const ThingViewer: FC<Props> = (props) => {
       <button
         onClick={(e) => {e.preventDefault(); deleteThing();}}
         aria-label="Remove this Thing"
-        className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-coolGray-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-coolGray-700 border-4"
+        className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-red-700 border-4"
       >
         <MdRemove/>
       </button>

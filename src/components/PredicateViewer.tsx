@@ -28,7 +28,7 @@ export const PredicateViewer: FC<Props> = (props) => {
   });
   const unknownObject = dataOfUnkownType
     ? (
-      <li className="pl-4">
+      <li className="pl-0">
         <ObjectViewer type={<VscQuestion/>}>Data of unknown type.</ObjectViewer>
       </li>
     )
@@ -54,7 +54,7 @@ export const PredicateViewer: FC<Props> = (props) => {
       <dd>
         <ul>
           {urlValues.map(value => (
-            <li key={value} className="pl-4">
+            <li key={value} className="pl-0">
               <ObjectViewer
                 type={<MdLink/>}
                 options={[
@@ -69,7 +69,7 @@ export const PredicateViewer: FC<Props> = (props) => {
           ))}
 
           {stringNoLocaleValues.map(value => (
-            <li key={value} className="pl-4">
+            <li key={value} className="pl-0">
               <ObjectViewer
                 type={<MdTextFields/>}
                 options={[
@@ -84,7 +84,7 @@ export const PredicateViewer: FC<Props> = (props) => {
           ))}
 
           {integerValues.map(value => (
-            <li key={value} className="pl-4">
+            <li key={value} className="pl-0">
               <ObjectViewer
                 type={<>1</>}
                 options={[
@@ -99,7 +99,7 @@ export const PredicateViewer: FC<Props> = (props) => {
           ))}
 
           {decimalValues.map(value => (
-            <li key={value} className="pl-4">
+            <li key={value} className="pl-0">
               <ObjectViewer
                 type={<>1.0</>}
                 options={[
@@ -114,7 +114,7 @@ export const PredicateViewer: FC<Props> = (props) => {
           ))}
 
           {datetimeValues.map(value => (
-            <li key={value} className="pl-4">
+            <li key={value} className="pl-0">
               <ObjectViewer
                 type={<><VscCalendar/></>}
                 options={[
@@ -129,7 +129,7 @@ export const PredicateViewer: FC<Props> = (props) => {
           ))}
 
           {booleanValues.map(value => (
-            <li key={value} className="pl-4">
+            <li key={value} className="pl-0">
               <ObjectViewer
                 type={<><VscSymbolBoolean/></>}
                 options={[

@@ -18,7 +18,7 @@ export const Layout: FC<Props> = (props) => {
         <div className="container mx-auto flex px-5">
           <h1 className="py-8 text-2xl">
             <Link href="/">
-              Sodeto
+              <a className="focus:underline focus:text-coolGray-700 focus:outline-none">Sodeto</a>
             </Link>
           </h1>
           {locationBar}

@@ -1,6 +1,6 @@
 import { ChangeEventHandler, FC, InputHTMLAttributes } from "react";
 
-const fieldClasses = "rounded-md p-1 focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 focus:outline-none focus:ring-opacity-50";
+const fieldClasses = "rounded-md p-1 focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50";
 
 type TextFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> & { onChange: (val: string) => void };
 export const TextField: FC<TextFieldProps> = (props) => {
@@ -22,7 +22,7 @@ export const TextField: FC<TextFieldProps> = (props) => {
 
 type ButtonProps = InputHTMLAttributes<HTMLInputElement> & { value: string };
 export const Button: FC<ButtonProps> = (props) => {
-  const className = `${props.className ?? ""} ${fieldClasses} cursor-pointer bg-blueGray-100 focus:bg-blue-600 focus:text-white hover:bg-blue-600 hover:text-white`;
+  const className = `${props.className ?? ""} ${fieldClasses} cursor-pointer bg-coolGray-100 focus:bg-coolGray-700 focus:text-white hover:bg-coolGray-700 hover:text-white`;
   return (
     <input
       {...props}
@@ -34,7 +34,7 @@ export const Button: FC<ButtonProps> = (props) => {
 
 type SubmitButtonProps = InputHTMLAttributes<HTMLInputElement> & { value: string };
 export const SubmitButton: FC<SubmitButtonProps> = (props) => {
-  const className = `${props.className ?? ""} ${fieldClasses} cursor-pointer bg-blue-500 text-white focus:bg-blue-600 hover:bg-blue-600`;
+  const className = `${props.className ?? ""} ${fieldClasses} cursor-pointer bg-coolGray-700 text-white focus:bg-coolGray-900 hover:bg-coolGray-900`;
   return (
     <input
       {...props}

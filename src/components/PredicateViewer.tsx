@@ -59,7 +59,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                 type={<MdLink/>}
                 options={[
                   {
-                    element: <MdRemove aria-label={`Remove "${value}"`}/>,
+                    element: <MdRemove title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
                     callback: () => deleteUrl(value),
                     loggedIn: true,
                   },
@@ -76,7 +76,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                 type={<MdTextFields/>}
                 options={[
                   {
-                    element: <MdRemove aria-label={`Remove "${value}"`}/>,
+                    element: <MdRemove title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
                     callback: () => deleteStringNoLocale(value),
                     loggedIn: true,
                   },
@@ -93,7 +93,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                 type={<>1</>}
                 options={[
                   {
-                    element: <MdRemove aria-label={`Remove "${value}"`}/>,
+                    element: <MdRemove title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
                     callback: () => deleteInteger(value),
                     loggedIn: true,
                   },
@@ -110,7 +110,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                 type={<>1.0</>}
                 options={[
                   {
-                    element: <MdRemove aria-label={`Remove "${value}"`}/>,
+                    element: <MdRemove title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
                     callback: () => deleteDecimal(value),
                     loggedIn: true,
                   },
@@ -127,7 +127,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                 type={<><VscCalendar/></>}
                 options={[
                   {
-                    element: <MdRemove aria-label={`Remove "${value.toLocaleString()}"`}/>,
+                    element: <MdRemove title={`Delete "${value.toLocaleString()}"`} aria-label={`Delete "${value.toLocaleString()}"`}/>,
                     callback: () => deleteDatetime(value),
                     loggedIn: true,
                   },
@@ -144,7 +144,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                 type={<><VscSymbolBoolean/></>}
                 options={[
                   {
-                    element: <MdRemove aria-label={`Remove "${value}"`}/>,
+                    element: <MdRemove title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
                     callback: () => deleteBoolean(value),
                     loggedIn: true,
                   },

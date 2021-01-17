@@ -22,13 +22,13 @@ export const Url: FC<Props> = (props) => {
   if (matchingStorage) {
     return (
       <Link href={`/explore/${encodeURIComponent(props.url)}#${encodeURIComponent(props.url)}`}>
-        <a>{shortUrl}</a>
+        <a className="focus:underline focus:text-coolGray-700 focus:outline-none">{shortUrl}</a>
       </Link>
     );
   }
 
   return (
-    <a href={props.url} target="_blank" rel="noopener noreferrer">
+    <a href={props.url} target="_blank" rel="noopener noreferrer" className="focus:underline focus:text-coolGray-700 focus:outline-none">
       {props.url}
     </a>
   );

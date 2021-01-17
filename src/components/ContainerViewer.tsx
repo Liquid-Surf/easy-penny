@@ -1,4 +1,4 @@
-import { getContainedResourceUrlAll, getSourceUrl } from "@inrupt/solid-client";
+import { getContainedResourceUrlAll, getSourceUrl, UrlString } from "@inrupt/solid-client";
 import { FC } from "react";
 import Link from "next/link";
 import { LoadedCachedDataset } from "../hooks/dataset";
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const ContainerViewer: FC<Props> = (props) => {
-  let containedResources = getContainedResourceUrlAll(props.dataset.data).map(resourceUrl => {
+  let containedResources = getContainedResourceUrlAll(props.dataset.data).sort(compareResourceUrls).map(resourceUrl => {
     const name = resourceUrl.substring(getSourceUrl(props.dataset.data).length);
     return (
       <Link href={`/explore/${encodeURIComponent(resourceUrl)}`}>
@@ -35,3 +35,16 @@ export const ContainerViewer: FC<Props> = (props) => {
     </>
   );
 };
+
+function compareResourceUrls(a: UrlString, b: UrlString): -1 | 0 | 1 {
+  const aIsContainer = a.endsWith("/");
+  const bIsContainer = b.endsWith("/");
+  if (aIsContainer && !bIsContainer) {
+    return -1;
+  }
+  if (!aIsContainer && bIsContainer) {
+    return 1;
+  }
+
+  return a.localeCompare(b);
+}

@@ -5,6 +5,7 @@ import { PredicateViewer } from "./PredicateViewer";
 import { LoadedCachedDataset } from "../hooks/dataset";
 import { LoggedIn } from "./LoggedIn";
 import { toast } from "react-toastify";
+import { PredicateAdder } from "./PredicateAdder";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -66,16 +67,17 @@ export const ThingViewer: FC<Props> = (props) => {
 
   return (
     <div
-      className="bg-coolGray-50 rounded-xl relative"
+      className="bg-coolGray-50 rounded-xl relative pb-5"
       id={encodeURIComponent(asUrl(props.thing))}
     >
       <h3 className="text-2xl p-2 rounded-t-xl bg-coolGray-700 text-white p-5 font-bold">
         {title}
       </h3>
-      <div className="p-5">
+      <div className="px-5 pt-5">
         {viewers}
       </div>
       <LoggedIn>
+        <PredicateAdder {...props}/>
         <button
           onClick={(e) => {e.preventDefault(); deleteThing();}}
           aria-label={`Delete "${asUrl(props.thing)}"`}

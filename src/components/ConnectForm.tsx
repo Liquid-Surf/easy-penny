@@ -17,7 +17,7 @@ export const ConnectForm: FC = (props) => {
 
     setLoading(true);
 
-    login({ oidcIssuer: idp });
+    login({ oidcIssuer: idp, clientName: "Penny" });
   };
 
   return (

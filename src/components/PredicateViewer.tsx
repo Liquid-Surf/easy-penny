@@ -1,7 +1,7 @@
 import { FetchError, getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeStringNoLocale, removeUrl, setThing, solidDatasetAsMarkdown, thingAsMarkdown, ThingPersisted, UrlString } from "@inrupt/solid-client";
 import { FC } from "react";
-import { MdLink, MdRemove, MdTextFields } from "react-icons/md";
-import { VscCalendar, VscQuestion, VscSymbolBoolean } from "react-icons/vsc";
+import { MdLink, MdTextFields } from "react-icons/md";
+import { VscCalendar, VscQuestion, VscSymbolBoolean, VscTrash } from "react-icons/vsc";
 import { toast } from "react-toastify";
 import { LoadedCachedDataset } from "../hooks/dataset";
 import { Url } from "./data/Url";
@@ -72,7 +72,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                 type={<MdLink/>}
                 options={[
                   {
-                    element: <MdRemove title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
+                    element: <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
                     callback: () => deleteUrl(value),
                     loggedIn: true,
                   },
@@ -89,7 +89,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                 type={<MdTextFields/>}
                 options={[
                   {
-                    element: <MdRemove title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
+                    element: <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
                     callback: () => deleteStringNoLocale(value),
                     loggedIn: true,
                   },
@@ -106,7 +106,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                 type={<>1</>}
                 options={[
                   {
-                    element: <MdRemove title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
+                    element: <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
                     callback: () => deleteInteger(value),
                     loggedIn: true,
                   },
@@ -123,7 +123,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                 type={<>1.0</>}
                 options={[
                   {
-                    element: <MdRemove title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
+                    element: <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
                     callback: () => deleteDecimal(value),
                     loggedIn: true,
                   },
@@ -140,7 +140,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                 type={<><VscCalendar/></>}
                 options={[
                   {
-                    element: <MdRemove title={`Delete "${value.toLocaleString()}"`} aria-label={`Delete "${value.toLocaleString()}"`}/>,
+                    element: <VscTrash title={`Delete "${value.toLocaleString()}"`} aria-label={`Delete "${value.toLocaleString()}"`}/>,
                     callback: () => deleteDatetime(value),
                     loggedIn: true,
                   },
@@ -157,7 +157,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                 type={<><VscSymbolBoolean/></>}
                 options={[
                   {
-                    element: <MdRemove title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
+                    element: <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>,
                     callback: () => deleteBoolean(value),
                     loggedIn: true,
                   },

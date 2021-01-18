@@ -1,6 +1,6 @@
 import { asUrl, FetchError, getSourceUrl, getThing, getThingAll, isContainer, removeThing, SolidDataset, Thing, ThingPersisted, UrlString, WithResourceInfo } from "@inrupt/solid-client";
 import { FC } from "react";
-import { MdRemove } from "react-icons/md";
+import { VscTrash } from "react-icons/vsc";
 import { PredicateViewer } from "./PredicateViewer";
 import { LoadedCachedDataset } from "../hooks/dataset";
 import { LoggedIn } from "./LoggedIn";
@@ -82,7 +82,7 @@ export const ThingViewer: FC<Props> = (props) => {
           title={`Delete "${asUrl(props.thing)}"`}
           className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-red-700 focus:border-red-700 border-4 focus:outline-none"
         >
-          <MdRemove/>
+          <VscTrash/>
         </button>
       </LoggedIn>
     </div>

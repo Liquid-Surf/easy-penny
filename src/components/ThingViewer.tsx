@@ -13,13 +13,15 @@ interface Props {
 }
 
 // Stand-in for what will hopefully be a solid-client function
+// NOTE THAT THIS CURRENTLY RELIES ON AN INTERNAL API TO WORK,
+// AND WILL THEREFORE BREAK IN A NON-MAJOR RELEASE OF SOLID-CLIENT:
 function toRdfJsDataset(thing: Thing) {
   return thing;
 }
 
 export const ThingViewer: FC<Props> = (props) => {
   const rdfJsDataset = toRdfJsDataset(props.thing);
-  const predicates = Array.from(new Set(Array.from(rdfJsDataset).map(quad => quad.predicate.value)));
+  const predicates = Array.from(new Set(Array.from(rdfJsDataset).map(quad => quad.predicate.value))).sort();
   const viewers = predicates.map(predicate => (<PredicateViewer key={predicate} {...props} predicate={predicate} onUpdate={props.onUpdate}/>));
 
   const deleteThing = async () => {

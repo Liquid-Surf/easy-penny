@@ -12,7 +12,7 @@ interface Props {
 
 export const Layout: FC<Props> = (props) => {
   const locationBar = props.path
-    ? <h2 className="py-8 px-20 text-xl"><LocationBar location={props.path}/></h2>
+    ? <h2 className="py-8 px-10 md:px-20 text-xl"><LocationBar location={props.path}/></h2>
     : <UrlBar/>;
 
   return (

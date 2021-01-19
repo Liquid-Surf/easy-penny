@@ -19,6 +19,7 @@ export const LocationBar: FC<Props> = (props) => {
     return (
       <>
         <span key={pathUrl + "separator"} className="mx-1">/</span>
+        <wbr/>
         <Link
           key={pathUrl}
           href={`/explore/${encodeURIComponent(pathUrl)}`}

@@ -5,6 +5,7 @@ import { LoadedCachedDataset } from "../hooks/dataset";
 import { ThingAdder } from "./ThingAdder";
 import { ThingViewer } from "./ThingViewer";
 import { LoggedIn } from "./LoggedIn";
+import { SectionHeading } from "./ui/headings";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -67,6 +68,9 @@ export const DatasetViewer: FC<Props> = (props) => {
 
   return (
     <>
+      <SectionHeading>
+        Things
+      </SectionHeading>
       <div className="space-y-10 pb-10">
         {things.map(thing => (
           <div key={asUrl(thing as ThingPersisted) + "_thing"}>

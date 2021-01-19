@@ -2,6 +2,7 @@ import { getContainedResourceUrlAll, getSourceUrl, UrlString } from "@inrupt/sol
 import { FC } from "react";
 import Link from "next/link";
 import { LoadedCachedDataset } from "../hooks/dataset";
+import { SectionHeading } from "./ui/headings";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -29,6 +30,9 @@ export const ContainerViewer: FC<Props> = (props) => {
 
   return (
     <>
+      <SectionHeading>
+        Child Resources
+      </SectionHeading>
       <div className="grid sm:grid-cols-2 gap-5 pb-10">
         {containedResources}
       </div>

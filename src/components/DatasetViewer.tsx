@@ -29,10 +29,23 @@ export const DatasetViewer: FC<Props> = (props) => {
     // The restoration needs to be triggered after the updated SolidDataset has been passed to
     // DatasetViewer, otherwise solid-client will think this is just a local change that it can undo:
     const undo = () => { setThingToRestore(changedThing) };
+    // FIXME:
+    // solid-client at the time of writing has a bug that results in it trying to recreate all Quads
+    // when adding a Thing to a different SolidDatase than the one it was initially fetched from.
+    // This breaks when it includes blank nodes. In lieu of that being fixed in solid-client,
+    // I've disabled undo for Things containing blank nodes, relying on an undocumented API in
+    // solid-client to do so.
+    // In other words, once it's fixed, revert the commit that introduced this comment:
+    const containsBlankNodes = (thing: ThingPersisted): boolean => {
+      return Array.from(thing).findIndex((quad) => quad.object.termType === "BlankNode") !== -1;
+    };
+    const undoButton = !containsBlankNodes(changedThing)
+      ? <button onClick={e => {e.preventDefault(); undo();}} className="underline hover:no-underline focus:no-underline">Undo.</button>
+      : null;
 
     toast(
       <>
-        Saved. <button onClick={e => {e.preventDefault(); undo();}} className="underline hover:no-underline focus:no-underline">Undo.</button>
+        Saved. {undoButton}
       </>,
       { type: "info" },
     );

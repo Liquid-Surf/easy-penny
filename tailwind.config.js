@@ -28,6 +28,7 @@ module.exports = {
         "motion-safe",
       ],
       borderStyle: ["hover", "focus"],
+      borderRadius: ["hover"],
     },
   },
   plugins: [],

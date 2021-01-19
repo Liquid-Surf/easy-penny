@@ -1,10 +1,10 @@
 import { FC, FormEventHandler, useState } from "react";
 import Link from "next/link";
 import { UrlString } from "@inrupt/solid-client";
-import { LocationBar } from "./LocationBar";
-import { LoggedOut } from "./LoggedOut";
-import { SubmitButton, TextField } from "./ui/forms";
 import { useRouter } from "next/router";
+import { LocationBar } from "./LocationBar";
+import { SubmitButton, TextField } from "./ui/forms";
+import { SigninButton } from "./UserMenu";
 
 interface Props {
   path?: UrlString;
@@ -12,7 +12,7 @@ interface Props {
 
 export const Layout: FC<Props> = (props) => {
   const locationBar = props.path
-    ? <h2 className="py-8 px-10 md:px-20 text-xl"><LocationBar location={props.path}/></h2>
+    ? <h2 className="flex-grow py-8 px-10 md:px-20 text-xl"><LocationBar location={props.path}/></h2>
     : <UrlBar/>;
 
   return (
@@ -25,6 +25,9 @@ export const Layout: FC<Props> = (props) => {
             </Link>
           </h1>
           {locationBar}
+          <div className="flex items-center">
+            <SigninButton/>
+          </div>
         </div>
       </header>
       <main className="container mx-auto">
@@ -44,7 +47,7 @@ const UrlBar: FC = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="px-20 flex items-center space-x-3 w-full">
+    <form onSubmit={onSubmit} className="px-20 flex-grow flex items-center space-x-3 w-full">
       <label htmlFor="urlInput">URL:</label>
       <TextField type="url" name="urlInput" id="urlInput" value={url} onChange={setUrl} className="w-full p-2"/>
       <SubmitButton value="Go" className="px-5 py-2"/>

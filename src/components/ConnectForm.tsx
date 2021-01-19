@@ -22,7 +22,7 @@ export const ConnectForm: FC = (props) => {
 
   return (
     <>
-      <form onSubmit={onSubmit} className="flex flex-col space-y-5 text-3xl">
+      <form onSubmit={onSubmit} className="flex flex-col space-y-5 text-2xl lg:text-3xl">
         <label htmlFor="idp" className="p-x-5">
           Connect your Pod at:
         </label>

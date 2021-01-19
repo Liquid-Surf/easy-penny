@@ -14,7 +14,7 @@ interface Props {
   dataset: LoadedCachedDataset;
   thing: ThingPersisted;
   predicate: UrlString;
-  onUpdate: (updatedThing: ThingPersisted) => void;
+  onUpdate: (previousThing: ThingPersisted) => void;
 }
 
 export const PredicateViewer: FC<Props> = (props) => {

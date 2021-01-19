@@ -10,7 +10,7 @@ interface Props {
   dataset: LoadedCachedDataset;
   thing: ThingPersisted;
   predicate: UrlString;
-  onUpdate: (updatedThing: ThingPersisted) => void;
+  onUpdate: (previousThing: ThingPersisted) => void;
 }
 
 type ObjectTypes = "url" | "stringNoLocale" | "stringWithLocale" | "boolean" | "datetime" | "decimal" | "integer";
@@ -32,7 +32,7 @@ export const ObjectAdder: FC<Props> = (props) => {
       const updatedDataset = setThing(props.dataset.data, updatedThing);
       setNewUrl("");
       await props.dataset.save(updatedDataset);
-      props.onUpdate(updatedThing);
+      props.onUpdate(props.thing);
     };
     form = (
       <form
@@ -62,7 +62,7 @@ export const ObjectAdder: FC<Props> = (props) => {
       const updatedDataset = setThing(props.dataset.data, updatedThing);
       setNewString("");
       await props.dataset.save(updatedDataset);
-      props.onUpdate(updatedThing);
+      props.onUpdate(props.thing);
     };
     form = (
       <form
@@ -91,7 +91,7 @@ export const ObjectAdder: FC<Props> = (props) => {
       const updatedDataset = setThing(props.dataset.data, updatedThing);
       setNewInteger("0");
       await props.dataset.save(updatedDataset);
-      props.onUpdate(updatedThing);
+      props.onUpdate(props.thing);
     };
     form = (
       <form
@@ -120,7 +120,7 @@ export const ObjectAdder: FC<Props> = (props) => {
       const updatedDataset = setThing(props.dataset.data, updatedThing);
       setNewDecimal("0.0");
       await props.dataset.save(updatedDataset);
-      props.onUpdate(updatedThing);
+      props.onUpdate(props.thing);
     };
     form = (
       <form
@@ -154,7 +154,7 @@ export const ObjectAdder: FC<Props> = (props) => {
       setNewDate("");
       setNewTime("");
       await props.dataset.save(updatedDataset);
-      props.onUpdate(updatedThing);
+      props.onUpdate(props.thing);
     };
     form = (
       <form

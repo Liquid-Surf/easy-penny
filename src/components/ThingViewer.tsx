@@ -10,7 +10,7 @@ import { PredicateAdder } from "./PredicateAdder";
 interface Props {
   dataset: LoadedCachedDataset;
   thing: ThingPersisted;
-  onUpdate: (updatedThing: ThingPersisted) => void;
+  onUpdate: (previousThing: ThingPersisted) => void;
 }
 
 // Stand-in for what will hopefully be a solid-client function

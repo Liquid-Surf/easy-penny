@@ -9,7 +9,7 @@ import { PredicateUrl } from "./PredicateUrl";
 interface Props {
   dataset: LoadedCachedDataset;
   thing: ThingPersisted;
-  onUpdate: (updatedThing: ThingPersisted) => void;
+  onUpdate: (previousThing: ThingPersisted) => void;
 }
 
 export const PredicateAdder: FC<Props> = (props) => {
@@ -17,9 +17,9 @@ export const PredicateAdder: FC<Props> = (props) => {
   const [phase, setPhase] = useState<"initial" | "setPredicate" | "setObject">("initial");
 
   if (phase === "setObject") {
-    const onSetObject = (updatedThing: ThingPersisted) => {
+    const onSetObject = (previousThing: ThingPersisted) => {
       setPhase("initial");
-      props.onUpdate(updatedThing);
+      props.onUpdate(previousThing);
     };
     return (
       <div className="p-5">

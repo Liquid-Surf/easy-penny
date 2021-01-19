@@ -9,7 +9,7 @@ import { ThingViewer } from "./ThingViewer";
 
 interface Props {
   dataset: LoadedCachedDataset;
-  onUpdate: (updatedThing: ThingPersisted) => void;
+  onUpdate: (previousThing: ThingPersisted) => void;
 }
 
 export const ThingAdder: FC<Props> = (props) => {
@@ -29,16 +29,6 @@ export const ThingAdder: FC<Props> = (props) => {
         onUpdate={onSetPredicate}
       />
     );
-    // return (
-    //   <div className="p-5">
-    //     {/* <PredicateUrl url={thingUrl}/> */}
-    //     <PredicateAdder
-    //       dataset={props.dataset}
-    //       thing={createThing({ url: thingUrl })}
-    //       onUpdate={onSetPredicate}
-    //     />
-    //   </div>
-    // );
   }
 
   if (phase === "setThingUrl") {

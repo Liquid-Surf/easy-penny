@@ -2,7 +2,9 @@ import { asUrl, getSourceUrl, getThingAll, setThing, Thing, ThingPersisted, With
 import { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { LoadedCachedDataset } from "../hooks/dataset";
+import { ThingAdder } from "./ThingAdder";
 import { ThingViewer } from "./ThingViewer";
+import { LoggedIn } from "./LoggedIn";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -38,10 +40,13 @@ export const DatasetViewer: FC<Props> = (props) => {
 
   if (things.length === 0) {
     return (
-      <div className="pb-10">
+      <div className="space-y-10 pb-10">
         <div className="rounded bg-yellow-200 p-5">
           This Resource is empty.
         </div>
+        <LoggedIn>
+          <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing}/>
+        </LoggedIn>
       </div>
     );
   }
@@ -55,6 +60,9 @@ export const DatasetViewer: FC<Props> = (props) => {
             <ThingViewer dataset={props.dataset} thing={thing as ThingPersisted} onUpdate={onUpdateThing}/>
           </div>
         ))}
+        <LoggedIn>
+          <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing}/>
+        </LoggedIn>
       </div>
     </>
   );

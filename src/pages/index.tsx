@@ -29,7 +29,7 @@ const Home: React.FC = () => {
           </Link>
           <ul className="space-between-5">
             {storages.map(storageUrl => (
-              <li key={storageUrl}>
+              <li key={storageUrl + "_storage"}>
                 <Link href={`/explore/${encodeURIComponent(storageUrl)}`}>
                   <a className="p-5 bg-coolGray-700 hover:bg-coolGray-900 rounded text-white block focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50">{storageUrl}</a>
                 </Link>

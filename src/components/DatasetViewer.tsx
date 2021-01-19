@@ -69,7 +69,7 @@ export const DatasetViewer: FC<Props> = (props) => {
     <>
       <div className="space-y-10 pb-10">
         {things.map(thing => (
-          <div key={asUrl(thing as ThingPersisted)}>
+          <div key={asUrl(thing as ThingPersisted) + "_thing"}>
             <ThingViewer dataset={props.dataset} thing={thing as ThingPersisted} onUpdate={onUpdateThing}/>
           </div>
         ))}

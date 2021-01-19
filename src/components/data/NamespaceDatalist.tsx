@@ -10,7 +10,7 @@ const allKnownPredicates = Array.from(new Set(Object.values(knownPredicates).map
 export const NamespaceDatalist: FC<Props> = (props) => {
   return (
     <datalist id={props.id}>
-      {allKnownPredicates.map(predicate => <option key={predicate} value={predicate}/>)}
+      {allKnownPredicates.map(predicate => <option key={predicate + "_knownPredicate"} value={predicate}/>)}
     </datalist>
   );
 };

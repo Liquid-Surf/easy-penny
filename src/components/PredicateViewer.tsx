@@ -67,7 +67,7 @@ export const PredicateViewer: FC<Props> = (props) => {
       <dd>
         <ul>
           {urlValues.sort().map(value => (
-            <li key={value} className="pl-0">
+            <li key={value + "_urlObject"} className="pl-0">
               <ObjectViewer
                 type={<MdLink/>}
                 options={[
@@ -84,7 +84,7 @@ export const PredicateViewer: FC<Props> = (props) => {
           ))}
 
           {stringNoLocaleValues.sort().map(value => (
-            <li key={value} className="pl-0">
+            <li key={value + "_stringNoLocaleObject"} className="pl-0">
               <ObjectViewer
                 type={<MdTextFields/>}
                 options={[
@@ -101,7 +101,7 @@ export const PredicateViewer: FC<Props> = (props) => {
           ))}
 
           {integerValues.sort().map(value => (
-            <li key={value} className="pl-0">
+            <li key={value + "_integerObject"} className="pl-0">
               <ObjectViewer
                 type={<>1</>}
                 options={[
@@ -118,7 +118,7 @@ export const PredicateViewer: FC<Props> = (props) => {
           ))}
 
           {decimalValues.sort().map(value => (
-            <li key={value} className="pl-0">
+            <li key={value + "_decimalObject"} className="pl-0">
               <ObjectViewer
                 type={<>1.0</>}
                 options={[
@@ -135,7 +135,7 @@ export const PredicateViewer: FC<Props> = (props) => {
           ))}
 
           {datetimeValues.sort((a, b) => a.getTime() - b.getTime()).map(value => (
-            <li key={value.toISOString()} className="pl-0">
+            <li key={value.toISOString() + "_datetimeObject"} className="pl-0">
               <ObjectViewer
                 type={<><VscCalendar/></>}
                 options={[
@@ -152,7 +152,7 @@ export const PredicateViewer: FC<Props> = (props) => {
           ))}
 
           {booleanValues.map(value => (
-            <li key={value.toString()} className="pl-0">
+            <li key={value.toString() + "_booleanObject"} className="pl-0">
               <ObjectViewer
                 type={<><VscSymbolBoolean/></>}
                 options={[

@@ -23,7 +23,7 @@ function toRdfJsDataset(thing: Thing) {
 export const ThingViewer: FC<Props> = (props) => {
   const rdfJsDataset = toRdfJsDataset(props.thing);
   const predicates = Array.from(new Set(Array.from(rdfJsDataset).map(quad => quad.predicate.value))).sort();
-  const viewers = predicates.map(predicate => (<PredicateViewer key={predicate} {...props} predicate={predicate} onUpdate={props.onUpdate}/>));
+  const viewers = predicates.map(predicate => (<PredicateViewer key={predicate + "_predicate"} {...props} predicate={predicate} onUpdate={props.onUpdate}/>));
 
   const deleteThing = async () => {
     const updatedDataset = removeThing(props.dataset.data, props.thing);

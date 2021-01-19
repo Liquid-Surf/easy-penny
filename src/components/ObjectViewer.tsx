@@ -29,7 +29,7 @@ export const ObjectViewer: FC<Props> = (props) => {
       <ul className="flex-shrink">
         {props.options.filter(option => !option.loggedIn || !!sessionInfo).map((option, i) => (
           <li
-            key={`option${i}`}
+            key={`objectOption${i}`}
           >
             <button
               onClick={(e) => {e.preventDefault(); option.callback()}}

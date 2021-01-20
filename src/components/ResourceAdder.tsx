@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 import { LoadedCachedDataset } from "../hooks/dataset";
 import { useSessionInfo } from "../hooks/sessionInfo";
+import { FileAdder } from "./FileAdder";
 
 interface Props {
   container: LoadedCachedDataset;
@@ -81,6 +82,7 @@ export const ResourceAdder: FC<Props> = (props) => {
           <MdAdd aria-hidden="true" className="text-3xl"/>
           <span>Add Resource</span>
         </button>
+        <FileAdder container={props.container}/>
       </div>
     </>
   );

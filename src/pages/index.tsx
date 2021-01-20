@@ -25,7 +25,7 @@ const Home: React.FC = () => {
       <div className="md:w-4/5 lg:w-1/2 mx-auto p-5 md:pt-20">
         <SessionGate>
           <h3 className="text-lg block py-5">
-            Pods of:&nbsp;
+            Pod(s) of:&nbsp;
             <Link href={`/explore/${encodeURIComponent(webId)}`}>
               <a className="font-bold hover:text-coolGray-700 focus:underline focus:text-coolGray-700 focus:outline-none">{name}</a>
             </Link>

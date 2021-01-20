@@ -208,7 +208,7 @@ interface ButtonProps {
 const AddButton: FC<ButtonProps> = (props) => {
   return (
     <button
-      className="flex items-center p-1 border-coolGray-200 text-coolGray-500 hover:text-coolGray-900 focus:text-coolGray-900 hover:border-coolGray-900 focus:border-coolGray-900 focus:outline-none border-dashed hover:border-solid focus:border-solid border-2 rounded"
+      className="flex items-center p-1 border-coolGray-200 text-coolGray-500 hover:text-coolGray-900 focus:text-coolGray-900 hover:border-coolGray-900 focus:border-coolGray-900 focus:outline-none hover:bg-coolGray-100 border-dashed hover:border-solid focus:border-solid border-2 rounded"
       onClick={(e) => {e.preventDefault(); props.onClick();}}
     >
       <span className="px-1">{props.icon}</span>

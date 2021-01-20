@@ -46,7 +46,7 @@ export const PredicateAdder: FC<Props> = (props) => {
     <>
       <div className="p-5">
         <button
-          className="border-2 border-coolGray-200 border-dashed text-coolGray-500 hover:text-coolGray-900 focus:text-coolGray-900 hover:border-coolGray-900 focus:border-coolGray-900 focus:outline-none hover:border-solid focus:border-solid rounded p-2 flex items-center space-x-2 w-full"
+          className="border-2 border-coolGray-200 border-dashed text-coolGray-500 hover:text-coolGray-900 focus:text-coolGray-900 hover:border-coolGray-900 focus:border-coolGray-900 focus:outline-none hover:border-solid focus:border-solid hover:bg-coolGray-100 rounded p-2 flex items-center space-x-2 w-full"
           onClick={e => {e.preventDefault(); setPhase("setPredicate")}}
         >
           <MdAdd aria-hidden={true}/> New property

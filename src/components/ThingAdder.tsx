@@ -1,10 +1,7 @@
 import { createThing, getSourceUrl, ThingPersisted } from "@inrupt/solid-client";
 import { FC, FormEventHandler, useState } from "react";
 import { MdAdd, MdCheck } from "react-icons/md";
-import { VscLink } from "react-icons/vsc";
 import { LoadedCachedDataset } from "../hooks/dataset";
-import { PredicateAdder } from "./PredicateAdder";
-import { PredicateUrl } from "./PredicateUrl";
 import { ThingViewer } from "./ThingViewer";
 
 interface Props {
@@ -37,7 +34,7 @@ export const ThingAdder: FC<Props> = (props) => {
       setPhase("addPredicate");
     }
     return (
-      <div className="text-2xl p-2 rounded-xl bg-coolGray-700 text-white p-5 font-bold">
+      <div className="text-2xl rounded-xl bg-coolGray-700 text-white p-5 font-bold">
         <form
           onSubmit={onSubmit}
           className="flex space-x-2 items-center"

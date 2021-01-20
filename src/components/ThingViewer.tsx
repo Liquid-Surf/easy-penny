@@ -1,11 +1,12 @@
 import { asUrl, FetchError, getSourceUrl, getThing, getThingAll, isContainer, removeThing, SolidDataset, Thing, ThingPersisted, UrlString, WithResourceInfo } from "@inrupt/solid-client";
-import { FC } from "react";
+import { FC, MouseEventHandler } from "react";
 import { VscTrash } from "react-icons/vsc";
 import { PredicateViewer } from "./PredicateViewer";
 import { LoadedCachedDataset } from "../hooks/dataset";
 import { LoggedIn } from "./LoggedIn";
 import { toast } from "react-toastify";
 import { PredicateAdder } from "./PredicateAdder";
+import { MdContentCopy } from "react-icons/md";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -83,14 +84,30 @@ export const ThingViewer: FC<Props> = (props) => {
       }
     }
   }
-  const title = <><span className="text-coolGray-400 font-normal">{noise}</span>{signal}</>;
+  const copyThingUrl: MouseEventHandler = async (event) => {
+    event.preventDefault();
+    await navigator.clipboard.writeText(asUrl(props.thing));
+    toast("Thing URL copied to clipboard.", { type: "info" });
+  };
+  const clipboardLink = (
+    <a
+      href={asUrl(props.thing)}
+      title="Copy this Thing's URL"
+      aria-hidden="true"
+      onClick={copyThingUrl}
+      className="text-coolGray-400 p-2 rounded hover:text-white focus:text-white focus:ring-2 focus:ring-white focus:outline-none"
+    >
+      <MdContentCopy />
+    </a>
+  );
+  const title = <><span className="text-coolGray-400 font-normal">{noise}</span>{signal} {clipboardLink}</>;
 
   return (
     <div
       className="bg-coolGray-50 rounded-xl relative pb-5"
       id={encodeURIComponent(asUrl(props.thing))}
     >
-      <h3 className="text-2xl p-2 rounded-t-xl bg-coolGray-700 text-white p-5 font-bold">
+      <h3 className="flex items-center text-2xl rounded-t-xl bg-coolGray-700 text-white p-5 font-bold">
         {title}
       </h3>
       <div className="px-5 pt-5">

@@ -6,20 +6,31 @@ import { useProfile } from "../../hooks/profile";
 
 interface Props {
   url: UrlString;
+  /**
+   * If this URL was found in a specific Resource, passing it here will make links to Resources
+   * in the same origin open in Penny as well.
+   */
+  sourceUrl?: UrlString;
 };
 
 export const Url: FC<Props> = (props) => {
   const profile = useProfile();
 
-  const matchingStorage = profile
-    ? getUrlAll(profile.data, space.storage).find(storageUrl => props.url.substring(0, storageUrl.length) === storageUrl)
-    : undefined;
+  const browsableOrigins = profile
+    ? getUrlAll(profile.data, space.storage)
+    : [];
 
-  const shortUrl = matchingStorage
-    ? props.url.substring(matchingStorage.length - 1)
+  if (props.sourceUrl) {
+    browsableOrigins.push((new URL(props.sourceUrl)).origin + "/");
+  }
+
+  const matchingOrigin = browsableOrigins.find(storageUrl => props.url.substring(0, storageUrl.length) === storageUrl);
+
+  const shortUrl = matchingOrigin
+    ? props.url.substring(matchingOrigin.length - 1)
     : props.url;
 
-  if (matchingStorage) {
+  if (matchingOrigin) {
     return (
       <Link href={`/explore/${encodeURIComponent(props.url)}#${encodeURIComponent(props.url)}`}>
         <a className="focus:underline focus:text-coolGray-700 focus:outline-none">{shortUrl}</a>

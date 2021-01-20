@@ -1,4 +1,4 @@
-import { FetchError, getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeStringNoLocale, removeUrl, setThing, solidDatasetAsMarkdown, thingAsMarkdown, ThingPersisted, UrlString } from "@inrupt/solid-client";
+import { FetchError, getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getSourceUrl, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeStringNoLocale, removeUrl, setThing, solidDatasetAsMarkdown, thingAsMarkdown, ThingPersisted, UrlString } from "@inrupt/solid-client";
 import { FC } from "react";
 import { MdLink, MdTextFields } from "react-icons/md";
 import { VscCalendar, VscQuestion, VscSymbolBoolean, VscTrash } from "react-icons/vsc";
@@ -78,7 +78,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                   },
                 ]}
               >
-                <Url url={value}/>
+                <Url url={value} sourceUrl={getSourceUrl(props.dataset.data)}/>
               </ObjectViewer>
             </li>
           ))}

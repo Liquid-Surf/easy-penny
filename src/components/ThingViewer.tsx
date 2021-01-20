@@ -47,18 +47,38 @@ export const ThingViewer: FC<Props> = (props) => {
 
   let noise = "";
   let signal = thingUrl;
-  // If this Thing is in the same Container as the containing Resource,
-  // only display a relative URL
+  // The following logic has quite a few branch, so to clarify it,
+  // in the comments let's assume the following Resource URL:
+  //     https://some.pod/container/resource/
+  // By default, we just display the full URL of the Thing.
+  // Hoever, if this Thing is in the same Container as the containing Resource
+  // (though it might be inside a child Container), we display a relative URL.
+  // So the Thing's URL might be:
+  // - https://some.pod/container/resource/#thing, or
+  // - https://some.pod/container/resource/child, or
+  // - https://some.pod/container/resource/child#thing
   if (thingUrl.substring(0, resourceUrl.length) === resourceUrl) {
     const hashIndex = thingUrl.indexOf("#");
+    // If this is a Thing directly in the current Resource, e.g.
+    //     https://some.pod/container/resource/#thing:
     if (hashIndex === resourceUrl.length) {
-      const resourceName = resourceUrl.substring(resourcePartStart);
-      const resourcePart = thingUrl.substring(resourcePartStart);
-      noise = resourcePart.indexOf("#") > 0 ? resourceName : "";
-      signal = resourcePart.indexOf("#") > 0 ? resourcePart.substring(resourcePart.indexOf("#")) : resourceName;
+      // Display the Resource name subdued...
+      noise = resourceUrl.substring(resourcePartStart + 1);
+      // ...and the Thing name prominently:
+      signal = thingUrl.substring(thingUrl.indexOf("#"));
     } else {
+      // If this is a Thing inside a child Resource, or a Thing representing this Resource itself,
+      // display the path relative to the current Container
+      // (i.e. starting with the current Container's name).
+      // So the Thing's URL might be:
+      // - https://some.pod/container/resource/child, or
+      // - https://some.pod/container/resource/child#thing, or
+      // - https://some.pod/container/resource/, or
       signal = thingUrl.substring(resourcePartStart + 1);
       if ((new URL(resourceUrl)).pathname === "/") {
+        // Unless we're at the root Container, in which case `resourcePartStart` is not, in fact,
+        // the last `/` before the Resource, but the first one in `https://`.
+        // Thus, we explicitly cut off the origin (but keep a `/` in front) in that case.
         signal = thingUrl.substring((new URL(resourceUrl)).origin.length);
       }
     }

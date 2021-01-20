@@ -15,7 +15,9 @@ export const LocationBar: FC<Props> = (props) => {
     if (pathUrl.length < props.location.length) {
       pathUrl += "/";
     }
-    const activeClass = pathUrl === props.location ? "font-bold" : ""
+    const locationUrl = new URL(props.location);
+    locationUrl.hash = "";
+    const activeClass = pathUrl === locationUrl.href || pathUrl === locationUrl.href + "/" ? "font-bold" : ""
     return (
       <Fragment key={pathUrl + "_fragment"}>
         <span key={pathUrl + "_separator"} className="mx-1">/</span>

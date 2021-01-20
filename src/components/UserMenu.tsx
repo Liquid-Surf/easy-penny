@@ -5,9 +5,8 @@ import { LoggedOut } from "./LoggedOut";
 import { ConnectForm } from "./ConnectForm";
 import { MdClose } from "react-icons/md";
 import Link from "next/link";
-import { getUrl } from "@inrupt/solid-client";
-import { space } from "rdf-namespaces";
 import { useSessionInfo } from "../hooks/sessionInfo";
+import { logout } from "@inrupt/solid-client-authn-browser";
 
 export const SigninButton: FC = () => {
   const [promptOpen, setPromptOpen] = useState(false);
@@ -43,7 +42,7 @@ export const SigninButton: FC = () => {
 
   const profileLink = sessionInfo
     ? <Link href={`/explore/${encodeURIComponent(sessionInfo.webId)}#${encodeURIComponent(sessionInfo.webId)}`}>
-        <a className="p-2 border-b-2 hover:rounded border-coolGray-200 flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none">Your&nbsp;Profile</a>
+        <a className="hidden md:flex p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none">Your&nbsp;Profile</a>
       </Link>
     : null;
 
@@ -67,7 +66,25 @@ export const SigninButton: FC = () => {
         </button>
       </LoggedOut>
       <LoggedIn>
-        {profileLink}
+        <div className="flex space-x-5">
+          {profileLink}
+          <button
+            className="px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
+            onClick={(e) => {e.preventDefault(); logout();}}
+            title="Disconnect your Solid account"
+          >
+            <span className="w-8 hidden md:inline">
+              <img
+                width={352 / 10}
+                height={322 / 10}
+                alt="Disconnect your Solid account"
+                src="/solid-emblem.svg"
+                aria-hidden="true"
+              />
+            </span>
+            <span className="px-2">Disconnect</span>
+          </button>
+        </div>
       </LoggedIn>
     </>
   );

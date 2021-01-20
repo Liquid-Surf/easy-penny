@@ -1,4 +1,4 @@
-import { handleIncomingRedirect } from "@inrupt/solid-client-authn-browser";
+import { handleIncomingRedirect, onLogout } from "@inrupt/solid-client-authn-browser";
 import { FC, useEffect, useState } from "react";
 import Modal from "react-modal";
 import { ToastContainer, cssTransition, Slide } from "react-toastify";
@@ -44,6 +44,7 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
         setSessionInfo(null);
       }
     });
+    onLogout(() => setSessionInfo(null));
   }, []);
 
   return (

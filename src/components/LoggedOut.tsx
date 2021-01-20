@@ -4,7 +4,7 @@ import { useSessionInfo } from "../hooks/sessionInfo";
 export const LoggedOut: FC = (props) => {
   const sessionInfo = useSessionInfo();
 
-  if (!sessionInfo) {
+  if (sessionInfo === null) {
     return <>{props.children}</>;
   }
   

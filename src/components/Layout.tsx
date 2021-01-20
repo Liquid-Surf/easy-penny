@@ -12,14 +12,14 @@ interface Props {
 
 export const Layout: FC<Props> = (props) => {
   const locationBar = props.path
-    ? <h2 className="flex-grow py-8 px-10 md:px-20 text-xl"><LocationBar location={props.path}/></h2>
+    ? <h2 className="flex-grow py-8 px-10 md:px-20 text-md md:text-lg lg:text-xl"><LocationBar location={props.path}/></h2>
     : <UrlBar/>;
 
   return (
     <>
       <header className="bg-gray-50">
         <div className="container mx-auto flex px-5">
-          <h1 className="py-8 text-2xl">
+          <h1 className="py-8 text-xl md:text-2xl">
             <Link href="/">
               <a className="focus:underline focus:text-coolGray-700 focus:outline-none">Penny</a>
             </Link>

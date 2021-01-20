@@ -27,6 +27,7 @@ module.exports = {
         "focus",
         "motion-safe",
       ],
+      borderWidth: ["hover"],
       borderStyle: ["hover", "focus"],
       borderRadius: ["hover"],
     },

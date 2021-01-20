@@ -11,7 +11,7 @@ const Home: React.FC = () => {
   const profile = useProfile();
 
   const name = profile
-    ? getStringNoLocale(profile.data, foaf.name) ?? getStringNoLocale(profile.data, vcard.fn)
+    ? getStringNoLocale(profile.data, foaf.name) ?? getStringNoLocale(profile.data, vcard.fn) ?? asUrl(profile.data)
     : null;
   const webId = profile ? asUrl(profile.data) : "";
 
@@ -24,9 +24,12 @@ const Home: React.FC = () => {
       </Head>
       <div className="md:w-4/5 lg:w-1/2 mx-auto p-5 md:pt-20">
         <SessionGate>
-          <Link href={`/explore/${encodeURIComponent(webId)}`}>
-            <a className="py-5 block hover:text-coolGray-700 focus:underline focus:text-coolGray-700 focus:outline-none">{name}</a>
-          </Link>
+          <h3 className="text-lg block py-5">
+            Pods of:&nbsp;
+            <Link href={`/explore/${encodeURIComponent(webId)}`}>
+              <a className="font-bold hover:text-coolGray-700 focus:underline focus:text-coolGray-700 focus:outline-none">{name}</a>
+            </Link>
+          </h3>
           <ul className="space-between-5">
             {storages.map(storageUrl => (
               <li key={storageUrl + "_storage"}>

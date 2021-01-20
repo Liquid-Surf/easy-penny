@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import Image from "next/image";
 import Modal from "react-modal";
 import { LoggedIn } from "./LoggedIn";
 import { LoggedOut } from "./LoggedOut";
@@ -56,14 +55,15 @@ export const SigninButton: FC = () => {
           onClick={(e) => {e.preventDefault(); setPromptOpen(true);}}
           title="Sign in with Solid"
         >
-          <Image
-            width={352 / 6}
-            height={322 / 6}
-            alt="Sign in with Solid"
-            src="/solid-emblem.svg"
-            priority={true}
-          />
-          <span aria-hidden="true" className="p-2 hidden md:inline">Sign&nbsp;in</span>
+          <span className="w-8">
+            <img
+              width={352 / 10}
+              height={322 / 10}
+              alt="Sign in with Solid"
+              src="/solid-emblem.svg"
+            />
+          </span>
+          <span aria-hidden="true" className="px-2 hidden md:inline">Sign&nbsp;in</span>
         </button>
       </LoggedOut>
       <LoggedIn>

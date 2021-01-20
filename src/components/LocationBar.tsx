@@ -1,9 +1,11 @@
 import { UrlString } from "@inrupt/solid-client";
 import { FC, Fragment } from "react";
 import Link from "next/link";
+import { MdEdit } from "react-icons/md";
 
 interface Props {
   location: UrlString;
+  onEdit: () => void;
 }
 
 export const LocationBar: FC<Props> = (props) => {
@@ -34,10 +36,21 @@ export const LocationBar: FC<Props> = (props) => {
 
   return (
     <>
-      <Link key={url.origin + "_breadcrumb"} href={`/explore/${encodeURIComponent(url.origin)}/`}>
-        <a className="focus:underline focus:text-coolGray-700 focus:outline-none">{url.hostname}</a>
-      </Link>
-      {pathElements}
+      <div className="flex items-center space-x-2">
+        <span>
+          <Link key={url.origin + "_breadcrumb"} href={`/explore/${encodeURIComponent(url.origin)}/`}>
+            <a className="focus:underline focus:text-coolGray-700 focus:outline-none">{url.hostname}</a>
+          </Link>
+          {pathElements}
+        </span>
+        <button
+          onClick={(e) => {e.preventDefault(); props.onEdit()}}
+          title="View another Resource"
+          className="text-coolGray-400 hover:text-coolGray-700 focus:text-coolGray-700 p-2 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
+        >
+          <MdEdit aria-label="Change Resource URL"/>
+        </button>
+      </div>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { FC, FormEventHandler, useState } from "react";
+import { FC, FormEventHandler, useEffect, useState } from "react";
 import Link from "next/link";
 import { UrlString } from "@inrupt/solid-client";
 import { useRouter } from "next/router";
@@ -13,9 +13,29 @@ interface Props {
 }
 
 export const Layout: FC<Props> = (props) => {
-  const locationBar = props.path
-    ? <h2 className="flex-grow py-8 px-10 md:px-20 text-md md:text-lg lg:text-xl"><LocationBar location={props.path}/></h2>
-    : <UrlBar/>;
+  const [isEditingPath, setIsEditingPath] = useState(false);
+  const router = useRouter();
+
+  const locationBar = props.path && !isEditingPath
+    ? <h2 className="flex-grow py-8 px-10 md:px-20 text-md md:text-lg lg:text-xl"><LocationBar location={props.path} onEdit={() => setIsEditingPath(true)}/></h2>
+    : <UrlBar path={props.path}/>;
+
+  
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      setIsEditingPath(false);
+    }
+
+    router.events.on("routeChangeStart", handleRouteChange)
+    router.events.on("hashChangeStart", handleRouteChange)
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method:
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange)
+      router.events.off("hashChangeStart", handleRouteChange)
+    }
+  }, [])
 
   return (
     <>
@@ -69,9 +89,12 @@ export const Layout: FC<Props> = (props) => {
   );
 };
 
-const UrlBar: FC = () => {
+interface UrlBarProps {
+  path?: UrlString;
+}
+const UrlBar: FC<UrlBarProps> = (props) => {
   const router = useRouter();
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(props.path ?? "");
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();

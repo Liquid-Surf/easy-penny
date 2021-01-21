@@ -17,7 +17,7 @@ export const Layout: FC<Props> = (props) => {
   const router = useRouter();
 
   const locationBar = props.path && !isEditingPath
-    ? <h2 className="flex-grow py-8 px-10 md:px-20 text-md md:text-lg lg:text-xl"><LocationBar location={props.path} onEdit={() => setIsEditingPath(true)}/></h2>
+    ? <h2 className="flex-grow py-8 text-md md:text-lg lg:text-xl"><LocationBar location={props.path} onEdit={() => setIsEditingPath(true)}/></h2>
     : <UrlBar path={props.path}/>;
 
   
@@ -41,8 +41,8 @@ export const Layout: FC<Props> = (props) => {
     <>
       <div className="flex flex-col min-h-screen">
         <header className="bg-coolGray-50">
-          <div className="container mx-auto flex px-5">
-            <h1 className="py-8 text-xl md:text-2xl">
+          <div className="container mx-auto flex items-center space-x-5 md:space-x-10 px-5 py-8">
+            <h1 className="hidden md:block text-xl md:text-2xl">
               <Link href="/">
                 <a className="focus:underline focus:text-coolGray-700 focus:outline-none">Penny</a>
               </Link>
@@ -57,7 +57,7 @@ export const Layout: FC<Props> = (props) => {
           {props.children}
         </main>
         <footer
-          className="px-48 py-14"
+          className="px-8 py-14"
         >
           <div className="flex items-center space-x-3 justify-center border-coolGray-50 border-t-2 pt-10 text-coolGray-700">
             <span>By <a href="https://VincentTunru.com" className="border-coolGray-700 border-b-2 hover:text-coolGray-900 hover:border-b-4">Vincent Tunru</a>.</span>
@@ -102,8 +102,8 @@ const UrlBar: FC<UrlBarProps> = (props) => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="px-20 flex-grow flex items-center space-x-3 w-full">
-      <label htmlFor="urlInput">URL:</label>
+    <form onSubmit={onSubmit} className="flex-grow flex items-center space-x-3 w-full">
+      <label htmlFor="urlInput" className="hidden md:inline">URL:</label>
       <TextField type="url" name="urlInput" id="urlInput" value={url} onChange={setUrl} className="w-full p-2"/>
       <SubmitButton value="Go" className="px-5 py-2"/>
     </form>

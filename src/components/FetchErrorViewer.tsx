@@ -33,9 +33,5 @@ export const FetchErrorViewer: FC<Props> = (props) => {
     );
   }
 
-  return (
-    <>
-      {props.error.statusCode}
-    </>
-  );
+  return <>An unknown error ({props.error.statusCode}) occurred.</>;
 };

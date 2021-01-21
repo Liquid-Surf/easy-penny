@@ -2,7 +2,7 @@ import * as React from "react";
 import Head from "next/head";
 import { Layout } from "../../components/Layout";
 import { useRouter } from "next/router";
-import { isLoaded, useDataset } from "../../hooks/dataset";
+import { isFileUrl, isLoaded, useDataset } from "../../hooks/dataset";
 import { DatasetViewer } from "../../components/DatasetViewer";
 import { getSourceUrl, getThing, getUrl, isContainer, isRawData } from "@inrupt/solid-client";
 import { ContainerViewer } from "../../components/ContainerViewer";
@@ -25,10 +25,23 @@ const Explore: React.FC = () => {
 
   const datasetThing = isLoaded(dataset) ? getThing(dataset.data, getSourceUrl(dataset.data)) : null;
   // ESS indicates that the loaded Resource also has a representation as a regular file
-  // by setting its type to ldp:NonRDFSource:
-  const fileViewer = isLoaded(dataset) && datasetThing !== null && getUrl(datasetThing, rdf.type) === ldp.NonRDFSource
+  // by setting its type to ldp:NonRDFSource.
+  // This is implementation-specific behaviour,
+  // but unfortunately I don't know of a spec-described way of determining this
+  // (and I've asked multiple times, but it appears to be hard to formulate the right question):
+  const essFileViewer = isLoaded(dataset) && datasetThing !== null && getUrl(datasetThing, rdf.type) === ldp.NonRDFSource
     ? <FileViewer fileUrl={getSourceUrl(dataset.data)}/>
     : null;
+
+  // When we fetch a regular file from NSS using getSolidDataset, it throws a 500 error.
+  // In `useDataset`, we explicitly catch that, check whether the URL contains a regular file,
+  // and if so store that as that file's URL.
+  // Again, implementation-specific behaviour in lieu of a spec-defined way to deal with this.
+  const nssFileViewer = isFileUrl(dataset)
+    ? <FileViewer fileUrl={dataset.data}/>
+    : null;
+
+  const fileViewer = nssFileViewer ?? essFileViewer ?? null;
 
   return (
     <Layout path={url}>

@@ -104,7 +104,7 @@ const UrlBar: FC<UrlBarProps> = (props) => {
   return (
     <form onSubmit={onSubmit} className="flex-grow flex items-center space-x-3 w-full">
       <label htmlFor="urlInput" className="hidden md:inline">URL:</label>
-      <TextField type="url" name="urlInput" id="urlInput" value={url} onChange={setUrl} className="w-full p-2"/>
+      <TextField type="url" name="urlInput" id="urlInput" value={url} placeholder="https://&hellip;" onChange={setUrl} className="w-full p-2"/>
       <SubmitButton value="Go" className="px-5 py-2"/>
     </form>
   );

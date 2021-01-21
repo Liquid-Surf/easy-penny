@@ -26,7 +26,7 @@ const Home: React.FC = () => {
         <SessionGate>
           <h3 className="text-lg block py-5">
             Pod(s) of:&nbsp;
-            <Link href={`/explore/${encodeURIComponent(webId)}`}>
+            <Link href={`/explore/${encodeURIComponent(webId)}#${encodeURIComponent(webId)}`}>
               <a className="font-bold hover:text-coolGray-700 focus:underline focus:text-coolGray-700 focus:outline-none">{name}</a>
             </Link>
           </h3>

@@ -41,14 +41,14 @@ export const Layout: FC<Props> = (props) => {
     <>
       <div className="flex flex-col min-h-screen">
         <header className="bg-coolGray-50">
-          <div className="container mx-auto flex items-center space-x-5 md:space-x-10 px-5 py-8">
-            <h1 className="hidden md:block text-xl md:text-2xl">
+          <div className="container mx-auto flex items-center px-5 py-8">
+            <h1 className="hidden pr-10 md:mr-0 md:block text-xl md:text-2xl">
               <Link href="/">
                 <a className="focus:underline focus:text-coolGray-700 focus:outline-none">Penny</a>
               </Link>
             </h1>
             {locationBar}
-            <div className="flex items-center">
+            <div className="pl-5 md:pl-10 flex items-center">
               <SigninButton/>
             </div>
           </div>

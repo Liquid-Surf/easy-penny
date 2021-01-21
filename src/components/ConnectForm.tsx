@@ -33,6 +33,7 @@ export const ConnectForm: FC = (props) => {
           list="idps"
           onChange={setIdp}
           className="p-5"
+          autoFocus={true}
         />
         <datalist id="idps">
           <option value="https://broker.pod.inrupt.com"/>

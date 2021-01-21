@@ -50,6 +50,7 @@ export const ObjectAdder: FC<Props> = (props) => {
           required={true}
           value={newUrl}
           onChange={e => {e.preventDefault(); setNewUrl(e.target.value);}}
+          autoFocus={true}
         />
         <button type="submit" aria-label="Add" className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
@@ -79,6 +80,7 @@ export const ObjectAdder: FC<Props> = (props) => {
           required={true}
           value={newString}
           onChange={e => {e.preventDefault(); setNewString(e.target.value);}}
+          autoFocus={true}
         />
         <button
           onClick={() => setObjectType("stringWithLocale")}
@@ -125,6 +127,7 @@ export const ObjectAdder: FC<Props> = (props) => {
           required={true}
           value={newLocale}
           onChange={e => {e.preventDefault(); setNewLocale(e.target.value);}}
+          autoFocus={true}
         />
         <button type="submit" aria-label="Add" className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
@@ -154,6 +157,7 @@ export const ObjectAdder: FC<Props> = (props) => {
           required={true}
           value={newInteger}
           onChange={e => {e.preventDefault(); setNewInteger(e.target.value);}}
+          autoFocus={true}
         />
         <button type="submit" aria-label="Add" className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
@@ -184,6 +188,7 @@ export const ObjectAdder: FC<Props> = (props) => {
           required={true}
           value={newDecimal}
           onChange={e => {e.preventDefault(); setNewDecimal(e.target.value);}}
+          autoFocus={true}
         />
         <button type="submit" aria-label="Add" className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
@@ -217,6 +222,7 @@ export const ObjectAdder: FC<Props> = (props) => {
           required={true}
           value={newDate}
           onChange={e => {e.preventDefault(); setNewDate(e.target.value);}}
+          autoFocus={true}
         />
         <label className="sr-only" htmlFor="newTime"><VscCalendar aria-label="Time"/></label>
         <input

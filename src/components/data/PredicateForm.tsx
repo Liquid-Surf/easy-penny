@@ -35,6 +35,7 @@ export const PredicateForm: FC<Props> = (props) => {
         list="knownPredicates"
         value={newPredicate}
         onChange={e => {e.preventDefault(); setNewPredicate(e.target.value);}}
+        autoFocus={true}
       />
       <button type="submit" aria-label="Add" className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
     </form>

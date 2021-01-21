@@ -50,6 +50,7 @@ export const ThingAdder: FC<Props> = (props) => {
             list="knownPredicates"
             value={thingUrl}
             onChange={e => {e.preventDefault(); setThingUrl(e.target.value);}}
+            autoFocus={true}
           />
           <button type="submit" aria-label="Add" className="p-2 border-2 border-coolGray-700 focus:outline-none focus:border-white hover:border-white rounded hover:bg-white hover:text-coolGray-900"><MdCheck/></button>
         </form>

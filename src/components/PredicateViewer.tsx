@@ -1,4 +1,4 @@
-import { FetchError, getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getSourceUrl, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeStringNoLocale, removeUrl, setThing, solidDatasetAsMarkdown, thingAsMarkdown, ThingPersisted, UrlString } from "@inrupt/solid-client";
+import { FetchError, getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getSourceUrl, getStringByLocaleAll, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeStringNoLocale, removeStringWithLocale, removeUrl, setThing, solidDatasetAsMarkdown, thingAsMarkdown, ThingPersisted, UrlString } from "@inrupt/solid-client";
 import { FC } from "react";
 import { MdLink, MdTextFields } from "react-icons/md";
 import { VscCalendar, VscQuestion, VscSymbolBoolean, VscTrash } from "react-icons/vsc";
@@ -25,6 +25,15 @@ export const PredicateViewer: FC<Props> = (props) => {
   const datetimeValues = getDatetimeAll(props.thing, props.predicate);
   const booleanValues = getBooleanAll(props.thing, props.predicate);
   const allValues = getTermAll(props.thing, props.predicate);
+  const stringsByLocale = getStringByLocaleAll(props.thing, props.predicate);
+
+  // Get the locale strings in the format I wish they were in in the first place,
+  // i.e. Array<[locale: string, value: string]>:
+  const localeStringValues = Array.from(stringsByLocale.entries())
+    .map(([locale, stringValues]) => {
+      return stringValues.map(stringValue => [locale, stringValue]);
+    })
+    .flat();
 
   const dataOfUnkownType = allValues.find(term => {
     // TODO: Check for literal types we do not support.
@@ -54,6 +63,7 @@ export const PredicateViewer: FC<Props> = (props) => {
 
   const deleteUrl = (url: UrlString) => updateThing(removeUrl(props.thing, props.predicate, url));
   const deleteStringNoLocale = (string: string) => updateThing(removeStringNoLocale(props.thing, props.predicate, string));
+  const deleteStringWithLocale = (string: string, locale: string) => updateThing(removeStringWithLocale(props.thing, props.predicate, string, locale));
   const deleteInteger = (integer: number) => updateThing(removeInteger(props.thing, props.predicate, integer));
   const deleteDecimal = (decimal: number) => updateThing(removeDecimal(props.thing, props.predicate, decimal));
   const deleteDatetime = (datetime: Date) => updateThing(removeDatetime(props.thing, props.predicate, datetime));
@@ -96,6 +106,23 @@ export const PredicateViewer: FC<Props> = (props) => {
                 ]}
               >
                 {value}
+              </ObjectViewer>
+            </li>
+          ))}
+
+          {localeStringValues.sort().map(([locale, value]) => (
+            <li key={value + "_stringNoLocaleObject"} className="pl-0">
+              <ObjectViewer
+                type={<MdTextFields/>}
+                options={[
+                  {
+                    element: <VscTrash title={`Delete "${value} (${locale})"`} aria-label={`Delete "${value} (${locale})"`}/>,
+                    callback: () => deleteStringWithLocale(value, locale),
+                    loggedIn: true,
+                  },
+                ]}
+              >
+                {value} <span className="text-coolGray-500">({locale})</span>
               </ObjectViewer>
             </li>
           ))}

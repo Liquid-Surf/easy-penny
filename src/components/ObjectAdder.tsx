@@ -1,6 +1,6 @@
-import { addDatetime, addDecimal, addInteger, addStringNoLocale, addUrl, asUrl, getUrlAll, setThing, ThingPersisted, UrlString } from "@inrupt/solid-client";
+import { addDatetime, addDecimal, addInteger, addStringNoLocale, addStringWithLocale, addUrl, asUrl, getUrlAll, setThing, ThingPersisted, UrlString } from "@inrupt/solid-client";
 import { FC, FormEventHandler, useState } from "react";
-import { MdAdd, MdCheck, MdLink, MdTextFields } from "react-icons/md";
+import { MdAdd, MdCheck, MdLink, MdTextFields, MdTranslate } from "react-icons/md";
 import { VscCalendar, VscLink } from "react-icons/vsc";
 import { LoadedCachedDataset } from "../hooks/dataset";
 import { useSessionInfo } from "../hooks/sessionInfo";
@@ -19,6 +19,7 @@ export const ObjectAdder: FC<Props> = (props) => {
   const [objectType, setObjectType] = useState<ObjectTypes>();
   const [newUrl, setNewUrl] = useState("");
   const [newString, setNewString] = useState("");
+  const [newLocale, setNewLocale] = useState("en-US");
   const [newInteger, setNewInteger] = useState("0");
   const [newDecimal, setNewDecimal] = useState("0.0");
   const [newDate, setNewDate] = useState("");
@@ -78,6 +79,52 @@ export const ObjectAdder: FC<Props> = (props) => {
           required={true}
           value={newString}
           onChange={e => {e.preventDefault(); setNewString(e.target.value);}}
+        />
+        <button
+          onClick={() => setObjectType("stringWithLocale")}
+          className="flex space-x-2 items-center p-2 border-coolGray-200 text-coolGray-500 hover:text-coolGray-900 focus:text-coolGray-900 hover:border-coolGray-900 focus:border-coolGray-900 focus:outline-none hover:bg-coolGray-100 border-dashed hover:border-solid focus:border-solid border-2 rounded"
+        >
+          <MdTranslate aria-hidden="true"/>
+          <span>Set locale</span>
+        </button>
+        <button type="submit" aria-label="Add" className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
+      </form>
+    );
+  }
+
+  if (objectType === "stringWithLocale") {
+    const onSubmit: FormEventHandler = async (event) => {
+      event.preventDefault();
+      const updatedThing = addStringWithLocale(props.thing, props.predicate, newString, newLocale);
+      const updatedDataset = setThing(props.dataset.data, updatedThing);
+      setNewString("");
+      await props.dataset.save(updatedDataset);
+      props.onUpdate(props.thing);
+    };
+    form = (
+      <form
+        onSubmit={onSubmit}
+        className="p-2 flex space-x-2 pb-5 items-center"
+      >
+        <label className="text-coolGray-500 p-2 w-10" htmlFor="newStringWithLocale"><MdTextFields aria-label="String"/></label>
+        <input
+          type="text"
+          className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+          name="newStringWithLocale"
+          id="newStringWithLocale"
+          required={true}
+          value={newString}
+          onChange={e => {e.preventDefault(); setNewString(e.target.value);}}
+        />
+        <label className="text-coolGray-500 p-2 w-10" htmlFor="newLocale"><MdTranslate aria-label="Locale"/></label>
+        <input
+          type="text"
+          className="p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+          name="newLocale"
+          id="newLocale"
+          required={true}
+          value={newLocale}
+          onChange={e => {e.preventDefault(); setNewLocale(e.target.value);}}
         />
         <button type="submit" aria-label="Add" className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>

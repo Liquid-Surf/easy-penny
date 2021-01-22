@@ -4,15 +4,13 @@ import Link from "next/link";
 import { LoadedCachedDataset } from "../hooks/dataset";
 import { SectionHeading } from "./ui/headings";
 import { ResourceAdder } from "./ResourceAdder";
-import { useSessionInfo } from "../hooks/sessionInfo";
+import { LoggedOut } from "./LoggedOut";
 
 interface Props {
   dataset: LoadedCachedDataset;
 }
 
 export const ContainerViewer: FC<Props> = (props) => {
-  const sessionInfo = useSessionInfo();
-
   let containedResources = getContainedResourceUrlAll(props.dataset.data).sort(compareResourceUrls).map(resourceUrl => {
     const name = resourceUrl.substring(getSourceUrl(props.dataset.data).length);
     return (
@@ -24,11 +22,13 @@ export const ContainerViewer: FC<Props> = (props) => {
 
   // There's an "Add Resource" button when you're logged in,
   // so no need to display the warning if so:
-  const emptyWarning = sessionInfo === null
+  const emptyWarning = containedResources.length === 0
     ? (
-        <div className="rounded bg-yellow-200 p-5">
-          This container is empty.
-        </div>
+        <LoggedOut>
+          <div className="rounded bg-yellow-200 p-5">
+            This container is empty.
+          </div>
+        </LoggedOut>
       )
     : null;
 

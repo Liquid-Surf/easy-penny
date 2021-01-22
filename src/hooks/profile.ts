@@ -2,13 +2,14 @@ import { getThing, setThing, Thing, ThingPersisted } from "@inrupt/solid-client"
 import { useCallback } from "react";
 import { useSessionInfo } from "./sessionInfo";
 import { useProfileDoc } from "./profileDoc";
+import { isLoaded } from "./dataset";
 
 export function useProfile(): { data: ThingPersisted, save: (profile: Thing) => void } | null {
   const sessionInfo = useSessionInfo();
   const profileDoc = useProfileDoc();
 
   const update = useCallback((profile: Thing) => {
-    if (!profileDoc?.data) {
+    if (!profileDoc || !isLoaded(profileDoc)) {
       return;
     }
 
@@ -16,7 +17,7 @@ export function useProfile(): { data: ThingPersisted, save: (profile: Thing) => 
     profileDoc.save(updatedProfileDoc);
   }, [profileDoc]);
 
-  if (profileDoc === null || typeof profileDoc.data === "undefined" || typeof sessionInfo?.webId === "undefined") {
+  if (profileDoc === null || !isLoaded(profileDoc) || typeof sessionInfo?.webId === "undefined") {
     return null;
   }
 

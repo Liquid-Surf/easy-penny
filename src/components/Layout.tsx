@@ -4,7 +4,7 @@ import { UrlString } from "@inrupt/solid-client";
 import { useRouter } from "next/router";
 import { LocationBar } from "./LocationBar";
 import { SubmitButton, TextField } from "./ui/forms";
-import { SigninButton } from "./UserMenu";
+import { UserMenu } from "./UserMenu";
 import { VscTwitter } from "react-icons/vsc";
 import { SiMastodon, SiGitlab } from "react-icons/si";
 
@@ -49,7 +49,7 @@ export const Layout: FC<Props> = (props) => {
             </h1>
             {locationBar}
             <div className="pl-5 md:pl-10 flex items-center">
-              <SigninButton/>
+              <UserMenu/>
             </div>
           </div>
         </header>

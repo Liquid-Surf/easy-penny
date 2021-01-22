@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useSessionInfo } from "../hooks/sessionInfo";
 import { logout } from "@inrupt/solid-client-authn-browser";
 
-export const SigninButton: FC = () => {
+export const UserMenu: FC = () => {
   const [promptOpen, setPromptOpen] = useState(false);
   const sessionInfo = useSessionInfo();
 

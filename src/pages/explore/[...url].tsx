@@ -30,7 +30,7 @@ const Explore: React.FC = () => {
   // but unfortunately I don't know of a spec-described way of determining this
   // (and I've asked multiple times, but it appears to be hard to formulate the right question):
   const essFileViewer = isLoaded(dataset) && datasetThing !== null && getUrl(datasetThing, rdf.type) === ldp.NonRDFSource
-    ? <FileViewer fileUrl={getSourceUrl(dataset.data)}/>
+    ? <FileViewer file={dataset}/>
     : null;
 
   // When we fetch a regular file from NSS using getSolidDataset, it throws a 500 error.
@@ -38,7 +38,7 @@ const Explore: React.FC = () => {
   // and if so store that as that file's URL.
   // Again, implementation-specific behaviour in lieu of a spec-defined way to deal with this.
   const nssFileViewer = isFileUrl(dataset)
-    ? <FileViewer fileUrl={dataset.data}/>
+    ? <FileViewer file={dataset}/>
     : null;
 
   const fileViewer = nssFileViewer ?? essFileViewer ?? null;

@@ -33,5 +33,15 @@ export const FetchErrorViewer: FC<Props> = (props) => {
     );
   }
 
+  if (props.error.statusCode === 404) {
+    return (
+      <>
+        <div className="bg-red-700 text-white p-5">
+          This Resource does not exist.
+        </div>
+      </>
+    );
+  }
+
   return <>An unknown error ({props.error.statusCode}) occurred.</>;
 };

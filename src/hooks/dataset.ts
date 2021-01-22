@@ -48,10 +48,10 @@ export type LoadedCachedDataset = CachedDataset & { data: Exclude<CachedDataset[
 export type LoadedCachedFileUrl = CachedDataset & { data: UrlString };
 
 export function isLoaded(dataset: CachedDataset): dataset is LoadedCachedDataset {
-  return typeof dataset.data !== "undefined" && typeof dataset.data !== "string";
+  return typeof dataset.error === "undefined" && typeof dataset.data !== "undefined" && typeof dataset.data !== "string";
 }
 export function isFileUrl(dataset: CachedDataset): dataset is LoadedCachedFileUrl {
-  return typeof dataset.data === "string";
+  return typeof dataset.error === "undefined" && typeof dataset.data === "string";
 }
 
 export function useDataset (url: UrlString): CachedDataset;

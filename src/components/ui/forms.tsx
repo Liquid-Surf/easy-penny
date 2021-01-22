@@ -34,12 +34,15 @@ export const Button: FC<ButtonProps> = (props) => {
 
 type SubmitButtonProps = InputHTMLAttributes<HTMLInputElement> & { value: string };
 export const SubmitButton: FC<SubmitButtonProps> = (props) => {
-  const className = `${props.className ?? ""} ${fieldClasses} cursor-pointer bg-coolGray-700 text-white focus:bg-coolGray-900 hover:bg-coolGray-900`;
+  const className = `${props.className ?? ""} ${fieldClasses} border-2`;
+  const disabledClasses = props.disabled
+    ? "border-coolGray-50 bg-white text-coolGray-300 cursor-not-allowed"
+    : "border-coolGray-700 bg-coolGray-700 text-white cursor-pointer focus:bg-coolGray-900 hover:bg-coolGray-900";
   return (
     <input
       {...props}
       type="submit"
-      className={className}
+      className={`${className} ${disabledClasses}`}
     />
   );
 };

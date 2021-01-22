@@ -98,7 +98,6 @@ export const FileViewer: FC<Props> = (props) => {
 
   const onConfirmDelete = async () => {
     try {
-      // TODO: Make user type file name:
       await deleteFile(fileUrl, { fetch: fetch });
       toast("File deleted.", { type: "info" });
       props.file.revalidate();
@@ -139,11 +138,11 @@ export const FileViewer: FC<Props> = (props) => {
         {button}
       </div>
       <LoggedIn>
-        {deletionModal}
         <div className="pb-10">
           <SectionHeading>
             Danger Zone
           </SectionHeading>
+          {deletionModal}
           <button
             className="w-full md:w-1/2 p-5 rounded border-4 border-red-700 text-red-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-red-700 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:outline-none focus:ring-opacity-50"
             onClick={onDeleteFile}

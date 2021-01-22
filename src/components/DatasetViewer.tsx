@@ -1,11 +1,14 @@
-import { asUrl, getSourceUrl, getThingAll, setThing, Thing, ThingPersisted, WithResourceInfo } from "@inrupt/solid-client";
-import { FC, useEffect, useState } from "react";
+import { asUrl, deleteSolidDataset, FetchError, getContainedResourceUrlAll, getSourceUrl, getThingAll, isContainer, setThing, Thing, ThingPersisted, WithResourceInfo } from "@inrupt/solid-client";
+import { fetch } from "@inrupt/solid-client-authn-browser";
+import { FC, MouseEventHandler, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { LoadedCachedDataset } from "../hooks/dataset";
 import { ThingAdder } from "./ThingAdder";
 import { ThingViewer } from "./ThingViewer";
 import { LoggedIn } from "./LoggedIn";
+import { ConfirmOperation } from "./ConfirmOperation";
 import { SectionHeading } from "./ui/headings";
+import { VscTrash } from "react-icons/vsc";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -14,6 +17,7 @@ interface Props {
 export const DatasetViewer: FC<Props> = (props) => {
   const [thingToRestore, setThingToRestore] = useState<ThingPersisted>();
   const things = getThingAll(props.dataset.data).sort(getThingSorter(props.dataset.data));
+  const [isRequestingDeletion, setIsRequestingDeletion] = useState(false);
 
   useEffect(() => {
     if (!thingToRestore) {
@@ -52,16 +56,87 @@ export const DatasetViewer: FC<Props> = (props) => {
     );
   };
 
+  const onConfirmDelete = async () => {
+    try {
+      await deleteSolidDataset(props.dataset.data, { fetch: fetch });
+      toast("Resource deleted.", { type: "info" });
+      props.dataset.revalidate();
+    } catch(e) {
+      if (e instanceof FetchError && e.statusCode === 403) {
+        toast("You are not allowed to delete this resource.", { type: "error" });
+      } else {
+        console.log("ERR:", {e});
+        toast("Could not delete the resource.", { type: "error" });
+      }
+    }
+  };
+
+  const resourceUrl = getSourceUrl(props.dataset.data);
+  const resourcePartStart = isContainer(props.dataset.data)
+    ? resourceUrl.substring(0, resourceUrl.lastIndexOf("/")).lastIndexOf("/")
+    : resourceUrl.lastIndexOf("/");
+  const resourceName = resourceUrl.substring(resourcePartStart + 1);
+  const deletionModal = isRequestingDeletion
+    ? (
+      <ConfirmOperation
+        confirmString={resourceName}
+        onConfirm={onConfirmDelete}
+        onCancel={() => setIsRequestingDeletion(false)}
+      >
+        <h2 className="text-2xl pb-2">Are you sure?</h2>
+        Are you sure you want to delete this Resource? This can not be undone.
+      </ConfirmOperation>
+    )
+    : null;
+
+  const onDeleteFile: MouseEventHandler = (event) => {
+    event.preventDefault();
+
+    setIsRequestingDeletion(true);
+  };
+
+
+  const deleteButton = getContainedResourceUrlAll(props.dataset.data).length === 0
+    ? (
+      <>
+        {deletionModal}
+        <button
+          className="w-full md:w-1/2 p-5 rounded border-4 border-red-700 text-red-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-red-700 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:outline-none focus:ring-opacity-50"
+          onClick={onDeleteFile}
+        >
+          <VscTrash aria-hidden="true"/>
+          <span>Delete resource</span>
+        </button>
+      </>
+    )
+    : null;
+
+  const dangerZone = (!!deleteButton)
+    ? (
+      <LoggedIn>
+        <div className="pb-10">
+          <SectionHeading>
+            Danger Zone
+          </SectionHeading>
+          {deleteButton}
+        </div>
+      </LoggedIn>
+    )
+    : null;
+
   if (things.length === 0) {
     return (
-      <div className="space-y-10 pb-10">
-        <div className="rounded bg-yellow-200 p-5">
-          This Resource is empty.
+      <>
+        <div className="space-y-10 pb-10">
+          <div className="rounded bg-yellow-200 p-5">
+            This Resource is empty.
+          </div>
+          <LoggedIn>
+            <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing}/>
+          </LoggedIn>
         </div>
-        <LoggedIn>
-          <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing}/>
-        </LoggedIn>
-      </div>
+        {dangerZone}
+      </>
     );
   }
 
@@ -81,6 +156,7 @@ export const DatasetViewer: FC<Props> = (props) => {
           <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing}/>
         </LoggedIn>
       </div>
+      {dangerZone}
     </>
   );
 };

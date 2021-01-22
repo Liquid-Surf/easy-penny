@@ -58,7 +58,7 @@ export const ConfirmOperation: FC<Props> = (props) => {
         <label
           htmlFor="confirmationString"
           className=""
-        >Please enter <b>{props.confirmString}</b> to continue:</label>
+        >Please enter <samp><kbd className="font-mono bg-coolGray-200 p-1 border-2 border-coolGray-300 rounded">{props.confirmString}</kbd></samp> to continue:</label>
         <TextField
           onChange={setEnteredString}
           required={true}

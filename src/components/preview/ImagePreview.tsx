@@ -44,6 +44,7 @@ export const ImagePreview: FC<Props> = (props) => {
           <img
             src={props.objectUrl}
             alt={`Preview of "${fileName}"`}
+            className="mx-auto"
           />
         </Modal>
       </div>

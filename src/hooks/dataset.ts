@@ -1,10 +1,15 @@
-import { FetchError, getResourceInfo, getSolidDataset, hasResourceInfo, isRawData, saveSolidDatasetAt, SolidDataset, solidDatasetAsMarkdown, UrlString, WithResourceInfo } from "@inrupt/solid-client";
+import { FetchError, getContentType, getResourceInfo, getSolidDataset, hasResourceInfo, isRawData, saveSolidDatasetAt, SolidDataset, solidDatasetAsMarkdown, UrlString, WithResourceInfo } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { useCallback } from "react";
 import useSwr, { responseInterface } from "swr";
 import { useSessionInfo } from "./sessionInfo";
 
-const fetcher = async (url: UrlString): Promise<UrlString | SolidDataset & WithResourceInfo> => {
+export type FileInfo = {
+  url: UrlString;
+  contentType: string | null;
+};
+
+const fetcher = async (url: UrlString): Promise<FileInfo | SolidDataset & WithResourceInfo> => {
   try {
     const dataset = await getSolidDataset(url, { fetch: fetch });
     return dataset;
@@ -18,7 +23,10 @@ const fetcher = async (url: UrlString): Promise<UrlString | SolidDataset & WithR
       // non-RDF representation, we need implementation-specific workarounds like this:
       const resourceInfo = await getResourceInfo(url, { fetch: fetch });
       if(isRawData(resourceInfo)) {
-        return url;
+        return {
+          url: url,
+          contentType: getContentType(resourceInfo),
+        };
       }
     }
     throw e;
@@ -27,31 +35,40 @@ const fetcher = async (url: UrlString): Promise<UrlString | SolidDataset & WithR
 
 // Unfortunately SolidDatasets are currently still an oblique object that cannot be easily compared
 // (I'm lobbying to change this, but it's hard!), so until then we'll have to do this manual kludge:
-function compareSolidDatasets(a?: SolidDataset | UrlString, b?: SolidDataset | UrlString): boolean {
+function compareSolidDatasets(a?: SolidDataset | FileInfo, b?: SolidDataset | FileInfo): boolean {
   if (typeof a === "undefined") {
     return typeof b === "undefined";
   }
   if (typeof b === "undefined") {
     return typeof a === "undefined";
   }
-  if (typeof a === "string") {
-    return typeof b === "string" && a === b;
+  if (isFileInfo(a)) {
+    // Comparing URLs means the same file will never be refetched;
+    // this works fine until we add the ability to change files.
+    return isFileInfo(b) && a.url === b.url;
   }
-  if (typeof b === "string") {
-    return typeof a === "string" && a === b;
+  if (isFileInfo(b)) {
+    // Comparing URLs means the same file will never be refetched;
+    // this works fine until we add the ability to change files.
+    return isFileInfo(a) && a.url === b.url;
   }
   return solidDatasetAsMarkdown(a) === solidDatasetAsMarkdown(b);
 }
 
-export type CachedDataset = responseInterface<SolidDataset & WithResourceInfo | UrlString, FetchError> & { save: (dataset: SolidDataset) => Promise<void> };
-export type LoadedCachedDataset = CachedDataset & { data: Exclude<CachedDataset['data'], undefined | UrlString> };
-export type LoadedCachedFileUrl = CachedDataset & { data: UrlString };
+export type CachedDataset = responseInterface<SolidDataset & WithResourceInfo | FileInfo, FetchError> & { save: (dataset: SolidDataset) => Promise<void> };
+export type LoadedCachedDataset = CachedDataset & { data: Exclude<CachedDataset['data'], undefined | FileInfo> };
+export type LoadedCachedFileInfo = CachedDataset & { data: FileInfo };
 
 export function isLoaded(dataset: CachedDataset): dataset is LoadedCachedDataset {
-  return typeof dataset.error === "undefined" && typeof dataset.data !== "undefined" && typeof dataset.data !== "string";
+  return typeof dataset.error === "undefined" && typeof dataset.data !== "undefined" && typeof (dataset.data as FileInfo).url === "undefined";
 }
-export function isFileUrl(dataset: CachedDataset): dataset is LoadedCachedFileUrl {
-  return typeof dataset.error === "undefined" && typeof dataset.data === "string";
+function isFileInfo(data?: object): data is FileInfo {
+  return typeof data === "object" &&
+    typeof (data as FileInfo).url === "string" &&
+    ((data as FileInfo).contentType === null || typeof (data as FileInfo).contentType === "string");
+}
+export function isLoadedCachedFileInfo(dataset: CachedDataset): dataset is LoadedCachedFileInfo {
+  return typeof dataset.error === "undefined" && isFileInfo(dataset.data);
 }
 
 export function useDataset (url: UrlString): CachedDataset;

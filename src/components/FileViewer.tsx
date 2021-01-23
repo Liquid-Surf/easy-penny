@@ -1,23 +1,25 @@
 import { FC, MouseEventHandler, useEffect, useState } from "react";
 import { MdFileDownload } from "react-icons/md";
-import { deleteFile, FetchError, getFile, getSourceUrl, UrlString } from "@inrupt/solid-client";
+import { deleteFile, FetchError, getContentType, getFile, getSourceUrl, UrlString, WithResourceInfo } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { SectionHeading } from "./ui/headings";
 import { VscLoading, VscTrash } from "react-icons/vsc";
 import { LoggedIn } from "./LoggedIn";
-import { isFileUrl, LoadedCachedDataset, LoadedCachedFileUrl } from "../hooks/dataset";
+import { isLoadedCachedFileInfo, LoadedCachedDataset, LoadedCachedFileInfo } from "../hooks/dataset";
 import { toast } from "react-toastify";
 import { ConfirmOperation } from "./ConfirmOperation";
+import { ImagePreview } from "./preview/ImagePreview";
 
 interface Props {
-  file: LoadedCachedFileUrl | LoadedCachedDataset;
+  file: LoadedCachedFileInfo | LoadedCachedDataset;
 }
 
 export const FileViewer: FC<Props> = (props) => {
   // On ESS, props.file contains a SolidDataset, whereas on NSS, it contains just the URL.
   // See useDataset() for more info.
-  const fileUrl = isFileUrl(props.file) ? props.file.data : getSourceUrl(props.file.data);
+  const fileUrl = isLoadedCachedFileInfo(props.file) ? props.file.data.url : getSourceUrl(props.file.data);
   const [urlToPrepareForDownload, setUrlToPrepareForDownload] = useState<UrlString>(fileUrl);
+  const [downloadedFile, setDownloadedFile] = useState<Blob & WithResourceInfo>();
   const [blobUrl, setBlobUrl] = useState<UrlString>();
   const [isPreparing, setIsPreparing] = useState(false);
   const [isRequestingDeletion, setIsRequestingDeletion] = useState(false);
@@ -30,20 +32,30 @@ export const FileViewer: FC<Props> = (props) => {
       }
       try {
         const file = await getFile(urlToPrepareForDownload, { fetch: fetch });
-        const objectUrl = URL.createObjectURL(file);
-        setBlobUrl(objectUrl);
-        const downloadAnchorElement = document.createElement("a");
-        downloadAnchorElement.setAttribute("download", fileName);
-        downloadAnchorElement.setAttribute("href", objectUrl);
-        if (isPreparing) {
-          downloadAnchorElement.click();
-        }
+        setDownloadedFile(file);
       } catch(e) {
         toast("Could not download this file. You might not have sufficient access.", { type: "error" });
+        setIsPreparing(false);
       }
-      setIsPreparing(false);
     })();
   }, [urlToPrepareForDownload]);
+
+  useEffect(() => {
+    (async () => {
+      if (!downloadedFile) {
+        return;
+      }
+      const objectUrl = URL.createObjectURL(downloadedFile);
+      setBlobUrl(objectUrl);
+      const downloadAnchorElement = document.createElement("a");
+      downloadAnchorElement.setAttribute("download", fileName);
+      downloadAnchorElement.setAttribute("href", objectUrl);
+      if (isPreparing) {
+        downloadAnchorElement.click();
+        setIsPreparing(false);
+      }
+    })();
+  }, [downloadedFile]);
 
   const downloadFile: MouseEventHandler = async (event) => {
     event.preventDefault();
@@ -129,6 +141,18 @@ export const FileViewer: FC<Props> = (props) => {
     setIsRequestingDeletion(true);
   };
 
+  let preview: JSX.Element | null = null;
+  if (downloadedFile && blobUrl && urlToPrepareForDownload === fileUrl) {
+    const contentType = getContentType(downloadedFile);
+    const contentTypeParts = contentType?.split("/");
+    if (!Array.isArray(contentTypeParts) || contentTypeParts.length !== 2) {
+      return;
+    }
+    if (contentTypeParts[0] === "image") {
+      preview = <ImagePreview fileUrl={fileUrl} objectUrl={blobUrl}/>;
+    }
+  }
+
   return (
     <>
       <div className="pb-10">
@@ -137,6 +161,7 @@ export const FileViewer: FC<Props> = (props) => {
         </SectionHeading>
         {button}
       </div>
+      {preview}
       <LoggedIn>
         <div className="pb-10">
           <SectionHeading>

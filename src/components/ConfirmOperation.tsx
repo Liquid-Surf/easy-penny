@@ -1,12 +1,6 @@
-import { FC, FormEventHandler, useEffect, useState } from "react";
+import { FC, FormEventHandler, useState } from "react";
 import Modal from "react-modal";
-import { LoggedIn } from "./LoggedIn";
-import { LoggedOut } from "./LoggedOut";
-import { ConnectForm } from "./ConnectForm";
 import { MdClose } from "react-icons/md";
-import Link from "next/link";
-import { useSessionInfo } from "../hooks/sessionInfo";
-import { logout } from "@inrupt/solid-client-authn-browser";
 import { Button, SubmitButton, TextField } from "./ui/forms";
 
 interface Props {

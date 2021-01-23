@@ -2,7 +2,7 @@ import * as React from "react";
 import Head from "next/head";
 import { Layout } from "../../components/Layout";
 import { useRouter } from "next/router";
-import { isFileUrl, isLoaded, useDataset } from "../../hooks/dataset";
+import { isLoadedCachedFileInfo, isLoaded, useDataset } from "../../hooks/dataset";
 import { DatasetViewer } from "../../components/DatasetViewer";
 import { getSourceUrl, getThing, getUrl, isContainer, isRawData } from "@inrupt/solid-client";
 import { ContainerViewer } from "../../components/ContainerViewer";
@@ -37,7 +37,7 @@ const Explore: React.FC = () => {
   // In `useDataset`, we explicitly catch that, check whether the URL contains a regular file,
   // and if so store that as that file's URL.
   // Again, implementation-specific behaviour in lieu of a spec-defined way to deal with this.
-  const nssFileViewer = isFileUrl(dataset)
+  const nssFileViewer = isLoadedCachedFileInfo(dataset)
     ? <FileViewer file={dataset}/>
     : null;
 

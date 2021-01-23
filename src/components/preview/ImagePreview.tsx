@@ -1,6 +1,5 @@
 import { UrlString } from "@inrupt/solid-client";
 import { FC, MouseEventHandler, useState } from "react";
-import { LoadedCachedDataset, LoadedCachedFileInfo } from "../../hooks/dataset";
 import { SectionHeading } from "../ui/headings";
 import { Modal } from "../ui/modal";
 

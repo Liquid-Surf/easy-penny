@@ -145,11 +145,10 @@ export const FileViewer: FC<Props> = (props) => {
   if (downloadedFile && blobUrl && urlToPrepareForDownload === fileUrl) {
     const contentType = getContentType(downloadedFile);
     const contentTypeParts = contentType?.split("/");
-    if (!Array.isArray(contentTypeParts) || contentTypeParts.length !== 2) {
-      return;
-    }
-    if (contentTypeParts[0] === "image") {
-      preview = <ImagePreview fileUrl={fileUrl} objectUrl={blobUrl}/>;
+    if (Array.isArray(contentTypeParts) && contentTypeParts.length === 2) {
+      if (contentTypeParts[0] === "image") {
+        preview = <ImagePreview fileUrl={fileUrl} objectUrl={blobUrl}/>;
+      }
     }
   }
 

@@ -16,8 +16,11 @@ export const Layout: FC<Props> = (props) => {
   const [isEditingPath, setIsEditingPath] = useState(false);
   const router = useRouter();
 
+  const locationBarClass = props.path && props.path.length > 100
+    ? "lg:text-md xl:text-lg"
+    : "md:text-lg lg:text-xl"
   const locationBar = props.path && !isEditingPath
-    ? <h2 className="flex-grow py-8 text-md md:text-lg lg:text-xl"><LocationBar location={props.path} onEdit={() => setIsEditingPath(true)}/></h2>
+    ? <h2 className={`flex-grow py-8 text-md ${locationBarClass}`}><LocationBar location={props.path} onEdit={() => setIsEditingPath(true)}/></h2>
     : <UrlBar path={props.path}/>;
 
   

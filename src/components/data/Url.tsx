@@ -33,13 +33,18 @@ export const Url: FC<Props> = (props) => {
   if (matchingOrigin) {
     return (
       <Link href={`/explore/${encodeURIComponent(props.url)}#${encodeURIComponent(props.url)}`}>
-        <a className="focus:underline focus:text-coolGray-700 focus:outline-none">{shortUrl}</a>
+        <a className="focus:underline focus:text-coolGray-700 focus:outline-none break-words">{shortUrl}</a>
       </Link>
     );
   }
 
   return (
-    <a href={props.url} target="_blank" rel="noopener noreferrer" className="focus:underline focus:text-coolGray-700 focus:outline-none">
+    <a
+      href={props.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="focus:underline focus:text-coolGray-700 focus:outline-none break-words"
+        >
       {props.url}
     </a>
   );

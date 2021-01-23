@@ -100,14 +100,14 @@ export const ThingViewer: FC<Props> = (props) => {
       <MdContentCopy />
     </a>
   );
-  const title = <><span className="text-coolGray-400 font-normal">{noise}</span>{signal} {clipboardLink}</>;
+  const title = <><span><span className="text-coolGray-400 font-normal">{noise}</span>{signal}</span> {clipboardLink}</>;
 
   return (
     <div
       className="bg-coolGray-50 rounded-xl relative pb-5"
       id={encodeURIComponent(asUrl(props.thing))}
     >
-      <h3 className="flex items-center text-2xl rounded-t-xl bg-coolGray-700 text-white p-5 font-bold">
+      <h3 className="flex items-center text-lg md:text-xl lg:text-2xl rounded-t-xl bg-coolGray-700 text-white p-5 font-bold break-words">
         {title}
       </h3>
       <div className="px-5 pt-5">

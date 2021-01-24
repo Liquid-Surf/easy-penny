@@ -28,7 +28,7 @@ export const ImagePreview: FC<Props> = (props) => {
           href={props.objectUrl}
           title="View or download full image"
           onClick={openPreviewModal}
-          className="block rounded hover:opacity-75 focus:ring-2 focus:ring-coolGray-700 focus:ring-offset-2 focus:outline-none"
+          className="inline-block rounded hover:opacity-75 focus:ring-2 focus:ring-coolGray-700 focus:ring-offset-2 focus:outline-none"
         >
           <img
             src={props.objectUrl}

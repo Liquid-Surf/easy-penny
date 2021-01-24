@@ -3,12 +3,12 @@ import { FC } from "react";
 import { MdLink, MdTextFields } from "react-icons/md";
 import { VscCalendar, VscQuestion, VscSymbolBoolean, VscTrash } from "react-icons/vsc";
 import { toast } from "react-toastify";
-import { LoadedCachedDataset } from "../hooks/dataset";
-import { Url } from "./data/Url";
-import { ObjectAdder } from "./ObjectAdder";
+import { LoadedCachedDataset } from "../../hooks/dataset";
+import { Url } from "../data/Url";
+import { ObjectAdder } from "../adders/ObjectAdder";
 import { ObjectViewer } from "./ObjectViewer";
 import { PredicateUrl } from "./PredicateUrl";
-import { LoggedIn } from "./LoggedIn";
+import { LoggedIn } from "../session/LoggedIn";
 
 interface Props {
   dataset: LoadedCachedDataset;

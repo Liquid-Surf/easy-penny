@@ -2,14 +2,14 @@ import { FC, MouseEventHandler, useEffect, useState } from "react";
 import { MdFileDownload } from "react-icons/md";
 import { deleteFile, FetchError, getContentType, getFile, getSourceUrl, UrlString, WithResourceInfo } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
-import { SectionHeading } from "./ui/headings";
+import { SectionHeading } from "../ui/headings";
 import { VscLoading, VscTrash } from "react-icons/vsc";
-import { LoggedIn } from "./LoggedIn";
-import { isLoadedCachedFileInfo, LoadedCachedDataset, LoadedCachedFileInfo } from "../hooks/dataset";
+import { LoggedIn } from "../session/LoggedIn";
+import { isLoadedCachedFileInfo, LoadedCachedDataset, LoadedCachedFileInfo } from "../../hooks/dataset";
 import { toast } from "react-toastify";
-import { ConfirmOperation } from "./ConfirmOperation";
-import { ImagePreview } from "./preview/ImagePreview";
-import { TextPreview } from "./preview/TextPreview";
+import { ConfirmOperation } from "../ConfirmOperation";
+import { ImagePreview } from "../preview/ImagePreview";
+import { TextPreview } from "../preview/TextPreview";
 
 interface Props {
   file: LoadedCachedFileInfo | LoadedCachedDataset;

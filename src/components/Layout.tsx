@@ -4,7 +4,7 @@ import { UrlString } from "@inrupt/solid-client";
 import { useRouter } from "next/router";
 import { LocationBar } from "./LocationBar";
 import { SubmitButton, TextField } from "./ui/forms";
-import { UserMenu } from "./UserMenu";
+import { UserMenu } from "./session/UserMenu";
 import { VscTwitter } from "react-icons/vsc";
 import { SiMastodon, SiGitlab } from "react-icons/si";
 

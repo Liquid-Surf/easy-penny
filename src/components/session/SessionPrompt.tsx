@@ -1,9 +1,9 @@
 import { FC, HTMLAttributes, useState } from "react";
 import Modal from "react-modal";
-import { useSessionInfo } from "../hooks/sessionInfo";
+import { useSessionInfo } from "../../hooks/sessionInfo";
 import { ConnectForm } from "./ConnectForm";
-import { Button } from "./ui/forms";
-import { CloseButton } from "./ui/iconButtons";
+import { Button } from "../ui/forms";
+import { CloseButton } from "../ui/iconButtons";
 
 type Props = HTMLAttributes<HTMLInputElement> & { prompt: string };
 

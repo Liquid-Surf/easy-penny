@@ -2,9 +2,9 @@ import { addDatetime, addDecimal, addInteger, addStringNoLocale, addStringWithLo
 import { FC, FormEventHandler, useState } from "react";
 import { MdAdd, MdCheck, MdLink, MdTextFields, MdTranslate } from "react-icons/md";
 import { VscCalendar, VscLink } from "react-icons/vsc";
-import { LoadedCachedDataset } from "../hooks/dataset";
-import { useSessionInfo } from "../hooks/sessionInfo";
-import { Url } from "./data/Url";
+import { LoadedCachedDataset } from "../../hooks/dataset";
+import { useSessionInfo } from "../../hooks/sessionInfo";
+import { Url } from "../data/Url";
 
 interface Props {
   dataset: LoadedCachedDataset;

@@ -5,7 +5,7 @@ import { LoggedOut } from "./LoggedOut";
 import { ConnectForm } from "./ConnectForm";
 import { MdClose } from "react-icons/md";
 import Link from "next/link";
-import { useSessionInfo } from "../hooks/sessionInfo";
+import { useSessionInfo } from "../../hooks/sessionInfo";
 import { logout } from "@inrupt/solid-client-authn-browser";
 
 export const UserMenu: FC = () => {

@@ -4,8 +4,8 @@ import { FC, FormEventHandler, useState } from "react";
 import { MdAdd, MdCheck } from "react-icons/md";
 import { toast } from "react-toastify";
 import Link from "next/link";
-import { LoadedCachedDataset } from "../hooks/dataset";
-import { useSessionInfo } from "../hooks/sessionInfo";
+import { LoadedCachedDataset } from "../../hooks/dataset";
+import { useSessionInfo } from "../../hooks/sessionInfo";
 import { FileAdder } from "./FileAdder";
 
 interface Props {

@@ -2,10 +2,10 @@ import { asUrl, FetchError, getSourceUrl, getThing, getThingAll, isContainer, re
 import { FC, MouseEventHandler } from "react";
 import { VscTrash } from "react-icons/vsc";
 import { PredicateViewer } from "./PredicateViewer";
-import { LoadedCachedDataset } from "../hooks/dataset";
-import { LoggedIn } from "./LoggedIn";
+import { LoadedCachedDataset } from "../../hooks/dataset";
+import { LoggedIn } from "../session/LoggedIn";
 import { toast } from "react-toastify";
-import { PredicateAdder } from "./PredicateAdder";
+import { PredicateAdder } from "../adders/PredicateAdder";
 import { MdContentCopy } from "react-icons/md";
 
 interface Props {

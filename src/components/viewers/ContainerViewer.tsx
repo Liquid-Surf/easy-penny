@@ -1,10 +1,10 @@
 import { getContainedResourceUrlAll, getSourceUrl, UrlString } from "@inrupt/solid-client";
 import { FC } from "react";
 import Link from "next/link";
-import { LoadedCachedDataset } from "../hooks/dataset";
-import { SectionHeading } from "./ui/headings";
-import { ResourceAdder } from "./ResourceAdder";
-import { LoggedOut } from "./LoggedOut";
+import { LoadedCachedDataset } from "../../hooks/dataset";
+import { SectionHeading } from "../ui/headings";
+import { ResourceAdder } from "../adders/ResourceAdder";
+import { LoggedOut } from "../session/LoggedOut";
 
 interface Props {
   dataset: LoadedCachedDataset;

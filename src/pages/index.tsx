@@ -1,7 +1,7 @@
 import * as React from "react";
 import Head from "next/head";
 import { Layout } from "../components/Layout";
-import { SessionGate } from "../components/SessionGate";
+import { SessionGate } from "../components/session/SessionGate";
 import { useProfile } from "../hooks/profile";
 import { asUrl, getStringNoLocale, getUrlAll } from "@inrupt/solid-client";
 import { foaf, space, vcard } from "rdf-namespaces";

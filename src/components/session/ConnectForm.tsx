@@ -1,7 +1,7 @@
 import { login } from "@inrupt/solid-client-authn-browser";
 import { FC, FormEventHandler, useState } from "react";
-import { useSessionInfo } from "../hooks/sessionInfo";
-import { SubmitButton, TextField } from "./ui/forms";
+import { useSessionInfo } from "../..//hooks/sessionInfo";
+import { SubmitButton, TextField } from "../ui/forms";
 
 export const ConnectForm: FC = (props) => {
   const [idp, setIdp] = useState("https://solidcommunity.net");

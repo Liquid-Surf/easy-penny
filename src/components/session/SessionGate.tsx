@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useSessionInfo } from "../hooks/sessionInfo";
+import { useSessionInfo } from "../../hooks/sessionInfo";
 import { ConnectForm } from "./ConnectForm";
 
 export const SessionGate: FC = (props) => {

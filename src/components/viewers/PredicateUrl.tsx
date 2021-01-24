@@ -1,8 +1,5 @@
-import { getUrlAll, UrlString } from "@inrupt/solid-client";
-import { space } from "rdf-namespaces";
+import { UrlString } from "@inrupt/solid-client";
 import { FC } from "react";
-import Link from "next/link";
-import { useProfile } from "../hooks/profile";
 
 interface Props {
   url: UrlString;

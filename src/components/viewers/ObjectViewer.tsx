@@ -1,8 +1,8 @@
 import { asUrl, getUrlAll, ThingPersisted, UrlString } from "@inrupt/solid-client";
 import { FC } from "react";
-import { LoadedCachedDataset } from "../hooks/dataset";
-import { useSessionInfo } from "../hooks/sessionInfo";
-import { Url } from "./data/Url";
+import { LoadedCachedDataset } from "../../hooks/dataset";
+import { useSessionInfo } from "../../hooks/sessionInfo";
+import { Url } from "../data/Url";
 
 interface Props {
   type?: JSX.Element;

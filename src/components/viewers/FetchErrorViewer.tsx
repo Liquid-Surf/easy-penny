@@ -1,7 +1,7 @@
 import { FetchError } from "@inrupt/solid-client";
 import { FC } from "react";
-import { ConnectForm } from "./ConnectForm";
-import { LoggedOut } from "./LoggedOut";
+import { ConnectForm } from "../session/ConnectForm";
+import { LoggedOut } from "../session/LoggedOut";
 
 interface Props {
   error?: Error;

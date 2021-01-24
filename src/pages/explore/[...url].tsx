@@ -1,14 +1,14 @@
 import * as React from "react";
 import Head from "next/head";
-import { Layout } from "../../components/Layout";
 import { useRouter } from "next/router";
-import { isLoadedCachedFileInfo, isLoaded, useDataset } from "../../hooks/dataset";
-import { DatasetViewer } from "../../components/DatasetViewer";
-import { getSourceUrl, getThing, getUrl, isContainer, isRawData } from "@inrupt/solid-client";
-import { ContainerViewer } from "../../components/ContainerViewer";
-import { FetchErrorViewer } from "../../components/FetchErrorViewer";
-import { FileViewer } from "../../components/FileViewer";
 import { ldp, rdf } from "rdf-namespaces";
+import { Layout } from "../../components/Layout";
+import { isLoadedCachedFileInfo, isLoaded, useDataset } from "../../hooks/dataset";
+import { DatasetViewer } from "../../components/viewers/DatasetViewer";
+import { getSourceUrl, getThing, getUrl, isContainer } from "@inrupt/solid-client";
+import { ContainerViewer } from "../../components/viewers/ContainerViewer";
+import { FetchErrorViewer } from "../../components/viewers/FetchErrorViewer";
+import { FileViewer } from "../../components/viewers/FileViewer";
 
 const Explore: React.FC = () => {
   const router = useRouter();

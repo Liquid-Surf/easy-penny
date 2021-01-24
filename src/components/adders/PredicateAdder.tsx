@@ -1,10 +1,10 @@
 import { ThingPersisted } from "@inrupt/solid-client";
 import { FC, useState } from "react";
 import { MdAdd } from "react-icons/md";
-import { LoadedCachedDataset } from "../hooks/dataset";
-import { PredicateForm } from "./data/PredicateForm";
+import { LoadedCachedDataset } from "../../hooks/dataset";
+import { PredicateForm } from "../data/PredicateForm";
 import { ObjectAdder } from "./ObjectAdder";
-import { PredicateUrl } from "./PredicateUrl";
+import { PredicateUrl } from "../viewers/PredicateUrl";
 
 interface Props {
   dataset: LoadedCachedDataset;

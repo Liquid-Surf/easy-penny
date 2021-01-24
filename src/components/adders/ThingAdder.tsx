@@ -1,8 +1,8 @@
 import { createThing, getSourceUrl, ThingPersisted } from "@inrupt/solid-client";
 import { FC, FormEventHandler, useState } from "react";
 import { MdAdd, MdCheck } from "react-icons/md";
-import { LoadedCachedDataset } from "../hooks/dataset";
-import { ThingViewer } from "./ThingViewer";
+import { LoadedCachedDataset } from "../../hooks/dataset";
+import { ThingViewer } from "../viewers/ThingViewer";
 
 interface Props {
   dataset: LoadedCachedDataset;

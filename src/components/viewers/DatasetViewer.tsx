@@ -2,12 +2,12 @@ import { asUrl, deleteSolidDataset, FetchError, getContainedResourceUrlAll, getS
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { FC, MouseEventHandler, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { LoadedCachedDataset } from "../hooks/dataset";
-import { ThingAdder } from "./ThingAdder";
+import { LoadedCachedDataset } from "../../hooks/dataset";
+import { ThingAdder } from "../adders/ThingAdder";
 import { ThingViewer } from "./ThingViewer";
-import { LoggedIn } from "./LoggedIn";
-import { ConfirmOperation } from "./ConfirmOperation";
-import { SectionHeading } from "./ui/headings";
+import { LoggedIn } from "../session/LoggedIn";
+import { ConfirmOperation } from "../ConfirmOperation";
+import { SectionHeading } from "../ui/headings";
 import { VscTrash } from "react-icons/vsc";
 
 interface Props {

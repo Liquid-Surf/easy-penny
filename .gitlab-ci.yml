@@ -57,3 +57,7 @@ publish_npm:
   environment:
     name: production
     url: https://www.npmjs.com/package/$CI_PROJECT_NAME
+  artifacts:
+    expire_in: 1 month
+    paths:
+      - package.tgz

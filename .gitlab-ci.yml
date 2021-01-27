@@ -53,7 +53,7 @@ publish_npm:
     - npm version --no-git-tag-version $NEW_VERSION
     - npm publish
     - npm pack
-    - mv "$CI_PROJECT_NAME-${NEW_VERSION}.tgz" package.tgz
+    - mv "penny-pod-inspector-${NEW_VERSION}.tgz" package.tgz
   environment:
     name: production
     url: https://www.npmjs.com/package/$CI_PROJECT_NAME

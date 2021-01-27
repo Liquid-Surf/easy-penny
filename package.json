@@ -2,6 +2,7 @@
   "name": "penny-pod-inspector",
   "version": "0.1.0",
   "private": false,
+  "main": "server-ui/[[...slug]].html",
   "license": "AGPL-3.0-only",
   "scripts": {
     "dev": "next dev",

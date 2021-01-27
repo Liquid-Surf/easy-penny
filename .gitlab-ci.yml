@@ -40,6 +40,7 @@ build_integrated:
 
 publish_npm:
   stage: deploy
+  image: node:14
   dependencies:
     - build
     - build_integrated

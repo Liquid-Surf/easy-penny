@@ -1,14 +1,24 @@
 import * as React from "react";
 import Head from "next/head";
-import { Layout } from "../components/Layout";
-import { SessionGate } from "../components/session/SessionGate";
-import { useProfile } from "../hooks/profile";
 import { asUrl, getStringNoLocale, getUrlAll } from "@inrupt/solid-client";
 import { foaf, space, vcard } from "rdf-namespaces";
 import Link from "next/link";
+import { Layout } from "../components/Layout";
+import { SessionGate } from "../components/session/SessionGate";
+import { useProfile } from "../hooks/profile";
+import { isIntegrated } from "../functions/integrate";
+import { useRouter } from "next/router";
+import { Explorer } from "../components/Explorer";
 
 const Home: React.FC = () => {
   const profile = useProfile();
+  const router = useRouter();
+
+  if (isIntegrated()) {
+    // Note: when integrated directly on a Pod, this file needs to be renamed to [[...slug]].tsx:
+    const url = window.location.origin + router.basePath + router.asPath;
+    return <Explorer url={url}/>;
+  }
 
   const name = profile
     ? getStringNoLocale(profile.data, foaf.name) ?? getStringNoLocale(profile.data, vcard.fn) ?? asUrl(profile.data)

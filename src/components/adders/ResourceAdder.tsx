@@ -7,6 +7,7 @@ import Link from "next/link";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { FileAdder } from "./FileAdder";
+import { getExplorePath } from "../../functions/integrate";
 
 interface Props {
   container: LoadedCachedDataset;
@@ -34,7 +35,7 @@ export const ResourceAdder: FC<Props> = (props) => {
       setNewResourceName("");
       await props.container.mutate();
       toast(<>
-        Resource created. <Link href={`/explore/${getSourceUrl(sentResource)}`}><a className="underline hover:no-underline">View</a></Link>.
+        Resource created. <Link href={getExplorePath(getSourceUrl(sentResource))}><a className="underline hover:no-underline">View</a></Link>.
       </>, { type: "info" });
     };
 

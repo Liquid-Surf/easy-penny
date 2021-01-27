@@ -3,6 +3,7 @@ import { space } from "rdf-namespaces";
 import { FC } from "react";
 import Link from "next/link";
 import { useProfile } from "../../hooks/profile";
+import { getExplorePath } from "../../functions/integrate";
 
 interface Props {
   url: UrlString;
@@ -32,7 +33,7 @@ export const Url: FC<Props> = (props) => {
 
   if (matchingOrigin) {
     return (
-      <Link href={`/explore/${encodeURIComponent(props.url)}#${encodeURIComponent(props.url)}`}>
+      <Link href={getExplorePath(props.url, encodeURIComponent(props.url))}>
         <a className="focus:underline focus:text-coolGray-700 focus:outline-none break-words">{shortUrl}</a>
       </Link>
     );

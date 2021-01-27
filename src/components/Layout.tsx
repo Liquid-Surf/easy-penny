@@ -7,6 +7,7 @@ import { SubmitButton, TextField } from "./ui/forms";
 import { UserMenu } from "./session/UserMenu";
 import { VscTwitter } from "react-icons/vsc";
 import { SiMastodon, SiGitlab } from "react-icons/si";
+import { getExplorePath } from "../functions/integrate";
 
 interface Props {
   path?: UrlString;
@@ -101,7 +102,8 @@ const UrlBar: FC<UrlBarProps> = (props) => {
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    router.push(`/explore/${encodeURIComponent(url)}`);
+    const targetPath = getExplorePath(url);
+    router.push(targetPath);
   };
 
   return (

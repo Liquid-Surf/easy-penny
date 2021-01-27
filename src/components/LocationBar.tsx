@@ -2,6 +2,7 @@ import { UrlString } from "@inrupt/solid-client";
 import { FC, Fragment } from "react";
 import Link from "next/link";
 import { MdEdit } from "react-icons/md";
+import { getExplorePath } from "../functions/integrate";
 
 interface Props {
   location: UrlString;
@@ -28,7 +29,7 @@ export const LocationBar: FC<Props> = (props) => {
         <wbr key={pathUrl + "_lineBreakOpportinity"}/>
         <Link
           key={pathUrl + "_breadcrumb"}
-          href={`/explore/${encodeURIComponent(pathUrl)}`}
+          href={getExplorePath(pathUrl)}
         >
           <a key={pathUrl + "_breadcrumbLink"} className={`focus:underline focus:text-coolGray-700 focus:outline-none break-words ${activeFileNameClass}`}>{resourceName}</a>
         </Link>
@@ -57,7 +58,7 @@ export const LocationBar: FC<Props> = (props) => {
     <>
       <div className="flex items-center space-x-2">
         <span>
-          <Link href={`/explore/${encodeURIComponent(url.origin + parentPath)}`}>
+          <Link href={getExplorePath(url.origin + parentPath)}>
             <a
               className={`${parentNavigatorClass} focus:underline focus:text-coolGray-700 focus:outline-none break-words`}
               aria-hidden="true"
@@ -65,7 +66,7 @@ export const LocationBar: FC<Props> = (props) => {
               &hellip;
             </a>
           </Link>
-          <Link key={url.origin + "_breadcrumb"} href={`/explore/${encodeURIComponent(url.origin)}/`}>
+          <Link key={url.origin + "_breadcrumb"} href={getExplorePath(url.origin)}>
             <a className={`${originClass} focus:underline focus:text-coolGray-700 focus:outline-none`}>{url.hostname}</a>
           </Link>
           {pathElements}

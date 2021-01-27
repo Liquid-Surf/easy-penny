@@ -1,7 +1,7 @@
 {
-  "name": "pod-inspector",
+  "name": "penny-pod-inspector",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "license": "AGPL-3.0-only",
   "scripts": {
     "dev": "next dev",

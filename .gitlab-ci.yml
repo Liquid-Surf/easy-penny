@@ -10,19 +10,49 @@ test:
   image: node:14
   stage: test
   script:
-  - npm install
+  - npm ci
 
 build:
   image: node:14
   stage: build
   script:
-  - npm install
+  - npm ci
   - npm run build
-  # Artifacts to be published should go into the `public` folder,
-  # but that already contains static assets. Thus, move that first:
-  - mv public public~
-  - mv out public
   artifacts:
     paths:
     - node_modules
-    - public
+    - out
+
+build_integrated:
+  image: node:14
+  stage: build
+  script:
+  - npm ci
+  - rm -r src/pages/explore/
+  - mv src/pages/index.tsx src/pages/[[...slug]].tsx
+  - NEXT_PUBLIC_MODE="integrate" npm run build
+  # Artifacts to be published should go into the `public` folder,
+  # but that already contains static assets. Thus, move that first:
+  - mv out server-ui
+  artifacts:
+    paths:
+    - server-ui
+
+publish_npm:
+  stage: deploy
+  dependencies:
+    - build
+    - build_integrated
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: always
+  script:
+    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+    - export NEW_VERSION="0.$CI_PIPELINE_ID.$CI_JOB_ID"
+    - npm version $NEW_VERSION
+    - npm publish
+    - npm pack
+    - mv "$CI_PROJECT_NAME-${NEW_VERSION}.tgz" package.tgz
+  environment:
+    name: production
+    url: https://www.npmjs.com/package/$CI_PROJECT_NAME

@@ -10,10 +10,13 @@ import { FetchErrorViewer } from "./viewers/FetchErrorViewer";
 import { FileViewer } from "./viewers/FileViewer";
 
 interface Props {
-  url: UrlString;
+  url?: UrlString;
 }
 
 export const Explorer: React.FC<Props> = (props) => {
+  if (typeof props.url === "undefined") {
+    return null;
+  }
   const dataset = useDataset(props.url);
 
   const datasetViewer = isLoaded(dataset)

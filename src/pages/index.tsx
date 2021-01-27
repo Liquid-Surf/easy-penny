@@ -16,7 +16,9 @@ const Home: React.FC = () => {
 
   if (isIntegrated()) {
     // Note: when integrated directly on a Pod, this file needs to be renamed to [[...slug]].tsx:
-    const url = window.location.origin + router.basePath + router.asPath;
+    const url = typeof window !== "undefined"
+      ? window.location.origin + router.basePath + router.asPath
+      : undefined;
     return <Explorer url={url}/>;
   }
 

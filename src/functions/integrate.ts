@@ -14,3 +14,9 @@ export function getExplorePath(url: string, hash?: string): string {
     // Otherwise, we have to pass the full target URL via a parameter:
     : `/explore/${encodeURIComponent(url)}` + hashFragment;
 }
+
+export function getAssetLink(assetPath: string): string {
+  return isIntegrated()
+    ? `/server-ui${assetPath}`
+    : assetPath;
+}

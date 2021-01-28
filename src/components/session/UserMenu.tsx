@@ -7,7 +7,7 @@ import { MdClose } from "react-icons/md";
 import Link from "next/link";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { logout } from "@inrupt/solid-client-authn-browser";
-import { getExplorePath } from "../../functions/integrate";
+import { getAssetLink, getExplorePath } from "../../functions/integrate";
 
 export const UserMenu: FC = () => {
   const [promptOpen, setPromptOpen] = useState(false);
@@ -60,7 +60,7 @@ export const UserMenu: FC = () => {
               width={352 / 10}
               height={322 / 10}
               alt="Sign in with Solid"
-              src="/solid-emblem.svg"
+              src={getAssetLink("/solid-emblem.svg")}
             />
           </span>
           <span aria-hidden="true" className="px-2 hidden md:inline">Sign&nbsp;in</span>

@@ -1,6 +1,5 @@
 /* eslint-env node */
 module.exports = {
-  images: {
-    domains: ["i.gr-assets.com", "s.gr-assets.com"],
-  },
+  trailingSlash: true,
+  assetPrefix: process.env.NEXT_PUBLIC_MODE === "integrate" ? "/server-ui" : "",
 };

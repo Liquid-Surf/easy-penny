@@ -31,9 +31,8 @@ build_integrated:
   - rm -r src/pages/explore/
   - mv src/pages/index.tsx src/pages/[[...slug]].tsx
   - NEXT_PUBLIC_MODE="integrate" npm run build
-  # Artifacts to be published should go into the `public` folder,
-  # but that already contains static assets. Thus, move that first:
   - mv out server-ui
+  - mv server-ui/[[...slug]]/index.html server-ui/index.html
   artifacts:
     paths:
     - server-ui

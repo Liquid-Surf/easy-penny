@@ -17,6 +17,7 @@ build:
   stage: build
   script:
   - npm ci
+  - rm src/pages/[[...slug]].tsx
   - npm run build
   artifacts:
     paths:
@@ -29,7 +30,8 @@ build_integrated:
   script:
   - npm ci
   - rm -r src/pages/explore/
-  - mv src/pages/index.tsx src/pages/[[...slug]].tsx
+  - rm src/pages/index.tsx
+  - rm src/pages/explore/[...url].tsx
   - NEXT_PUBLIC_MODE="integrate" npm run build
   - mv out server-ui
   - mv server-ui/[[...slug]]/index.html server-ui/index.html

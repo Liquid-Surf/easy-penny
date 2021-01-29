@@ -6,21 +6,9 @@ import Link from "next/link";
 import { Layout } from "../components/Layout";
 import { SessionGate } from "../components/session/SessionGate";
 import { useProfile } from "../hooks/profile";
-import { isIntegrated } from "../functions/integrate";
-import { useRouter } from "next/router";
-import { Explorer } from "../components/Explorer";
 
 const Home: React.FC = () => {
   const profile = useProfile();
-  const router = useRouter();
-
-  if (isIntegrated()) {
-    // Note: when integrated directly on a Pod, this file needs to be renamed to [[...slug]].tsx:
-    const url = typeof window !== "undefined"
-      ? window.location.origin + router.basePath + router.asPath
-      : undefined;
-    return <Explorer url={url}/>;
-  }
 
   const name = profile
     ? getStringNoLocale(profile.data, foaf.name) ?? getStringNoLocale(profile.data, vcard.fn) ?? asUrl(profile.data)

@@ -8,6 +8,7 @@ import { UserMenu } from "./session/UserMenu";
 import { VscTwitter } from "react-icons/vsc";
 import { SiMastodon, SiGitlab } from "react-icons/si";
 import { getExplorePath } from "../functions/integrate";
+import { NotIntegrated } from "./integrated/NotIntegrated";
 
 interface Props {
   path?: UrlString;
@@ -22,7 +23,7 @@ export const Layout: FC<Props> = (props) => {
     : "md:text-lg lg:text-xl"
   const locationBar = props.path && !isEditingPath
     ? <h2 className={`flex-grow py-8 text-md ${locationBarClass}`}><LocationBar location={props.path} onEdit={() => setIsEditingPath(true)}/></h2>
-    : <UrlBar path={props.path}/>;
+    : <NotIntegrated><UrlBar path={props.path}/></NotIntegrated>;
 
   
   useEffect(() => {

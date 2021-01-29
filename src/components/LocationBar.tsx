@@ -3,6 +3,7 @@ import { FC, Fragment } from "react";
 import Link from "next/link";
 import { MdEdit } from "react-icons/md";
 import { getExplorePath } from "../functions/integrate";
+import { NotIntegrated } from "./integrated/NotIntegrated";
 
 interface Props {
   location: UrlString;
@@ -70,13 +71,15 @@ export const LocationBar: FC<Props> = (props) => {
             <a className={`${originClass} focus:underline focus:text-coolGray-700 focus:outline-none`}>{url.hostname}</a>
           </Link>
           {pathElements}
-          <button
-            onClick={(e) => {e.preventDefault(); props.onEdit()}}
-            title="View another Resource"
-            className="text-coolGray-400 hover:text-coolGray-700 focus:text-coolGray-700 p-2 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
-          >
-            <MdEdit aria-label="Change Resource URL"/>
-          </button>
+          <NotIntegrated>
+            <button
+              onClick={(e) => {e.preventDefault(); props.onEdit()}}
+              title="View another Resource"
+              className="text-coolGray-400 hover:text-coolGray-700 focus:text-coolGray-700 p-2 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
+            >
+              <MdEdit aria-label="Change Resource URL"/>
+            </button>
+          </NotIntegrated>
         </span>
       </div>
     </>

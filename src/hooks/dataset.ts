@@ -14,9 +14,11 @@ const fetcher = async (url: UrlString): Promise<FileInfo | SolidDataset & WithRe
     const dataset = await getSolidDataset(url, { fetch: fetch });
     return dataset;
   } catch (e) {
-    if (e instanceof FetchError && e.statusCode === 500) {
+    if (e instanceof FetchError && [500, 501].includes(e.statusCode)) {
       // When we call `getSolidDataset()` against a non-RDF source in NSS,
       // it returns a 500 Internal Server Error.
+      // Likewise, CSS currently returns a 501 Not Implemented error (though it will likely switch
+      // to a 406 or a 200 with as-yet unknown body.)
       // To enable detecting that it is a regular file that we can offer for download,
       // we set the data to that file's URL if it is.
       // Unfortunately, in lieu of a spec-defined way to determine whether a Resource has a

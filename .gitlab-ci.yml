@@ -29,7 +29,6 @@ build_integrated:
   stage: build
   script:
   - npm ci
-  - rm -r src/pages/explore/
   - rm src/pages/index.tsx
   - rm src/pages/explore/\[...url\].tsx
   - NEXT_PUBLIC_MODE="integrate" npm run build

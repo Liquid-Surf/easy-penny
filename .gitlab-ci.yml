@@ -31,6 +31,7 @@ build_integrated:
   - npm ci
   - rm src/pages/index.tsx
   - rm src/pages/explore/\[...url\].tsx
+  - mv src/pages/server_ui.tsx src/pages/\[\[...slug\]\].tsx
   - NEXT_PUBLIC_MODE="integrate" npm run build
   - mv out server-ui
   - mv server-ui/[[...slug]]/index.html server-ui/index.html

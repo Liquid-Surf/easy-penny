@@ -6,6 +6,8 @@ import { Explorer } from "../components/Explorer";
 // This page is the only one that is available when running on a Pod server.
 // It will always server the "explore" page, with the current URL as the
 // URL of the Resource whose data to inspect.
+// Rename this to [[...slug]].tsx and delete index.tsx to allow it to respond
+// to all URLs.
 const IntegratedHome: React.FC = () => {
   const router = useRouter();
 

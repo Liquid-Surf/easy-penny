@@ -17,7 +17,7 @@ build:
   stage: build
   script:
   - npm ci
-  - rm src/pages/[[...slug]].tsx
+  - rm src/pages/server_ui.tsx
   - npm run build
   artifacts:
     paths:

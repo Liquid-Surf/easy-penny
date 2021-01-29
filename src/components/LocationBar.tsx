@@ -61,14 +61,14 @@ export const LocationBar: FC<Props> = (props) => {
         <span className="py-2 flex items-center">
           <Link href={getExplorePath(url.origin + parentPath)}>
             <a
-              className={`${parentNavigatorClass} focus:underline focus:text-coolGray-700 focus:outline-none break-words`}
+              className={`${parentNavigatorClass} hover:underline focus:underline focus:text-coolGray-700 focus:outline-none break-words`}
               aria-hidden="true"
             >
               &hellip;
             </a>
           </Link>
           <Link key={url.origin + "_breadcrumb"} href={getExplorePath(url.origin)}>
-            <a className={`${originClass} focus:underline focus:text-coolGray-700 focus:outline-none`}>{url.hostname}</a>
+            <a className={`${originClass} hover:underline focus:underline focus:text-coolGray-700 focus:outline-none`}>{url.hostname}</a>
           </Link>
           {pathElements}
           <NotIntegrated>

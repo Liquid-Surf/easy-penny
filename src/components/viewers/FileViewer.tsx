@@ -9,6 +9,8 @@ import { isLoadedCachedFileInfo, LoadedCachedDataset, LoadedCachedFileInfo } fro
 import { toast } from "react-toastify";
 import { ConfirmOperation } from "../ConfirmOperation";
 import { ImagePreview } from "../preview/ImagePreview";
+import { AudioPreview } from "../preview/AudioPreview";
+import { VideoPreview } from "../preview/VideoPreview";
 import { TextPreview } from "../preview/TextPreview";
 
 interface Props {
@@ -149,6 +151,12 @@ export const FileViewer: FC<Props> = (props) => {
     if (Array.isArray(contentTypeParts) && contentTypeParts.length === 2) {
       if (contentTypeParts[0] === "image") {
         preview = <ImagePreview fileUrl={fileUrl} objectUrl={blobUrl}/>;
+      }
+      if (contentTypeParts[0] === "audio") {
+        preview = <AudioPreview fileUrl={fileUrl} objectUrl={blobUrl}/>;
+      }
+      if (contentTypeParts[0] === "video") {
+        preview = <VideoPreview fileUrl={fileUrl} objectUrl={blobUrl}/>;
       }
       if (contentTypeParts[0] === "text") {
         preview = <TextPreview file={downloadedFile}/>;

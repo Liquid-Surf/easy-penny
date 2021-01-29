@@ -43,7 +43,7 @@ export const UserMenu: FC = () => {
 
   const profileLink = sessionInfo
     ? <Link href={getExplorePath(sessionInfo.webId,encodeURIComponent(sessionInfo.webId))}>
-        <a className="hidden md:flex p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none">Your&nbsp;Profile</a>
+        <a className="sm:hidden lg:flex p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none">Your&nbsp;Profile</a>
       </Link>
     : null;
 
@@ -63,7 +63,7 @@ export const UserMenu: FC = () => {
               src={getAssetLink("/solid-emblem.svg")}
             />
           </span>
-          <span aria-hidden="true" className="px-2 hidden md:inline">Sign&nbsp;in</span>
+          <span aria-hidden="true" className="px-2 sm:hidden md:inline">Sign&nbsp;in</span>
         </button>
       </LoggedOut>
       <LoggedIn>
@@ -74,7 +74,7 @@ export const UserMenu: FC = () => {
             onClick={(e) => {e.preventDefault(); logout();}}
             title="Disconnect your Solid account"
           >
-            <span className="w-8 hidden md:inline">
+            <span className="w-8">
               <img
                 width={352 / 10}
                 height={322 / 10}

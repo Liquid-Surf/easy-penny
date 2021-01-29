@@ -58,7 +58,7 @@ export const LocationBar: FC<Props> = (props) => {
   return (
     <>
       <div className="flex items-center space-x-2">
-        <span>
+        <span className="py-2 flex items-center">
           <Link href={getExplorePath(url.origin + parentPath)}>
             <a
               className={`${parentNavigatorClass} focus:underline focus:text-coolGray-700 focus:outline-none break-words`}

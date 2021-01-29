@@ -22,7 +22,7 @@ export const Layout: FC<Props> = (props) => {
     ? "lg:text-md xl:text-lg"
     : "md:text-lg lg:text-xl"
   const locationBar = props.path && !isEditingPath
-    ? <h2 className={`flex-grow py-8 text-md ${locationBarClass}`}><LocationBar location={props.path} onEdit={() => setIsEditingPath(true)}/></h2>
+    ? <h2 className={`text-md ${locationBarClass}`}><LocationBar location={props.path} onEdit={() => setIsEditingPath(true)}/></h2>
     : <NotIntegrated><UrlBar path={props.path}/></NotIntegrated>;
 
   
@@ -46,14 +46,16 @@ export const Layout: FC<Props> = (props) => {
     <>
       <div className="flex flex-col min-h-screen">
         <header className="bg-coolGray-50">
-          <div className="container mx-auto flex items-center px-5 py-8">
+          <div className="container mx-auto flex flex-col-reverse items-start sm:flex-row md:items-center space-y-5 md:space-y-0 px-5 py-8">
             <h1 className="hidden pr-10 md:mr-0 md:block text-xl md:text-2xl">
               <Link href="/">
                 <a className="focus:underline focus:text-coolGray-700 focus:outline-none">Penny</a>
               </Link>
             </h1>
-            {locationBar}
-            <div className="pl-5 md:pl-10 flex items-center">
+            <div className="flex-grow w-full">
+              {locationBar}
+            </div>
+            <div className="pl-5 md:pl-10 flex self-end items-center">
               <UserMenu/>
             </div>
           </div>
@@ -108,7 +110,7 @@ const UrlBar: FC<UrlBarProps> = (props) => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="flex-grow flex items-center space-x-3 w-full">
+    <form onSubmit={onSubmit} className="flex-grow flex items-center py-1 space-x-3 w-full">
       <label htmlFor="urlInput" className="hidden md:inline">URL:</label>
       <TextField type="url" name="urlInput" id="urlInput" value={url} placeholder="https://&hellip;" onChange={setUrl} className="w-full p-2"/>
       <SubmitButton value="Go" className="px-5 py-2"/>

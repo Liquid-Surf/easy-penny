@@ -87,7 +87,7 @@ export const FileViewer: FC<Props> = (props) => {
     button = (
       <>
         <div className={boxClasses}>
-          <VscLoading aria-hidden="true"/>
+          <VscLoading className="motion-safe:animate-spin" aria-hidden="true"/>
           <span>Preparing download&hellip;</span>
         </div>
       </>

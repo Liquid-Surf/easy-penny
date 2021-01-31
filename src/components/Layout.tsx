@@ -55,7 +55,7 @@ export const Layout: FC<Props> = (props) => {
             <div className="flex-grow w-full">
               {locationBar}
             </div>
-            <div className="pl-5 md:pl-10 flex self-end items-center">
+            <div className="pl-5 md:pl-10 flex self-end items-center py-2">
               <UserMenu/>
             </div>
           </div>

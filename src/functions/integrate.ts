@@ -12,7 +12,7 @@ export function getExplorePath(url: string, hash?: string): string {
     // If running on the Pod, the target URL is on the app's own domain:
     ? targetUrl.pathname + targetUrl.search + hashFragment
     // Otherwise, we have to pass the full target URL via a parameter:
-    : `/explore/${encodeURIComponent(url)}` + hashFragment;
+    : `/explore/?url=${encodeURIComponent(url)}` + hashFragment;
 }
 
 export function getAssetLink(assetPath: string): string {

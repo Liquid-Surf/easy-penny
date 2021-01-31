@@ -37,7 +37,15 @@ export const PredicateViewer: FC<Props> = (props) => {
 
   const dataOfUnkownType = allValues.find(term => {
     // TODO: Check for literal types we do not support.
-    return term.termType !== "Literal" && term.termType !== "NamedNode";
+    return term.termType !== "Literal" && term.termType !== "NamedNode" ||
+      (term.termType === "Literal" && ![
+        "http://www.w3.org/2001/XMLSchema#boolean",
+        "http://www.w3.org/2001/XMLSchema#dateTime",
+        "http://www.w3.org/2001/XMLSchema#decimal",
+        "http://www.w3.org/2001/XMLSchema#integer",
+        "http://www.w3.org/2001/XMLSchema#string",
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+      ].includes(term.datatype.value));
   });
   const unknownObject = dataOfUnkownType
     ? (

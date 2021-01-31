@@ -1,12 +1,12 @@
 import { asUrl, FetchError, getSourceUrl, getThing, getThingAll, isContainer, removeThing, SolidDataset, Thing, ThingPersisted, UrlString, WithResourceInfo } from "@inrupt/solid-client";
-import { FC, MouseEventHandler } from "react";
+import { FC, MouseEventHandler, useState } from "react";
 import { VscTrash } from "react-icons/vsc";
 import { PredicateViewer } from "./PredicateViewer";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 import { LoggedIn } from "../session/LoggedIn";
 import { toast } from "react-toastify";
 import { PredicateAdder } from "../adders/PredicateAdder";
-import { MdContentCopy } from "react-icons/md";
+import { MdContentCopy, MdExpandLess, MdExpandMore } from "react-icons/md";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -25,6 +25,7 @@ export const ThingViewer: FC<Props> = (props) => {
   const rdfJsDataset = toRdfJsDataset(props.thing);
   const predicates = Array.from(new Set(Array.from(rdfJsDataset).map(quad => quad.predicate.value))).sort();
   const viewers = predicates.map(predicate => (<PredicateViewer key={predicate + "_predicate"} {...props} predicate={predicate} onUpdate={props.onUpdate}/>));
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const deleteThing = async () => {
     const updatedDataset = removeThing(props.dataset.data, props.thing);
@@ -108,22 +109,32 @@ export const ThingViewer: FC<Props> = (props) => {
       id={encodeURIComponent(asUrl(props.thing))}
     >
       <h3 className="flex items-center text-lg md:text-xl lg:text-2xl rounded-t-xl bg-coolGray-700 text-white p-5 font-bold break-words">
-        {title}
-      </h3>
-      <div className="px-5 pt-5">
-        {viewers}
-      </div>
-      <LoggedIn>
-        <PredicateAdder {...props}/>
+        <span className="flex flex-grow items-center">{title}</span>
         <button
-          onClick={(e) => {e.preventDefault(); deleteThing();}}
-          aria-label={`Delete "${asUrl(props.thing)}"`}
-          title={`Delete "${asUrl(props.thing)}"`}
-          className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-red-700 focus:border-red-700 border-4 focus:outline-none"
+          aria-hidden="true"
+          className="flex items-center  text-coolGray-400 p-2 rounded focus:ring-2 focus:ring-white focus:outline-none hover:bg-white hover:text-coolGray-700"
+          onClick={(e) => {e.preventDefault(); setIsCollapsed(isCollapsed => !isCollapsed)}}
+          title={isCollapsed ? "Expand this Thing" : "Collapse this Thing"}
         >
-          <VscTrash/>
+          {isCollapsed ? <MdExpandMore/> : <MdExpandLess/>}
         </button>
-      </LoggedIn>
+      </h3>
+      <div className={isCollapsed ? "overflow-hidden h-0" : ""}>
+        <div className="px-5 pt-5">
+          {viewers}
+        </div>
+        <LoggedIn>
+          <PredicateAdder {...props}/>
+          <button
+            onClick={(e) => {e.preventDefault(); deleteThing();}}
+            aria-label={`Delete "${asUrl(props.thing)}"`}
+            title={`Delete "${asUrl(props.thing)}"`}
+            className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-red-700 focus:border-red-700 border-4 focus:outline-none"
+          >
+            <VscTrash/>
+          </button>
+        </LoggedIn>
+      </div>
     </div>
   );
 };

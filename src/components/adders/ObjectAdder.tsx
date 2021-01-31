@@ -85,6 +85,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         <button
           onClick={() => setObjectType("stringWithLocale")}
           className="flex space-x-2 items-center p-2 border-coolGray-200 text-coolGray-500 hover:text-coolGray-900 focus:text-coolGray-900 hover:border-coolGray-900 focus:border-coolGray-900 focus:outline-none hover:bg-coolGray-100 border-dashed hover:border-solid focus:border-solid border-2 rounded"
+          type="button"
         >
           <MdTranslate aria-hidden="true"/>
           <span>Set locale</span>

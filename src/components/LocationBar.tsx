@@ -13,6 +13,9 @@ interface Props {
 export const LocationBar: FC<Props> = (props) => {
   const url = new URL(props.location);
 
+  const trailingSlash = props.location.endsWith("/")
+    ? <span className="mx-1">/</span>
+    : null;
   const pathParts = url.pathname.split("/");
   const pathElements = pathParts.map((resourceName, i) => {
     let pathUrl = url.origin + pathParts.slice(0, i + 1).join("/");
@@ -22,18 +25,22 @@ export const LocationBar: FC<Props> = (props) => {
     const locationUrl = new URL(props.location);
     locationUrl.hash = "";
     const isCurrent = pathUrl === locationUrl.href || pathUrl === locationUrl.href + "/";
-    const activeFileNameClass = isCurrent ? "font-bold" : "hidden lg:inline"
     const activeSeparatorClass = isCurrent ? "" : "hidden lg:inline"
-    return (
-      <Fragment key={pathUrl + "_fragment"}>
-        <span key={pathUrl + "_separator"} className={`mx-1 ${activeSeparatorClass}`}>/</span>
-        <wbr key={pathUrl + "_lineBreakOpportinity"}/>
+    const displayName = isCurrent
+      ? <span className="font-bold">{resourceName}{trailingSlash}</span>
+      : (
         <Link
           key={pathUrl + "_breadcrumb"}
           href={getExplorePath(pathUrl)}
         >
-          <a key={pathUrl + "_breadcrumbLink"} className={`focus:underline focus:text-coolGray-700 focus:outline-none break-words ${activeFileNameClass}`}>{resourceName}</a>
+          <a key={pathUrl + "_breadcrumbLink"} className="hidden lg:inline focus:underline focus:text-coolGray-700 focus:outline-none break-words">{resourceName}</a>
         </Link>
+      );
+    return (
+      <Fragment key={pathUrl + "_fragment"}>
+        <span key={pathUrl + "_separator"} className={`mx-1 ${activeSeparatorClass}`}>/</span>
+        <wbr key={pathUrl + "_lineBreakOpportinity"}/>
+        {displayName}
       </Fragment>
     );
   }).slice(1, url.pathname.endsWith("/") ? pathParts.length - 1 : pathParts.length);

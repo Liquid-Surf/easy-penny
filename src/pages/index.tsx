@@ -26,14 +26,14 @@ const Home: React.FC = () => {
         <SessionGate>
           <h3 className="text-lg block py-5">
             Pod(s) of:&nbsp;
-            <Link href={`/explore/${encodeURIComponent(webId)}#${encodeURIComponent(webId)}`}>
+            <Link href={`/explore/?url=${encodeURIComponent(webId)}#${encodeURIComponent(webId)}`}>
               <a className="font-bold hover:text-coolGray-700 focus:underline focus:text-coolGray-700 focus:outline-none">{name}</a>
             </Link>
           </h3>
           <ul className="space-between-5">
             {storages.map(storageUrl => (
               <li key={storageUrl + "_storage"}>
-                <Link href={`/explore/${encodeURIComponent(storageUrl)}`}>
+                <Link href={`/explore/?url=${encodeURIComponent(storageUrl)}`}>
                   <a className="p-5 bg-coolGray-700 hover:bg-coolGray-900 rounded text-white block focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50">{storageUrl}</a>
                 </Link>
               </li>

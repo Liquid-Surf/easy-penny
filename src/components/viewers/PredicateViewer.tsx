@@ -1,7 +1,7 @@
-import { FetchError, getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getSourceUrl, getStringByLocaleAll, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeStringNoLocale, removeStringWithLocale, removeUrl, setThing, solidDatasetAsMarkdown, thingAsMarkdown, ThingPersisted, UrlString } from "@inrupt/solid-client";
+import { FetchError, getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getSourceUrl, getStringByLocaleAll, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeLiteral, removeStringNoLocale, removeStringWithLocale, removeUrl, setThing, solidDatasetAsMarkdown, thingAsMarkdown, ThingPersisted, UrlString } from "@inrupt/solid-client";
 import { FC } from "react";
 import { MdLink, MdTextFields } from "react-icons/md";
-import { VscCalendar, VscQuestion, VscSymbolBoolean, VscTrash } from "react-icons/vsc";
+import { VscCalendar, VscPrimitiveSquare, VscQuestion, VscSymbolBoolean, VscTrash } from "react-icons/vsc";
 import { toast } from "react-toastify";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 import { Url } from "../data/Url";
@@ -36,16 +36,7 @@ export const PredicateViewer: FC<Props> = (props) => {
     .flat();
 
   const dataOfUnkownType = allValues.find(term => {
-    // TODO: Check for literal types we do not support.
-    return term.termType !== "Literal" && term.termType !== "NamedNode" ||
-      (term.termType === "Literal" && ![
-        "http://www.w3.org/2001/XMLSchema#boolean",
-        "http://www.w3.org/2001/XMLSchema#dateTime",
-        "http://www.w3.org/2001/XMLSchema#decimal",
-        "http://www.w3.org/2001/XMLSchema#integer",
-        "http://www.w3.org/2001/XMLSchema#string",
-        "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-      ].includes(term.datatype.value));
+    return term.termType !== "Literal" && term.termType !== "NamedNode";
   });
   const unknownObject = dataOfUnkownType
     ? (
@@ -54,6 +45,36 @@ export const PredicateViewer: FC<Props> = (props) => {
       </li>
     )
     : null;
+  const dataOfUnsupportedType = allValues.filter(term => {
+    return term.termType === "Literal" &&
+      ![
+        "http://www.w3.org/2001/XMLSchema#boolean",
+        "http://www.w3.org/2001/XMLSchema#dateTime",
+        "http://www.w3.org/2001/XMLSchema#decimal",
+        "http://www.w3.org/2001/XMLSchema#integer",
+        "http://www.w3.org/2001/XMLSchema#string",
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+      ].includes(term.datatype.value);
+  });
+  const unsupportedTypes = dataOfUnsupportedType.map((data) => (
+    <li className="pl-0" key={data.value}>
+      <ObjectViewer
+        type={<VscPrimitiveSquare/>}
+        options={[
+          {
+            element: <VscTrash
+              title={`Delete value "${data.value}" of unknown type "${(data as any).datatype.value}"`}
+              aria-label={`Delete value "${data.value}" of unknown type "${(data as any).datatype.value}"`}
+            />,
+            callback: () => deleteUnsupportedType(data),
+            loggedIn: true,
+          },
+        ]}
+      >
+        <samp title={`Data of unknown type \'${(data as any).datatype.value}\'`}>{data.value}</samp>
+      </ObjectViewer>
+    </li>
+  ));
 
   const updateThing = async (updatedThing: ThingPersisted) => {
     const updatedDataset = setThing(props.dataset.data, updatedThing);
@@ -76,6 +97,7 @@ export const PredicateViewer: FC<Props> = (props) => {
   const deleteDecimal = (decimal: number) => updateThing(removeDecimal(props.thing, props.predicate, decimal));
   const deleteDatetime = (datetime: Date) => updateThing(removeDatetime(props.thing, props.predicate, datetime));
   const deleteBoolean = (boolean: boolean) => updateThing(removeBoolean(props.thing, props.predicate, boolean));
+  const deleteUnsupportedType = (value: unknown) => updateThing(removeLiteral(props.thing, props.predicate, value as any));
 
   return (
     <dl>
@@ -203,6 +225,7 @@ export const PredicateViewer: FC<Props> = (props) => {
             </li>
           ))}
 
+          {unsupportedTypes}
           {unknownObject}
 
           <LoggedIn>

@@ -1,6 +1,6 @@
 import { createContainerAt, createSolidDataset, getSourceUrl, saveSolidDatasetAt } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
-import { FC, FormEventHandler, useState } from "react";
+import { FC, FocusEventHandler, FormEventHandler, useState } from "react";
 import { MdAdd, MdCheck } from "react-icons/md";
 import { toast } from "react-toastify";
 import Link from "next/link";
@@ -23,6 +23,13 @@ export const ResourceAdder: FC<Props> = (props) => {
   }
 
   if(phase === "chooseName") {
+    const onCancel: FocusEventHandler = (event) => {
+      event.preventDefault();
+      if (event.relatedTarget === null || !event.currentTarget.contains(event.relatedTarget as Node)) {
+        setPhase("initial");
+      }
+    };
+
     const onSubmit: FormEventHandler = async (event) => {
       event.preventDefault();
 
@@ -44,6 +51,7 @@ export const ResourceAdder: FC<Props> = (props) => {
         <form
           onSubmit={onSubmit}
           className="flex space-x-2 items-center p-3 rounded bg-coolGray-700 text-white"
+          onBlur={onCancel}
         >
           <label
             htmlFor="resourceName"
@@ -58,6 +66,7 @@ export const ResourceAdder: FC<Props> = (props) => {
             className="text-coolGray-900 flex-grow p-2 rounded focus:outline-none focus:ring-4 focus:ring-blue-500"
             placeholder="e.g. resource-name or container-name/"
             required={true}
+            autoFocus={true}
             value={newResourceName}
             onChange={(e) => {e.preventDefault(); setNewResourceName(e.target.value);}}
             title="Resource name (append a `/` to create a Container)"

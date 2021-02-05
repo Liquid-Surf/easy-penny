@@ -98,10 +98,10 @@ export const ThingViewer: FC<Props> = (props) => {
       onClick={copyThingUrl}
       className="text-coolGray-400 p-2 rounded hover:text-white focus:text-white focus:ring-2 focus:ring-white focus:outline-none"
     >
-      <MdContentCopy />
+      <MdContentCopy className="inline-block"/>
     </a>
   );
-  const title = <><span><span className="text-coolGray-400 font-normal">{noise}</span>{signal}</span> {clipboardLink}</>;
+  const title = <><span><span className="text-coolGray-400 font-normal">{noise}</span>{signal} {clipboardLink}</span></>;
 
   return (
     <div

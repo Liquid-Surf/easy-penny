@@ -52,7 +52,7 @@ export const Explorer: React.FC<Props> = (props) => {
       <Head>
         <title>Penny: {props.url}</title>
       </Head>
-      <div className="md:w-4/5 lg:w-2/3 xl:w-1/2 mx-auto p-5 md:pt-20">
+      <div className="lg:w-4/5 xl:w-2/3 2xl:w-1/2 mx-auto p-5 md:pt-20">
         <FetchErrorViewer error={dataset.error}/>
         {containerViewer}
         {fileViewer || datasetViewer}

@@ -46,7 +46,7 @@ export const Layout: FC<Props> = (props) => {
     <>
       <div className="flex flex-col min-h-screen">
         <header className="bg-coolGray-50">
-          <div className="container mx-auto flex flex-col-reverse items-start sm:flex-row md:items-center space-y-5 md:space-y-0 px-5 py-8">
+          <div className="container mx-auto flex flex-col-reverse items-start sm:flex-row md:items-center space-y-5 md:space-y-0 px-5 pb-8 sm:pt-5 md:pt-8">
             <h1 className="hidden pr-10 md:mr-0 md:block text-xl md:text-2xl">
               <Link href="/">
                 <a className="focus:underline focus:text-coolGray-700 focus:outline-none font-bold py-3 px-5 border-t-8 border-b-8 border-coolGray-50 hover:bg-white hover:border-red-500 hover:text-red-500">Penny</a>
@@ -67,7 +67,7 @@ export const Layout: FC<Props> = (props) => {
           className="px-8 py-14"
         >
           <div className="flex items-center space-x-3 justify-center border-coolGray-50 border-t-2 pt-10 text-coolGray-700">
-            <span>By <a href="https://VincentTunru.com" className="border-coolGray-700 border-b-2 hover:text-coolGray-900 hover:border-b-4">Vincent Tunru</a>.</span>
+            <span>By <a href="https://VincentTunru.com" className="border-coolGray-700 border-b-2 hover:text-coolGray-900 hover:border-b-4 focus:outline-none focus:bg-coolGray-700 focus:text-white">Vincent Tunru</a>.</span>
             <a
               href="https://twitter.com/VincentTunru"
               title="Vincent on Twitter"

@@ -11,7 +11,7 @@ export const SessionGate: FC = (props) => {
 
   return (
     <>
-      <div className="shadow p-5">
+      <div className="py-5">
         <ConnectForm/>
       </div>
     </>

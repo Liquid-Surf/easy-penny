@@ -23,7 +23,7 @@ export const ConnectForm: FC = (props) => {
   return (
     <>
       <form onSubmit={onSubmit} className="flex flex-col space-y-5 text-xl lg:text-2xl">
-        <label htmlFor="idp" className="p-x-3 text-lg lg:text-xl">
+        <label htmlFor="idp" className="p-x-3 text-lg lg:text-2xl font-bold">
           Connect your Pod at:
         </label>
         <TextField

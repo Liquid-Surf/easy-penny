@@ -12,9 +12,13 @@ interface Props {
 
 export const LocationBar: FC<Props> = (props) => {
   const url = new URL(props.location);
+  const locationUrl = new URL(props.location);
+  const queryParams = locationUrl.search;
+  locationUrl.search = "";
+  locationUrl.hash = "";
 
-  const trailingSlash = props.location.endsWith("/")
-    ? <span className="mx-1">/</span>
+  const trailingSlash = locationUrl.href.endsWith("/")
+    ? <span className={queryParams.length === 0 ? "mx-1" : ""}>/</span>
     : null;
   const pathParts = url.pathname.split("/");
   const pathElements = pathParts.map((resourceName, i) => {
@@ -22,12 +26,10 @@ export const LocationBar: FC<Props> = (props) => {
     if (pathUrl.length < props.location.length) {
       pathUrl += "/";
     }
-    const locationUrl = new URL(props.location);
-    locationUrl.hash = "";
     const isCurrent = pathUrl === locationUrl.href || pathUrl === locationUrl.href + "/";
     const activeSeparatorClass = isCurrent ? "" : "hidden lg:inline"
     const displayName = isCurrent
-      ? <span className="font-bold">{resourceName}{trailingSlash}</span>
+      ? <span className="font-bold">{resourceName}{trailingSlash}{queryParams}</span>
       : (
         <Link
           key={pathUrl + "_breadcrumb"}
@@ -71,7 +73,7 @@ export const LocationBar: FC<Props> = (props) => {
               className={`${parentNavigatorClass} hover:underline focus:underline focus:text-coolGray-700 focus:outline-none break-words`}
               aria-hidden="true"
             >
-              &hellip;
+              ..
             </a>
           </Link>
           <Link key={url.origin + "_breadcrumb"} href={getExplorePath(url.origin)}>

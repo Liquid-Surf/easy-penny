@@ -1,6 +1,6 @@
 import { login } from "@inrupt/solid-client-authn-browser";
 import { FC, FormEventHandler, useState } from "react";
-import { useSessionInfo } from "../..//hooks/sessionInfo";
+import { useSessionInfo } from "../../hooks/sessionInfo";
 import { SubmitButton, TextField } from "../ui/forms";
 
 export const ConnectForm: FC = (props) => {
@@ -38,6 +38,7 @@ export const ConnectForm: FC = (props) => {
         <datalist id="idps">
           <option value="https://broker.pod.inrupt.com"/>
           <option value="https://solidcommunity.net"/>
+          <option value="https://solidweb.org"/>
           <option value="https://inrupt.net"/>
         </datalist>
         <SubmitButton value="Connect" className="p-3"/>

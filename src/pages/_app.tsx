@@ -1,4 +1,6 @@
-import { handleIncomingRedirect, onLogout } from "@inrupt/solid-client-authn-browser";
+import { handleIncomingRedirect, onLogout, onSessionRestore } from "@inrupt/solid-client-authn-browser";
+import { AppProps } from "next/app";
+import { useRouter } from "next/router";
 import { FC, useEffect, useState } from "react";
 import Modal from "react-modal";
 import { ToastContainer, cssTransition, Slide } from "react-toastify";
@@ -7,7 +9,6 @@ import { MdClose } from "react-icons/md";
 import { SessionContext, SessionInfo } from "../contexts/session";
 import "../../styles/globals.css";
 import 'react-toastify/dist/ReactToastify.css';
-import { AppProps } from "next/app";
 
 if (typeof document === "object") {
   const appElement = document.querySelector("#appWrapper > *:first-child") as HTMLElement;
@@ -34,10 +35,11 @@ const Transition = motionMediaQueryList?.matches
 
 export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   const [sessionInfo, setSessionInfo] = useState<SessionInfo | null | undefined>(null);
+  const router = useRouter();
 
   useEffect(() => {
     setSessionInfo(undefined);
-    handleIncomingRedirect(window.location.href).then((info) => {
+    handleIncomingRedirect({ restorePreviousSession: false }).then((info) => {
       if (info && info.isLoggedIn) {
         setSessionInfo(info as SessionInfo);
       } else {
@@ -45,6 +47,9 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
       }
     });
     onLogout(() => setSessionInfo(null));
+    onSessionRestore((currentUrl) => {
+      router.replace(currentUrl);
+    })
   }, []);
 
   return (

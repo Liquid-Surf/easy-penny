@@ -1,5 +1,6 @@
 import { login } from "@inrupt/solid-client-authn-browser";
-import { FC, FormEventHandler, useState } from "react";
+import { FC, FormEventHandler, MouseEventHandler, useState } from "react";
+import { toast } from "react-toastify";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { SubmitButton, TextField } from "../ui/forms";
 
@@ -12,12 +13,42 @@ export const ConnectForm: FC = (props) => {
     return <span className="animate-spin">Loading...</span>;
   }
 
-  const onSubmit: FormEventHandler = (e) => {
+  const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
 
     setLoading(true);
 
-    login({ oidcIssuer: idp, clientName: "Penny" });
+    try {
+      await login({ oidcIssuer: idp, clientName: "Penny" });
+    } catch (e) {
+      let toastMesagge =
+        <>Could not find a Solid Pod at <samp className="font-mono">{idp}</samp>. Please check the name and try again.</>;
+      if (["https://pod.inrupt.com", "https://inrupt.com"].includes(idp)) {
+        const suggestedServer = "https://broker.pod.inrupt.com";
+        const connectToInrupt: MouseEventHandler = (event) => {
+          event.preventDefault();
+          setIdp(suggestedServer);
+          login({ oidcIssuer: suggestedServer, clientName: "Penny" });
+        };
+        toastMesagge =
+          <>Could not find to a Solid Pod. <button className="text-left" onClick={connectToInrupt}>Did you mean <samp className="font-mono">{suggestedServer}</samp>?</button></>;
+      }
+      if (idp === "https://solid.community") {
+        const suggestedServer = "https://solidcommunity.net";
+        const connectToInrupt: MouseEventHandler = (event) => {
+          event.preventDefault();
+          setIdp(suggestedServer);
+          login({ oidcIssuer: suggestedServer, clientName: "Penny" });
+        };
+        toastMesagge =
+          <>Could not find to a Solid Pod. <button className="text-left" onClick={connectToInrupt}>Did you mean <samp className="font-mono">{suggestedServer}</samp>?</button></>;
+      }
+      toast(
+        toastMesagge,
+        { type: "warning" }
+      );
+      setLoading(false);
+    }
   };
 
   return (

@@ -31,7 +31,7 @@ export const ConnectForm: FC = (props) => {
           login({ oidcIssuer: suggestedServer, clientName: "Penny" });
         };
         toastMesagge =
-          <>Could not find to a Solid Pod. <button className="text-left" onClick={connectToInrupt}>Did you mean <samp className="font-mono">{suggestedServer}</samp>?</button></>;
+          <>Could not find a Solid Pod to connect to. <button className="text-left" onClick={connectToInrupt}>Did you mean <samp className="font-mono">{suggestedServer}</samp>?</button></>;
       }
       if (idp === "https://solid.community") {
         const suggestedServer = "https://solidcommunity.net";
@@ -41,7 +41,7 @@ export const ConnectForm: FC = (props) => {
           login({ oidcIssuer: suggestedServer, clientName: "Penny" });
         };
         toastMesagge =
-          <>Could not find to a Solid Pod. <button className="text-left" onClick={connectToInrupt}>Did you mean <samp className="font-mono">{suggestedServer}</samp>?</button></>;
+          <>Could not find a Solid Pod to connect to. <button className="text-left" onClick={connectToInrupt}>Did you mean <samp className="font-mono">{suggestedServer}</samp>?</button></>;
       }
       toast(
         toastMesagge,

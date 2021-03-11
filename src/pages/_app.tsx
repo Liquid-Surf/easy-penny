@@ -39,7 +39,7 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
 
   useEffect(() => {
     setSessionInfo(undefined);
-    handleIncomingRedirect({ restorePreviousSession: false }).then((info) => {
+    handleIncomingRedirect({ restorePreviousSession: false, useEssSession: false }).then((info) => {
       if (info && info.isLoggedIn) {
         setSessionInfo(info as SessionInfo);
       } else {

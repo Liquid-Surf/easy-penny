@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@inrupt/solid-client": "^1.4.0",
-    "@inrupt/solid-client-authn-browser": "^1.6.1",
+    "@inrupt/solid-client-authn-browser": "^1.7.2",
     "@types/react-modal": "^3.10.6",
     "next": "10.0.2",
     "rdf-namespaces": "^1.9.2",

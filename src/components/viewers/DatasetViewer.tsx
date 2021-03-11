@@ -52,7 +52,6 @@ export const DatasetViewer: FC<Props> = (props) => {
       if (e instanceof FetchError && e.statusCode === 403) {
         toast("You are not allowed to delete this resource.", { type: "error" });
       } else {
-        console.log("ERR:", {e});
         toast("Could not delete the resource.", { type: "error" });
       }
     }

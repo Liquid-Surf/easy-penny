@@ -33,8 +33,12 @@ export const ResourceAdder: FC<Props> = (props) => {
     const onSubmit: FormEventHandler = async (event) => {
       event.preventDefault();
 
-      const sanitisedResourceName = encodeURIComponent(newResourceName);
-      const newResourceUrl = getSourceUrl(props.container.data) + sanitisedResourceName;
+      const justResourceName = newResourceName.endsWith("/")
+        ? newResourceName.substring(0, newResourceName.length - 1)
+        : newResourceName;
+      const trailingSlash = newResourceName.endsWith("/") ? "/" : "";
+      const sanitisedResourceName = encodeURIComponent(justResourceName);
+      const newResourceUrl = getSourceUrl(props.container.data) + sanitisedResourceName + trailingSlash;
       const sentResource = newResourceName.endsWith("/")
         ? await createContainerAt(newResourceUrl, { fetch: fetch })
         : await saveSolidDatasetAt(newResourceUrl, createSolidDataset(), { fetch: fetch });

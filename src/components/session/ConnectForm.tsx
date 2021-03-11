@@ -1,11 +1,12 @@
 import { login } from "@inrupt/solid-client-authn-browser";
 import { FC, FormEventHandler, MouseEventHandler, useState } from "react";
 import { toast } from "react-toastify";
+import * as storage from "../../functions/localStorage";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { SubmitButton, TextField } from "../ui/forms";
 
 export const ConnectForm: FC = (props) => {
-  const [idp, setIdp] = useState("https://solidcommunity.net");
+  const [idp, setIdp] = useState(storage.getItem("last-successful-idp") ?? "https://solidcommunity.net");
   const [loading, setLoading] = useState(false);
   const sessionInfo = useSessionInfo();
 
@@ -19,6 +20,7 @@ export const ConnectForm: FC = (props) => {
     setLoading(true);
 
     try {
+      storage.setItem("last-attempted-idp", idp);
       await login({ oidcIssuer: idp, clientName: "Penny" });
     } catch (e) {
       let toastMesagge =

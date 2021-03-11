@@ -9,6 +9,7 @@ import { MdClose } from "react-icons/md";
 import { SessionContext, SessionInfo } from "../contexts/session";
 import "../../styles/globals.css";
 import 'react-toastify/dist/ReactToastify.css';
+import * as storage from "../functions/localStorage";
 
 if (typeof document === "object") {
   const appElement = document.querySelector("#appWrapper > *:first-child") as HTMLElement;
@@ -41,6 +42,10 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
     setSessionInfo(undefined);
     handleIncomingRedirect({ restorePreviousSession: false, useEssSession: false }).then((info) => {
       if (info && info.isLoggedIn) {
+        const lastAttemptedIdp = storage.getItem("last-attempted-idp");
+        if (typeof lastAttemptedIdp === "string") {
+          storage.setItem("last-successful-idp", lastAttemptedIdp);
+        }
         setSessionInfo(info as SessionInfo);
       } else {
         setSessionInfo(null);

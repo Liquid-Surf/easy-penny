@@ -1,4 +1,4 @@
-import { asUrl, deleteSolidDataset, FetchError, getContainedResourceUrlAll, getSourceUrl, getThingAll, isContainer, setThing, Thing, ThingPersisted, WithResourceInfo } from "@inrupt/solid-client";
+import { asUrl, FetchError, getContainedResourceUrlAll, getSourceUrl, getThingAll, isContainer, setThing, Thing, ThingPersisted, WithResourceInfo } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { FC, MouseEventHandler, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ import { LoggedIn } from "../session/LoggedIn";
 import { ConfirmOperation } from "../ConfirmOperation";
 import { SectionHeading } from "../ui/headings";
 import { VscTrash } from "react-icons/vsc";
+import { deleteRecursively } from "../../functions/recursiveDelete";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -44,7 +45,7 @@ export const DatasetViewer: FC<Props> = (props) => {
 
   const onConfirmDelete = async () => {
     try {
-      await deleteSolidDataset(props.dataset.data, { fetch: fetch });
+      await deleteRecursively(props.dataset.data, { fetch: fetch });
       toast("Resource deleted.", { type: "info" });
       props.dataset.revalidate();
     } catch(e) {
@@ -62,6 +63,9 @@ export const DatasetViewer: FC<Props> = (props) => {
     ? resourceUrl.substring(0, resourceUrl.lastIndexOf("/")).lastIndexOf("/")
     : resourceUrl.lastIndexOf("/");
   const resourceName = resourceUrl.substring(resourcePartStart + 1);
+  const warning = getContainedResourceUrlAll(props.dataset.data).length > 0
+    ? <>Are you sure you want to attempt to delete this Container Resource and its children? This can not be undone.</>
+    : <>Are you sure you want to delete this Resource? This can not be undone.</>;
   const deletionModal = isRequestingDeletion
     ? (
       <ConfirmOperation
@@ -70,7 +74,7 @@ export const DatasetViewer: FC<Props> = (props) => {
         onCancel={() => setIsRequestingDeletion(false)}
       >
         <h2 className="text-2xl pb-2">Are you sure?</h2>
-        Are you sure you want to delete this Resource? This can not be undone.
+        <div className="py-2">{warning}</div>
       </ConfirmOperation>
     )
     : null;
@@ -81,10 +85,12 @@ export const DatasetViewer: FC<Props> = (props) => {
     setIsRequestingDeletion(true);
   };
 
-
-  const deleteButton = getContainedResourceUrlAll(props.dataset.data).length === 0
-    ? (
-      <>
+  const dangerZone = <>
+    <LoggedIn>
+      <div className="pb-10">
+        <SectionHeading>
+          Danger Zone
+        </SectionHeading>
         {deletionModal}
         <button
           className="w-full md:w-1/2 p-5 rounded border-4 border-red-700 text-red-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-red-700 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:outline-none focus:ring-opacity-50"
@@ -93,22 +99,9 @@ export const DatasetViewer: FC<Props> = (props) => {
           <VscTrash aria-hidden="true"/>
           <span>Delete resource</span>
         </button>
-      </>
-    )
-    : null;
-
-  const dangerZone = (!!deleteButton)
-    ? (
-      <LoggedIn>
-        <div className="pb-10">
-          <SectionHeading>
-            Danger Zone
-          </SectionHeading>
-          {deleteButton}
-        </div>
-      </LoggedIn>
-    )
-    : null;
+      </div>
+    </LoggedIn>
+    </>;
 
   if (things.length === 0) {
     return (

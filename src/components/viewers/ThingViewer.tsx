@@ -7,6 +7,7 @@ import { LoggedIn } from "../session/LoggedIn";
 import { toast } from "react-toastify";
 import { PredicateAdder } from "../adders/PredicateAdder";
 import { MdContentCopy, MdExpandLess, MdExpandMore } from "react-icons/md";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -26,6 +27,7 @@ export const ThingViewer: FC<Props> = (props) => {
   const predicates = Array.from(new Set(Array.from(rdfJsDataset).map(quad => quad.predicate.value))).sort();
   const viewers = predicates.map(predicate => (<PredicateViewer key={predicate + "_predicate"} {...props} predicate={predicate} onUpdate={props.onUpdate}/>));
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const deleteThing = async () => {
     const updatedDataset = removeThing(props.dataset.data, props.thing);
@@ -119,22 +121,36 @@ export const ThingViewer: FC<Props> = (props) => {
           {isCollapsed ? <MdExpandMore/> : <MdExpandLess/>}
         </button>
       </h3>
-      <div className={isCollapsed ? "overflow-hidden h-0" : ""}>
-        <div className="px-5 pt-5">
-          {viewers}
-        </div>
-        <LoggedIn>
-          <PredicateAdder {...props}/>
-          <button
-            onClick={(e) => {e.preventDefault(); deleteThing();}}
-            aria-label={`Delete "${asUrl(props.thing)}"`}
-            title={`Delete "${asUrl(props.thing)}"`}
-            className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-red-700 focus:border-red-700 border-4 focus:outline-none"
+      <AnimatePresence initial={false}>
+        {!isCollapsed && (
+          <motion.div
+            key={`children-of-${encodeURIComponent(asUrl(props.thing))}`}
+            initial="open"
+            animate="open"
+            exit="collapsed"
+            variants={{
+              open: { opacity: 1, height: "auto" },
+              collapsed: { opacity: 0, height: 0 }
+            }}
+            transition={shouldReduceMotion ? { duration: 0 } : undefined}
           >
-            <VscTrash/>
-          </button>
-        </LoggedIn>
-      </div>
+            <div className="px-5 pt-5">
+              {viewers}
+            </div>
+            <LoggedIn>
+              <PredicateAdder {...props}/>
+              <button
+                onClick={(e) => {e.preventDefault(); deleteThing();}}
+                aria-label={`Delete "${asUrl(props.thing)}"`}
+                title={`Delete "${asUrl(props.thing)}"`}
+                className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-red-700 focus:border-red-700 border-4 focus:outline-none"
+              >
+                <VscTrash/>
+              </button>
+            </LoggedIn>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

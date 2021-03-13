@@ -19,6 +19,7 @@ export const DatasetViewer: FC<Props> = (props) => {
   const [thingToRestore, setThingToRestore] = useState<ThingPersisted>();
   const things = getThingAll(props.dataset.data).sort(getThingSorter(props.dataset.data));
   const [isRequestingDeletion, setIsRequestingDeletion] = useState(false);
+  const [currentlyDeleting, setCurrentlyDeleting] = useState<string>();
 
   useEffect(() => {
     if (!thingToRestore) {
@@ -45,7 +46,12 @@ export const DatasetViewer: FC<Props> = (props) => {
 
   const onConfirmDelete = async () => {
     try {
-      await deleteRecursively(props.dataset.data, { fetch: fetch });
+      await deleteRecursively(
+        props.dataset.data,
+        { fetch: fetch },
+        { onPrepareDelete: (urlToDelete => setCurrentlyDeleting(urlToDelete)) },
+      );
+      setCurrentlyDeleting(undefined);
       toast("Resource deleted.", { type: "info" });
       props.dataset.revalidate();
     } catch(e) {
@@ -65,6 +71,12 @@ export const DatasetViewer: FC<Props> = (props) => {
   const warning = getContainedResourceUrlAll(props.dataset.data).length > 0
     ? <>Are you sure you want to attempt to delete this Container Resource and its children? This can not be undone.</>
     : <>Are you sure you want to delete this Resource? This can not be undone.</>;
+  const inProgress = typeof currentlyDeleting === "string"
+    ? <div
+        className="bg-yellow-100 border-yellow-200 border-2 rounded p-2"
+        aria-live="polite"
+      >Deleting <samp>{currentlyDeleting}</samp>&hellip;</div>
+    : null;
   const deletionModal = isRequestingDeletion
     ? (
       <ConfirmOperation
@@ -74,6 +86,7 @@ export const DatasetViewer: FC<Props> = (props) => {
       >
         <h2 className="text-2xl pb-2">Are you sure?</h2>
         <div className="py-2">{warning}</div>
+        {inProgress}
       </ConfirmOperation>
     )
     : null;

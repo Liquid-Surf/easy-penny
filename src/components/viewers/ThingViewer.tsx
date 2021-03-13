@@ -14,7 +14,7 @@ interface Props {
   thing: ThingPersisted;
   onUpdate: (previousThing: ThingPersisted) => void;
   collapsed: boolean;
-  onCollapse: (collapse: boolean, all: boolean) => void;
+  onCollapse?: (collapse: boolean, all: boolean) => void;
 }
 
 // Stand-in for what will hopefully be a solid-client function
@@ -109,7 +109,9 @@ export const ThingViewer: FC<Props> = (props) => {
   const collapseHandler: MouseEventHandler = (event) => {
     event.preventDefault();
 
-    props.onCollapse(!props.collapsed, event.altKey);
+    if (props.onCollapse) {
+      props.onCollapse(!props.collapsed, event.altKey);
+    }
   };
 
   return (
@@ -119,14 +121,14 @@ export const ThingViewer: FC<Props> = (props) => {
     >
       <h3 className="flex items-center text-lg md:text-xl lg:text-2xl rounded-t-xl bg-coolGray-700 text-white p-5 font-bold break-words">
         <span className="flex flex-grow items-center">{title}</span>
-        <button
+        {typeof props.onCollapse === "function" && <button
           aria-hidden="true"
           className="flex items-center  text-coolGray-400 p-2 rounded focus:ring-2 focus:ring-white focus:outline-none hover:bg-white hover:text-coolGray-700"
           onClick={collapseHandler}
           title={props.collapsed ? "Expand this Thing" : "Collapse this Thing"}
         >
           {props.collapsed ? <MdExpandMore/> : <MdExpandLess/>}
-        </button>
+        </button>}
       </h3>
       <AnimatePresence initial={false}>
         {!props.collapsed && (

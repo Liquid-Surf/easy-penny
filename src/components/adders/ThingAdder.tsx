@@ -24,6 +24,7 @@ export const ThingAdder: FC<Props> = (props) => {
         dataset={props.dataset}
         thing={createThing({ url: thingUrl })}
         onUpdate={onSetPredicate}
+        collapsed={false}
       />
     );
   }

@@ -17,9 +17,10 @@ interface Props {
 
 export const DatasetViewer: FC<Props> = (props) => {
   const [thingToRestore, setThingToRestore] = useState<ThingPersisted>();
-  const things = getThingAll(props.dataset.data).sort(getThingSorter(props.dataset.data));
+  const things = getThingAll(props.dataset.data).sort(getThingSorter(props.dataset.data)) as ThingPersisted[];
   const [isRequestingDeletion, setIsRequestingDeletion] = useState(false);
   const [currentlyDeleting, setCurrentlyDeleting] = useState<string>();
+  const [collapsedThings, setCollapsedThings] = useState<string[]>([]);
 
   useEffect(() => {
     if (!thingToRestore) {
@@ -131,6 +132,24 @@ export const DatasetViewer: FC<Props> = (props) => {
     );
   }
 
+  const getCollapseHandler = (thing: ThingPersisted) => {
+    return (collapse: boolean, all: boolean) => {
+      if (all) {
+        if (collapse) {
+          setCollapsedThings(things.map(thing => asUrl(thing)));
+        } else {
+          setCollapsedThings([]);
+        }
+      } else {
+        const thingUrl = asUrl(thing);
+        if (collapse) {
+          setCollapsedThings(collapsedThings => collapsedThings.concat(thingUrl));
+        } else {
+          setCollapsedThings(collapsedThings => collapsedThings.filter(collapsedThingUrl => collapsedThingUrl !== thingUrl));
+        }
+      }
+    };
+  };
 
   return (
     <>
@@ -139,8 +158,14 @@ export const DatasetViewer: FC<Props> = (props) => {
       </SectionHeading>
       <div className="space-y-10 pb-10">
         {things.map(thing => (
-          <div key={asUrl(thing as ThingPersisted) + "_thing"}>
-            <ThingViewer dataset={props.dataset} thing={thing as ThingPersisted} onUpdate={onUpdateThing}/>
+          <div key={asUrl(thing) + "_thing"}>
+            <ThingViewer
+              dataset={props.dataset}
+              thing={thing}
+              onUpdate={onUpdateThing}
+              collapsed={collapsedThings.includes(asUrl(thing ))}
+              onCollapse={getCollapseHandler(thing)}
+            />
           </div>
         ))}
         <LoggedIn>

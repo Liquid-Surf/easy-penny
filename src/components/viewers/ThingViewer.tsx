@@ -13,6 +13,8 @@ interface Props {
   dataset: LoadedCachedDataset;
   thing: ThingPersisted;
   onUpdate: (previousThing: ThingPersisted) => void;
+  collapsed: boolean;
+  onCollapse: (collapse: boolean, all: boolean) => void;
 }
 
 // Stand-in for what will hopefully be a solid-client function
@@ -26,7 +28,6 @@ export const ThingViewer: FC<Props> = (props) => {
   const rdfJsDataset = toRdfJsDataset(props.thing);
   const predicates = Array.from(new Set(Array.from(rdfJsDataset).map(quad => quad.predicate.value))).sort();
   const viewers = predicates.map(predicate => (<PredicateViewer key={predicate + "_predicate"} {...props} predicate={predicate} onUpdate={props.onUpdate}/>));
-  const [isCollapsed, setIsCollapsed] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   const deleteThing = async () => {
@@ -105,6 +106,12 @@ export const ThingViewer: FC<Props> = (props) => {
   );
   const title = <><span><span className="text-coolGray-400 font-normal">{noise}</span>{signal} {clipboardLink}</span></>;
 
+  const collapseHandler: MouseEventHandler = (event) => {
+    event.preventDefault();
+
+    props.onCollapse(!props.collapsed, event.altKey);
+  };
+
   return (
     <div
       className="bg-coolGray-50 rounded-xl relative pb-5"
@@ -115,14 +122,14 @@ export const ThingViewer: FC<Props> = (props) => {
         <button
           aria-hidden="true"
           className="flex items-center  text-coolGray-400 p-2 rounded focus:ring-2 focus:ring-white focus:outline-none hover:bg-white hover:text-coolGray-700"
-          onClick={(e) => {e.preventDefault(); setIsCollapsed(isCollapsed => !isCollapsed)}}
-          title={isCollapsed ? "Expand this Thing" : "Collapse this Thing"}
+          onClick={collapseHandler}
+          title={props.collapsed ? "Expand this Thing" : "Collapse this Thing"}
         >
-          {isCollapsed ? <MdExpandMore/> : <MdExpandLess/>}
+          {props.collapsed ? <MdExpandMore/> : <MdExpandLess/>}
         </button>
       </h3>
       <AnimatePresence initial={false}>
-        {!isCollapsed && (
+        {!props.collapsed && (
           <motion.div
             key={`children-of-${encodeURIComponent(asUrl(props.thing))}`}
             initial="open"

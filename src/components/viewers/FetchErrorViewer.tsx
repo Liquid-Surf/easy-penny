@@ -19,7 +19,7 @@ export const FetchErrorViewer: FC<Props> = (props) => {
   if (props.error.statusCode === 401) {
     return (
       <>
-        <div className="bg-red-700 text-white p-5">
+        <div className="bg-red-100 border-red-600 border-2 rounded p-5">
           You do not have permission to view this Resource.
         </div>
         <LoggedOut>
@@ -36,7 +36,7 @@ export const FetchErrorViewer: FC<Props> = (props) => {
   if (props.error.statusCode === 404) {
     return (
       <>
-        <div className="bg-red-700 text-white p-5">
+        <div className="bg-red-100 border-red-600 border-2 rounded p-5">
           This Resource does not exist.
         </div>
       </>

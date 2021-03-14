@@ -1,4 +1,4 @@
-import { asUrl, FetchError, getContainedResourceUrlAll, getSourceUrl, getThingAll, isContainer, setThing, Thing, ThingPersisted, WithResourceInfo } from "@inrupt/solid-client";
+import { asUrl, FetchError, getContainedResourceUrlAll, getSourceUrl, getThingAll, isContainer, setThing, SolidDataset, Thing, ThingPersisted, WithResourceInfo } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { FC, MouseEventHandler, ReactText, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
@@ -191,8 +191,9 @@ export const DatasetViewer: FC<Props> = (props) => {
   );
 };
 
-function getThingSorter(resource: WithResourceInfo) {
+function getThingSorter(resource: SolidDataset & WithResourceInfo) {
   const resourceUrl = getSourceUrl(resource);
+  const containedResourceUrls = getContainedResourceUrlAll(resource);
   return (a: Thing, b: Thing) => {
     const aUrl = asUrl(a, resourceUrl);
     const aUrlObj = new URL(aUrl);
@@ -200,18 +201,29 @@ function getThingSorter(resource: WithResourceInfo) {
     const bUrl = asUrl(b, resourceUrl);
     const bUrlObj = new URL(bUrl);
     bUrlObj.hash = "";
+    // Sort actual Things before Things representing Contained Resources
+    // (because they actually contain non-obvious data):
+    if (!containedResourceUrls.includes(aUrlObj.href) && containedResourceUrls.includes(bUrlObj.href)) {
+      return -1;
+    }
+    if (containedResourceUrls.includes(aUrlObj.href) && !containedResourceUrls.includes(bUrlObj.href)) {
+      return 1;
+    }
+    // Sort the Thing representing the Resource itself before other Things:
     if (aUrlObj.href === resourceUrl && bUrlObj.href !== resourceUrl) {
       return -1;
     }
     if (aUrlObj.href !== resourceUrl && bUrlObj.href === resourceUrl) {
       return 1;
     }
+    // Sort Things representing Resources before Things inside Resources:
     if(aUrl.indexOf("#") === -1 && bUrl.indexOf("#") !== -1) {
       return -1;
     }
     if(aUrl.indexOf("#") !== -1 && bUrl.indexOf("#") === -1) {
       return 1;
     }
+    // Sort Things within the same Resource next to each other:
     return aUrl.localeCompare(bUrl);
   };
 }

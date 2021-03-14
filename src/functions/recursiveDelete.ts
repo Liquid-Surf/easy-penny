@@ -27,7 +27,7 @@ export async function deleteRecursively(
     if (containedDataset === null) {
       return;
     }
-    return await deleteRecursively(containedDataset, options);
+    return await deleteRecursively(containedDataset, options, ownOptions);
   }));
   if (typeof ownOptions.onPrepareDelete === "function") {
     ownOptions.onPrepareDelete(getSourceUrl(dataset));

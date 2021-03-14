@@ -1,6 +1,6 @@
 import { asUrl, FetchError, getContainedResourceUrlAll, getSourceUrl, getThingAll, isContainer, setThing, Thing, ThingPersisted, WithResourceInfo } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
-import { FC, MouseEventHandler, useEffect, useState } from "react";
+import { FC, MouseEventHandler, ReactText, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 import { ThingAdder } from "../adders/ThingAdder";
@@ -19,8 +19,8 @@ export const DatasetViewer: FC<Props> = (props) => {
   const [thingToRestore, setThingToRestore] = useState<ThingPersisted>();
   const things = getThingAll(props.dataset.data).sort(getThingSorter(props.dataset.data)) as ThingPersisted[];
   const [isRequestingDeletion, setIsRequestingDeletion] = useState(false);
-  const [currentlyDeleting, setCurrentlyDeleting] = useState<string>();
-  const [collapsedThings, setCollapsedThings] = useState<string[]>([]);
+  const deletionToast = useRef<ReactText | null>(null);
+  const [collapsedThings, setCollapsedThings] = useState<string[]>(getContainedResourceUrlAll(props.dataset.data));
 
   useEffect(() => {
     if (!thingToRestore) {
@@ -50,16 +50,37 @@ export const DatasetViewer: FC<Props> = (props) => {
       await deleteRecursively(
         props.dataset.data,
         { fetch: fetch },
-        { onPrepareDelete: (urlToDelete => setCurrentlyDeleting(urlToDelete)) },
+        { onPrepareDelete: (urlToDelete => {
+          const deletionMessage = <>Deleting <samp>{urlToDelete}</samp>&hellip;</>;
+          if (!deletionToast.current) {
+            deletionToast.current = toast(deletionMessage);
+          } else {
+            toast.update(deletionToast.current, { render: deletionMessage });
+          }
+        }) },
       );
-      setCurrentlyDeleting(undefined);
-      toast("Resource deleted.", { type: "info" });
+      const deletionMessage = getContainedResourceUrlAll(props.dataset.data).length > 0
+        ? <>Deleted <samp>{getSourceUrl(props.dataset.data)}</samp> and its children.</>
+        : <>Deleted <samp>{getSourceUrl(props.dataset.data)}</samp>.</>
+      if (!deletionToast.current) {
+        toast(deletionMessage, { type: "info" });
+      } else {
+        toast.update(deletionToast.current, { render: deletionMessage, type: "info" });
+        deletionToast.current = null;
+      }
       props.dataset.revalidate();
     } catch(e) {
+      let deletionMessage;
       if (e instanceof FetchError && e.statusCode === 403) {
-        toast("You are not allowed to delete this resource.", { type: "error" });
+        deletionMessage = "You are not allowed to delete this resource.";
       } else {
-        toast("Could not delete the resource.", { type: "error" });
+        deletionMessage = "Could not delete the resource.";
+      }
+      if (!deletionToast.current) {
+        toast(deletionMessage, { type: "error" });
+      } else {
+        toast.update(deletionToast.current, { render: deletionMessage, type: "error" });
+        deletionToast.current = null;
       }
     }
   };
@@ -72,12 +93,6 @@ export const DatasetViewer: FC<Props> = (props) => {
   const warning = getContainedResourceUrlAll(props.dataset.data).length > 0
     ? <>Are you sure you want to attempt to delete this Container Resource and its children? This can not be undone.</>
     : <>Are you sure you want to delete this Resource? This can not be undone.</>;
-  const inProgress = typeof currentlyDeleting === "string"
-    ? <div
-        className="bg-yellow-100 border-yellow-200 border-2 rounded p-2"
-        aria-live="polite"
-      >Deleting <samp>{currentlyDeleting}</samp>&hellip;</div>
-    : null;
   const deletionModal = isRequestingDeletion
     ? (
       <ConfirmOperation
@@ -87,7 +102,6 @@ export const DatasetViewer: FC<Props> = (props) => {
       >
         <h2 className="text-2xl pb-2">Are you sure?</h2>
         <div className="py-2">{warning}</div>
-        {inProgress}
       </ConfirmOperation>
     )
     : null;

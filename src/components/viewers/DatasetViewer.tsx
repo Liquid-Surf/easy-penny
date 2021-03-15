@@ -47,13 +47,17 @@ export const DatasetViewer: FC<Props> = (props) => {
 
   const onConfirmDelete = async () => {
     try {
+      deletionToast.current = toast(
+        <>Preparing deletion of <samp>{getSourceUrl(props.dataset.data)}</samp>&hellip;</>,
+        { type: "info" },
+      );
       await deleteRecursively(
         props.dataset.data,
         { fetch: fetch },
         { onPrepareDelete: (urlToDelete => {
           const deletionMessage = <>Deleting <samp>{urlToDelete}</samp>&hellip;</>;
           if (!deletionToast.current) {
-            deletionToast.current = toast(deletionMessage);
+            deletionToast.current = toast(deletionMessage, { type: "info" });
           } else {
             toast.update(deletionToast.current, { render: deletionMessage });
           }
@@ -62,12 +66,8 @@ export const DatasetViewer: FC<Props> = (props) => {
       const deletionMessage = getContainedResourceUrlAll(props.dataset.data).length > 0
         ? <>Deleted <samp>{getSourceUrl(props.dataset.data)}</samp> and its children.</>
         : <>Deleted <samp>{getSourceUrl(props.dataset.data)}</samp>.</>
-      if (!deletionToast.current) {
-        toast(deletionMessage, { type: "info" });
-      } else {
-        toast.update(deletionToast.current, { render: deletionMessage, type: "info" });
-        deletionToast.current = null;
-      }
+      toast.update(deletionToast.current, { render: deletionMessage });
+      deletionToast.current = null;
       props.dataset.revalidate();
     } catch(e) {
       let deletionMessage;

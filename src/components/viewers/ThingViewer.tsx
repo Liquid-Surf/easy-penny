@@ -15,6 +15,12 @@ interface Props {
   onUpdate: (previousThing: ThingPersisted) => void;
   collapsed: boolean;
   onCollapse?: (collapse: boolean, all: boolean) => void;
+  /**
+   * If this Thing is a Container's listing of one of its children,
+   * we want to hide the deletion button, because the server will recreate it
+   * right after deletion.
+   */
+  isServerManaged?: boolean;
 }
 
 // Stand-in for what will hopefully be a solid-client function
@@ -114,6 +120,19 @@ export const ThingViewer: FC<Props> = (props) => {
     }
   };
 
+  const deletionButton = props.isServerManaged !== true
+    ? (
+      <button
+        onClick={(e) => {e.preventDefault(); deleteThing();}}
+        aria-label={`Delete "${asUrl(props.thing)}"`}
+        title={`Delete "${asUrl(props.thing)}"`}
+        className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-red-700 focus:border-red-700 border-4 focus:outline-none"
+      >
+        <VscTrash/>
+      </button>
+    )
+    : null;
+
   return (
     <div
       className="bg-coolGray-50 rounded-xl relative pb-5"
@@ -148,14 +167,7 @@ export const ThingViewer: FC<Props> = (props) => {
             </div>
             <LoggedIn>
               <PredicateAdder {...props}/>
-              <button
-                onClick={(e) => {e.preventDefault(); deleteThing();}}
-                aria-label={`Delete "${asUrl(props.thing)}"`}
-                title={`Delete "${asUrl(props.thing)}"`}
-                className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-red-700 focus:border-red-700 border-4 focus:outline-none"
-              >
-                <VscTrash/>
-              </button>
+              {deletionButton}
             </LoggedIn>
           </motion.div>
         )}

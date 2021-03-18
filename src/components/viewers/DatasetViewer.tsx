@@ -165,6 +165,16 @@ export const DatasetViewer: FC<Props> = (props) => {
     };
   };
 
+  const isServerManaged = (thing: ThingPersisted): boolean => {
+    const thingUrl = asUrl(thing);
+    const containedResourceUrls = getContainedResourceUrlAll(props.dataset.data);
+    // If the Thing represents a Resource contained within the current Resource,
+    // or the Resource itself and the Resource is a Container, then it was
+    // automatically added by the server:
+    return (getSourceUrl(props.dataset.data) === thingUrl && containedResourceUrls.length > 0) ||
+      containedResourceUrls.includes(thingUrl);
+  };
+
   return (
     <>
       <SectionHeading>
@@ -179,6 +189,7 @@ export const DatasetViewer: FC<Props> = (props) => {
               onUpdate={onUpdateThing}
               collapsed={collapsedThings.includes(asUrl(thing ))}
               onCollapse={getCollapseHandler(thing)}
+              isServerManaged={isServerManaged(thing)}
             />
           </div>
         ))}

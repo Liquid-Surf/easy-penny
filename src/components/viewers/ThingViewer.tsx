@@ -104,7 +104,7 @@ export const ThingViewer: FC<Props> = (props) => {
       <MdContentCopy className="inline-block"/>
     </a>
   );
-  const title = <><span><span className="text-coolGray-400 font-normal">{noise}</span>{signal} {clipboardLink}</span></>;
+  const title = <><span><span className="text-coolGray-400 font-normal">{decodeURIComponent(noise)}</span>{decodeURIComponent(signal)} {clipboardLink}</span></>;
 
   const collapseHandler: MouseEventHandler = (event) => {
     event.preventDefault();

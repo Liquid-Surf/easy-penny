@@ -48,4 +48,10 @@ describe("LocationBar", () => {
       "/explore?url=" + encodeURIComponent("https://some.pod/container/"),
     ]);
   });
+
+  it("renders a readable version of special characters", () => {
+    const { container } = render(<LocationBar location="https://some.pod/resource%20with%20spaces" onEdit={jest.fn()}/>);
+
+    expect(getDisplayedLocation(container)).toBe("some.pod/resource with spaces");
+  });
 });

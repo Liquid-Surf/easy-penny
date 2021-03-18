@@ -16,7 +16,7 @@ export const ContainerViewer: FC<Props> = (props) => {
     const name = resourceUrl.substring(getSourceUrl(props.dataset.data).length);
     return (
       <Link key={resourceUrl + "_containerChild"} href={getExplorePath(resourceUrl)}>
-        <a className="bg-coolGray-700 text-white p-5 rounded hover:bg-coolGray-900 block focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50">{name}</a>
+        <a className="bg-coolGray-700 text-white p-5 rounded hover:bg-coolGray-900 block focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50">{decodeURIComponent(name)}</a>
       </Link>
     );
   });

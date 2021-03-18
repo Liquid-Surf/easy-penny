@@ -29,13 +29,13 @@ export const LocationBar: FC<Props> = (props) => {
     const isCurrent = pathUrl === locationUrl.href || pathUrl === locationUrl.href + "/";
     const activeSeparatorClass = isCurrent ? "" : "hidden lg:inline"
     const displayName = isCurrent
-      ? <span className="font-bold">{resourceName}{trailingSlash}{queryParams}</span>
+      ? <span className="font-bold">{decodeURIComponent(resourceName)}{trailingSlash}{queryParams}</span>
       : (
         <Link
           key={pathUrl + "_breadcrumb"}
           href={getExplorePath(pathUrl)}
         >
-          <a key={pathUrl + "_breadcrumbLink"} className="hidden lg:inline focus:underline focus:text-coolGray-700 focus:outline-none break-words">{resourceName}</a>
+          <a key={pathUrl + "_breadcrumbLink"} className="hidden lg:inline focus:underline focus:text-coolGray-700 focus:outline-none break-words">{decodeURIComponent(resourceName)}</a>
         </Link>
       );
     return (

@@ -128,7 +128,7 @@ export const FileViewer: FC<Props> = (props) => {
   const deletionModal = isRequestingDeletion
     ? (
       <ConfirmOperation
-        confirmString={fileName}
+        confirmString={decodeURIComponent(fileName)}
         onConfirm={onConfirmDelete}
         onCancel={() => setIsRequestingDeletion(false)}
       >

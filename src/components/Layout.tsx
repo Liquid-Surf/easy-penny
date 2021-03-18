@@ -101,11 +101,11 @@ interface UrlBarProps {
 }
 const UrlBar: FC<UrlBarProps> = (props) => {
   const router = useRouter();
-  const [url, setUrl] = useState(props.path ?? "");
+  const [url, setUrl] = useState(props.path ? decodeURIComponent(props.path) : "");
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    const targetPath = getExplorePath(url);
+    const targetPath = getExplorePath(encodeURI(url));
     router.push(targetPath);
   };
 

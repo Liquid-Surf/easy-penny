@@ -64,8 +64,8 @@ export const DatasetViewer: FC<Props> = (props) => {
         }) },
       );
       const deletionMessage = getContainedResourceUrlAll(props.dataset.data).length > 0
-        ? <>Deleted <samp>{getSourceUrl(props.dataset.data)}</samp> and its children.</>
-        : <>Deleted <samp>{getSourceUrl(props.dataset.data)}</samp>.</>
+        ? <>Deleted <samp>{decodeURIComponent(getSourceUrl(props.dataset.data))}</samp> and its children.</>
+        : <>Deleted <samp>{decodeURIComponent(getSourceUrl(props.dataset.data))}</samp>.</>
       toast.update(deletionToast.current, { render: deletionMessage });
       deletionToast.current = null;
       props.dataset.revalidate();
@@ -96,7 +96,7 @@ export const DatasetViewer: FC<Props> = (props) => {
   const deletionModal = isRequestingDeletion
     ? (
       <ConfirmOperation
-        confirmString={resourceName}
+        confirmString={decodeURIComponent(resourceName)}
         onConfirm={onConfirmDelete}
         onCancel={() => setIsRequestingDeletion(false)}
       >

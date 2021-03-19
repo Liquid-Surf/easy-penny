@@ -5,6 +5,7 @@ import { LoadedCachedDataset } from "../../hooks/dataset";
 import { PredicateForm } from "../data/PredicateForm";
 import { ObjectAdder } from "./ObjectAdder";
 import { PredicateUrl } from "../viewers/PredicateUrl";
+import { Localized } from "@fluent/react";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -49,7 +50,7 @@ export const PredicateAdder: FC<Props> = (props) => {
           className="border-2 border-coolGray-200 border-dashed text-coolGray-500 hover:text-coolGray-900 focus:text-coolGray-900 hover:border-coolGray-900 focus:border-coolGray-900 focus:outline-none hover:border-solid focus:border-solid hover:bg-coolGray-100 rounded p-2 flex items-center space-x-2 w-full"
           onClick={e => {e.preventDefault(); setPhase("setPredicate")}}
         >
-          <MdAdd aria-hidden={true}/> New property
+          <MdAdd aria-hidden={true}/> <Localized id="predicate-add-button"><span>New property</span></Localized>
         </button>
       </div>
     </>

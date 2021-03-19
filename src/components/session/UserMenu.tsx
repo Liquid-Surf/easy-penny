@@ -8,17 +8,19 @@ import Link from "next/link";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { logout } from "@inrupt/solid-client-authn-browser";
 import { getAssetLink, getExplorePath } from "../../functions/integrate";
+import { useLocalization } from "@fluent/react";
 
 export const UserMenu: FC = () => {
   const [promptOpen, setPromptOpen] = useState(false);
   const sessionInfo = useSessionInfo();
+  const { l10n } = useLocalization();
 
   if (promptOpen) {
     return (
       <Modal
         isOpen={promptOpen}
         onRequestClose={() => setPromptOpen(false)}
-        contentLabel="Connect your Solid Pod"
+        contentLabel={l10n.getString("connectmodal-label")}
         overlayClassName={{
           base: "transition-opacity duration-150 motion-safe:opacity-0 bg-opacity-90 bg-gray-900 p-5 md:py-20 md:px-40 lg:px-60 xl:px-96 fixed top-0 left-0 right-0 bottom-0 overscroll-contain",
           afterOpen: "motion-safe:opacity-100",
@@ -33,7 +35,7 @@ export const UserMenu: FC = () => {
       >
         <div className="flex flex-row-reverse -mt-4 -mr-4 md:-mt-8 md:-mr-8">
           <button onClick={() => setPromptOpen(false)}>
-            <MdClose aria-label="Close"/>
+            <MdClose aria-label={l10n.getString("connectmodal-close-label")}/>
           </button>
         </div>
         <ConnectForm/>
@@ -43,7 +45,7 @@ export const UserMenu: FC = () => {
 
   const profileLink = sessionInfo
     ? <Link href={getExplorePath(sessionInfo.webId,encodeURIComponent(sessionInfo.webId))}>
-        <a className="sm:hidden lg:flex p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none">Your&nbsp;Profile</a>
+        <a className="sm:hidden lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none">{l10n.getString("profile-button")}</a>
       </Link>
     : null;
 
@@ -51,39 +53,39 @@ export const UserMenu: FC = () => {
     <>
       <LoggedOut>
         <button
-          className="px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
+          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
           onClick={(e) => {e.preventDefault(); setPromptOpen(true);}}
-          title="Sign in with Solid"
+          title={l10n.getString("connect-button-tooltip")}
         >
           <span className="w-8">
             <img
               width={352 / 10}
               height={322 / 10}
-              alt="Sign in with Solid"
+              alt=""
               src={getAssetLink("/solid-emblem.svg")}
             />
           </span>
-          <span aria-hidden="true" className="px-2 sm:hidden md:inline">Sign&nbsp;in</span>
+          <span aria-hidden="true" className="px-2 sm:hidden md:inline">{l10n.getString("connect-button")}</span>
         </button>
       </LoggedOut>
       <LoggedIn>
         <div className="flex space-x-5">
           {profileLink}
           <button
-            className="px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
+            className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
             onClick={(e) => {e.preventDefault(); logout();}}
-            title="Disconnect your Solid account"
+            title={l10n.getString("disconnect-button-tooltip")}
           >
             <span className="w-8">
               <img
                 width={352 / 10}
                 height={322 / 10}
-                alt="Disconnect your Solid account"
+                alt=""
                 src="/solid-emblem.svg"
                 aria-hidden="true"
               />
             </span>
-            <span className="px-2">Disconnect</span>
+            <span className="px-2">{l10n.getString("disconnect-button")}</span>
           </button>
         </div>
       </LoggedIn>

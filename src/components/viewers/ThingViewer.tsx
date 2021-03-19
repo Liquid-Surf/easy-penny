@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { PredicateAdder } from "../adders/PredicateAdder";
 import { MdContentCopy, MdExpandLess, MdExpandMore } from "react-icons/md";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useLocalization } from "@fluent/react";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -35,6 +36,7 @@ export const ThingViewer: FC<Props> = (props) => {
   const predicates = Array.from(new Set(Array.from(rdfJsDataset).map(quad => quad.predicate.value))).sort();
   const viewers = predicates.map(predicate => (<PredicateViewer key={predicate + "_predicate"} {...props} predicate={predicate} onUpdate={props.onUpdate}/>));
   const shouldReduceMotion = useReducedMotion();
+  const { l10n } = useLocalization();
 
   const deleteThing = async () => {
     const updatedDataset = removeThing(props.dataset.data, props.thing);
@@ -43,7 +45,7 @@ export const ThingViewer: FC<Props> = (props) => {
       props.onUpdate(props.thing);
     } catch (e) {
       if (e instanceof FetchError && e.statusCode === 403) {
-        toast("You do not have permission to do that.", { type: "error" });
+        toast(l10n.getString("thing-toast-error-not-allowed"), { type: "error" });
       } else {
         throw e;
       }
@@ -58,7 +60,7 @@ export const ThingViewer: FC<Props> = (props) => {
 
   let noise = "";
   let signal = thingUrl;
-  // The following logic has quite a few branch, so to clarify it,
+  // The following logic has quite a few branches, so to clarify it,
   // in the comments let's assume the following Resource URL:
   //     https://some.pod/container/resource/
   // By default, we just display the full URL of the Thing.
@@ -97,12 +99,12 @@ export const ThingViewer: FC<Props> = (props) => {
   const copyThingUrl: MouseEventHandler = async (event) => {
     event.preventDefault();
     await navigator.clipboard.writeText(asUrl(props.thing));
-    toast("Thing URL copied to clipboard.", { type: "info" });
+    toast(l10n.getString("thing-urlcopy-toast-success"), { type: "info" });
   };
   const clipboardLink = (
     <a
       href={asUrl(props.thing)}
-      title="Copy this Thing's URL"
+      title={l10n.getString("thing-urlcopy-button-tooltip")}
       aria-hidden="true"
       onClick={copyThingUrl}
       className="text-coolGray-400 p-2 rounded hover:text-white focus:text-white focus:ring-2 focus:ring-white focus:outline-none"
@@ -124,8 +126,8 @@ export const ThingViewer: FC<Props> = (props) => {
     ? (
       <button
         onClick={(e) => {e.preventDefault(); deleteThing();}}
-        aria-label={`Delete "${asUrl(props.thing)}"`}
-        title={`Delete "${asUrl(props.thing)}"`}
+        aria-label={l10n.getString("thing-delete-label", { thingUrl: asUrl(props.thing) })}
+        title={l10n.getString("thing-delete-tooltip", { thingUrl: asUrl(props.thing) })}
         className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-red-700 focus:border-red-700 border-4 focus:outline-none"
       >
         <VscTrash/>
@@ -144,9 +146,12 @@ export const ThingViewer: FC<Props> = (props) => {
           aria-hidden="true"
           className="flex items-center  text-coolGray-400 p-2 rounded focus:ring-2 focus:ring-white focus:outline-none hover:bg-white hover:text-coolGray-700"
           onClick={collapseHandler}
-          title={props.collapsed ? "Expand this Thing" : "Collapse this Thing"}
+          title={l10n.getString(props.collapsed ? "thing-expand-tooltip" : "thing-collapse-tooltip")}
         >
-          {props.collapsed ? <MdExpandMore/> : <MdExpandLess/>}
+          {props.collapsed
+            ? <MdExpandMore aria-label={l10n.getString("thing-expand-label")}/>
+            : <MdExpandLess aria-label={l10n.getString("thing-expand-label")}/>
+          }
         </button>}
       </h3>
       <AnimatePresence initial={false}>

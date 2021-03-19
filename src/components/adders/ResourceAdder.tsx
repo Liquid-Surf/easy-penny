@@ -8,6 +8,7 @@ import { LoadedCachedDataset } from "../../hooks/dataset";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { FileAdder } from "./FileAdder";
 import { getExplorePath } from "../../functions/integrate";
+import { Localized, useLocalization } from "@fluent/react";
 
 interface Props {
   container: LoadedCachedDataset;
@@ -17,6 +18,7 @@ export const ResourceAdder: FC<Props> = (props) => {
   const sessionInfo = useSessionInfo();
   const [phase, setPhase] = useState<"initial" | "chooseName">("initial");
   const [newResourceName, setNewResourceName] = useState("");
+  const { l10n } = useLocalization();
 
   if (!sessionInfo) {
     return null;
@@ -45,9 +47,20 @@ export const ResourceAdder: FC<Props> = (props) => {
       setPhase("initial");
       setNewResourceName("");
       await props.container.mutate();
-      toast(<>
-        Resource created. <Link href={getExplorePath(getSourceUrl(sentResource))}><a className="underline hover:no-underline">View</a></Link>.
-      </>, { type: "info" });
+
+      toast(
+        <>
+          <Localized
+            id="resource-add-toast-success"
+          >
+            Resource created.
+          </Localized>
+          <Link href={getExplorePath(getSourceUrl(sentResource))}>
+            <a className="underline hover:no-underline">{l10n.getString("resource-add-toast-success-view-button")}</a>
+          </Link>
+        </>,
+        { type: "info" },
+      );
     };
 
     return (
@@ -57,29 +70,33 @@ export const ResourceAdder: FC<Props> = (props) => {
           className="flex space-x-2 items-center p-3 rounded bg-coolGray-700 text-white"
           onBlur={onCancel}
         >
-          <label
-            htmlFor="resourceName"
-            className="sr-only"
-          >
-            Resource name
-          </label>
-          <input
-            type="text"
-            name="resourceName"
-            id="resourceName"
-            className="text-coolGray-900 flex-grow p-2 rounded focus:outline-none focus:ring-4 focus:ring-blue-500"
-            placeholder="e.g. resource-name or container-name/"
-            required={true}
-            autoFocus={true}
-            value={newResourceName}
-            onChange={(e) => {e.preventDefault(); setNewResourceName(e.target.value);}}
-            title="Resource name (append a `/` to create a Container)"
-          />
+          <Localized id="resource-add-name-label">
+            <label
+              htmlFor="resourceName"
+              className="sr-only"
+            >
+              Resource name
+            </label>
+          </Localized>
+          <Localized id="resource-add-name-input" attrs={{ placeholder: true, title: true }}>
+            <input
+              type="text"
+              name="resourceName"
+              id="resourceName"
+              className="text-coolGray-900 flex-grow p-2 rounded focus:outline-none focus:ring-4 focus:ring-blue-500"
+              placeholder="e.g. resource-name or container-name/"
+              required={true}
+              autoFocus={true}
+              value={newResourceName}
+              onChange={(e) => {e.preventDefault(); setNewResourceName(e.target.value);}}
+              title="Resource name (append a `/` to create a Container)"
+            />
+          </Localized>
           <button
             type="submit"
             className="p-3 border-2 border-coolGray-700 hover:border-white hover:bg-white hover:text-coolGray-900 focus:border-white focus:outline-none rounded"
           >
-            <MdCheck aria-label="Save"/>
+            <MdCheck aria-label={l10n.getString("resource-add-name-submit")}/>
           </button>
         </form>
       </>
@@ -94,7 +111,7 @@ export const ResourceAdder: FC<Props> = (props) => {
           onClick={(e) => {e.preventDefault(); setPhase("chooseName")}}
         >
           <MdAdd aria-hidden="true" className="text-3xl"/>
-          <span>Add Resource</span>
+          <Localized id="resource-add-button"><span>Add Resource</span></Localized>
         </button>
         <FileAdder container={props.container}/>
       </div>

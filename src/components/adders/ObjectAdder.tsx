@@ -1,5 +1,6 @@
+import { Localized, useLocalization } from "@fluent/react";
 import { addDatetime, addDecimal, addInteger, addStringNoLocale, addStringWithLocale, addUrl, asUrl, getUrlAll, setThing, ThingPersisted, UrlString } from "@inrupt/solid-client";
-import { FC, FormEventHandler, useState } from "react";
+import React, { FC, FormEventHandler, useState } from "react";
 import { MdAdd, MdCheck, MdLink, MdTextFields, MdTranslate } from "react-icons/md";
 import { VscCalendar, VscLink } from "react-icons/vsc";
 import { LoadedCachedDataset } from "../../hooks/dataset";
@@ -24,6 +25,7 @@ export const ObjectAdder: FC<Props> = (props) => {
   const [newDecimal, setNewDecimal] = useState("0.0");
   const [newDate, setNewDate] = useState("");
   const [newTime, setNewTime] = useState("");
+  const { l10n } = useLocalization();
 
   let form: JSX.Element | null = null;
   if (objectType === "url") {
@@ -40,19 +42,21 @@ export const ObjectAdder: FC<Props> = (props) => {
         onSubmit={onSubmit}
         className="p-2 flex space-x-2 pb-5 items-center"
       >
-        <label className="text-coolGray-500 p-2 w-10" htmlFor="newUrl"><VscLink aria-label="URL"/></label>
-        <input
-          type="url"
-          className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
-          placeholder="https://…"
-          name="newUrl"
-          id="newUrl"
-          required={true}
-          value={newUrl}
-          onChange={e => {e.preventDefault(); setNewUrl(e.target.value);}}
-          autoFocus={true}
-        />
-        <button type="submit" aria-label="Add" className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
+        <label className="text-coolGray-500 p-2 w-10" htmlFor="newUrl"><VscLink aria-label={l10n.getString("object-add-url-label")}/></label>
+        <Localized id="object-add-url-input" attrs={{placeholder: true, title: true}}>
+          <input
+            type="url"
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            placeholder="https://…"
+            name="newUrl"
+            id="newUrl"
+            required={true}
+            value={newUrl}
+            onChange={e => {e.preventDefault(); setNewUrl(e.target.value);}}
+            autoFocus={true}
+          />
+        </Localized>
+        <button type="submit" aria-label={l10n.getString("object-add-url-submit")} className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
   }
@@ -71,26 +75,28 @@ export const ObjectAdder: FC<Props> = (props) => {
         onSubmit={onSubmit}
         className="p-2 flex space-x-2 pb-5 items-center"
       >
-        <label className="text-coolGray-500 p-2 w-10" htmlFor="newStringNoLocale"><MdTextFields aria-label="String"/></label>
-        <input
-          type="text"
-          className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
-          name="newStringNoLocale"
-          id="newStringNoLocale"
-          required={true}
-          value={newString}
-          onChange={e => {e.preventDefault(); setNewString(e.target.value);}}
-          autoFocus={true}
-        />
+        <label className="text-coolGray-500 p-2 w-10" htmlFor="newStringNoLocale"><MdTextFields aria-label={l10n.getString("object-add-string-label")}/></label>
+        <Localized id="object-add-string-input" attrs={{placeholder: true, title: true}}>
+          <input
+            type="text"
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            name="newStringNoLocale"
+            id="newStringNoLocale"
+            required={true}
+            value={newString}
+            onChange={e => {e.preventDefault(); setNewString(e.target.value);}}
+            autoFocus={true}
+          />
+        </Localized>
         <button
           onClick={() => setObjectType("stringWithLocale")}
           className="flex space-x-2 items-center p-2 border-coolGray-200 text-coolGray-500 hover:text-coolGray-900 focus:text-coolGray-900 hover:border-coolGray-900 focus:border-coolGray-900 focus:outline-none hover:bg-coolGray-100 border-dashed hover:border-solid focus:border-solid border-2 rounded"
           type="button"
         >
           <MdTranslate aria-hidden="true"/>
-          <span>Set locale</span>
+          <Localized id="object-set-locale-label"><span>Set locale</span></Localized>
         </button>
-        <button type="submit" aria-label="Add" className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
+        <button type="submit" aria-label={l10n.getString("object-add-string-submit")} className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
   }
@@ -109,28 +115,32 @@ export const ObjectAdder: FC<Props> = (props) => {
         onSubmit={onSubmit}
         className="p-2 flex space-x-2 pb-5 items-center"
       >
-        <label className="text-coolGray-500 p-2 w-10" htmlFor="newStringWithLocale"><MdTextFields aria-label="String"/></label>
-        <input
-          type="text"
-          className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
-          name="newStringWithLocale"
-          id="newStringWithLocale"
-          required={true}
-          value={newString}
-          onChange={e => {e.preventDefault(); setNewString(e.target.value);}}
-        />
-        <label className="text-coolGray-500 p-2 w-10" htmlFor="newLocale"><MdTranslate aria-label="Locale"/></label>
-        <input
-          type="text"
-          className="p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
-          name="newLocale"
-          id="newLocale"
-          required={true}
-          value={newLocale}
-          onChange={e => {e.preventDefault(); setNewLocale(e.target.value);}}
-          autoFocus={true}
-        />
-        <button type="submit" aria-label="Add" className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
+        <label className="text-coolGray-500 p-2 w-10" htmlFor="newStringWithLocale"><MdTextFields aria-label={l10n.getString("object-add-string-label")}/></label>
+        <Localized id="object-add-string-input" attrs={{placeholder: true, title: true}}>
+          <input
+            type="text"
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            name="newStringWithLocale"
+            id="newStringWithLocale"
+            required={true}
+            value={newString}
+            onChange={e => {e.preventDefault(); setNewString(e.target.value);}}
+          />
+        </Localized>
+        <label className="text-coolGray-500 p-2 w-10" htmlFor="newLocale"><MdTranslate aria-label={l10n.getString("object-add-locale-label")}/></label>
+        <Localized id="object-add-locale-input" attrs={{placeholder: true, title: true}}>
+          <input
+            type="text"
+            className="p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            name="newLocale"
+            id="newLocale"
+            required={true}
+            value={newLocale}
+            onChange={e => {e.preventDefault(); setNewLocale(e.target.value);}}
+            autoFocus={true}
+          />
+        </Localized>
+        <button type="submit" aria-label={l10n.getString("object-add-string-submit")} className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
   }
@@ -149,18 +159,20 @@ export const ObjectAdder: FC<Props> = (props) => {
         onSubmit={onSubmit}
         className="p-2 flex space-x-2 pb-5 items-center"
       >
-        <label className="text-coolGray-500 p-2 w-10" htmlFor="newInteger"><span aria-label="Integer">1</span></label>
-        <input
-          type="number"
-          className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
-          name="newInteger"
-          id="newInteger"
-          required={true}
-          value={newInteger}
-          onChange={e => {e.preventDefault(); setNewInteger(e.target.value);}}
-          autoFocus={true}
-        />
-        <button type="submit" aria-label="Add" className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
+        <label className="text-coolGray-500 p-2 w-10" htmlFor="newInteger"><span aria-label={l10n.getString("object-add-integer-label")}>1</span></label>
+        <Localized id="object-add-integer-input" attrs={{placeholder: true, title: true}}>
+          <input
+            type="number"
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            name="newInteger"
+            id="newInteger"
+            required={true}
+            value={newInteger}
+            onChange={e => {e.preventDefault(); setNewInteger(e.target.value);}}
+            autoFocus={true}
+          />
+        </Localized>
+        <button type="submit" aria-label={l10n.getString("object-add-integer-submit")} className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
   }
@@ -179,19 +191,21 @@ export const ObjectAdder: FC<Props> = (props) => {
         onSubmit={onSubmit}
         className="p-2 flex space-x-2 pb-5 items-center"
       >
-        <label className="text-coolGray-500 p-2 w-10" htmlFor="newDecimal"><span aria-label="Decimal">1.0</span></label>
-        <input
-          type="number"
-          step={0.1}
-          className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
-          name="newDecimal"
-          id="newDecimal"
-          required={true}
-          value={newDecimal}
-          onChange={e => {e.preventDefault(); setNewDecimal(e.target.value);}}
-          autoFocus={true}
-        />
-        <button type="submit" aria-label="Add" className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
+        <label className="text-coolGray-500 p-2 w-10" htmlFor="newDecimal"><span aria-label={l10n.getString("object-add-decimal-label")}>1.0</span></label>
+        <Localized id="object-add-decimal-input" attrs={{placeholder: true, title: true}}>
+          <input
+            type="number"
+            step={0.1}
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            name="newDecimal"
+            id="newDecimal"
+            required={true}
+            value={newDecimal}
+            onChange={e => {e.preventDefault(); setNewDecimal(e.target.value);}}
+            autoFocus={true}
+          />
+        </Localized>
+        <button type="submit" aria-label={l10n.getString("object-add-decimal-submit")} className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
   }
@@ -214,28 +228,32 @@ export const ObjectAdder: FC<Props> = (props) => {
         onSubmit={onSubmit}
         className="p-2 flex space-x-2 pb-5 items-center"
       >
-        <label className="text-coolGray-500 p-2 w-10" htmlFor="newDate"><VscCalendar aria-label="Date"/></label>
-        <input
-          type="date"
-          className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
-          name="newDate"
-          id="newDate"
-          required={true}
-          value={newDate}
-          onChange={e => {e.preventDefault(); setNewDate(e.target.value);}}
-          autoFocus={true}
-        />
-        <label className="sr-only" htmlFor="newTime"><VscCalendar aria-label="Time"/></label>
-        <input
-          type="time"
-          className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
-          name="newTime"
-          id="newTime"
-          required={true}
-          value={newTime}
-          onChange={e => {e.preventDefault(); setNewTime(e.target.value);}}
-        />
-        <button type="submit" aria-label="Add" className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
+        <label className="text-coolGray-500 p-2 w-10" htmlFor="newDate"><VscCalendar aria-label={l10n.getString("object-add-date-label")}/></label>
+        <Localized id="object-add-date-input" attrs={{placeholder: true, title: true}}>
+          <input
+            type="date"
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            name="newDate"
+            id="newDate"
+            required={true}
+            value={newDate}
+            onChange={e => {e.preventDefault(); setNewDate(e.target.value);}}
+            autoFocus={true}
+          />
+        </Localized>
+        <label className="sr-only" htmlFor="newTime"><VscCalendar aria-label={l10n.getString("object-add-time-label")}/></label>
+        <Localized id="object-add-time-input" attrs={{placeholder: true, title: true}}>
+          <input
+            type="time"
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            name="newTime"
+            id="newTime"
+            required={true}
+            value={newTime}
+            onChange={e => {e.preventDefault(); setNewTime(e.target.value);}}
+          />
+        </Localized>
+        <button type="submit" aria-label={l10n.getString("object-add-datetime-submit")} className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
   }
@@ -244,12 +262,22 @@ export const ObjectAdder: FC<Props> = (props) => {
     <>
       {form}
       <div className="flex flex-wrap p-2 space-y-2 space-x-2 items-center pb-5">
-        <span className="text-coolGray-500 p-2 w-10"><MdAdd/></span>
-        <AddButton icon={<MdLink/>} onClick={() => setObjectType("url")}>URL</AddButton>
-        <AddButton icon={<MdTextFields/>} onClick={() => setObjectType("stringNoLocale")}>String</AddButton>
-        <AddButton icon={<span aria-hidden="true">1</span>} onClick={() => setObjectType("integer")}>Integer</AddButton>
-        <AddButton icon={<span aria-hidden="true">1.0</span>} onClick={() => setObjectType("decimal")}>Decimal</AddButton>
-        <AddButton icon={<VscCalendar/>} onClick={() => setObjectType("datetime")}>Datetime</AddButton>
+        <span className="text-coolGray-500 p-2 w-10"><MdAdd aria-label={l10n.getString("object-add-label")}/></span>
+        <Localized id="object-add-url">
+          <AddButton icon={<MdLink/>} onClick={() => setObjectType("url")}>URL</AddButton>
+        </Localized>
+        <Localized id="object-add-string">
+          <AddButton icon={<MdTextFields/>} onClick={() => setObjectType("stringNoLocale")}>String</AddButton>
+        </Localized>
+        <Localized id="object-add-integer">
+          <AddButton icon={<span aria-hidden="true">1</span>} onClick={() => setObjectType("integer")}>Integer</AddButton>
+        </Localized>
+        <Localized id="object-add-decimal">
+          <AddButton icon={<span aria-hidden="true">1.0</span>} onClick={() => setObjectType("decimal")}>Decimal</AddButton>
+        </Localized>
+        <Localized id="object-add-datetime">
+          <AddButton icon={<VscCalendar/>} onClick={() => setObjectType("datetime")}>Datetime</AddButton>
+        </Localized>
       </div>
     </>
   );

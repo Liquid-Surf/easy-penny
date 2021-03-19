@@ -10,6 +10,7 @@ import { ConfirmOperation } from "../ConfirmOperation";
 import { SectionHeading } from "../ui/headings";
 import { VscTrash } from "react-icons/vsc";
 import { deleteRecursively } from "../../functions/recursiveDelete";
+import { Localized, useLocalization } from "@fluent/react";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -21,6 +22,7 @@ export const DatasetViewer: FC<Props> = (props) => {
   const [isRequestingDeletion, setIsRequestingDeletion] = useState(false);
   const deletionToast = useRef<ReactText | null>(null);
   const [collapsedThings, setCollapsedThings] = useState<string[]>(getContainedResourceUrlAll(props.dataset.data));
+  const { l10n } = useLocalization();
 
   useEffect(() => {
     if (!thingToRestore) {
@@ -38,9 +40,14 @@ export const DatasetViewer: FC<Props> = (props) => {
     // DatasetViewer, otherwise solid-client will think this is just a local change that it can undo:
     const undo = () => { setThingToRestore(changedThing) };
     toast(
-      <>
-        Saved. <button onClick={e => {e.preventDefault(); undo();}} className="underline hover:no-underline focus:no-underline">Undo.</button>
-      </>,
+      <Localized
+        id="dataset-update-toast-success"
+        elems={{
+          "undo-button": <button onClick={e => {e.preventDefault(); undo();}} className="underline hover:no-underline focus:no-underline"/>
+        }}
+      >
+        <span>Saved.</span>
+      </Localized>,
       { type: "info" },
     );
   };
@@ -48,14 +55,28 @@ export const DatasetViewer: FC<Props> = (props) => {
   const onConfirmDelete = async () => {
     try {
       deletionToast.current = toast(
-        <>Preparing deletion of <samp>{getSourceUrl(props.dataset.data)}</samp>&hellip;</>,
+        <Localized
+          id="dataset-delete-toast-prepare"
+          elems={{"dataset-url": <samp/>}}
+          vars={{"datasetUrl": decodeURIComponent(getSourceUrl(props.dataset.data))}}
+        >
+          <span>Preparing deletion of <samp>{decodeURIComponent(getSourceUrl(props.dataset.data))}</samp>&hellip;</span>
+        </Localized>,
         { type: "info" },
       );
       await deleteRecursively(
         props.dataset.data,
         { fetch: fetch },
         { onPrepareDelete: (urlToDelete => {
-          const deletionMessage = <>Deleting <samp>{urlToDelete}</samp>&hellip;</>;
+          const deletionMessage = (
+            <Localized
+              id="dataset-delete-toast-process"
+              elems={{"dataset-url": <samp/>}}
+              vars={{"datasetUrl": decodeURIComponent(urlToDelete)}}
+            >
+                <span>Deleting <samp>{decodeURIComponent(urlToDelete)}</samp>&hellip;</span>
+            </Localized>
+          );
           if (!deletionToast.current) {
             deletionToast.current = toast(deletionMessage, { type: "info" });
           } else {
@@ -63,18 +84,27 @@ export const DatasetViewer: FC<Props> = (props) => {
           }
         }) },
       );
-      const deletionMessage = getContainedResourceUrlAll(props.dataset.data).length > 0
-        ? <>Deleted <samp>{decodeURIComponent(getSourceUrl(props.dataset.data))}</samp> and its children.</>
-        : <>Deleted <samp>{decodeURIComponent(getSourceUrl(props.dataset.data))}</samp>.</>
+      const deletionMessage = (
+        <Localized
+          id={getContainedResourceUrlAll(props.dataset.data).length > 0
+            ? "dataset-delete-toast-success-container"
+            : "dataset-delete-toast-success-resource"
+          }
+          elems={{"dataset-url": <samp/>}}
+          vars={{"datasetUrl": decodeURIComponent(getSourceUrl(props.dataset.data))}}
+        >
+          <span>Deleted <samp>{decodeURIComponent(getSourceUrl(props.dataset.data))}</samp> and its children.</span>
+        </Localized>
+      );
       toast.update(deletionToast.current, { render: deletionMessage });
       deletionToast.current = null;
       props.dataset.revalidate();
     } catch(e) {
       let deletionMessage;
       if (e instanceof FetchError && e.statusCode === 403) {
-        deletionMessage = "You are not allowed to delete this resource.";
+        deletionMessage = l10n.getString("dataset-delete-toast-error-not-allowed");
       } else {
-        deletionMessage = "Could not delete the resource.";
+        deletionMessage = l10n.getString("dataset-delete-toast-error-other");
       }
       if (!deletionToast.current) {
         toast(deletionMessage, { type: "error" });
@@ -90,9 +120,11 @@ export const DatasetViewer: FC<Props> = (props) => {
     ? resourceUrl.substring(0, resourceUrl.lastIndexOf("/")).lastIndexOf("/")
     : resourceUrl.lastIndexOf("/");
   const resourceName = resourceUrl.substring(resourcePartStart + 1);
-  const warning = getContainedResourceUrlAll(props.dataset.data).length > 0
-    ? <>Are you sure you want to attempt to delete this Container Resource and its children? This can not be undone.</>
-    : <>Are you sure you want to delete this Resource? This can not be undone.</>;
+  const warning = l10n.getString(
+    getContainedResourceUrlAll(props.dataset.data).length > 0
+      ? "dataset-delete-confirm-lead-container"
+      : "dataset-delete-confirm-lead-resource"
+    );
   const deletionModal = isRequestingDeletion
     ? (
       <ConfirmOperation
@@ -100,7 +132,9 @@ export const DatasetViewer: FC<Props> = (props) => {
         onConfirm={onConfirmDelete}
         onCancel={() => setIsRequestingDeletion(false)}
       >
-        <h2 className="text-2xl pb-2">Are you sure?</h2>
+        <Localized id="dataset-delete-confirm-heading">
+          <h2 className="text-2xl pb-2">Are you sure?</h2>
+        </Localized>
         <div className="py-2">{warning}</div>
       </ConfirmOperation>
     )
@@ -115,16 +149,18 @@ export const DatasetViewer: FC<Props> = (props) => {
   const dangerZone = <>
     <LoggedIn>
       <div className="pb-10">
-        <SectionHeading>
-          Danger Zone
-        </SectionHeading>
+        <Localized id="danger-zone-heading">
+          <SectionHeading>
+            Danger Zone
+          </SectionHeading>
+        </Localized>
         {deletionModal}
         <button
           className="w-full md:w-1/2 p-5 rounded border-4 border-red-700 text-red-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-red-700 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:outline-none focus:ring-opacity-50"
           onClick={onDeleteFile}
         >
           <VscTrash aria-hidden="true"/>
-          <span>Delete resource</span>
+          <Localized id="dataset-delete"><span>Delete resource</span></Localized>
         </button>
       </div>
     </LoggedIn>
@@ -134,9 +170,11 @@ export const DatasetViewer: FC<Props> = (props) => {
     return (
       <>
         <div className="space-y-10 pb-10">
-          <div className="rounded bg-yellow-200 p-5">
-            This Resource is empty.
-          </div>
+          <Localized id="dataset-empty-warning">
+            <div className="rounded bg-yellow-200 p-5">
+              This resource is empty.
+            </div>
+          </Localized>
           <LoggedIn>
             <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing}/>
           </LoggedIn>
@@ -177,9 +215,11 @@ export const DatasetViewer: FC<Props> = (props) => {
 
   return (
     <>
-      <SectionHeading>
-        Things
-      </SectionHeading>
+      <Localized id="dataset-things-heading">
+        <SectionHeading>
+          Things
+        </SectionHeading>
+      </Localized>
       <div className="space-y-10 pb-10">
         {things.map(thing => (
           <div key={asUrl(thing) + "_thing"}>

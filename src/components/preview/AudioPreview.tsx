@@ -1,5 +1,6 @@
+import { Localized } from "@fluent/react";
 import { UrlString } from "@inrupt/solid-client";
-import { FC } from "react";
+import React, { FC } from "react";
 import { SectionHeading } from "../ui/headings";
 
 interface Props {
@@ -13,17 +14,27 @@ export const AudioPreview: FC<Props> = (props) => {
   return (
     <>
       <div className="pb-10">
-        <SectionHeading>
-          Audio Preview
-        </SectionHeading>
+        <Localized id="preview-audio-heading">
+          <SectionHeading>
+            Audio Preview
+          </SectionHeading>
+        </Localized>
+        <Localized
+          id="preview-audio-error-playback"
+          vars={{filename: fileName}}
+          elems={{
+            "download-link": <a href={props.objectUrl} download={true}/>
+          }}
+        >
           <audio
             src={props.objectUrl}
             className="w-full"
             controls={true}
           >
-            Unfortunately your browser cannot provide a preview of "{fileName}".
-            You can <a href={props.objectUrl} download={true} title={`Download "${fileName}".`}>download it</a> instead.
+            Unfortunately your browser cannot provide a preview of `{fileName}`.
+            You can download it instead.
           </audio>
+        </Localized>
       </div>
     </>
   );

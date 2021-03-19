@@ -1,11 +1,12 @@
 import { getContainedResourceUrlAll, getSourceUrl, UrlString } from "@inrupt/solid-client";
-import { FC } from "react";
+import React, { FC } from "react";
 import Link from "next/link";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 import { SectionHeading } from "../ui/headings";
 import { ResourceAdder } from "../adders/ResourceAdder";
 import { LoggedOut } from "../session/LoggedOut";
 import { getExplorePath } from "../../functions/integrate";
+import { Localized } from "@fluent/react";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -26,18 +27,22 @@ export const ContainerViewer: FC<Props> = (props) => {
   const emptyWarning = containedResources.length === 0
     ? (
         <LoggedOut>
-          <div className="rounded bg-yellow-200 p-5">
-            This container is empty.
-          </div>
+          <Localized id="container-empty">
+            <div className="rounded bg-yellow-200 p-5">
+              This container is empty.
+            </div>
+          </Localized>
         </LoggedOut>
       )
     : null;
 
   return (
     <>
-      <SectionHeading>
-        Child Resources
-      </SectionHeading>
+      <Localized id="container-children-heading">
+        <SectionHeading>
+          Contained Resources
+        </SectionHeading>
+      </Localized>
       <div className="pb-10">
         <div className="grid sm:grid-cols-2 gap-5 pb-5">
           {containedResources}

@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler, useEffect, useState } from "react";
+import React, { FC, MouseEventHandler, useEffect, useState } from "react";
 import { MdFileDownload } from "react-icons/md";
 import { deleteFile, FetchError, getContentType, getFile, getSourceUrl, UrlString, WithResourceInfo } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
@@ -12,6 +12,7 @@ import { ImagePreview } from "../preview/ImagePreview";
 import { AudioPreview } from "../preview/AudioPreview";
 import { VideoPreview } from "../preview/VideoPreview";
 import { TextPreview } from "../preview/TextPreview";
+import { Localized, useLocalization } from "@fluent/react";
 
 interface Props {
   file: LoadedCachedFileInfo | LoadedCachedDataset;
@@ -27,6 +28,7 @@ export const FileViewer: FC<Props> = (props) => {
   const [isPreparing, setIsPreparing] = useState(false);
   const [isRequestingDeletion, setIsRequestingDeletion] = useState(false);
   const fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+  const { l10n } = useLocalization();
 
   useEffect(() => {
     (async () => {
@@ -37,7 +39,7 @@ export const FileViewer: FC<Props> = (props) => {
         const file = await getFile(urlToPrepareForDownload, { fetch: fetch });
         setDownloadedFile(file);
       } catch(e) {
-        toast("Could not download this file. You might not have sufficient access.", { type: "error" });
+        toast(l10n.getString("file-download-toast-error-other"), { type: "error" });
         setIsPreparing(false);
       }
     })();
@@ -73,12 +75,12 @@ export const FileViewer: FC<Props> = (props) => {
   let button = (
     <>
       <button
-        title={`Download "${fileName}"`}
+        title={l10n.getString("file-download-button-tooltip", { filename: fileName })}
         onClick={downloadFile}
         className={buttonClasses}
       >
         <MdFileDownload className="text-2xl" aria-hidden="true"/>
-        <span>Download</span>
+        <Localized id="file-download-button"><span>Download</span></Localized>
       </button>
     </>
   );
@@ -88,7 +90,7 @@ export const FileViewer: FC<Props> = (props) => {
       <>
         <div className={boxClasses}>
           <VscLoading className="motion-safe:animate-spin" aria-hidden="true"/>
-          <span>Preparing download&hellip;</span>
+          <Localized id="file-download-preparing"><span>Preparing download&hellip;</span></Localized>
         </div>
       </>
     );
@@ -100,12 +102,12 @@ export const FileViewer: FC<Props> = (props) => {
       <>
         <a
           href={blobUrl}
-          title={`Download "${fileName}"`}
+          title={l10n.getString("file-download-button-tooltip", { filename: fileName })}
           className={buttonClasses}
           download={fileName}
         >
           <MdFileDownload className="text-2xl" aria-hidden="true"/>
-          <span>Download</span>
+          <Localized id="file-download-button"><span>Download</span></Localized>
         </a>
       </>
     );
@@ -114,13 +116,13 @@ export const FileViewer: FC<Props> = (props) => {
   const onConfirmDelete = async () => {
     try {
       await deleteFile(fileUrl, { fetch: fetch });
-      toast("File deleted.", { type: "info" });
+      toast(l10n.getString("file-delete-toast-success"), { type: "info" });
       props.file.revalidate();
     } catch(e) {
       if (e instanceof FetchError && e.statusCode === 403) {
-        toast("You are not allowed to delete this file.", { type: "error" });
+        toast(l10n.getString("file-delete-toast-error-not-allowed"), { type: "error" });
       } else {
-        toast("Could not delete the file.", { type: "error" });
+        toast(l10n.getString("file-delete-toast-error-other"), { type: "error" });
       }
     }
   };
@@ -132,8 +134,10 @@ export const FileViewer: FC<Props> = (props) => {
         onConfirm={onConfirmDelete}
         onCancel={() => setIsRequestingDeletion(false)}
       >
-        <h2 className="text-2xl pb-2">Are you sure?</h2>
-        Are you sure you want to delete this file? This can not be undone.
+        <Localized id="file-delete-confirm-heading">
+          <h2 className="text-2xl pb-2">Are you sure?</h2>
+        </Localized>
+        <Localized id="file-delete-confirm-lead">Are you sure you want to delete this file? This can not be undone.</Localized>
       </ConfirmOperation>
     )
     : null;
@@ -167,24 +171,28 @@ export const FileViewer: FC<Props> = (props) => {
   return (
     <>
       <div className="pb-10">
-        <SectionHeading>
-          File
-        </SectionHeading>
+        <Localized id="file-heading">
+          <SectionHeading>
+            File
+          </SectionHeading>
+        </Localized>
         {button}
       </div>
       {preview}
       <LoggedIn>
         <div className="pb-10">
-          <SectionHeading>
-            Danger Zone
-          </SectionHeading>
+          <Localized id="danger-zone-heading">
+            <SectionHeading>
+              Danger Zone
+            </SectionHeading>
+          </Localized>
           {deletionModal}
           <button
             className="w-full md:w-1/2 p-5 rounded border-4 border-red-700 text-red-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-red-700 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:outline-none focus:ring-opacity-50"
             onClick={onDeleteFile}
           >
             <VscTrash aria-hidden="true"/>
-            <span>Delete file</span>
+            <Localized id="file-delete"><span>Delete file</span></Localized>
           </button>
         </div>
       </LoggedIn>

@@ -1,4 +1,4 @@
-import { FC, FormEventHandler, useEffect, useState } from "react";
+import React, { FC, FormEventHandler, useEffect, useState } from "react";
 import Link from "next/link";
 import { UrlString } from "@inrupt/solid-client";
 import { useRouter } from "next/router";
@@ -9,6 +9,7 @@ import { VscTwitter } from "react-icons/vsc";
 import { SiMastodon, SiGitlab } from "react-icons/si";
 import { getExplorePath } from "../functions/integrate";
 import { NotIntegrated } from "./integrated/NotIntegrated";
+import { Localized, useLocalization } from "@fluent/react";
 
 interface Props {
   path?: UrlString;
@@ -17,6 +18,7 @@ interface Props {
 export const Layout: FC<Props> = (props) => {
   const [isEditingPath, setIsEditingPath] = useState(false);
   const router = useRouter();
+  const { l10n } = useLocalization();
 
   const locationBarClass = props.path && props.path.length > 100
     ? "lg:text-md xl:text-lg"
@@ -67,27 +69,35 @@ export const Layout: FC<Props> = (props) => {
           className="px-8 py-14"
         >
           <div className="flex items-center space-x-3 justify-center border-coolGray-50 border-t-2 pt-10 text-coolGray-700">
-            <span>By <a href="https://VincentTunru.com" className="border-coolGray-700 border-b-2 hover:text-coolGray-900 hover:border-b-4 focus:outline-none focus:bg-coolGray-700 focus:text-white">Vincent Tunru</a>.</span>
+            <Localized
+              id="footer-author"
+              elems={{
+                "author-link": 
+                  <a href="https://VincentTunru.com" className="border-coolGray-700 border-b-2 hover:text-coolGray-900 hover:border-b-4 focus:outline-none focus:bg-coolGray-700 focus:text-white"/>
+              }}
+            >
+              <span>By Vincent Tunru.</span>
+            </Localized>
             <a
               href="https://twitter.com/VincentTunru"
-              title="Vincent on Twitter"
+              title={l10n.getString("twitter-tooltip")}
               className="text-coolGray-500 p-2 border-2 border-white rounded hover:text-coolGray-700 hover:border-coolGray-700 focus:outline-none focus:text-coolGray-700 focus:border-coolGray-700"
             >
-              <VscTwitter aria-label="On Twitter"/>
+              <VscTwitter aria-label={l10n.getString("twitter-label")}/>
             </a>
             <a
               href="https://mastodon.social/@Vinnl"
-              title="Vincent on Mastodon"
+              title={l10n.getString("mastodon-tooltip")}
               className="text-coolGray-500 p-2 border-2 border-white rounded hover:text-coolGray-700 hover:border-coolGray-700 focus:outline-none focus:text-coolGray-700 focus:border-coolGray-700"
             >
-              <SiMastodon aria-label="On Mastodon"/>
+              <SiMastodon aria-label={l10n.getString("mastodon-label")}/>
             </a>
             <a
               href="https://gitlab.com/VincentTunru/Penny/"
-              title="Source code on GitLab"
+              title={l10n.getString("gitlab-tooltip")}
               className="text-coolGray-500 p-2 border-2 border-white rounded hover:text-coolGray-700 hover:border-coolGray-700 focus:outline-none focus:text-coolGray-700 focus:border-coolGray-700"
             >
-              <SiGitlab aria-label="Source code"/>
+              <SiGitlab aria-label={l10n.getString("gitlab-label")}/>
             </a>
           </div>
         </footer>
@@ -111,9 +121,22 @@ const UrlBar: FC<UrlBarProps> = (props) => {
 
   return (
     <form onSubmit={onSubmit} className="flex-grow flex items-center py-1 space-x-3 w-full">
-      <label htmlFor="urlInput" className="hidden md:inline">URL:</label>
-      <TextField type="url" name="urlInput" id="urlInput" value={url} placeholder="https://&hellip;" onChange={setUrl} className="w-full p-2"/>
-      <SubmitButton value="Go" className="px-5 py-2"/>
+      <Localized id="urlbar-label">
+        <label htmlFor="urlInput" className="hidden md:inline">URL:</label>
+      </Localized>
+      <TextField
+        type="url"
+        name="urlInput"
+        id="urlInput"
+        value={url}
+        placeholder="https://&hellip;"
+        autoFocus={true}
+        onChange={setUrl}
+        className="w-full p-2"
+      />
+      <Localized id="urlbar-button-label" attrs={{value: true}}>
+        <SubmitButton value="Go" className="px-5 py-2"/>
+      </Localized>
     </form>
   );
 };

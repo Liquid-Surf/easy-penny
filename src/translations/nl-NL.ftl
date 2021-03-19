@@ -16,17 +16,17 @@ urlbar-button-label =
 profile-button = Jouw profiel
 
 connect-button = Verbind Pod
-connect-button-tooltip = Verbind met je Solid Pod
+connect-button-tooltip = Verbind je Solid Pod
 disconnect-button = Log uit
 disconnect-button-tooltip = Verbreek de verbinding met je Solid Pod
 
 ## Connecting to your Pod
-connectmodal-label = Verbind met je Solid Pod
+connectmodal-label = Verbind je Solid Pod
 connectmodal-close-label = Sluiten
 
-connectform-label = Verbind met je Pod op:
+connectform-label = Verbind je Pod op:
 connectform-button =
-  .value = Verbind
+  .value = Verbinden
 
 connecterror-no-pod = 
   Kon geen Solid Pod vinden op <pod-url>{$pod-url}</pod-url>. Controleer de URL en probeer het nog eens.
@@ -48,7 +48,7 @@ intro-text =
   als je de benodigde rechten hebt, de data aanpassen en nieuwe data toevoegen.
   Bekendheid met de concepten in Solid is aan te raden.
 intro-get-started-logged-out =
-  Verbind met je Pod om de data te bekijken,
+  Verbind je Pod om de data te bekijken,
   of vul bovenaan de pagina handmatig een URL in.
   Als je feedback hebt, <contact-link>laat het weten</contact-link>!
 intro-get-started-logged-in = 

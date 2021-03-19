@@ -34,7 +34,7 @@ export function getL10n() {
   // To enable server-side rendering, all tags are converted to plain text nodes.
   // They will be upgraded to regular HTML elements in the browser:
   const parseMarkup: MarkupParser | undefined = typeof document === "undefined"
-    ? (str: string) => [ { nodeName: "#text", textContent: str } as Node ]
+    ? (str: string) => [ { nodeName: "#text", textContent: str.replace(/\<(.*?)\>/g, "") } as Node ]
     : undefined;
   
   // The ReactLocalization instance stores and caches the sequence of generated

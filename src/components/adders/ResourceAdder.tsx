@@ -55,6 +55,7 @@ export const ResourceAdder: FC<Props> = (props) => {
           >
             Resource created.
           </Localized>
+          &nbsp;
           <Link href={getExplorePath(getSourceUrl(sentResource))}>
             <a className="underline hover:no-underline">{l10n.getString("resource-add-toast-success-view-button")}</a>
           </Link>

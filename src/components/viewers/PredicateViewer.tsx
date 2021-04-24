@@ -1,6 +1,6 @@
 import { FetchError, getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getSourceUrl, getStringByLocaleAll, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeLiteral, removeStringNoLocale, removeStringWithLocale, removeUrl, setThing, solidDatasetAsMarkdown, thingAsMarkdown, ThingPersisted, UrlString } from "@inrupt/solid-client";
 import { FC } from "react";
-import { MdLink, MdTextFields } from "react-icons/md";
+import { MdContentCopy, MdLink, MdTextFields } from "react-icons/md";
 import { VscCalendar, VscPrimitiveSquare, VscQuestion, VscSymbolBoolean, VscTrash } from "react-icons/vsc";
 import { toast } from "react-toastify";
 import { LoadedCachedDataset } from "../../hooks/dataset";
@@ -102,6 +102,10 @@ export const PredicateViewer: FC<Props> = (props) => {
     }
   };
 
+  const copyToClipboard = async (value: string) => {
+    await navigator.clipboard.writeText(value);
+    toast(l10n.getString("object-copy-toast-success-url"), { type: "info" });
+  };
   const deleteUrl = (url: UrlString) => updateThing(removeUrl(props.thing, props.predicate, url));
   const deleteStringNoLocale = (string: string) => updateThing(removeStringNoLocale(props.thing, props.predicate, string));
   const deleteStringWithLocale = (string: string, locale: string) => updateThing(removeStringWithLocale(props.thing, props.predicate, string, locale));
@@ -123,6 +127,18 @@ export const PredicateViewer: FC<Props> = (props) => {
               <ObjectViewer
                 type={<MdLink/>}
                 options={[
+                  {
+                    element: (
+                      <Localized
+                        id="object-copy-button-url"
+                        attrs={{ "title": true, "aria-label": true }}
+                        vars={{ value: value }}
+                      >
+                        <MdContentCopy title={`Copy "${value}"`} aria-label={`Copy "${value}"`}/>
+                      </Localized>
+                    ),
+                    callback: () => copyToClipboard(value),
+                  },
                   {
                     element: (
                       <Localized

@@ -125,11 +125,17 @@ predicate-add-url-input =
   .placeholder = bijv. https://…
   .title = URL voor deze property
 predicate-add-url-submit = Opslaan
+predicate-urlcopy-button-tooltip = Kopieer de URL van deze property.
+predicate-urlcopy-toast-success = URL van deze property is gekopieerd naar het klembord.
 
 object-unknown-tooltip = Data van onbekend type {$type}
 object-delete-button-unknown =
   .title = Waarde `{$value}` van onbekend type `{$type}` verwijderen
   .aria-label = Waarde `{$value}` van onbekend type `{$type}` verwijderen
+object-copy-toast-success-url = URL is gekopiëerd naar het klembord.
+object-copy-button-url =
+  .title = `{$value}` kopiëren
+  .aria-label = `{$value}` kopiëren
 object-delete-button-url =
   .title = `{$value}` verwijderen
   .aria-label = `{$value}` verwijderen

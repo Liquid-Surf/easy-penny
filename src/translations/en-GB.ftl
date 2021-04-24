@@ -126,11 +126,17 @@ predicate-add-url-input =
   .placeholder = e.g. https://…
   .title = Property URL
 predicate-add-url-submit = Save
+predicate-urlcopy-button-tooltip = Copy this Predicate URL
+predicate-urlcopy-toast-success = Predicate URL copied to clipboard.
 
 object-unknown-tooltip = Data of unknown type {$type}
 object-delete-button-unknown =
   .title = Delete value `{$value}` of unknown type `{$type}`
   .aria-label = Delete value `{$value}` of unknown type `{$type}`
+object-copy-toast-success-url = URL copied to clipboard.
+object-copy-button-url =
+  .title = Copy `{$value}`
+  .aria-label = Copy `{$value}`
 object-delete-button-url =
   .title = Delete `{$value}`
   .aria-label = Delete `{$value}`

@@ -1,5 +1,5 @@
-import { asUrl, FetchError, getSourceUrl, getThing, getThingAll, isContainer, removeThing, SolidDataset, Thing, ThingPersisted, UrlString, WithResourceInfo } from "@inrupt/solid-client";
-import { FC, MouseEventHandler, useState } from "react";
+import { asUrl, FetchError, getSourceUrl, isContainer, removeThing, Thing, ThingPersisted } from "@inrupt/solid-client";
+import { FC, MouseEventHandler } from "react";
 import { VscTrash } from "react-icons/vsc";
 import { PredicateViewer } from "./PredicateViewer";
 import { LoadedCachedDataset } from "../../hooks/dataset";

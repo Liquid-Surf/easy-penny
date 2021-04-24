@@ -26,7 +26,7 @@ export const ObjectViewer: FC<Props> = (props) => {
 
   const options = props.options
     ? (
-      <ul className="flex-shrink">
+      <ul className="flex-shrink flex">
         {props.options.filter(option => !option.loggedIn || !!sessionInfo).map((option, i) => (
           <li
             key={`objectOption${i}`}

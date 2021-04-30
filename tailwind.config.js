@@ -31,7 +31,11 @@ module.exports = {
       borderWidth: ["hover"],
       borderStyle: ["hover", "focus"],
       borderRadius: ["hover"],
+      translate: ["direction"],
     },
   },
-  plugins: [],
+  plugins: [
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require("tailwindcss-dir")(),
+  ],
 };

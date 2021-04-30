@@ -33,7 +33,7 @@ export const Toggle: FC<Props> = (props) => {
         } cursor-pointer relative inline-flex items-center h-6 rounded-xl w-11`}>
         <span
           className={`${
-            state.isSelected ? "translate-x-6" : "translate-x-1"
+            state.isSelected ? "translate-x-6 rtl:-translate-x-6" : "translate-x-1 rtl:-translate-x-1"
           } inline-block w-4 h-4 transform motion-safe:transition-transform duration-100 bg-white rounded-xl`}
         />
       </div>

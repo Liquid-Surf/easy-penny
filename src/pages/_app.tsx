@@ -5,6 +5,7 @@ import React, { FC, useEffect, useState } from "react";
 import Modal from "react-modal";
 import { ToastContainer, cssTransition, Slide } from "react-toastify";
 import { MdClose } from "react-icons/md";
+import { SSRProvider } from '@react-aria/ssr';
 
 import { SessionContext, SessionInfo } from "../contexts/session";
 import "../../styles/globals.css";
@@ -60,23 +61,25 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   }, []);
 
   return (
-    <SessionContext.Provider value={sessionInfo}>
-      <LocalizationProvider l10n={getL10n()}>
-        <>
-          <Component {...pageProps} />
-          <ToastContainer
-            toastClassName={(props) => contextClass[props?.type ?? "default"] +
-              " rounded justify-between shadow mt-5"
-            }
-            bodyClassName={() => "font-white block p-3 flex-grow leading-5"}
-            position="bottom-left"
-            closeButton={false}
-            autoClose={5000}
-            transition={Transition}
-          />
-        </>
-      </LocalizationProvider>
-    </SessionContext.Provider>
+    <SSRProvider>
+      <SessionContext.Provider value={sessionInfo}>
+        <LocalizationProvider l10n={getL10n()}>
+          <>
+            <Component {...pageProps} />
+            <ToastContainer
+              toastClassName={(props) => contextClass[props?.type ?? "default"] +
+                " rounded justify-between shadow mt-5"
+              }
+              bodyClassName={() => "font-white block p-3 flex-grow leading-5"}
+              position="bottom-left"
+              closeButton={false}
+              autoClose={5000}
+              transition={Transition}
+            />
+          </>
+        </LocalizationProvider>
+      </SessionContext.Provider>
+    </SSRProvider>
   );
 }
 

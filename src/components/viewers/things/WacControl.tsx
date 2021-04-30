@@ -1,5 +1,6 @@
 import { Localized, useLocalization } from "@fluent/react";
 import { addUrl, getSourceUrl, getThingAll, getUrl, getUrlAll, removeAll, removeUrl, setThing, setUrl, SolidDataset, ThingPersisted, UrlString, WebId, WithResourceInfo } from "@inrupt/solid-client";
+import { useIsSSR } from "@react-aria/ssr";
 import Link from "next/link";
 import { acl, foaf, rdf } from "rdf-namespaces";
 import React, { FC, FormEventHandler, useState } from "react";

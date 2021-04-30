@@ -56,7 +56,7 @@ export const ObjectAdder: FC<Props> = (props) => {
             autoFocus={true}
           />
         </Localized>
-        <button type="submit" aria-label={l10n.getString("object-add-url-submit")} className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
+        <button type="submit" aria-label={l10n.getString("object-add-url-submit")} className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
   }
@@ -96,7 +96,7 @@ export const ObjectAdder: FC<Props> = (props) => {
           <MdTranslate aria-hidden="true"/>
           <Localized id="object-set-locale-label"><span>Set locale</span></Localized>
         </button>
-        <button type="submit" aria-label={l10n.getString("object-add-string-submit")} className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
+        <button type="submit" aria-label={l10n.getString("object-add-string-submit")} className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
   }
@@ -140,7 +140,7 @@ export const ObjectAdder: FC<Props> = (props) => {
             autoFocus={true}
           />
         </Localized>
-        <button type="submit" aria-label={l10n.getString("object-add-string-submit")} className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
+        <button type="submit" aria-label={l10n.getString("object-add-string-submit")} className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
   }
@@ -172,7 +172,7 @@ export const ObjectAdder: FC<Props> = (props) => {
             autoFocus={true}
           />
         </Localized>
-        <button type="submit" aria-label={l10n.getString("object-add-integer-submit")} className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
+        <button type="submit" aria-label={l10n.getString("object-add-integer-submit")} className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
   }
@@ -205,7 +205,7 @@ export const ObjectAdder: FC<Props> = (props) => {
             autoFocus={true}
           />
         </Localized>
-        <button type="submit" aria-label={l10n.getString("object-add-decimal-submit")} className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
+        <button type="submit" aria-label={l10n.getString("object-add-decimal-submit")} className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
   }
@@ -253,7 +253,7 @@ export const ObjectAdder: FC<Props> = (props) => {
             onChange={e => {e.preventDefault(); setNewTime(e.target.value);}}
           />
         </Localized>
-        <button type="submit" aria-label={l10n.getString("object-add-datetime-submit")} className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
+        <button type="submit" aria-label={l10n.getString("object-add-datetime-submit")} className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
   }

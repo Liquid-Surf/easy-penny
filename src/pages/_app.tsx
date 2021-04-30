@@ -62,17 +62,19 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <SessionContext.Provider value={sessionInfo}>
       <LocalizationProvider l10n={getL10n()}>
-        <Component {...pageProps} />
-        <ToastContainer
-          toastClassName={(props) => contextClass[props?.type ?? "default"] +
-            " rounded justify-between shadow mt-5"
-          }
-          bodyClassName={() => "font-white block p-3 flex-grow leading-5"}
-          position="bottom-left"
-          closeButton={false}
-          autoClose={5000}
-          transition={Transition}
-        />
+        <>
+          <Component {...pageProps} />
+          <ToastContainer
+            toastClassName={(props) => contextClass[props?.type ?? "default"] +
+              " rounded justify-between shadow mt-5"
+            }
+            bodyClassName={() => "font-white block p-3 flex-grow leading-5"}
+            position="bottom-left"
+            closeButton={false}
+            autoClose={5000}
+            transition={Transition}
+          />
+        </>
       </LocalizationProvider>
     </SessionContext.Provider>
   );

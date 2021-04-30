@@ -12,6 +12,7 @@ interface Props {
    * in the same origin open in Penny as well.
    */
   sourceUrl?: UrlString;
+  openInline?: boolean;
 };
 
 export const Url: FC<Props> = (props) => {
@@ -31,7 +32,7 @@ export const Url: FC<Props> = (props) => {
     ? props.url.substring(matchingOrigin.length - 1)
     : props.url;
 
-  if (matchingOrigin) {
+  if (matchingOrigin || props.openInline) {
     return (
       <Link href={getExplorePath(props.url, encodeURIComponent(props.url))}>
         <a className="focus:underline focus:text-coolGray-700 focus:outline-none break-words">{shortUrl}</a>

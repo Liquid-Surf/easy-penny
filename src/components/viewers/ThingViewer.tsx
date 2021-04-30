@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { PredicateAdder } from "../adders/PredicateAdder";
 import { MdContentCopy, MdExpandLess, MdExpandMore } from "react-icons/md";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+// TODO: Memo:
+import { WacControl } from "./things/WacControl";
 import { useLocalization } from "@fluent/react";
 
 interface Props {
@@ -167,6 +169,7 @@ export const ThingViewer: FC<Props> = (props) => {
             }}
             transition={shouldReduceMotion ? { duration: 0 } : undefined}
           >
+            <WacControl dataset={props.dataset} thing={props.thing} onUpdate={props.onUpdate}/>
             <div className="px-5 pt-5">
               {viewers}
             </div>

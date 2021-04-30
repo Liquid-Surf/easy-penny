@@ -51,6 +51,9 @@ publish_npm:
   script:
     - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
     - export NEW_VERSION="0.$CI_PIPELINE_ID.$CI_JOB_ID"
+    # `out` is in `.gitignore` - by renaming it `standalone`,
+    # the standalone app will be available pre-built on npm as well:
+    - mv out standalone
     - npm version --no-git-tag-version $NEW_VERSION
     - npm publish
     - npm pack

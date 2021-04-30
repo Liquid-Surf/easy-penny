@@ -32,22 +32,6 @@ const fetcher = async (url: UrlString): Promise<FileInfo | SolidDataset & WithRe
         };
       }
     }
-    if (e instanceof Error && e.message.startsWith("Unexpected \"")) {
-      // There appears to be a bug in ESS at the moment that just returns the
-      // Resource's body when the Content-Type does not match text/turtle,
-      // and then n3 will attempt to parse it and throw an error
-      //     Unexpected "<file contents>" on line 1
-      // rather than returning a 406 Not Acceptable.
-      // Thus, we'll temporarily use that as a heuristic for displaying the
-      // File itself:
-      const resourceInfo = await getResourceInfo(url, { fetch: fetch });
-      if(isRawData(resourceInfo)) {
-        return {
-          url: url,
-          contentType: getContentType(resourceInfo),
-        };
-      }
-    }
     throw e;
   }
 };

@@ -1,11 +1,10 @@
-import { Localized, useLocalization } from "@fluent/react";
+import { useLocalization } from "@fluent/react";
 import { addDatetime, addDecimal, addInteger, addStringNoLocale, addStringWithLocale, addUrl, asUrl, getUrlAll, setThing, ThingPersisted, UrlString } from "@inrupt/solid-client";
 import React, { FC, FormEventHandler, useState } from "react";
 import { MdAdd, MdCheck, MdLink, MdTextFields, MdTranslate } from "react-icons/md";
 import { VscCalendar, VscLink } from "react-icons/vsc";
 import { LoadedCachedDataset } from "../../hooks/dataset";
-import { useSessionInfo } from "../../hooks/sessionInfo";
-import { Url } from "../data/Url";
+import { ClientLocalized } from "../ClientLocalized";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -43,7 +42,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         className="p-2 flex space-x-2 pb-5 items-center"
       >
         <label className="text-coolGray-500 p-2 w-10" htmlFor="newUrl"><VscLink aria-label={l10n.getString("object-add-url-label")}/></label>
-        <Localized id="object-add-url-input" attrs={{placeholder: true, title: true}}>
+        <ClientLocalized id="object-add-url-input" attrs={{placeholder: true, title: true}}>
           <input
             type="url"
             className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
@@ -55,7 +54,7 @@ export const ObjectAdder: FC<Props> = (props) => {
             onChange={e => {e.preventDefault(); setNewUrl(e.target.value);}}
             autoFocus={true}
           />
-        </Localized>
+        </ClientLocalized>
         <button type="submit" aria-label={l10n.getString("object-add-url-submit")} className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
@@ -76,7 +75,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         className="p-2 flex space-x-2 pb-5 items-center"
       >
         <label className="text-coolGray-500 p-2 w-10" htmlFor="newStringNoLocale"><MdTextFields aria-label={l10n.getString("object-add-string-label")}/></label>
-        <Localized id="object-add-string-input" attrs={{placeholder: true, title: true}}>
+        <ClientLocalized id="object-add-string-input" attrs={{placeholder: true, title: true}}>
           <input
             type="text"
             className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
@@ -87,14 +86,14 @@ export const ObjectAdder: FC<Props> = (props) => {
             onChange={e => {e.preventDefault(); setNewString(e.target.value);}}
             autoFocus={true}
           />
-        </Localized>
+        </ClientLocalized>
         <button
           onClick={() => setObjectType("stringWithLocale")}
           className="flex space-x-2 items-center p-2 border-coolGray-200 text-coolGray-500 hover:text-coolGray-900 focus:text-coolGray-900 hover:border-coolGray-900 focus:border-coolGray-900 focus:outline-none hover:bg-coolGray-100 border-dashed hover:border-solid focus:border-solid border-2 rounded"
           type="button"
         >
           <MdTranslate aria-hidden="true"/>
-          <Localized id="object-set-locale-label"><span>Set locale</span></Localized>
+          <ClientLocalized id="object-set-locale-label"><span>Set locale</span></ClientLocalized>
         </button>
         <button type="submit" aria-label={l10n.getString("object-add-string-submit")} className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
@@ -116,7 +115,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         className="p-2 flex space-x-2 pb-5 items-center"
       >
         <label className="text-coolGray-500 p-2 w-10" htmlFor="newStringWithLocale"><MdTextFields aria-label={l10n.getString("object-add-string-label")}/></label>
-        <Localized id="object-add-string-input" attrs={{placeholder: true, title: true}}>
+        <ClientLocalized id="object-add-string-input" attrs={{placeholder: true, title: true}}>
           <input
             type="text"
             className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
@@ -126,9 +125,9 @@ export const ObjectAdder: FC<Props> = (props) => {
             value={newString}
             onChange={e => {e.preventDefault(); setNewString(e.target.value);}}
           />
-        </Localized>
+        </ClientLocalized>
         <label className="text-coolGray-500 p-2 w-10" htmlFor="newLocale"><MdTranslate aria-label={l10n.getString("object-add-locale-label")}/></label>
-        <Localized id="object-add-locale-input" attrs={{placeholder: true, title: true}}>
+        <ClientLocalized id="object-add-locale-input" attrs={{placeholder: true, title: true}}>
           <input
             type="text"
             className="p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
@@ -139,7 +138,7 @@ export const ObjectAdder: FC<Props> = (props) => {
             onChange={e => {e.preventDefault(); setNewLocale(e.target.value);}}
             autoFocus={true}
           />
-        </Localized>
+        </ClientLocalized>
         <button type="submit" aria-label={l10n.getString("object-add-string-submit")} className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
@@ -160,7 +159,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         className="p-2 flex space-x-2 pb-5 items-center"
       >
         <label className="text-coolGray-500 p-2 w-10" htmlFor="newInteger"><span aria-label={l10n.getString("object-add-integer-label")}>1</span></label>
-        <Localized id="object-add-integer-input" attrs={{placeholder: true, title: true}}>
+        <ClientLocalized id="object-add-integer-input" attrs={{placeholder: true, title: true}}>
           <input
             type="number"
             className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
@@ -171,7 +170,7 @@ export const ObjectAdder: FC<Props> = (props) => {
             onChange={e => {e.preventDefault(); setNewInteger(e.target.value);}}
             autoFocus={true}
           />
-        </Localized>
+        </ClientLocalized>
         <button type="submit" aria-label={l10n.getString("object-add-integer-submit")} className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
@@ -192,7 +191,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         className="p-2 flex space-x-2 pb-5 items-center"
       >
         <label className="text-coolGray-500 p-2 w-10" htmlFor="newDecimal"><span aria-label={l10n.getString("object-add-decimal-label")}>1.0</span></label>
-        <Localized id="object-add-decimal-input" attrs={{placeholder: true, title: true}}>
+        <ClientLocalized id="object-add-decimal-input" attrs={{placeholder: true, title: true}}>
           <input
             type="number"
             step={0.1}
@@ -204,7 +203,7 @@ export const ObjectAdder: FC<Props> = (props) => {
             onChange={e => {e.preventDefault(); setNewDecimal(e.target.value);}}
             autoFocus={true}
           />
-        </Localized>
+        </ClientLocalized>
         <button type="submit" aria-label={l10n.getString("object-add-decimal-submit")} className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
@@ -229,7 +228,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         className="p-2 flex space-x-2 pb-5 items-center"
       >
         <label className="text-coolGray-500 p-2 w-10" htmlFor="newDate"><VscCalendar aria-label={l10n.getString("object-add-date-label")}/></label>
-        <Localized id="object-add-date-input" attrs={{placeholder: true, title: true}}>
+        <ClientLocalized id="object-add-date-input" attrs={{placeholder: true, title: true}}>
           <input
             type="date"
             className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
@@ -240,9 +239,9 @@ export const ObjectAdder: FC<Props> = (props) => {
             onChange={e => {e.preventDefault(); setNewDate(e.target.value);}}
             autoFocus={true}
           />
-        </Localized>
+        </ClientLocalized>
         <label className="sr-only" htmlFor="newTime"><VscCalendar aria-label={l10n.getString("object-add-time-label")}/></label>
-        <Localized id="object-add-time-input" attrs={{placeholder: true, title: true}}>
+        <ClientLocalized id="object-add-time-input" attrs={{placeholder: true, title: true}}>
           <input
             type="time"
             className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
@@ -252,7 +251,7 @@ export const ObjectAdder: FC<Props> = (props) => {
             value={newTime}
             onChange={e => {e.preventDefault(); setNewTime(e.target.value);}}
           />
-        </Localized>
+        </ClientLocalized>
         <button type="submit" aria-label={l10n.getString("object-add-datetime-submit")} className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
       </form>
     );
@@ -263,21 +262,21 @@ export const ObjectAdder: FC<Props> = (props) => {
       {form}
       <div className="flex flex-wrap p-2 space-y-2 space-x-2 items-center pb-5">
         <span className="text-coolGray-500 p-2 w-10"><MdAdd aria-label={l10n.getString("object-add-label")}/></span>
-        <Localized id="object-add-url">
+        <ClientLocalized id="object-add-url">
           <AddButton icon={<MdLink/>} onClick={() => setObjectType("url")}>URL</AddButton>
-        </Localized>
-        <Localized id="object-add-string">
+        </ClientLocalized>
+        <ClientLocalized id="object-add-string">
           <AddButton icon={<MdTextFields/>} onClick={() => setObjectType("stringNoLocale")}>String</AddButton>
-        </Localized>
-        <Localized id="object-add-integer">
+        </ClientLocalized>
+        <ClientLocalized id="object-add-integer">
           <AddButton icon={<span aria-hidden="true">1</span>} onClick={() => setObjectType("integer")}>Integer</AddButton>
-        </Localized>
-        <Localized id="object-add-decimal">
+        </ClientLocalized>
+        <ClientLocalized id="object-add-decimal">
           <AddButton icon={<span aria-hidden="true">1.0</span>} onClick={() => setObjectType("decimal")}>Decimal</AddButton>
-        </Localized>
-        <Localized id="object-add-datetime">
+        </ClientLocalized>
+        <ClientLocalized id="object-add-datetime">
           <AddButton icon={<VscCalendar/>} onClick={() => setObjectType("datetime")}>Datetime</AddButton>
-        </Localized>
+        </ClientLocalized>
       </div>
     </>
   );

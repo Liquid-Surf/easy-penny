@@ -1,11 +1,11 @@
 import { ThingPersisted } from "@inrupt/solid-client";
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { MdAdd } from "react-icons/md";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 import { PredicateForm } from "../data/PredicateForm";
 import { ObjectAdder } from "./ObjectAdder";
 import { PredicateUrl } from "../viewers/PredicateUrl";
-import { Localized } from "@fluent/react";
+import { ClientLocalized } from "../ClientLocalized";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -50,7 +50,7 @@ export const PredicateAdder: FC<Props> = (props) => {
           className="border-2 border-coolGray-200 border-dashed text-coolGray-500 hover:text-coolGray-900 focus:text-coolGray-900 hover:border-coolGray-900 focus:border-coolGray-900 focus:outline-none hover:border-solid focus:border-solid hover:bg-coolGray-100 rounded p-2 flex items-center space-x-2 w-full"
           onClick={e => {e.preventDefault(); setPhase("setPredicate")}}
         >
-          <MdAdd aria-hidden={true}/> <Localized id="predicate-add-button"><span>New property</span></Localized>
+          <MdAdd aria-hidden={true}/> <ClientLocalized id="predicate-add-button"><span>New property</span></ClientLocalized>
         </button>
       </div>
     </>

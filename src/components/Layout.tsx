@@ -9,7 +9,8 @@ import { VscTwitter } from "react-icons/vsc";
 import { SiMastodon, SiGitlab } from "react-icons/si";
 import { getExplorePath } from "../functions/integrate";
 import { NotIntegrated } from "./integrated/NotIntegrated";
-import { Localized, useLocalization } from "@fluent/react";
+import { useLocalization } from "@fluent/react";
+import { ClientLocalized } from "./ClientLocalized";
 
 interface Props {
   path?: UrlString;
@@ -69,7 +70,7 @@ export const Layout: FC<Props> = (props) => {
           className="px-8 py-14"
         >
           <div className="flex items-center space-x-3 justify-center border-coolGray-50 border-t-2 pt-10 text-coolGray-700">
-            <Localized
+            <ClientLocalized
               id="footer-author"
               elems={{
                 "author-link": 
@@ -77,7 +78,7 @@ export const Layout: FC<Props> = (props) => {
               }}
             >
               <span>By Vincent Tunru.</span>
-            </Localized>
+            </ClientLocalized>
             <a
               href="https://twitter.com/VincentTunru"
               title={l10n.getString("twitter-tooltip")}
@@ -121,9 +122,9 @@ const UrlBar: FC<UrlBarProps> = (props) => {
 
   return (
     <form onSubmit={onSubmit} className="flex-grow flex items-center py-1 space-x-3 w-full">
-      <Localized id="urlbar-label">
+      <ClientLocalized id="urlbar-label">
         <label htmlFor="urlInput" className="hidden md:inline">URL:</label>
-      </Localized>
+      </ClientLocalized>
       <TextField
         type="url"
         name="urlInput"
@@ -134,9 +135,9 @@ const UrlBar: FC<UrlBarProps> = (props) => {
         onChange={setUrl}
         className="w-full p-2"
       />
-      <Localized id="urlbar-button-label" attrs={{value: true}}>
+      <ClientLocalized id="urlbar-button-label" attrs={{value: true}}>
         <SubmitButton value="Go" className="px-5 py-2"/>
-      </Localized>
+      </ClientLocalized>
     </form>
   );
 };

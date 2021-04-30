@@ -1,8 +1,9 @@
-import { Localized, useLocalization } from "@fluent/react";
+import { useLocalization } from "@fluent/react";
 import { UrlString } from "@inrupt/solid-client";
 import React, { FC, FormEventHandler, lazy, Suspense, useState } from "react";
 import { MdCheck } from "react-icons/md";
 import { VscLink } from "react-icons/vsc";
+import { ClientLocalized } from "../ClientLocalized";
 
 const NamespaceDatalist = lazy(() => import("./NamespaceDatalist").then(module => ({ default: module.NamespaceDatalist })));
 
@@ -28,7 +29,7 @@ export const PredicateForm: FC<Props> = (props) => {
         <NamespaceDatalist id="knownPredicates"/>
       </Suspense>
       <label className="text-coolGray-500 p-2 w-10" htmlFor="newPredicate"><VscLink aria-label={l10n.getString("predicate-add-url-label")}/></label>
-      <Localized id="predicate-add-url-input" attrs={{ placeholder: true, title: true }}>
+      <ClientLocalized id="predicate-add-url-input" attrs={{ placeholder: true, title: true }}>
         <input
           type="url"
           className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
@@ -41,7 +42,7 @@ export const PredicateForm: FC<Props> = (props) => {
           onChange={e => {e.preventDefault(); setNewPredicate(e.target.value);}}
           autoFocus={true}
         />
-      </Localized>
+      </ClientLocalized>
       <button type="submit" aria-label={l10n.getString("predicate-add-url-submit")} className="p-3 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"><MdCheck/></button>
     </form>
   );

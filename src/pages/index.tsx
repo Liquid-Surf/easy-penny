@@ -3,12 +3,13 @@ import Head from "next/head";
 import { asUrl, getStringNoLocale, getUrlAll, UrlString } from "@inrupt/solid-client";
 import { foaf, space, vcard } from "rdf-namespaces";
 import Link from "next/link";
-import { Localized, useLocalization } from "@fluent/react";
+import { useLocalization } from "@fluent/react";
 import { Layout } from "../components/Layout";
 import { SessionGate } from "../components/session/SessionGate";
 import { useProfile } from "../hooks/profile";
 import { LoggedOut } from "../components/session/LoggedOut";
 import { LoggedIn } from "../components/session/LoggedIn";
+import { ClientLocalized } from "../components/ClientLocalized";
 
 const Home: React.FC = () => {
   const profile = useProfile();
@@ -28,7 +29,7 @@ const Home: React.FC = () => {
       </Head>
       <div className="md:w-4/5 lg:w-1/2 mx-auto p-5 md:pt-20">
         <SessionGate>
-          <Localized
+          <ClientLocalized
             id="pod-listing-heading"
             vars={{
               "owner-name": name ?? webId
@@ -40,7 +41,7 @@ const Home: React.FC = () => {
             <h3 className="text-lg block py-5">
               Pod(s) of: {webId}
             </h3>
-          </Localized>
+          </ClientLocalized>
           <ul className="space-between-5">
             {storages.map(storageUrl => (
               <li key={storageUrl + "_storage"}>
@@ -55,12 +56,12 @@ const Home: React.FC = () => {
           </ul>
         </SessionGate>
         <section className="pt-28 space-y-5">
-          <Localized id="intro-title">
+          <ClientLocalized id="intro-title">
             <h2 className="text-xl font-bold">
               What is this?
             </h2>
-          </Localized>
-          <Localized
+          </ClientLocalized>
+          <ClientLocalized
             id="intro-text"
             elems={{
               "solid-link":
@@ -76,9 +77,9 @@ const Home: React.FC = () => {
               if you have the appropriate permissions, to modify and add new data.
               It presumes familiarity with the concepts of Solid.
             </p>
-          </Localized>
+          </ClientLocalized>
           <LoggedOut>
-            <Localized
+            <ClientLocalized
               id="intro-get-started-logged-out"
               elems={{
                 "contact-link":
@@ -93,10 +94,10 @@ const Home: React.FC = () => {
                 or manually enter a URL to inspect at the top of the page.
                 And if you have feedback, please get in touch!
               </p>
-            </Localized>
+            </ClientLocalized>
           </LoggedOut>
           <LoggedIn>
-            <Localized
+            <ClientLocalized
               id="intro-get-started-logged-in"
               elems={{
                 "contact-link":
@@ -111,7 +112,7 @@ const Home: React.FC = () => {
                 or manually enter a URL to inspect at the top of the page.
                 And if you have feedback, please get in touch!
               </p>
-            </Localized>
+            </ClientLocalized>
           </LoggedIn>
           <footer>
             —Vincent

@@ -1,6 +1,5 @@
-import { Localized, useLocalization } from "@fluent/react";
+import { useLocalization } from "@fluent/react";
 import { addUrl, getSourceUrl, getThingAll, getUrl, getUrlAll, removeAll, removeUrl, setThing, setUrl, SolidDataset, ThingPersisted, UrlString, WebId, WithResourceInfo } from "@inrupt/solid-client";
-import { useIsSSR } from "@react-aria/ssr";
 import Link from "next/link";
 import { acl, foaf, rdf } from "rdf-namespaces";
 import React, { FC, FormEventHandler, useState } from "react";
@@ -10,6 +9,7 @@ import { toast } from "react-toastify";
 import { getExplorePath } from "../../../functions/integrate";
 import { LoadedCachedDataset } from "../../../hooks/dataset";
 import { Url } from "../../data/Url";
+import { ClientLocalized } from "../../ClientLocalized";
 import { Toggle } from "../../ui/Toggle";
 
 interface Props {
@@ -137,30 +137,30 @@ export const WacControl: FC<Props> = (props) => {
   return (
     <section className="p-5 bg-blue-200">
       <header className="text-xl flex w-100 font-bold">
-        <Localized id="wac-control-title">
+        <ClientLocalized id="wac-control-title">
           <div className="">Access Control for:</div>
-        </Localized>&nbsp;
+        </ClientLocalized>&nbsp;
         <Link href={getExplorePath(targetResourceUrl)}>
           <a className="focus:underline hover:text-coolGray-700">{targetResourceUrl}</a>
         </Link>
       </header>
       <div className="flex flex-row py-5">
-        <Localized id="wac-control-target-label">
+        <ClientLocalized id="wac-control-target-label">
           <div className="w-36 pr-5 py-2">
             Applies to:
           </div>
-        </Localized>
+        </ClientLocalized>
         <div className="flex flex-col items-start justify-center">
           <div className={`flex space-x-1 py-2`}>
             <Toggle
               onChange={enabled => setTarget("self", enabled)}
               toggled={isCurrentTarget("self")}
             >
-              <Localized id="wac-control-target-option-self">
+              <ClientLocalized id="wac-control-target-option-self">
                 <span>
                   The Resource
                 </span>
-              </Localized>
+              </ClientLocalized>
             </Toggle>
           </div>
           <div className={`flex space-x-1 py-2`}>
@@ -168,32 +168,32 @@ export const WacControl: FC<Props> = (props) => {
               onChange={enabled => setTarget("children", enabled)}
               toggled={isCurrentTarget("children")}
             >
-              <Localized id="wac-control-target-option-children">
+              <ClientLocalized id="wac-control-target-option-children">
                 <span>
                   Contained Resources
                 </span>
-              </Localized>
+              </ClientLocalized>
             </Toggle>
           </div>
         </div>
       </div>
       <div className="flex flex-row py-5">
-        <Localized id="wac-control-mode-label">
+        <ClientLocalized id="wac-control-mode-label">
           <div className="w-36 pr-5 py-2">
             Grants:
           </div>
-        </Localized>
+        </ClientLocalized>
         <div className="flex flex-col items-start justify-center lg:flex-wrap">
           <div className={`flex space-x-1 py-2`}>
             <Toggle
               onChange={enabled => setMode("read", enabled)}
               toggled={isCurrentMode("read")}
             >
-              <Localized id="wac-control-mode-option-read">
+              <ClientLocalized id="wac-control-mode-option-read">
                 <span>
                   Read
                 </span>
-              </Localized>
+              </ClientLocalized>
             </Toggle>
           </div>
           <div className={`flex space-x-1 py-2`}>
@@ -201,11 +201,11 @@ export const WacControl: FC<Props> = (props) => {
               onChange={enabled => setMode("append", enabled)}
               toggled={isCurrentMode("append")}
             >
-              <Localized id="wac-control-mode-option-append">
+              <ClientLocalized id="wac-control-mode-option-append">
                 <span>
                   Append
                 </span>
-              </Localized>
+              </ClientLocalized>
             </Toggle>
           </div>
           <div className={`flex space-x-1 py-2`}>
@@ -213,11 +213,11 @@ export const WacControl: FC<Props> = (props) => {
               onChange={enabled => setMode("write", enabled)}
               toggled={isCurrentMode("write")}
             >
-              <Localized id="wac-control-mode-option-write">
+              <ClientLocalized id="wac-control-mode-option-write">
                 <span>
                   Write
                 </span>
-              </Localized>
+              </ClientLocalized>
             </Toggle>
           </div>
           <div className={`flex space-x-1 py-2`}>
@@ -225,46 +225,46 @@ export const WacControl: FC<Props> = (props) => {
               onChange={enabled => setMode("control", enabled)}
               toggled={isCurrentMode("control")}
             >
-              <Localized id="wac-control-mode-option-control">
+              <ClientLocalized id="wac-control-mode-option-control">
                 <span>
                   Control
                 </span>
-              </Localized>
+              </ClientLocalized>
             </Toggle>
           </div>
         </div>
       </div>
       <div className="flex flex-row py-5">
-        <Localized id="wac-control-agentClass-label">
+        <ClientLocalized id="wac-control-agentClass-label">
           <div className="w-36 pr-5 py-2">
             To:
           </div>
-        </Localized>
+        </ClientLocalized>
         <div className="flex flex-col items-start justify-center">
           <div className={`flex space-x-1 py-2`}>
             <Toggle
               onChange={enabled => setAgentClass("Agent", enabled)}
               toggled={isCurrentAgentClass("Agent")}
             >
-              <Localized id="wac-control-agentClass-option-agent">
+              <ClientLocalized id="wac-control-agentClass-option-agent">
                 <span>
                   Everyone
                 </span>
-              </Localized>
+              </ClientLocalized>
             </Toggle>
           </div>
         </div>
       </div>
       <div className="flex flex-row py-5">
-        <Localized id="wac-control-agent-label">
+        <ClientLocalized id="wac-control-agent-label">
           <div className="w-36 pr-5 py-2">
             And Agents:
           </div>
-        </Localized>
+        </ClientLocalized>
         <div className="flex-grow space-y-2 items-start justify-center">
           {getUrlAll(props.thing, acl.agent).map(agent => {
             return (
-              <div className="flex items-center space-x-2 pl-2">
+              <div key={agent} className="flex items-center space-x-2 pl-2">
                 <code
                   className="font-mono p-2 truncate w-0 flex-grow"
                   title={agent}
@@ -275,9 +275,9 @@ export const WacControl: FC<Props> = (props) => {
                   className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
                   onClick={(event) => {event.preventDefault(); removeAgent(agent);}}
                 >
-                  <Localized id="wac-control-agent-remove-icon" attrs={{ "aria-label": true }} vars={{ agent: agent }}>
+                  <ClientLocalized id="wac-control-agent-remove-icon" attrs={{ "aria-label": true }} vars={{ agent: agent }}>
                     <VscTrash aria-label={`Remove \`${agent}\``}/>
-                  </Localized>
+                  </ClientLocalized>
                 </button>
               </div>
             );
@@ -313,17 +313,17 @@ const AgentAdder: FC<AgentAdderProps> = (props) => {
         value={webId}
         onChange={(event) => setWebId(event.target.value)}
       />
-      <Localized id="wac-control-agent-add-button" attrs={{title: true}}>
+      <ClientLocalized id="wac-control-agent-add-button" attrs={{title: true}}>
         <button
           type="submit"
           className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
           title="Add Agent"
         >
-          <Localized id="wac-control-agent-add-icon" attrs={{"aria-label": true}}>
+          <ClientLocalized id="wac-control-agent-add-icon" attrs={{"aria-label": true}}>
             <MdCheck aria-label="Add"/>
-          </Localized>
+          </ClientLocalized>
         </button>
-      </Localized>
+      </ClientLocalized>
     </form>
   );
 };

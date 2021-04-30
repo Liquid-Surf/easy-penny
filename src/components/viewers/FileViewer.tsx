@@ -12,7 +12,8 @@ import { ImagePreview } from "../preview/ImagePreview";
 import { AudioPreview } from "../preview/AudioPreview";
 import { VideoPreview } from "../preview/VideoPreview";
 import { TextPreview } from "../preview/TextPreview";
-import { Localized, useLocalization } from "@fluent/react";
+import { useLocalization } from "@fluent/react";
+import { ClientLocalized } from "../ClientLocalized";
 
 interface Props {
   file: LoadedCachedFileInfo | LoadedCachedDataset;
@@ -80,7 +81,7 @@ export const FileViewer: FC<Props> = (props) => {
         className={buttonClasses}
       >
         <MdFileDownload className="text-2xl" aria-hidden="true"/>
-        <Localized id="file-download-button"><span>Download</span></Localized>
+        <ClientLocalized id="file-download-button"><span>Download</span></ClientLocalized>
       </button>
     </>
   );
@@ -90,7 +91,7 @@ export const FileViewer: FC<Props> = (props) => {
       <>
         <div className={boxClasses}>
           <VscLoading className="motion-safe:animate-spin" aria-hidden="true"/>
-          <Localized id="file-download-preparing"><span>Preparing download&hellip;</span></Localized>
+          <ClientLocalized id="file-download-preparing"><span>Preparing download&hellip;</span></ClientLocalized>
         </div>
       </>
     );
@@ -107,7 +108,7 @@ export const FileViewer: FC<Props> = (props) => {
           download={fileName}
         >
           <MdFileDownload className="text-2xl" aria-hidden="true"/>
-          <Localized id="file-download-button"><span>Download</span></Localized>
+          <ClientLocalized id="file-download-button"><span>Download</span></ClientLocalized>
         </a>
       </>
     );
@@ -134,10 +135,10 @@ export const FileViewer: FC<Props> = (props) => {
         onConfirm={onConfirmDelete}
         onCancel={() => setIsRequestingDeletion(false)}
       >
-        <Localized id="file-delete-confirm-heading">
+        <ClientLocalized id="file-delete-confirm-heading">
           <h2 className="text-2xl pb-2">Are you sure?</h2>
-        </Localized>
-        <Localized id="file-delete-confirm-lead">Are you sure you want to delete this file? This can not be undone.</Localized>
+        </ClientLocalized>
+        <ClientLocalized id="file-delete-confirm-lead">Are you sure you want to delete this file? This can not be undone.</ClientLocalized>
       </ConfirmOperation>
     )
     : null;
@@ -171,28 +172,28 @@ export const FileViewer: FC<Props> = (props) => {
   return (
     <>
       <div className="pb-10">
-        <Localized id="file-heading">
+        <ClientLocalized id="file-heading">
           <SectionHeading>
             File
           </SectionHeading>
-        </Localized>
+        </ClientLocalized>
         {button}
       </div>
       {preview}
       <LoggedIn>
         <div className="pb-10">
-          <Localized id="danger-zone-heading">
+          <ClientLocalized id="danger-zone-heading">
             <SectionHeading>
               Danger Zone
             </SectionHeading>
-          </Localized>
+          </ClientLocalized>
           {deletionModal}
           <button
             className="w-full md:w-1/2 p-5 rounded border-4 border-red-700 text-red-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-red-700 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:outline-none focus:ring-opacity-50"
             onClick={onDeleteFile}
           >
             <VscTrash aria-hidden="true"/>
-            <Localized id="file-delete"><span>Delete file</span></Localized>
+            <ClientLocalized id="file-delete"><span>Delete file</span></ClientLocalized>
           </button>
         </div>
       </LoggedIn>

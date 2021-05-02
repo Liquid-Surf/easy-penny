@@ -5,6 +5,7 @@ import * as storage from "../../functions/localStorage";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { ClientLocalized } from "../ClientLocalized";
 import { SubmitButton, TextField } from "../ui/forms";
+import { Spinner } from "../ui/Spinner";
 
 export const ConnectForm: FC = (props) => {
   const [idp, setIdp] = useState(storage.getItem("last-successful-idp") ?? "https://solidcommunity.net");
@@ -12,7 +13,7 @@ export const ConnectForm: FC = (props) => {
   const sessionInfo = useSessionInfo();
 
   if (loading || typeof sessionInfo === "undefined") {
-    return <span className="animate-spin">Loading...</span>;
+    return <div className="flex justify-center"><Spinner/></div>;
   }
 
   const onSubmit: FormEventHandler = async (e) => {

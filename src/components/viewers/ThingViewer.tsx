@@ -141,7 +141,6 @@ export const ThingViewer: FC<Props> = (props) => {
     <div
       className="bg-coolGray-50 rounded-xl relative pb-5"
       id={encodeURIComponent(asUrl(props.thing))}
-      style={{ contain: "content", contentVisibility: "auto" }}
     >
       <h3 className="flex items-center text-lg md:text-xl lg:text-2xl rounded-t-xl bg-coolGray-700 text-white p-5 font-bold break-words">
         <span className="flex flex-grow items-center">{title}</span>
@@ -171,15 +170,15 @@ export const ThingViewer: FC<Props> = (props) => {
             transition={shouldReduceMotion ? { duration: 0 } : undefined}
           >
             <WacControl dataset={props.dataset} thing={props.thing} onUpdate={props.onUpdate}/>
-            <div className="px-5 pt-5">
+            <div className="px-5 pt-5" style={{ contain: "content", contentVisibility: "auto" }}>
               {viewers}
             </div>
             <LoggedIn>
               <PredicateAdder {...props}/>
-              {deletionButton}
             </LoggedIn>
           </motion.div>
         )}
+        {deletionButton}
       </AnimatePresence>
     </div>
   );

@@ -6,7 +6,7 @@ import { SectionHeading } from "../ui/headings";
 import { ResourceAdder } from "../adders/ResourceAdder";
 import { LoggedOut } from "../session/LoggedOut";
 import { getExplorePath } from "../../functions/integrate";
-import { Localized } from "@fluent/react";
+import { ClientLocalized } from "../ClientLocalized";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -27,22 +27,22 @@ export const ContainerViewer: FC<Props> = (props) => {
   const emptyWarning = containedResources.length === 0
     ? (
         <LoggedOut>
-          <Localized id="container-empty">
+          <ClientLocalized id="container-empty">
             <div className="rounded bg-yellow-200 p-5">
               This container is empty.
             </div>
-          </Localized>
+          </ClientLocalized>
         </LoggedOut>
       )
     : null;
 
   return (
     <>
-      <Localized id="container-children-heading">
+      <ClientLocalized id="container-children-heading">
         <SectionHeading>
           Contained Resources
         </SectionHeading>
-      </Localized>
+      </ClientLocalized>
       <div className="pb-10">
         <div className="grid sm:grid-cols-2 gap-5 pb-5">
           {containedResources}

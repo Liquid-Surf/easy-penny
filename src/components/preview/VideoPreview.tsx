@@ -1,6 +1,6 @@
-import { Localized } from "@fluent/react";
 import { UrlString } from "@inrupt/solid-client";
 import React, { FC } from "react";
+import { ClientLocalized } from "../ClientLocalized";
 import { SectionHeading } from "../ui/headings";
 
 interface Props {
@@ -14,12 +14,12 @@ export const VideoPreview: FC<Props> = (props) => {
   return (
     <>
       <div className="pb-10">
-        <Localized id="preview-video-heading">
+        <ClientLocalized id="preview-video-heading">
           <SectionHeading>
             Video Preview
           </SectionHeading>
-        </Localized>
-        <Localized
+        </ClientLocalized>
+        <ClientLocalized
           id="preview-video-error-playback"
           vars={{filename: fileName}}
           elems={{
@@ -34,7 +34,7 @@ export const VideoPreview: FC<Props> = (props) => {
             Unfortunately your browser cannot provide a preview of `{fileName}`.
             You can download it instead.
           </video>
-        </Localized>
+        </ClientLocalized>
       </div>
     </>
   );

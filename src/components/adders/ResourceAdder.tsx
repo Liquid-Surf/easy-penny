@@ -1,6 +1,6 @@
 import { createContainerAt, createSolidDataset, getSourceUrl, saveSolidDatasetAt } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
-import { FC, FocusEventHandler, FormEventHandler, useState } from "react";
+import React, { FC, FocusEventHandler, FormEventHandler, useState } from "react";
 import { MdAdd, MdCheck } from "react-icons/md";
 import { toast } from "react-toastify";
 import Link from "next/link";
@@ -8,7 +8,8 @@ import { LoadedCachedDataset } from "../../hooks/dataset";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { FileAdder } from "./FileAdder";
 import { getExplorePath } from "../../functions/integrate";
-import { Localized, useLocalization } from "@fluent/react";
+import { useLocalization } from "@fluent/react";
+import { ClientLocalized } from "../ClientLocalized";
 
 interface Props {
   container: LoadedCachedDataset;
@@ -50,11 +51,11 @@ export const ResourceAdder: FC<Props> = (props) => {
 
       toast(
         <>
-          <Localized
+          <ClientLocalized
             id="resource-add-toast-success"
           >
             Resource created.
-          </Localized>
+          </ClientLocalized>
           &nbsp;
           <Link href={getExplorePath(getSourceUrl(sentResource))}>
             <a className="underline hover:no-underline">{l10n.getString("resource-add-toast-success-view-button")}</a>
@@ -71,15 +72,15 @@ export const ResourceAdder: FC<Props> = (props) => {
           className="flex space-x-2 items-center p-3 rounded bg-coolGray-700 text-white"
           onBlur={onCancel}
         >
-          <Localized id="resource-add-name-label">
+          <ClientLocalized id="resource-add-name-label">
             <label
               htmlFor="resourceName"
               className="sr-only"
             >
               Resource name
             </label>
-          </Localized>
-          <Localized id="resource-add-name-input" attrs={{ placeholder: true, title: true }}>
+          </ClientLocalized>
+          <ClientLocalized id="resource-add-name-input" attrs={{ placeholder: true, title: true }}>
             <input
               type="text"
               name="resourceName"
@@ -92,7 +93,7 @@ export const ResourceAdder: FC<Props> = (props) => {
               onChange={(e) => {e.preventDefault(); setNewResourceName(e.target.value);}}
               title="Resource name (append a `/` to create a Container)"
             />
-          </Localized>
+          </ClientLocalized>
           <button
             type="submit"
             className="p-3 border-2 border-coolGray-700 hover:border-white hover:bg-white hover:text-coolGray-900 focus:border-white focus:outline-none rounded"
@@ -112,7 +113,7 @@ export const ResourceAdder: FC<Props> = (props) => {
           onClick={(e) => {e.preventDefault(); setPhase("chooseName")}}
         >
           <MdAdd aria-hidden="true" className="text-3xl"/>
-          <Localized id="resource-add-button"><span>Add Resource</span></Localized>
+          <ClientLocalized id="resource-add-button"><span>Add Resource</span></ClientLocalized>
         </button>
         <FileAdder container={props.container}/>
       </div>

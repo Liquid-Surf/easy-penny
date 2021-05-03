@@ -1,6 +1,6 @@
-import { Localized } from "@fluent/react";
 import { UrlString } from "@inrupt/solid-client";
 import React, { FC } from "react";
+import { ClientLocalized } from "../ClientLocalized";
 import { SectionHeading } from "../ui/headings";
 
 interface Props {
@@ -14,12 +14,12 @@ export const AudioPreview: FC<Props> = (props) => {
   return (
     <>
       <div className="pb-10">
-        <Localized id="preview-audio-heading">
+        <ClientLocalized id="preview-audio-heading">
           <SectionHeading>
             Audio Preview
           </SectionHeading>
-        </Localized>
-        <Localized
+        </ClientLocalized>
+        <ClientLocalized
           id="preview-audio-error-playback"
           vars={{filename: fileName}}
           elems={{
@@ -34,7 +34,7 @@ export const AudioPreview: FC<Props> = (props) => {
             Unfortunately your browser cannot provide a preview of `{fileName}`.
             You can download it instead.
           </audio>
-        </Localized>
+        </ClientLocalized>
       </div>
     </>
   );

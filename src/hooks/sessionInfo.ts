@@ -1,4 +1,3 @@
-import { ISessionInfo, Session } from "@inrupt/solid-client-authn-browser";
 import { useContext } from "react";
 import { SessionContext } from "../contexts/session";
 

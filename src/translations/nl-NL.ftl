@@ -119,6 +119,30 @@ thing-collapse-tooltip = Dit thing inklappen
 thing-expand-label = Uitklappen
 thing-expand-tooltip = Dit thing uitklappen
 
+wac-control-title = Access Control voor:
+wac-control-toast-saving = Access Control opslaan…
+wac-control-toast-saved = Access Control opgeslagen.
+wac-control-toast-error-no-controller = Wijziging niet toegepast; zorg dat tenminste één Agent Control-rechten heeft op de Resource zelf.
+wac-control-toast-error-no-resource = Wijziging niet toegepast; geen betreffende Resource gevonden.
+wac-control-target-label = Werkt op:
+wac-control-target-option-self = De Resource
+wac-control-target-option-children = Onderliggende Resources
+wac-control-mode-label = Rechten:
+wac-control-mode-option-read = Read
+wac-control-mode-option-append = Append
+wac-control-mode-option-write = Write
+wac-control-mode-option-control = Control
+wac-control-agentClass-label = Voor:
+wac-control-agentClass-option-agent = Iedereen
+wac-control-agent-label = En deze Agents:
+wac-control-agent-add-button =
+  .title = Agent toevoegen
+wac-control-agent-add-icon =
+  .aria-label = Agent toevoegen
+wac-control-agent-remove-icon =
+  .aria-label = `{$agent}` verwijderen
+
+
 predicate-add-button = Nieuwe property
 predicate-add-url-label = URL voor deze property
 predicate-add-url-input =

@@ -1,5 +1,5 @@
 import { FetchError, getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getSourceUrl, getStringByLocaleAll, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeLiteral, removeStringNoLocale, removeStringWithLocale, removeUrl, setThing, solidDatasetAsMarkdown, thingAsMarkdown, ThingPersisted, UrlString } from "@inrupt/solid-client";
-import { FC } from "react";
+import React, { FC } from "react";
 import { MdContentCopy, MdLink, MdTextFields } from "react-icons/md";
 import { VscCalendar, VscPrimitiveSquare, VscQuestion, VscSymbolBoolean, VscTrash } from "react-icons/vsc";
 import { toast } from "react-toastify";
@@ -9,7 +9,8 @@ import { ObjectAdder } from "../adders/ObjectAdder";
 import { ObjectViewer } from "./ObjectViewer";
 import { PredicateUrl } from "./PredicateUrl";
 import { LoggedIn } from "../session/LoggedIn";
-import { Localized, useLocalization } from "@fluent/react";
+import { useLocalization } from "@fluent/react";
+import { ClientLocalized } from "../ClientLocalized";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -65,7 +66,7 @@ export const PredicateViewer: FC<Props> = (props) => {
         options={[
           {
             element: (
-              <Localized
+              <ClientLocalized
                 id="object-delete-button-unknown"
                 vars={{
                   value: data.value,
@@ -76,7 +77,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                   title={`Delete value "${data.value}" of unknown type "${(data as any).datatype.value}"`}
                   aria-label={`Delete value "${data.value}" of unknown type "${(data as any).datatype.value}"`}
                 />
-              </Localized>
+              </ClientLocalized>
             ),
             callback: () => deleteUnsupportedType(data),
             loggedIn: true,
@@ -129,25 +130,25 @@ export const PredicateViewer: FC<Props> = (props) => {
                 options={[
                   {
                     element: (
-                      <Localized
+                      <ClientLocalized
                         id="object-copy-button-url"
                         attrs={{ "title": true, "aria-label": true }}
                         vars={{ value: value }}
                       >
                         <MdContentCopy title={`Copy "${value}"`} aria-label={`Copy "${value}"`}/>
-                      </Localized>
+                      </ClientLocalized>
                     ),
                     callback: () => copyToClipboard(value),
                   },
                   {
                     element: (
-                      <Localized
+                      <ClientLocalized
                         id="object-delete-button-url"
                         attrs={{ "title": true, "aria-label": true }}
                         vars={{ value: value }}
                       >
                         <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>
-                      </Localized>
+                      </ClientLocalized>
                     ),
                     callback: () => deleteUrl(value),
                     loggedIn: true,
@@ -166,13 +167,13 @@ export const PredicateViewer: FC<Props> = (props) => {
                 options={[
                   {
                     element: (
-                      <Localized
+                      <ClientLocalized
                         id="object-delete-button-string"
                         attrs={{ "title": true, "aria-label": true }}
                         vars={{ value: value }}
                       >
                         <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>
-                      </Localized>
+                      </ClientLocalized>
                     ),
                     callback: () => deleteStringNoLocale(value),
                     loggedIn: true,
@@ -191,13 +192,13 @@ export const PredicateViewer: FC<Props> = (props) => {
                 options={[
                   {
                     element: (
-                      <Localized
+                      <ClientLocalized
                         id="object-delete-button-string-locale"
                         attrs={{ "title": true, "aria-label": true }}
                         vars={{ value: value, locale: locale }}
                       >
                         <VscTrash title={`Delete "${value} (${locale})"`} aria-label={`Delete "${value} (${locale})"`}/>
-                      </Localized>
+                      </ClientLocalized>
                     ),
                     callback: () => deleteStringWithLocale(value, locale),
                     loggedIn: true,
@@ -216,13 +217,13 @@ export const PredicateViewer: FC<Props> = (props) => {
                 options={[
                   {
                     element: (
-                      <Localized
+                      <ClientLocalized
                         id="object-delete-button-integer"
                         attrs={{ "title": true, "aria-label": true }}
                         vars={{ value: value }}
                       >
                         <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>
-                      </Localized>
+                      </ClientLocalized>
                     ),
                     callback: () => deleteInteger(value),
                     loggedIn: true,
@@ -241,13 +242,13 @@ export const PredicateViewer: FC<Props> = (props) => {
                 options={[
                   {
                     element: (
-                      <Localized
+                      <ClientLocalized
                         id="object-delete-button-decimal"
                         attrs={{ "title": true, "aria-label": true }}
                         vars={{ value: value }}
                       >
                         <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>
-                      </Localized>
+                      </ClientLocalized>
                     ),
                     callback: () => deleteDecimal(value),
                     loggedIn: true,
@@ -266,13 +267,13 @@ export const PredicateViewer: FC<Props> = (props) => {
                 options={[
                   {
                     element: (
-                      <Localized
+                      <ClientLocalized
                         id="object-delete-button-datetime"
                         attrs={{ "title": true, "aria-label": true }}
                         vars={{ value: value.toLocaleString() }}
                       >
                         <VscTrash title={`Delete "${value.toLocaleString()}"`} aria-label={`Delete "${value.toLocaleString()}"`}/>
-                      </Localized>
+                      </ClientLocalized>
                     ),
                     callback: () => deleteDatetime(value),
                     loggedIn: true,
@@ -291,13 +292,13 @@ export const PredicateViewer: FC<Props> = (props) => {
                 options={[
                   {
                     element: (
-                      <Localized
+                      <ClientLocalized
                         id="object-delete-button-boolean"
                         attrs={{ "title": true, "aria-label": true }}
                         vars={{ value: value.toString() }}
                       >
                         <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>
-                      </Localized>
+                      </ClientLocalized>
                     ),
                     callback: () => deleteBoolean(value),
                     loggedIn: true,

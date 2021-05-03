@@ -1,6 +1,7 @@
-import { Localized, useLocalization } from "@fluent/react";
+import { useLocalization } from "@fluent/react";
 import { UrlString } from "@inrupt/solid-client";
 import React, { FC, MouseEventHandler, useState } from "react";
+import { ClientLocalized } from "../ClientLocalized";
 import { SectionHeading } from "../ui/headings";
 import { Modal } from "../ui/modal";
 
@@ -23,11 +24,11 @@ export const ImagePreview: FC<Props> = (props) => {
   return (
     <>
       <div className="pb-10">
-        <Localized id="preview-image-heading">
+        <ClientLocalized id="preview-image-heading">
           <SectionHeading>
             Image Preview
           </SectionHeading>
-        </Localized>
+        </ClientLocalized>
         <a
           href={props.objectUrl}
           title={l10n.getString("preview-image-thumbnail-tooltip")}

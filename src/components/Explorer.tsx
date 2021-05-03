@@ -8,6 +8,8 @@ import { DatasetViewer } from "./viewers/DatasetViewer";
 import { ContainerViewer } from "./viewers/ContainerViewer";
 import { FetchErrorViewer } from "./viewers/FetchErrorViewer";
 import { FileViewer } from "./viewers/FileViewer";
+import { useSessionInfo } from "../hooks/sessionInfo";
+import { Spinner } from "./ui/Spinner";
 
 interface Props {
   url?: UrlString;
@@ -18,6 +20,7 @@ export const Explorer: React.FC<Props> = (props) => {
     return null;
   }
   const dataset = useDataset(props.url);
+  const sessionInfo = useSessionInfo();
 
   const datasetViewer = isLoaded(dataset)
     ? <DatasetViewer dataset={dataset}/>
@@ -47,13 +50,17 @@ export const Explorer: React.FC<Props> = (props) => {
 
   const fileViewer = nssFileViewer ?? essFileViewer ?? null;
 
+  const errorViewer = typeof sessionInfo === "undefined" || (!isLoaded(dataset) && dataset.isValidating)
+    ? <Spinner/>
+    : <FetchErrorViewer error={dataset.error}/>;
+
   return (
     <Layout path={props.url}>
       <Head>
         <title>Penny: {props.url}</title>
       </Head>
       <div className="lg:w-4/5 xl:w-2/3 2xl:w-1/2 mx-auto p-5 md:pt-20">
-        <FetchErrorViewer error={dataset.error}/>
+        {errorViewer}
         {containerViewer}
         {fileViewer || datasetViewer}
       </div>

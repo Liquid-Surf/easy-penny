@@ -1,6 +1,6 @@
 import { asUrl, FetchError, getContainedResourceUrlAll, getSourceUrl, getThingAll, isContainer, setThing, SolidDataset, Thing, ThingPersisted, WithResourceInfo } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
-import { FC, MouseEventHandler, ReactText, useEffect, useRef, useState } from "react";
+import React, { FC, MouseEventHandler, ReactText, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 import { ThingAdder } from "../adders/ThingAdder";
@@ -10,7 +10,8 @@ import { ConfirmOperation } from "../ConfirmOperation";
 import { SectionHeading } from "../ui/headings";
 import { VscTrash } from "react-icons/vsc";
 import { deleteRecursively } from "../../functions/recursiveDelete";
-import { Localized, useLocalization } from "@fluent/react";
+import { useLocalization } from "@fluent/react";
+import { ClientLocalized } from "../ClientLocalized";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -40,14 +41,14 @@ export const DatasetViewer: FC<Props> = (props) => {
     // DatasetViewer, otherwise solid-client will think this is just a local change that it can undo:
     const undo = () => { setThingToRestore(changedThing) };
     toast(
-      <Localized
+      <ClientLocalized
         id="dataset-update-toast-success"
         elems={{
           "undo-button": <button onClick={e => {e.preventDefault(); undo();}} className="underline hover:no-underline focus:no-underline"/>
         }}
       >
         <span>Saved.</span>
-      </Localized>,
+      </ClientLocalized>,
       { type: "info" },
     );
   };
@@ -55,13 +56,13 @@ export const DatasetViewer: FC<Props> = (props) => {
   const onConfirmDelete = async () => {
     try {
       deletionToast.current = toast(
-        <Localized
+        <ClientLocalized
           id="dataset-delete-toast-prepare"
           elems={{"dataset-url": <samp/>}}
           vars={{"datasetUrl": decodeURIComponent(getSourceUrl(props.dataset.data))}}
         >
           <span>Preparing deletion of <samp>{decodeURIComponent(getSourceUrl(props.dataset.data))}</samp>&hellip;</span>
-        </Localized>,
+        </ClientLocalized>,
         { type: "info" },
       );
       await deleteRecursively(
@@ -69,13 +70,13 @@ export const DatasetViewer: FC<Props> = (props) => {
         { fetch: fetch },
         { onPrepareDelete: (urlToDelete => {
           const deletionMessage = (
-            <Localized
+            <ClientLocalized
               id="dataset-delete-toast-process"
               elems={{"dataset-url": <samp/>}}
               vars={{"datasetUrl": decodeURIComponent(urlToDelete)}}
             >
                 <span>Deleting <samp>{decodeURIComponent(urlToDelete)}</samp>&hellip;</span>
-            </Localized>
+            </ClientLocalized>
           );
           if (!deletionToast.current) {
             deletionToast.current = toast(deletionMessage, { type: "info" });
@@ -85,7 +86,7 @@ export const DatasetViewer: FC<Props> = (props) => {
         }) },
       );
       const deletionMessage = (
-        <Localized
+        <ClientLocalized
           id={getContainedResourceUrlAll(props.dataset.data).length > 0
             ? "dataset-delete-toast-success-container"
             : "dataset-delete-toast-success-resource"
@@ -94,7 +95,7 @@ export const DatasetViewer: FC<Props> = (props) => {
           vars={{"datasetUrl": decodeURIComponent(getSourceUrl(props.dataset.data))}}
         >
           <span>Deleted <samp>{decodeURIComponent(getSourceUrl(props.dataset.data))}</samp> and its children.</span>
-        </Localized>
+        </ClientLocalized>
       );
       toast.update(deletionToast.current, { render: deletionMessage });
       deletionToast.current = null;
@@ -132,9 +133,9 @@ export const DatasetViewer: FC<Props> = (props) => {
         onConfirm={onConfirmDelete}
         onCancel={() => setIsRequestingDeletion(false)}
       >
-        <Localized id="dataset-delete-confirm-heading">
+        <ClientLocalized id="dataset-delete-confirm-heading">
           <h2 className="text-2xl pb-2">Are you sure?</h2>
-        </Localized>
+        </ClientLocalized>
         <div className="py-2">{warning}</div>
       </ConfirmOperation>
     )
@@ -149,18 +150,18 @@ export const DatasetViewer: FC<Props> = (props) => {
   const dangerZone = <>
     <LoggedIn>
       <div className="pb-10">
-        <Localized id="danger-zone-heading">
+        <ClientLocalized id="danger-zone-heading">
           <SectionHeading>
             Danger Zone
           </SectionHeading>
-        </Localized>
+        </ClientLocalized>
         {deletionModal}
         <button
           className="w-full md:w-1/2 p-5 rounded border-4 border-red-700 text-red-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-red-700 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:outline-none focus:ring-opacity-50"
           onClick={onDeleteFile}
         >
           <VscTrash aria-hidden="true"/>
-          <Localized id="dataset-delete"><span>Delete resource</span></Localized>
+          <ClientLocalized id="dataset-delete"><span>Delete resource</span></ClientLocalized>
         </button>
       </div>
     </LoggedIn>
@@ -170,11 +171,11 @@ export const DatasetViewer: FC<Props> = (props) => {
     return (
       <>
         <div className="space-y-10 pb-10">
-          <Localized id="dataset-empty-warning">
+          <ClientLocalized id="dataset-empty-warning">
             <div className="rounded bg-yellow-200 p-5">
               This resource is empty.
             </div>
-          </Localized>
+          </ClientLocalized>
           <LoggedIn>
             <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing}/>
           </LoggedIn>
@@ -215,11 +216,11 @@ export const DatasetViewer: FC<Props> = (props) => {
 
   return (
     <>
-      <Localized id="dataset-things-heading">
+      <ClientLocalized id="dataset-things-heading">
         <SectionHeading>
           Things
         </SectionHeading>
-      </Localized>
+      </ClientLocalized>
       <div className="space-y-10 pb-10">
         {things.map(thing => (
           <div key={asUrl(thing) + "_thing"}>

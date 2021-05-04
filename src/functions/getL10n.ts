@@ -4,6 +4,7 @@ import { negotiateLanguages } from "@fluent/langneg";
 import { MarkupParser, ReactLocalization } from "@fluent/react";
 import enGB from "../translations/en-GB.ftl";
 import nlNL from "../translations/nl-NL.ftl";
+import idID from "../translations/id-ID.ftl";
 
 export function getL10n() {
   // Store all translations as a simple object which is available 
@@ -11,6 +12,7 @@ export function getL10n() {
   const RESOURCES: Record<string, FluentResource> = {
     "nl-NL": new FluentResource(nlNL),
     "en-GB": new FluentResource(enGB),
+    "id-ID": new FluentResource(idID),
   };
   
   // A generator function responsible for building the sequence 
@@ -20,7 +22,7 @@ export function getL10n() {
     // Choose locales that are best for the user.
     const currentLocales = negotiateLanguages(
         userLocales as string[],
-        ["en-GB", "nl-NL"],
+        ["en-GB", "nl-NL", "id-ID"],
         { defaultLocale: "en-GB" }
     );
   

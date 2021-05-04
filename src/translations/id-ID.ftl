@@ -91,34 +91,57 @@ dataset-things-heading = Things
 danger-zone-heading = Zon Bahaya
 dataset-delete = Hapuskan resource
 dataset-delete-confirm-heading = Anda Pasti?
-dataset-delete-confirm-lead-container = Anda pasti mahu hapuskan Container ini? Kamu tidak dapat balik semula Container ini.
-dataset-delete-confirm-lead-resource = Anda pasti mahu hapuskan resource ini? Kamu tidak dapat balik semula resource ini.
+dataset-delete-confirm-lead-container = Anda pasti mahu hapuskan Container ini? Kamu tidak dapat balik semula Container ni.
+dataset-delete-confirm-lead-resource = Anda pasti mahu hapuskan resource ini? Kamu tidak dapat balik semula resource ni.
 dataset-delete-toast-prepare = Siap sedia hapusan URL <dataset-url>{$datasetUrl}</dataset-url>…
 dataset-delete-toast-process = Sedang hapus <dataset-url>{$datasetUrl}</dataset-url>…
 dataset-delete-toast-success-container = Telah hapus <dataset-url>{$datasetUrl}</dataset-url> dan resource2-nya.
 dataset-delete-toast-success-resource = Telah hapus <dataset-url>{$datasetUrl}</dataset-url>.
 dataset-delete-toast-error-not-allowed = Kamu tidak dizin hapuskan resource ini.
-dataset-delete-toast-error-other = Tidak boleh hapuskan resource ini.
+dataset-delete-toast-error-other = Tidak boleh hapuskan resource ni.
 
-thing-add-button = Barang Bahru
+thing-add-button = Thing Bahru
 
-thing-add-url-label = URL Barang
+thing-add-url-label = URL Thing
 thing-add-url-input =
   .placeholder = e.g. https://…
-  .title = URL Barang
+  .title = URL Thing
 thing-add-url-submit = Save
 
 thing-toast-error-not-allowed = Kamu tidak dizin berbuat sedemikian.
-thing-urlcopy-button-tooltip = Salin semula URL barang ni.
-thing-urlcopy-toast-success = URL barang disalin ke clipboard.
+thing-urlcopy-button-tooltip = Salin semula URL Thing ini.
+thing-urlcopy-toast-success = URL Thing disalin ke clipboard.
 
 thing-delete-tooltip = Hapuskan `{$thingUrl}`
 thing-delete-label = Hapuskan `{$thingUrl}`
 
 thing-collapse-label = Lipat
-thing-collapse-tooltip = Lipat Barang ni
+thing-collapse-tooltip = Lipat Thing ini
 thing-expand-label = Lapang
-thing-expand-tooltip = Lapang Thing ni
+thing-expand-tooltip = Lapang Thing ini
+
+wac-control-title = Access Control utk:
+wac-control-toast-saving = Sdg save Access Control…
+wac-control-toast-saved = Syabas save Access Control.
+wac-control-toast-error-no-controller = Gagal salin; sekurangnya, satu Agent harus ada Access Control dengan Resource terpilih.
+wac-control-toast-error-no-resource = Gagal salin; Sila pilih Resource terdahulu.
+wac-control-target-label = Pilihan:
+wac-control-target-option-self = Resource terpilih
+wac-control-target-option-children = Contained Resources
+wac-control-mode-label = Direstu:
+wac-control-mode-option-read = Read
+wac-control-mode-option-append = Append
+wac-control-mode-option-write = Write
+wac-control-mode-option-control = Control
+wac-control-agentClass-label = Kpd:
+wac-control-agentClass-option-agent = Semua
+wac-control-agent-label = dan juga Agents:
+wac-control-agent-add-button =
+  .title = Jemput Agent
+wac-control-agent-add-icon =
+  .aria-label = Jemput Agent
+wac-control-agent-remove-icon =
+  .aria-label = Pangkar `{$agent}`
 
 predicate-add-button = Properti bahru
 predicate-add-url-label = Properti URL

@@ -46,7 +46,7 @@ publish_npm:
     - build
     - build_integrated
   rules:
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $NPM_TOKEN'
       when: always
   script:
     - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc

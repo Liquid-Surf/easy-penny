@@ -2,19 +2,21 @@
 import { FluentBundle, FluentResource } from "@fluent/bundle";
 import { negotiateLanguages } from "@fluent/langneg";
 import { MarkupParser, ReactLocalization } from "@fluent/react";
-import enGB from "../translations/en-GB.ftl";
-import nlNL from "../translations/nl-NL.ftl";
-import idID from "../translations/id-ID.ftl";
 
 export function getL10n() {
   // Store all translations as a simple object which is available 
   // synchronously and bundled with the rest of the code.
-  const RESOURCES: Record<string, FluentResource> = {
-    "nl-NL": new FluentResource(nlNL),
-    "en-GB": new FluentResource(enGB),
-    "id-ID": new FluentResource(idID),
-  };
-  
+  const translationsContext = require.context('../translations', false, /\.ftl$/);
+  const RESOURCES: Record<string, FluentResource> = {};
+
+  for (const fileName of translationsContext.keys()) {
+    const locale = fileName.match(/^\.\/(.+)\.ftl$/)?.[1];
+
+    if (locale) {
+        RESOURCES[locale] = new FluentResource(translationsContext(fileName).default)
+    }
+  }
+
   // A generator function responsible for building the sequence 
   // of FluentBundle instances in the order of user's language
   // preferences.
@@ -22,7 +24,7 @@ export function getL10n() {
     // Choose locales that are best for the user.
     const currentLocales = negotiateLanguages(
         userLocales as string[],
-        ["en-GB", "nl-NL", "id-ID"],
+        Object.keys(RESOURCES),
         { defaultLocale: "en-GB" }
     );
   

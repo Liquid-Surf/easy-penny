@@ -11,6 +11,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 // TODO: Memo:
 import { WacControl } from "./things/WacControl";
 import { useLocalization } from "@fluent/react";
+import { HasAccess } from "../HasAccess";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -173,12 +174,14 @@ export const ThingViewer: FC<Props> = (props) => {
             <div className="px-5 pt-5" style={{ contain: "content", contentVisibility: "auto" }}>
               {viewers}
             </div>
-            <LoggedIn>
+            <HasAccess access={["append"]} resource={props.dataset.data}>
               <PredicateAdder {...props}/>
-            </LoggedIn>
+            </HasAccess>
           </motion.div>
         )}
-        {deletionButton}
+        <HasAccess access={["write"]} resource={props.dataset.data}>
+          {deletionButton}
+        </HasAccess>
       </AnimatePresence>
     </div>
   );

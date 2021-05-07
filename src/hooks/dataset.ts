@@ -1,4 +1,4 @@
-import { FetchError, getContentType, getResourceInfo, getSolidDataset, hasResourceInfo, isRawData, saveSolidDatasetAt, SolidDataset, solidDatasetAsMarkdown, UrlString, WithResourceInfo } from "@inrupt/solid-client";
+import { FetchError, getContentType, getEffectiveAccess, getResourceInfo, getSolidDataset, hasResourceInfo, hasServerResourceInfo, isRawData, saveSolidDatasetAt, SolidDataset, solidDatasetAsMarkdown, UrlString } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { useCallback } from "react";
 import useSwr, { responseInterface } from "swr";
@@ -9,7 +9,7 @@ export type FileInfo = {
   contentType: string | null;
 };
 
-const fetcher = async (url: UrlString): Promise<FileInfo | SolidDataset & WithResourceInfo> => {
+const fetcher = async (url: UrlString): Promise<FileInfo | (SolidDataset & WithServerResourceInfo)> => {
   try {
     const dataset = await getSolidDataset(url, { fetch: fetch });
     return dataset;
@@ -58,8 +58,11 @@ function compareSolidDatasets(a?: SolidDataset | FileInfo, b?: SolidDataset | Fi
   return solidDatasetAsMarkdown(a) === solidDatasetAsMarkdown(b);
 }
 
-export type CachedDataset = responseInterface<SolidDataset & WithResourceInfo | FileInfo, FetchError> & { save: (dataset: SolidDataset) => Promise<void> };
-export type LoadedCachedDataset = CachedDataset & { data: Exclude<CachedDataset['data'], undefined | FileInfo> };
+// Unfortunately solid-client doesn't currently export this type.
+// While awaiting that, this is a workaround to obtain it:
+export type WithServerResourceInfo = Parameters<typeof getEffectiveAccess>[0];
+export type CachedDataset = responseInterface<(SolidDataset & WithServerResourceInfo) | FileInfo, FetchError> & { save: (dataset: SolidDataset) => Promise<void> };
+export type LoadedCachedDataset = CachedDataset & { data: Exclude<CachedDataset['data'], undefined | FileInfo> & WithServerResourceInfo };
 export type LoadedCachedFileInfo = CachedDataset & { data: FileInfo };
 
 export function isLoaded(dataset: CachedDataset): dataset is LoadedCachedDataset {
@@ -87,7 +90,7 @@ export function useDataset (url: UrlString | null): CachedDataset | null {
       return;
     }
 
-    if (hasResourceInfo(dataset)) {
+    if (hasServerResourceInfo(dataset)) {
       // Optimistically update local view of the data
       result.mutate(dataset, false);
     }

@@ -4,8 +4,7 @@ import { deleteFile, FetchError, getContentType, getFile, getSourceUrl, UrlStrin
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { SectionHeading } from "../ui/headings";
 import { VscLoading, VscTrash } from "react-icons/vsc";
-import { LoggedIn } from "../session/LoggedIn";
-import { isLoadedCachedFileInfo, LoadedCachedDataset, LoadedCachedFileInfo } from "../../hooks/dataset";
+import { isLoadedCachedFileInfo, LoadedCachedDataset, LoadedCachedFileInfo, WithServerResourceInfo } from "../../hooks/dataset";
 import { toast } from "react-toastify";
 import { ConfirmOperation } from "../ConfirmOperation";
 import { ImagePreview } from "../preview/ImagePreview";
@@ -14,6 +13,7 @@ import { VideoPreview } from "../preview/VideoPreview";
 import { TextPreview } from "../preview/TextPreview";
 import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "../ClientLocalized";
+import { HasAccess } from "../HasAccess";
 
 interface Props {
   file: LoadedCachedFileInfo | LoadedCachedDataset;
@@ -24,7 +24,7 @@ export const FileViewer: FC<Props> = (props) => {
   // See useDataset() for more info.
   const fileUrl = isLoadedCachedFileInfo(props.file) ? props.file.data.url : getSourceUrl(props.file.data);
   const [urlToPrepareForDownload, setUrlToPrepareForDownload] = useState<UrlString>(fileUrl);
-  const [downloadedFile, setDownloadedFile] = useState<Blob & WithResourceInfo>();
+  const [downloadedFile, setDownloadedFile] = useState<Blob & WithServerResourceInfo>();
   const [blobUrl, setBlobUrl] = useState<UrlString>();
   const [isPreparing, setIsPreparing] = useState(false);
   const [isRequestingDeletion, setIsRequestingDeletion] = useState(false);
@@ -180,23 +180,27 @@ export const FileViewer: FC<Props> = (props) => {
         {button}
       </div>
       {preview}
-      <LoggedIn>
-        <div className="pb-10">
-          <ClientLocalized id="danger-zone-heading">
-            <SectionHeading>
-              Danger Zone
-            </SectionHeading>
-          </ClientLocalized>
-          {deletionModal}
-          <button
-            className="w-full md:w-1/2 p-5 rounded border-4 border-red-700 text-red-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-red-700 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:outline-none focus:ring-opacity-50"
-            onClick={onDeleteFile}
-          >
-            <VscTrash aria-hidden="true"/>
-            <ClientLocalized id="file-delete"><span>Delete file</span></ClientLocalized>
-          </button>
-        </div>
-      </LoggedIn>
+      { downloadedFile
+        ?
+        <HasAccess access={["write"]} resource={downloadedFile}>
+          <div className="pb-10">
+            <ClientLocalized id="danger-zone-heading">
+              <SectionHeading>
+                Danger Zone
+              </SectionHeading>
+            </ClientLocalized>
+            {deletionModal}
+            <button
+              className="w-full md:w-1/2 p-5 rounded border-4 border-red-700 text-red-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-red-700 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:outline-none focus:ring-opacity-50"
+              onClick={onDeleteFile}
+            >
+              <VscTrash aria-hidden="true"/>
+              <ClientLocalized id="file-delete"><span>Delete file</span></ClientLocalized>
+            </button>
+          </div>
+        </HasAccess>
+        : null
+      }
     </>
   );
 };

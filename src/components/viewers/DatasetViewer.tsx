@@ -2,10 +2,9 @@ import { asUrl, FetchError, getContainedResourceUrlAll, getSourceUrl, getThingAl
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import React, { FC, MouseEventHandler, ReactText, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { LoadedCachedDataset, useDataset } from "../../hooks/dataset";
+import { LoadedCachedDataset } from "../../hooks/dataset";
 import { ThingAdder } from "../adders/ThingAdder";
 import { ThingViewer } from "./ThingViewer";
-import { LoggedIn } from "../session/LoggedIn";
 import { ConfirmOperation } from "../ConfirmOperation";
 import { SectionHeading } from "../ui/headings";
 import { VscTrash } from "react-icons/vsc";
@@ -13,6 +12,7 @@ import { deleteRecursively } from "../../functions/recursiveDelete";
 import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "../ClientLocalized";
 import { LinkedResourcesViewer } from "./LinkedResourcesViewer";
+import { HasAccess } from "../HasAccess";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -149,7 +149,7 @@ export const DatasetViewer: FC<Props> = (props) => {
   };
 
   const dangerZone = <>
-    <LoggedIn>
+    <HasAccess access={["write"]} resource={props.dataset.data}>
       <div className="pb-10">
         <ClientLocalized id="danger-zone-heading">
           <SectionHeading>
@@ -165,7 +165,7 @@ export const DatasetViewer: FC<Props> = (props) => {
           <ClientLocalized id="dataset-delete"><span>Delete resource</span></ClientLocalized>
         </button>
       </div>
-    </LoggedIn>
+    </HasAccess>
     </>;
 
   if (things.length === 0) {
@@ -177,9 +177,9 @@ export const DatasetViewer: FC<Props> = (props) => {
               This resource is empty.
             </div>
           </ClientLocalized>
-          <LoggedIn>
+          <HasAccess access={["append"]} resource={props.dataset.data}>
             <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing}/>
-          </LoggedIn>
+          </HasAccess>
         </div>
         {dangerZone}
       </>
@@ -235,9 +235,9 @@ export const DatasetViewer: FC<Props> = (props) => {
             />
           </div>
         ))}
-        <LoggedIn>
+        <HasAccess access={["append"]} resource={props.dataset.data}>
           <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing}/>
-        </LoggedIn>
+        </HasAccess>
       </div>
       <LinkedResourcesViewer dataset={props.dataset}/>
       {dangerZone}

@@ -142,6 +142,9 @@ wac-control-agent-add-icon =
 wac-control-agent-remove-icon =
   .aria-label = `{$agent}` verwijderen
 
+linked-resources-heading = Gelinkte Resources
+linked-resources-acl-label = Access Control List
+linked-resources-acr-label = Access Control Resource
 
 predicate-add-button = Nieuwe property
 predicate-add-url-label = URL voor deze property

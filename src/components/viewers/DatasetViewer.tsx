@@ -2,7 +2,7 @@ import { asUrl, FetchError, getContainedResourceUrlAll, getSourceUrl, getThingAl
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import React, { FC, MouseEventHandler, ReactText, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { LoadedCachedDataset } from "../../hooks/dataset";
+import { LoadedCachedDataset, useDataset } from "../../hooks/dataset";
 import { ThingAdder } from "../adders/ThingAdder";
 import { ThingViewer } from "./ThingViewer";
 import { LoggedIn } from "../session/LoggedIn";
@@ -12,6 +12,7 @@ import { VscTrash } from "react-icons/vsc";
 import { deleteRecursively } from "../../functions/recursiveDelete";
 import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "../ClientLocalized";
+import { LinkedResourcesViewer } from "./LinkedResourcesViewer";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -238,6 +239,7 @@ export const DatasetViewer: FC<Props> = (props) => {
           <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing}/>
         </LoggedIn>
       </div>
+      <LinkedResourcesViewer dataset={props.dataset}/>
       {dangerZone}
     </>
   );

@@ -143,6 +143,10 @@ wac-control-agent-add-icon =
 wac-control-agent-remove-icon =
   .aria-label = Remove `{$agent}`
 
+linked-resources-heading = Linked Resources
+linked-resources-acl-label = Access Control List
+linked-resources-acr-label = Access Control Resource
+
 predicate-add-button = New property
 predicate-add-url-label = Property URL
 predicate-add-url-input =

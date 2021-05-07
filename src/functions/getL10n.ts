@@ -10,7 +10,7 @@ export function getL10n() {
   const RESOURCES: Record<string, FluentResource> = {};
 
   for (const fileName of translationsContext.keys()) {
-    const locale = fileName.match(/^\.\/(.+)\.ftl$/)?.[1];
+    const locale = fileName.substring("./".length, fileName.length - ".ftl".length);
 
     if (locale) {
         RESOURCES[locale] = new FluentResource(translationsContext(fileName).default)

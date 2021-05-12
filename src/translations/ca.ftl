@@ -85,7 +85,7 @@ file-add-drop-target = Arrossega aquí per pujar
 dataset-empty-warning = Aquest Recurs està buit.
 dataset-update-toast-success = Guardat. <undo-button>Desfer.</undo-button>
 
-dataset-things-heading = Objectes
+dataset-things-heading = Coses
 
 danger-zone-heading = Zona perillosa
 dataset-delete = Eliminar Recurs
@@ -99,12 +99,12 @@ dataset-delete-toast-success-resource = S'ha eliminat <dataset-url>{$datasetUrl}
 dataset-delete-toast-error-not-allowed = No tens permisos per eliminar aquest Recurs.
 dataset-delete-toast-error-other = No ha estat possible eliminar aquest Recurs.
 
-thing-add-button = Objectes
+thing-add-button = Coses
 
-thing-add-url-label = URL de l'Objecte
+thing-add-url-label = URL de la Cosa
 thing-add-url-input =
   .placeholder = Exemple: https://…
-  .title = URL de l'Objecte
+  .title = URL de la Cosa
 thing-add-url-submit = Guardar
 
 thing-toast-error-not-allowed = No tens permisos per fer aquesta operació.

@@ -43,7 +43,7 @@ pod-listing-tooltip = Inspecciona tu Pod en `{$pod-url}`
 
 intro-title = ¿Qué es esto?
 intro-text =
-  Penny es una herramienta para desarrolladores de <solid-link>Solid</solid-link> apps.
+  Penny es una herramienta para desarrolladores de aplicaciones <solid-link>Solid</solid-link>.
   Te permite inspeccionar los datos en tu Pod y, con los permisos adecuados,
   modificar y añadir nuevos datos.
   Asume familiaridad con conceptos de Solid.

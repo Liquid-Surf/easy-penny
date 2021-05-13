@@ -43,7 +43,7 @@ pod-listing-tooltip = Inspecciona el teu Pod a `{$pod-url}`
 
 intro-title = Què és això?
 intro-text =
-  Penny és una eina per programadors de <solid-link>Solid</solid-link> apps.
+  Penny és una eina per programadors d'aplicacions <solid-link>Solid</solid-link>.
   Permet inspeccionar les dades en el teu Pod i, amb els permisos adients,
   modificar i afegir dades noves.
   Assumeix familiaritat amb els conceptes de Solid.

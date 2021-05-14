@@ -43,7 +43,7 @@ pod-listing-tooltip = Inspecciona tu Pod en `{$pod-url}`
 
 intro-title = ¿Qué es esto?
 intro-text =
-  Penny es una herramienta para desarrolladores de <solid-link>Solid</solid-link> apps.
+  Penny es una herramienta para desarrolladores de aplicaciones <solid-link>Solid</solid-link>.
   Te permite inspeccionar los datos en tu Pod y, con los permisos adecuados,
   modificar y añadir nuevos datos.
   Asume familiaridad con conceptos de Solid.
@@ -85,7 +85,7 @@ file-add-drop-target = Arrastra aquí para subir
 dataset-empty-warning = Este Recurso está vacío.
 dataset-update-toast-success = Guardado. <undo-button>Deshacer.</undo-button>
 
-dataset-things-heading = Objetos
+dataset-things-heading = Cosas
 
 danger-zone-heading = Zona peligrosa
 dataset-delete = Eliminar Recurso
@@ -99,12 +99,12 @@ dataset-delete-toast-success-resource = Se ha eliminado <dataset-url>{$datasetUr
 dataset-delete-toast-error-not-allowed = No tienes permisos para eliminar este Recurso.
 dataset-delete-toast-error-other = No ha sido posible eliminar este Recurso.
 
-thing-add-button = Objetos
+thing-add-button = Cosas
 
-thing-add-url-label = URL del Objeto
+thing-add-url-label = URL de la cosa
 thing-add-url-input =
   .placeholder = Ejemplo: https://…
-  .title = URL del Objeto
+  .title = URL de la cosa
 thing-add-url-submit = Guardar
 
 thing-toast-error-not-allowed = No tienes permisos para realizar esta operación.

@@ -36,28 +36,6 @@ const fetcher = async (url: UrlString): Promise<FileInfo | (SolidDataset & WithS
   }
 };
 
-// Unfortunately SolidDatasets are currently still an oblique object that cannot be easily compared
-// (I'm lobbying to change this, but it's hard!), so until then we'll have to do this manual kludge:
-function compareSolidDatasets(a?: SolidDataset | FileInfo, b?: SolidDataset | FileInfo): boolean {
-  if (typeof a === "undefined") {
-    return typeof b === "undefined";
-  }
-  if (typeof b === "undefined") {
-    return typeof a === "undefined";
-  }
-  if (isFileInfo(a)) {
-    // Comparing URLs means the same file will never be refetched;
-    // this works fine until we add the ability to change files.
-    return isFileInfo(b) && a.url === b.url;
-  }
-  if (isFileInfo(b)) {
-    // Comparing URLs means the same file will never be refetched;
-    // this works fine until we add the ability to change files.
-    return isFileInfo(a) && a.url === b.url;
-  }
-  return solidDatasetAsMarkdown(a) === solidDatasetAsMarkdown(b);
-}
-
 // Unfortunately solid-client doesn't currently export this type.
 // While awaiting that, this is a workaround to obtain it:
 export type WithServerResourceInfo = Parameters<typeof getEffectiveAccess>[0];
@@ -83,7 +61,7 @@ export function useDataset (url: UrlString | null): CachedDataset | null;
 export function useDataset (url: UrlString | null): CachedDataset | null {
   const resourceUrl = url ? getResourceUrl(url) : null;
   const sessionInfo = useSessionInfo();
-  const result = useSwr([resourceUrl, sessionInfo?.webId], fetcher, { compare: compareSolidDatasets });
+  const result = useSwr([resourceUrl, sessionInfo?.webId], fetcher);
 
   const update = useCallback(async (dataset: SolidDataset) => {
     if (!resourceUrl) {

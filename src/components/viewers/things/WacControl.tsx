@@ -308,7 +308,7 @@ const AgentAdder: FC<AgentAdderProps> = (props) => {
         type="url"
         name="webId"
         id="webId"
-        className="bg-blue-50 rounded flex-grow p-2 focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+        className="bg-white rounded flex-grow p-2 focus:outline-none focus:ring-2 focus:ring-coolGray-700"
         placeholder="e.g. https://example.com/profile/card#me"
         value={webId}
         onChange={(event) => setWebId(event.target.value)}

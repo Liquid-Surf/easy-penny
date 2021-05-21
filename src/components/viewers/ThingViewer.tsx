@@ -1,9 +1,8 @@
-import { asUrl, FetchError, getSourceUrl, isContainer, removeThing, Thing, ThingPersisted } from "@inrupt/solid-client";
+import { asUrl, FetchError, getPropertyAll, getSourceUrl, isContainer, removeThing, ThingPersisted } from "@inrupt/solid-client";
 import { FC, MouseEventHandler } from "react";
 import { VscTrash } from "react-icons/vsc";
 import { PredicateViewer } from "./PredicateViewer";
 import { LoadedCachedDataset } from "../../hooks/dataset";
-import { LoggedIn } from "../session/LoggedIn";
 import { toast } from "react-toastify";
 import { PredicateAdder } from "../adders/PredicateAdder";
 import { MdContentCopy, MdExpandLess, MdExpandMore } from "react-icons/md";
@@ -27,16 +26,8 @@ interface Props {
   isServerManaged?: boolean;
 }
 
-// Stand-in for what will hopefully be a solid-client function
-// NOTE THAT THIS CURRENTLY RELIES ON AN INTERNAL API TO WORK,
-// AND WILL THEREFORE BREAK IN A NON-MAJOR RELEASE OF SOLID-CLIENT:
-function toRdfJsDataset(thing: Thing) {
-  return thing;
-}
-
 export const ThingViewer: FC<Props> = (props) => {
-  const rdfJsDataset = toRdfJsDataset(props.thing);
-  const predicates = Array.from(new Set(Array.from(rdfJsDataset).map(quad => quad.predicate.value))).sort();
+  const predicates = getPropertyAll(props.thing).sort();
   const viewers = predicates.map(predicate => (<PredicateViewer key={predicate + "_predicate"} {...props} predicate={predicate} onUpdate={props.onUpdate}/>));
   const shouldReduceMotion = useReducedMotion();
   const { l10n } = useLocalization();

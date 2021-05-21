@@ -1,6 +1,6 @@
 import React, { FC, MouseEventHandler, useEffect, useState } from "react";
 import { MdFileDownload } from "react-icons/md";
-import { deleteFile, FetchError, getContentType, getFile, getSourceUrl, UrlString, WithResourceInfo } from "@inrupt/solid-client";
+import { deleteFile, FetchError, getContentType, getFile, getSourceUrl, UrlString } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { SectionHeading } from "../ui/headings";
 import { VscLoading, VscTrash } from "react-icons/vsc";

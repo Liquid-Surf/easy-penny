@@ -121,6 +121,7 @@ thing-expand-label = Expand
 thing-expand-tooltip = Expand this Thing
 
 wac-control-title = Access Control for:
+wac-control-initialise = Convert to Access Control.
 wac-control-toast-saving = Saving Access Control…
 wac-control-toast-saved = Access Control saved.
 wac-control-toast-error-no-controller = Change not applied; at least one Agent should have Control access to the Resource itself.
@@ -145,6 +146,10 @@ wac-control-agent-remove-icon =
 
 linked-resources-heading = Linked Resources
 linked-resources-acl-label = Access Control List
+linked-resources-acl-add = Add Access Control List
+linked-resources-acl-add-toast-success = Access Control List created.
+linked-resources-acl-add-toast-error-not-allowed = You do not have permission to modify this Resource's Access Control List.
+linked-resources-acl-add-toast-error-other = Could not create an Access Control List.
 linked-resources-acr-label = Access Control Resource
 
 predicate-add-button = New property

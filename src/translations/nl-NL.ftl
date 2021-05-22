@@ -120,6 +120,7 @@ thing-expand-label = Uitklappen
 thing-expand-tooltip = Dit thing uitklappen
 
 wac-control-title = Access Control voor:
+wac-control-initialise = Maak dit een Access Control.
 wac-control-toast-saving = Access Control opslaan…
 wac-control-toast-saved = Access Control opgeslagen.
 wac-control-toast-error-no-controller = Wijziging niet toegepast; zorg dat tenminste één Agent Control-rechten heeft op de Resource zelf.
@@ -144,6 +145,10 @@ wac-control-agent-remove-icon =
 
 linked-resources-heading = Gelinkte Resources
 linked-resources-acl-label = Access Control List
+linked-resources-acl-add = Access Control List toevoegen
+linked-resources-acl-add-toast-success = Access Control List aangemaakt.
+linked-resources-acl-add-toast-error-not-allowed = Je hebt onvoldoende rechten om de Access Control List van deze Resource aan te passen.
+linked-resources-acl-add-toast-error-other = Kon Access Control List niet aanmaken.
 linked-resources-acr-label = Access Control Resource
 
 predicate-add-button = Nieuwe property

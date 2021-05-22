@@ -181,6 +181,7 @@ export const DatasetViewer: FC<Props> = (props) => {
             <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing}/>
           </HasAccess>
         </div>
+        <LinkedResourcesViewer dataset={props.dataset}/>
         {dangerZone}
       </>
     );

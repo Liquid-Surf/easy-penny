@@ -1,5 +1,5 @@
 import { useLocalization } from "@fluent/react";
-import { addUrl, getSourceUrl, getThingAll, getUrl, getUrlAll, removeAll, removeUrl, setThing, setUrl, SolidDataset, ThingPersisted, UrlString, WebId, WithResourceInfo } from "@inrupt/solid-client";
+import { addUrl, getPropertyAll, getSourceUrl, getThingAll, getUrl, getUrlAll, removeAll, removeUrl, setThing, setUrl, SolidDataset, ThingPersisted, WebId, WithResourceInfo } from "@inrupt/solid-client";
 import Link from "next/link";
 import { acl, foaf, rdf } from "rdf-namespaces";
 import React, { FC, FormEventHandler, useState } from "react";
@@ -78,6 +78,34 @@ export const WacControl: FC<Props> = (props) => {
   }
 
   if (!types.includes(acl.Authorization) || targetResourceUrl === null) {
+    // If this Thing is not an Access Control, but there are Access Controls
+    // in this Resource, it is likely to be in an ACL, so if this Thing is
+    // empty, offer initialising it as an Access Control:
+    const targetOfOtherControls = getThingAll(props.dataset.data)
+      .map(otherThing => getUrl(otherThing, acl.accessTo) ?? getUrl(otherThing, acl.default__workaround))
+      .find(targetUrl => targetUrl !== null);
+    if (
+      hasAtLeastOneController(props.dataset.data) &&
+      getPropertyAll(props.thing).length === 0 &&
+      typeof targetOfOtherControls === "string"
+    ) {
+      const convertToControl = () => {
+        let thingAsControl = addUrl(props.thing, rdf.type, acl.Authorization);
+        thingAsControl = addUrl(thingAsControl, acl.accessTo, targetOfOtherControls)
+        saveControl(thingAsControl);
+      };
+
+      return (
+        <ClientLocalized id="wac-control-initialise">
+          <button
+            onClick={(e) => { e.preventDefault(); convertToControl(); }}
+            className="p-5 bg-blue-200 border-b-4 border-blue-200 w-full text-left hover:bg-blue-300 hover:border-blue-300 focus:underline focus:border-blue-400 focus:outline-none rounded-b-sm"
+          >
+            Convert to Access Control.
+          </button>
+        </ClientLocalized>
+      );
+    }
     return null;
   }
 
@@ -135,7 +163,7 @@ export const WacControl: FC<Props> = (props) => {
   };
 
   return (
-    <section className="p-5 bg-blue-200">
+    <section className="p-5 bg-blue-200 rounded-b-sm">
       <header className="text-xl flex w-100 font-bold">
         <ClientLocalized id="wac-control-title">
           <div className="">Access Control for:</div>

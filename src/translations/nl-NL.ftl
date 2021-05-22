@@ -120,6 +120,9 @@ thing-expand-label = Uitklappen
 thing-expand-tooltip = Dit thing uitklappen
 
 wac-control-title = Access Control voor:
+# When someone adds a new (but still empty) Thing,
+# a notification will be shown on top that will allow
+# adding the necessary data to turn it into an Access Control:
 wac-control-initialise = Maak dit een Access Control.
 wac-control-toast-saving = Access Control opslaan…
 wac-control-toast-saved = Access Control opgeslagen.

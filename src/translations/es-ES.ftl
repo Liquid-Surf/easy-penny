@@ -120,6 +120,7 @@ thing-expand-label = Expandir
 thing-expand-tooltip = Expande esto
 
 wac-control-title = Control de Acceso para:
+wac-control-initialise = Convertir en Control de Acceso.
 wac-control-toast-saving = Guardando Control de Acceso…
 wac-control-toast-saved = Control de Acceso guardado.
 wac-control-toast-error-no-controller = Cambios no aplicados; por lo menos un Agente debería tener control del Recurso.
@@ -143,7 +144,11 @@ wac-control-agent-remove-icon =
   .aria-label = Eliminar `{$agent}`
 
 linked-resources-heading = Recursos enlazados
-linked-resources-acl-label = List de Control de Acceso
+linked-resources-acl-label = Lista de Control de Acceso
+linked-resources-acl-add = Añadir Lista de Control de Acceso
+linked-resources-acl-add-toast-success = Se ha creado la Lista de Control de Acceso
+linked-resources-acl-add-toast-error-not-allowed = No tienes permisos para modificar la Lista de Control de Acceso de este Recurso.
+linked-resources-acl-add-toast-error-other = No se ha podido crear la Lista de Control de Acceso.
 linked-resources-acr-label = Recurso de Control de Acceso
 
 predicate-add-button = Nueva propiedad

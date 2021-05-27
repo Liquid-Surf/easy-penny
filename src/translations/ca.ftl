@@ -120,6 +120,7 @@ thing-expand-label = Expandir
 thing-expand-tooltip = Expandeix això
 
 wac-control-title = Control d'Accés per:
+wac-control-initialise = Convertir a Control d'Accés.
 wac-control-toast-saving = Guardant Control d'Accés…
 wac-control-toast-saved = Control d'Accés guardat.
 wac-control-toast-error-no-controller = Canvis no aplicats; almenys un Agent hauria de controlar aquest Recurs.
@@ -144,6 +145,10 @@ wac-control-agent-remove-icon =
 
 linked-resources-heading = Recursos enllaçats
 linked-resources-acl-label = Llista de Control d'Accés
+linked-resources-acl-add = Afegir Llista de Control d'Accés
+linked-resources-acl-add-toast-success = S'ha creat la Llista de Control d'Accés
+linked-resources-acl-add-toast-error-not-allowed = No tens permisos per modificar la Llista de Control d'Accés d'aquest Recurs.
+linked-resources-acl-add-toast-error-other = No ha estat possible crear la Llista de Control d'Accés.
 linked-resources-acr-label = Recurs de Control d'Accés
 
 predicate-add-button = Nova propietat

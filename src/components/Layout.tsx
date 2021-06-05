@@ -87,7 +87,7 @@ export const Layout: FC<Props> = (props) => {
               <VscTwitter aria-label={l10n.getString("twitter-label")}/>
             </a>
             <a
-              href="https://mastodon.social/@Vinnl"
+              href="https://fosstodon.org/@VincentTunru"
               title={l10n.getString("mastodon-tooltip")}
               className="text-coolGray-500 p-2 border-2 border-white rounded hover:text-coolGray-700 hover:border-coolGray-700 focus:outline-none focus:text-coolGray-700 focus:border-coolGray-700"
             >

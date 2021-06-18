@@ -1,5 +1,6 @@
-import { FetchError, isRawData, responseToResourceInfo, responseToSolidDataset, SolidDataset, UrlString, WithServerResourceInfo } from "@inrupt/solid-client";
+import { FetchError, getSourceUrl, hasServerResourceInfo, isRawData, overwriteFile, responseToResourceInfo, responseToSolidDataset, saveSolidDatasetAt, SolidDataset, UrlString, WithServerResourceInfo } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
+import { useCallback } from "react";
 import useSwr, { responseInterface } from "swr";
 import { useSessionInfo } from "./sessionInfo";
 
@@ -22,7 +23,7 @@ const fetcher = async (url: UrlString): Promise<FileData | (SolidDataset & WithS
   return dataset;
 };
 
-export type CachedResource = responseInterface<(SolidDataset & WithServerResourceInfo) | FileData, FetchError>;
+export type CachedResource = responseInterface<(SolidDataset & WithServerResourceInfo) | FileData, FetchError> & { save: (resource: SolidDataset | Blob) => Promise<void> };
 
 export function isFileData(data?: object): data is FileData {
   return typeof data === "object" &&
@@ -35,9 +36,48 @@ export function useResource (url: UrlString | null): CachedResource | null;
 export function useResource (url: UrlString | null): CachedResource | null {
   const resourceUrl = url ? getResourceUrl(url) : null;
   const sessionInfo = useSessionInfo();
-  const result = useSwr([resourceUrl, sessionInfo?.webId], fetcher);
+  const resource = useSwr([resourceUrl, sessionInfo?.webId], fetcher);
 
-  return result;
+  const update = useCallback(async (newResource: SolidDataset | Blob) => {
+    if (hasServerResourceInfo(resource.data)) {
+      // Optimistically update local view of the data
+      if (newResource instanceof Blob) {
+        resource.mutate({
+          ...resource.data,
+          blob: newResource,
+          etag: null,
+        }, false);
+        try {
+          await overwriteFile(getSourceUrl(resource.data), newResource, { fetch: fetch });
+          // // Refetch to obtain ETag:
+          // resource.mutate();
+        } catch (e) {
+          await resource.revalidate();
+          throw e;
+        }
+      } else {
+        if (hasServerResourceInfo(newResource)) {
+          resource.mutate(newResource, false);
+        }
+        try {
+          const savedData = await saveSolidDatasetAt(getSourceUrl(resource.data), newResource, { fetch: fetch });
+          // Update local data with confirmed changes from the server,
+          // then refetch to fetch potential changes performed in a different tab:
+          resource.mutate(savedData, true);
+        } catch (e) {
+          await resource.revalidate();
+          throw e;
+        }
+      }
+    }
+  }, [url, resource]);
+
+  const cached: CachedResource = {
+    ...resource,
+    save: update,
+  };
+
+  return cached;
 }
 
 function getResourceUrl(url: UrlString): UrlString {

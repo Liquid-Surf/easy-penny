@@ -1,9 +1,9 @@
+import { LoadedCachedDataset, useDataset } from "./dataset";
 import { useSessionInfo } from "./sessionInfo";
-import { CachedResource, useResource } from "./resource";
 
-export function useProfileDoc(): CachedResource | null {
+export function useProfileDoc(): LoadedCachedDataset | null {
   const sessionInfo = useSessionInfo();
-  const profileDoc = useResource(sessionInfo?.webId ?? null);
+  const profileDoc = useDataset(sessionInfo?.webId ?? null);
 
   return profileDoc;
 }

@@ -2,7 +2,6 @@ import { asUrl, FetchError, getPropertyAll, getSourceUrl, isContainer, removeThi
 import { FC, MouseEventHandler } from "react";
 import { VscTrash } from "react-icons/vsc";
 import { PredicateViewer } from "./PredicateViewer";
-import { LoadedCachedDataset } from "../../hooks/resource";
 import { toast } from "react-toastify";
 import { PredicateAdder } from "../adders/PredicateAdder";
 import { MdContentCopy, MdExpandLess, MdExpandMore } from "react-icons/md";
@@ -11,6 +10,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { WacControl } from "./things/WacControl";
 import { useLocalization } from "@fluent/react";
 import { HasAccess } from "../HasAccess";
+import { LoadedCachedDataset } from "../../hooks/dataset";
 
 interface Props {
   dataset: LoadedCachedDataset;

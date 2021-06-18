@@ -2,7 +2,7 @@ import { useLocalization } from "@fluent/react";
 import { createThing, getSourceUrl, ThingPersisted } from "@inrupt/solid-client";
 import React, { FC, FormEventHandler, useState } from "react";
 import { MdAdd, MdCheck } from "react-icons/md";
-import { LoadedCachedDataset } from "../../hooks/resource";
+import { LoadedCachedDataset } from "../../hooks/dataset";
 import { ClientLocalized } from "../ClientLocalized";
 import { ThingViewer } from "../viewers/ThingViewer";
 

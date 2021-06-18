@@ -1,15 +1,16 @@
 import * as React from "react";
 import Head from "next/head";
-import { ldp, rdf } from "rdf-namespaces";
-import { getSourceUrl, getThing, getUrl, isContainer, UrlString } from "@inrupt/solid-client";
+import { isContainer, UrlString } from "@inrupt/solid-client";
 import { Layout } from "./Layout";
-import { isLoadedCachedFileInfo, isLoaded, useDataset } from "../hooks/resource";
+import { useResource } from "../hooks/resource";
 import { DatasetViewer } from "./viewers/DatasetViewer";
 import { ContainerViewer } from "./viewers/ContainerViewer";
 import { FetchErrorViewer } from "./viewers/FetchErrorViewer";
 import { FileViewer } from "./viewers/FileViewer";
 import { useSessionInfo } from "../hooks/sessionInfo";
 import { Spinner } from "./ui/Spinner";
+import { isLoadedFileData } from "../hooks/file";
+import { isLoadedDataset } from "../hooks/dataset";
 
 interface Props {
   url?: UrlString;
@@ -19,40 +20,24 @@ export const Explorer: React.FC<Props> = (props) => {
   if (typeof props.url === "undefined") {
     return null;
   }
-  const dataset = useDataset(props.url);
+  const resource = useResource(props.url);
   const sessionInfo = useSessionInfo();
 
-  const datasetViewer = isLoaded(dataset)
-    ? <DatasetViewer dataset={dataset}/>
+  const datasetViewer = isLoadedDataset(resource)
+    ? <DatasetViewer dataset={resource}/>
     : null;
 
-  const containerViewer = isLoaded(dataset) && isContainer(dataset.data)
-    ? <ContainerViewer dataset={dataset}/>
+  const containerViewer = isLoadedDataset(resource) && isContainer(resource.data)
+    ? <ContainerViewer dataset={resource}/>
     : null;
 
-  const datasetThing = isLoaded(dataset) ? getThing(dataset.data, getSourceUrl(dataset.data)) : null;
-  // ESS indicates that the loaded Resource also has a representation as a regular file
-  // by setting its type to ldp:NonRDFSource.
-  // This is implementation-specific behaviour,
-  // but unfortunately I don't know of a spec-described way of determining this
-  // (and I've asked multiple times, but it appears to be hard to formulate the right question):
-  const essFileViewer = isLoaded(dataset) && datasetThing !== null && getUrl(datasetThing, rdf.type) === ldp.NonRDFSource
-    ? <FileViewer file={dataset}/>
+  const fileViewer = isLoadedFileData(resource)
+    ? <FileViewer file={resource}/>
     : null;
 
-  // When we fetch a regular file from NSS using getSolidDataset, it throws a 500 error.
-  // In `useDataset`, we explicitly catch that, check whether the URL contains a regular file,
-  // and if so store that as that file's URL.
-  // Again, implementation-specific behaviour in lieu of a spec-defined way to deal with this.
-  const nssFileViewer = isLoadedCachedFileInfo(dataset)
-    ? <FileViewer file={dataset}/>
-    : null;
-
-  const fileViewer = nssFileViewer ?? essFileViewer ?? null;
-
-  const errorViewer = typeof sessionInfo === "undefined" || (!isLoaded(dataset) && dataset.isValidating)
+  const errorViewer = typeof sessionInfo === "undefined" || (!isLoadedDataset(resource) && resource.isValidating)
     ? <Spinner/>
-    : <FetchErrorViewer error={dataset.error}/>;
+    : <FetchErrorViewer error={resource.error}/>;
 
   return (
     <Layout path={props.url}>

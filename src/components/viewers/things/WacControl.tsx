@@ -7,10 +7,10 @@ import { MdCheck } from "react-icons/md";
 import { VscTrash } from "react-icons/vsc";
 import { toast } from "react-toastify";
 import { getExplorePath } from "../../../functions/integrate";
-import { LoadedCachedDataset } from "../../../hooks/resource";
 import { Url } from "../../data/Url";
 import { ClientLocalized } from "../../ClientLocalized";
 import { Toggle } from "../../ui/Toggle";
+import { LoadedCachedDataset } from "../../../hooks/dataset";
 
 interface Props {
   dataset: LoadedCachedDataset;

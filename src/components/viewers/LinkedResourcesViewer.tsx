@@ -7,7 +7,8 @@ import React, { FC, useState } from "react";
 import { MdAdd } from "react-icons/md";
 import { toast } from "react-toastify";
 import { getExplorePath } from "../../functions/integrate";
-import { isLoaded, LoadedCachedDataset, useDataset } from "../../hooks/resource";
+import { isLoadedDataset, LoadedCachedDataset } from "../../hooks/dataset";
+import { useResource } from "../../hooks/resource";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { ClientLocalized } from "../ClientLocalized";
 import { SectionHeading } from "../ui/headings";
@@ -21,9 +22,9 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
   const linkedResourceUrls = hasServerResourceInfo(props.dataset.data) ? getLinkedResourceUrlAll(props.dataset.data) : {};
   const acrUrl = linkedResourceUrls["http://www.w3.org/ns/solid/acp#accessControl"]?.[0] ?? null;
   const sessionInfo = useSessionInfo();
-  const acrDataset = useDataset(acrUrl);
+  const acrDataset = useResource(acrUrl);
   const aclUrl = linkedResourceUrls.acl?.[0] ?? null;
-  const aclDataset = useDataset(aclUrl);
+  const aclDataset = useResource(aclUrl);
   const { l10n } = useLocalization();
   const [isInitialisingAcl, setIsInitialisingAcl] = useState(false);
 
@@ -31,11 +32,11 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
 
   // An ACL, even if linked, might not exist, so we try to fetch it before linking:
   // (Note that ESS lists an ACL as its own ACL, so ignore it in that case.)
-  if (isLoaded(aclDataset) && aclUrl !== getSourceUrl(props.dataset.data)) {
+  if (isLoadedDataset(aclDataset) && aclUrl !== getSourceUrl(props.dataset.data)) {
     linkedResourceLabels[aclUrl] = l10n.getString("linked-resources-acl-label");
   }
   // The current user might not have access to the ACR, so we try to fetch it before linking:
-  if (isLoaded(acrDataset)) {
+  if (isLoadedDataset(acrDataset)) {
     linkedResourceLabels[acrUrl] = l10n.getString("linked-resources-acr-label");
   }
 

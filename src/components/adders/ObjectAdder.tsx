@@ -3,7 +3,7 @@ import { addDatetime, addDecimal, addInteger, addStringNoLocale, addStringWithLo
 import React, { FC, FormEventHandler, useState } from "react";
 import { MdAdd, MdCheck, MdLink, MdTextFields, MdTranslate } from "react-icons/md";
 import { VscCalendar, VscLink } from "react-icons/vsc";
-import { LoadedCachedDataset } from "../../hooks/resource";
+import { LoadedCachedDataset } from "../../hooks/dataset";
 import { ClientLocalized } from "../ClientLocalized";
 
 interface Props {

@@ -3,8 +3,7 @@ import { MdFileDownload } from "react-icons/md";
 import { deleteFile, FetchError, getContentType, getSourceUrl } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { SectionHeading } from "../ui/headings";
-import { VscLoading, VscTrash } from "react-icons/vsc";
-import { LoadedCachedFileData } from "../../hooks/resource";
+import { VscTrash } from "react-icons/vsc";
 import { toast } from "react-toastify";
 import { ConfirmOperation } from "../ConfirmOperation";
 import { ImagePreview } from "../preview/ImagePreview";
@@ -14,6 +13,7 @@ import { TextPreview } from "../preview/TextPreview";
 import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "../ClientLocalized";
 import { HasAccess } from "../HasAccess";
+import { LoadedCachedFileData } from "../../hooks/file";
 
 interface Props {
   file: LoadedCachedFileData;

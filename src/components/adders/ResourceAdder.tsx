@@ -4,12 +4,12 @@ import React, { FC, FocusEventHandler, FormEventHandler, useState } from "react"
 import { MdAdd, MdCheck } from "react-icons/md";
 import { toast } from "react-toastify";
 import Link from "next/link";
-import { LoadedCachedDataset } from "../../hooks/resource";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { FileAdder } from "./FileAdder";
 import { getExplorePath } from "../../functions/integrate";
 import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "../ClientLocalized";
+import { LoadedCachedDataset } from "../../hooks/dataset";
 
 interface Props {
   container: LoadedCachedDataset;

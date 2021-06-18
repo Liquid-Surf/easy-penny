@@ -1,21 +1,20 @@
-import { FetchError, getContentType, getEffectiveAccess, getResourceInfo, getSolidDataset, hasResourceInfo, hasServerResourceInfo, isRawData, responseToResourceInfo, responseToSolidDataset, saveSolidDatasetAt, SolidDataset, solidDatasetAsMarkdown, UrlString } from "@inrupt/solid-client";
+import { FetchError, getContentType, getEffectiveAccess, getResourceInfo, getSolidDataset, hasResourceInfo, hasServerResourceInfo, isRawData, responseToResourceInfo, responseToSolidDataset, saveSolidDatasetAt, SolidDataset, solidDatasetAsMarkdown, UrlString, WithResourceInfo } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { useCallback } from "react";
 import useSwr, { responseInterface } from "swr";
 import { useSessionInfo } from "./sessionInfo";
 
-export type FileInfo = {
-  url: UrlString;
-  contentType: string | null;
+export type FileData = WithServerResourceInfo & {
+  blob: Blob;
 };
 
-const fetcher = async (url: UrlString): Promise<FileInfo | (SolidDataset & WithServerResourceInfo)> => {
+const fetcher = async (url: UrlString): Promise<FileData | (SolidDataset & WithServerResourceInfo)> => {
   const response = await fetch(url);
   const resourceInfo = responseToResourceInfo(response);
   if(isRawData(resourceInfo)) {
     return {
-      url: url,
-      contentType: getContentType(resourceInfo),
+      ...resourceInfo,
+      blob: await response.blob(),
     };
   }
   const dataset = await responseToSolidDataset(response);
@@ -25,20 +24,19 @@ const fetcher = async (url: UrlString): Promise<FileInfo | (SolidDataset & WithS
 // Unfortunately solid-client doesn't currently export this type.
 // While awaiting that, this is a workaround to obtain it:
 export type WithServerResourceInfo = Parameters<typeof getEffectiveAccess>[0];
-export type CachedDataset = responseInterface<(SolidDataset & WithServerResourceInfo) | FileInfo, FetchError> & { save: (dataset: SolidDataset) => Promise<void> };
-export type LoadedCachedDataset = CachedDataset & { data: Exclude<CachedDataset['data'], undefined | FileInfo> & WithServerResourceInfo };
-export type LoadedCachedFileInfo = CachedDataset & { data: FileInfo };
+export type CachedDataset = responseInterface<(SolidDataset & WithServerResourceInfo) | FileData, FetchError> & { save: (dataset: SolidDataset) => Promise<void> };
+export type LoadedCachedDataset = CachedDataset & { data: Exclude<CachedDataset['data'], undefined | FileData> & WithServerResourceInfo };
+export type LoadedCachedFileData = CachedDataset & { data: FileData };
 
 export function isLoaded(dataset: CachedDataset): dataset is LoadedCachedDataset {
-  return typeof dataset.error === "undefined" && typeof dataset.data !== "undefined" && typeof (dataset.data as FileInfo).url === "undefined";
+  return typeof dataset.error === "undefined" && typeof dataset.data !== "undefined" && typeof (dataset.data as FileData).blob === "undefined";
 }
-function isFileInfo(data?: object): data is FileInfo {
+function isFileData(data?: object): data is FileData {
   return typeof data === "object" &&
-    typeof (data as FileInfo).url === "string" &&
-    ((data as FileInfo).contentType === null || typeof (data as FileInfo).contentType === "string");
+    typeof (data as FileData).blob === "object";
 }
-export function isLoadedCachedFileInfo(dataset: CachedDataset): dataset is LoadedCachedFileInfo {
-  return typeof dataset.error === "undefined" && isFileInfo(dataset.data);
+export function isLoadedCachedFileInfo(dataset: CachedDataset): dataset is LoadedCachedFileData {
+  return typeof dataset.error === "undefined" && isFileData(dataset.data);
 }
 
 export function useDataset (url: UrlString): CachedDataset;

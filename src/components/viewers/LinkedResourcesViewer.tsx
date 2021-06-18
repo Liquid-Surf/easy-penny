@@ -7,7 +7,7 @@ import React, { FC, useState } from "react";
 import { MdAdd } from "react-icons/md";
 import { toast } from "react-toastify";
 import { getExplorePath } from "../../functions/integrate";
-import { isLoaded, LoadedCachedDataset, useDataset } from "../../hooks/dataset";
+import { isLoaded, LoadedCachedDataset, useDataset } from "../../hooks/resource";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { ClientLocalized } from "../ClientLocalized";
 import { SectionHeading } from "../ui/headings";

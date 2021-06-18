@@ -2,7 +2,7 @@ import { getThing, setThing, Thing, ThingPersisted } from "@inrupt/solid-client"
 import { useCallback } from "react";
 import { useSessionInfo } from "./sessionInfo";
 import { useProfileDoc } from "./profileDoc";
-import { isLoaded } from "./dataset";
+import { isLoaded } from "./resource";
 
 export function useProfile(): { data: ThingPersisted, save: (profile: Thing) => void } | null {
   const sessionInfo = useSessionInfo();

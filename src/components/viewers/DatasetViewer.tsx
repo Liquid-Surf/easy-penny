@@ -2,7 +2,7 @@ import { asUrl, FetchError, getContainedResourceUrlAll, getSourceUrl, getThingAl
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import React, { FC, MouseEventHandler, ReactText, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { LoadedCachedDataset } from "../../hooks/dataset";
+import { LoadedCachedDataset } from "../../hooks/resource";
 import { ThingAdder } from "../adders/ThingAdder";
 import { ThingViewer } from "./ThingViewer";
 import { ConfirmOperation } from "../ConfirmOperation";

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { MdFileUpload } from "react-icons/md";
 import { FetchError, getSourceUrl, saveFileInContainer } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
-import { LoadedCachedDataset } from "../../hooks/dataset";
+import { LoadedCachedDataset } from "../../hooks/resource";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { DropzoneOptions, useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";

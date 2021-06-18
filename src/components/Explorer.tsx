@@ -3,7 +3,7 @@ import Head from "next/head";
 import { ldp, rdf } from "rdf-namespaces";
 import { getSourceUrl, getThing, getUrl, isContainer, UrlString } from "@inrupt/solid-client";
 import { Layout } from "./Layout";
-import { isLoadedCachedFileInfo, isLoaded, useDataset } from "../hooks/dataset";
+import { isLoadedCachedFileInfo, isLoaded, useDataset } from "../hooks/resource";
 import { DatasetViewer } from "./viewers/DatasetViewer";
 import { ContainerViewer } from "./viewers/ContainerViewer";
 import { FetchErrorViewer } from "./viewers/FetchErrorViewer";

@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { MdContentCopy, MdLink, MdTextFields } from "react-icons/md";
 import { VscCalendar, VscPrimitiveSquare, VscQuestion, VscSymbolBoolean, VscTrash } from "react-icons/vsc";
 import { toast } from "react-toastify";
-import { LoadedCachedDataset } from "../../hooks/dataset";
+import { LoadedCachedDataset } from "../../hooks/resource";
 import { Url } from "../data/Url";
 import { ObjectAdder } from "../adders/ObjectAdder";
 import { ObjectViewer } from "./ObjectViewer";

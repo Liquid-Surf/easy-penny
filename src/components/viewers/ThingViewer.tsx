@@ -2,7 +2,7 @@ import { asUrl, FetchError, getPropertyAll, getSourceUrl, isContainer, removeThi
 import { FC, MouseEventHandler } from "react";
 import { VscTrash } from "react-icons/vsc";
 import { PredicateViewer } from "./PredicateViewer";
-import { LoadedCachedDataset } from "../../hooks/dataset";
+import { LoadedCachedDataset } from "../../hooks/resource";
 import { toast } from "react-toastify";
 import { PredicateAdder } from "../adders/PredicateAdder";
 import { MdContentCopy, MdExpandLess, MdExpandMore } from "react-icons/md";

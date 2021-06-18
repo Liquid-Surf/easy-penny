@@ -1,7 +1,7 @@
 import { ThingPersisted } from "@inrupt/solid-client";
 import React, { FC, useState } from "react";
 import { MdAdd } from "react-icons/md";
-import { LoadedCachedDataset } from "../../hooks/dataset";
+import { LoadedCachedDataset } from "../../hooks/resource";
 import { PredicateForm } from "../data/PredicateForm";
 import { ObjectAdder } from "./ObjectAdder";
 import { PredicateUrl } from "../viewers/PredicateUrl";

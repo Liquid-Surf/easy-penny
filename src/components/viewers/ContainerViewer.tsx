@@ -1,7 +1,7 @@
 import { getContainedResourceUrlAll, getSourceUrl, UrlString } from "@inrupt/solid-client";
 import React, { FC } from "react";
 import Link from "next/link";
-import { LoadedCachedDataset } from "../../hooks/dataset";
+import { LoadedCachedDataset } from "../../hooks/resource";
 import { SectionHeading } from "../ui/headings";
 import { ResourceAdder } from "../adders/ResourceAdder";
 import { LoggedOut } from "../session/LoggedOut";

@@ -1,4 +1,4 @@
-import { FetchError, getContentType, getEffectiveAccess, getResourceInfo, getSolidDataset, hasResourceInfo, hasServerResourceInfo, isRawData, saveSolidDatasetAt, SolidDataset, solidDatasetAsMarkdown, UrlString } from "@inrupt/solid-client";
+import { FetchError, getContentType, getEffectiveAccess, getResourceInfo, getSolidDataset, hasResourceInfo, hasServerResourceInfo, isRawData, responseToResourceInfo, responseToSolidDataset, saveSolidDatasetAt, SolidDataset, solidDatasetAsMarkdown, UrlString } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { useCallback } from "react";
 import useSwr, { responseInterface } from "swr";
@@ -10,30 +10,16 @@ export type FileInfo = {
 };
 
 const fetcher = async (url: UrlString): Promise<FileInfo | (SolidDataset & WithServerResourceInfo)> => {
-  try {
-    const dataset = await getSolidDataset(url, { fetch: fetch });
-    return dataset;
-  } catch (e) {
-    if (e instanceof FetchError && [406, 500, 501].includes(e.statusCode)) {
-      // When we call `getSolidDataset()` against a non-RDF source in NSS,
-      // it returns a 500 Internal Server Error.
-      // Likewise, CSS currently returns a 501 Not Implemented error (though it will likely switch
-      // to a 406 or a 200 with as-yet unknown body.)
-      // And ESS, in its turn, returns 406 Not Acceptable.
-      // To enable detecting that it is a regular file that we can offer for download,
-      // we set the data to that file's URL if it is.
-      // Unfortunately, in lieu of a spec-defined way to determine whether a Resource has a
-      // non-RDF representation, we need implementation-specific workarounds like this.
-      const resourceInfo = await getResourceInfo(url, { fetch: fetch });
-      if(isRawData(resourceInfo)) {
-        return {
-          url: url,
-          contentType: getContentType(resourceInfo),
-        };
-      }
-    }
-    throw e;
+  const response = await fetch(url);
+  const resourceInfo = responseToResourceInfo(response);
+  if(isRawData(resourceInfo)) {
+    return {
+      url: url,
+      contentType: getContentType(resourceInfo),
+    };
   }
+  const dataset = await responseToSolidDataset(response);
+  return dataset;
 };
 
 // Unfortunately solid-client doesn't currently export this type.

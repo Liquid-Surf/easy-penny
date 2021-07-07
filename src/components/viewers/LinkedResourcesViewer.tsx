@@ -1,5 +1,5 @@
 import { useLocalization } from "@fluent/react";
-import { AclDataset, addUrl, createAclFromFallbackAcl, createSolidDataset, createThing, getLinkedResourceUrlAll, getSolidDatasetWithAcl, getSourceUrl, hasAccessibleAcl, hasFallbackAcl, hasServerResourceInfo, saveAclFor, setThing, UrlString } from "@inrupt/solid-client";
+import { addUrl, createAclFromFallbackAcl, createSolidDataset, createThing, getLinkedResourceUrlAll, getSolidDatasetWithAcl, getSourceUrl, hasAccessibleAcl, hasFallbackAcl, hasServerResourceInfo, saveAclFor, setThing, UrlString } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import Link from "next/link";
 import { rdf, acl } from "rdf-namespaces";
@@ -81,10 +81,8 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
         let newAcl = hasFallbackAcl(resourceWithAcl)
           ? createAclFromFallbackAcl(resourceWithAcl)
           : setThing(createSolidDataset(), firstControl);
-        // The type assertion is necessary because solid-client's type parameter
-        // is unnecessarily strict - will report upstream.
         try {
-          await saveAclFor(resourceWithAcl, newAcl as AclDataset, { fetch: fetch });
+          await saveAclFor(resourceWithAcl, newAcl, { fetch: fetch });
           aclDataset.revalidate();
           toast(l10n.getString("linked-resources-acl-add-toast-success"), { type: "info" });
         } catch(e) {

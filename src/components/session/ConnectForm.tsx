@@ -103,6 +103,7 @@ export const ConnectForm: FC = (props) => {
           <option value="https://solidcommunity.net"/>
           <option value="https://solidweb.org"/>
           <option value="https://inrupt.net"/>
+          <option value="https://css.verborgh.org"/>
         </datalist>
         <ClientLocalized id="connectform-button" attrs={{value: true}}>
           <SubmitButton value="Connect" className="p-3"/>

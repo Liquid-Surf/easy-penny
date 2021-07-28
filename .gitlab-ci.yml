@@ -6,11 +6,11 @@ cache:
   paths:
   - node_modules/
 
-test:
-  image: node:14
-  stage: test
-  script:
-  - npm ci
+
+stages:
+  - build
+  - test
+  - release
 
 build:
   image: node:14
@@ -39,8 +39,14 @@ build_integrated:
     paths:
     - server-ui
 
+test:
+  image: node:14
+  stage: test
+  script:
+  - npm ci
+
 publish_npm:
-  stage: deploy
+  stage: release
   image: node:14
   dependencies:
     - build

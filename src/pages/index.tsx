@@ -1,7 +1,7 @@
 import * as React from "react";
 import Head from "next/head";
 import { asUrl, getStringNoLocale, getUrlAll, UrlString } from "@inrupt/solid-client";
-import { foaf, space, vcard } from "rdf-namespaces";
+import { foaf, space, vcard, solid } from "rdf-namespaces";
 import Link from "next/link";
 import { useLocalization } from "@fluent/react";
 import { Layout } from "../components/Layout";
@@ -20,7 +20,9 @@ const Home: React.FC = () => {
     : null;
   const webId = profile ? asUrl(profile.data) : "";
 
-  const storages = profile ? getUrlAll(profile.data, space.storage) : [];
+  const storages = profile
+    ? Array.from(new Set(getUrlAll(profile.data, space.storage).concat(getUrlAll(profile.data, solid.account))))
+    : [];
 
   return (
     <Layout>

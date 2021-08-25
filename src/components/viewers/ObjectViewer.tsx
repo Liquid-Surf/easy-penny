@@ -1,18 +1,15 @@
 import { FC } from "react";
-import { useSessionInfo } from "../../hooks/sessionInfo";
 
 interface Props {
   type?: JSX.Element;
   options?: Array<{
     element: JSX.Element;
     callback: () => void;
-    loggedIn?: boolean;
+    when?: boolean;
   }>;
 }
 
 export const ObjectViewer: FC<Props> = (props) => {
-  const sessionInfo = useSessionInfo();
-
   const type = props.type
     ? <div className="flex-shrink flex flex-col justify-center">
         <div className="p-2 mr-1 text-coolGray-500 w-10">
@@ -24,7 +21,7 @@ export const ObjectViewer: FC<Props> = (props) => {
   const options = props.options
     ? (
       <ul className="flex-shrink flex">
-        {props.options.filter(option => !option.loggedIn || !!sessionInfo).map((option, i) => (
+        {props.options.filter(option => typeof option.when === "undefined" || option.when).map((option, i) => (
           <li
             key={`objectOption${i}`}
           >

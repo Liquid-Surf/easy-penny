@@ -1,5 +1,6 @@
 import { getEffectiveAccess } from "@inrupt/solid-client";
 import { FC } from "react";
+import { hasAccess } from "../functions/hasAccess";
 
 interface Props {
   access: Array<keyof ReturnType<typeof getEffectiveAccess>['user']>;
@@ -7,9 +8,7 @@ interface Props {
 };
 
 export const HasAccess: FC<Props> = (props) => {
-  const actualAccess = getEffectiveAccess(props.resource)
-
-  const hasRequiredAccess = props.access.every(requiredAccess => actualAccess.user[requiredAccess] === true);
+  const hasRequiredAccess = hasAccess(props.resource, props.access);
 
   if (!hasRequiredAccess) {
     return null;

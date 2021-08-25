@@ -7,10 +7,11 @@ import { Url } from "../data/Url";
 import { ObjectAdder } from "../adders/ObjectAdder";
 import { ObjectViewer } from "./ObjectViewer";
 import { PredicateUrl } from "./PredicateUrl";
-import { LoggedIn } from "../session/LoggedIn";
 import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "../ClientLocalized";
 import { LoadedCachedDataset } from "../../hooks/dataset";
+import { HasAccess } from "../HasAccess";
+import { hasAccess } from "../../functions/hasAccess";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -80,7 +81,7 @@ export const PredicateViewer: FC<Props> = (props) => {
               </ClientLocalized>
             ),
             callback: () => deleteUnsupportedType(data),
-            loggedIn: true,
+            when: hasAccess(props.dataset.data, ["write"]),
           },
         ]}
       >
@@ -151,7 +152,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                       </ClientLocalized>
                     ),
                     callback: () => deleteUrl(value),
-                    loggedIn: true,
+                    when: hasAccess(props.dataset.data, ["write"]),
                   },
                 ]}
               >
@@ -176,7 +177,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                       </ClientLocalized>
                     ),
                     callback: () => deleteStringNoLocale(value),
-                    loggedIn: true,
+                    when: hasAccess(props.dataset.data, ["write"]),
                   },
                 ]}
               >
@@ -201,7 +202,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                       </ClientLocalized>
                     ),
                     callback: () => deleteStringWithLocale(value, locale),
-                    loggedIn: true,
+                    when: hasAccess(props.dataset.data, ["write"]),
                   },
                 ]}
               >
@@ -226,7 +227,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                       </ClientLocalized>
                     ),
                     callback: () => deleteInteger(value),
-                    loggedIn: true,
+                    when: hasAccess(props.dataset.data, ["write"]),
                   },
                 ]}
               >
@@ -251,7 +252,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                       </ClientLocalized>
                     ),
                     callback: () => deleteDecimal(value),
-                    loggedIn: true,
+                    when: hasAccess(props.dataset.data, ["write"]),
                   },
                 ]}
               >
@@ -276,7 +277,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                       </ClientLocalized>
                     ),
                     callback: () => deleteDatetime(value),
-                    loggedIn: true,
+                    when: hasAccess(props.dataset.data, ["write"]),
                   },
                 ]}
               >
@@ -301,7 +302,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                       </ClientLocalized>
                     ),
                     callback: () => deleteBoolean(value),
-                    loggedIn: true,
+                    when: hasAccess(props.dataset.data, ["write"]),
                   },
                 ]}
               >
@@ -313,9 +314,9 @@ export const PredicateViewer: FC<Props> = (props) => {
           {unsupportedTypes}
           {unknownObject}
 
-          <LoggedIn>
+          <HasAccess access={["append"]} resource={props.dataset.data}>
             <ObjectAdder {...props}/>
-          </LoggedIn>
+          </HasAccess>
 
         </ul>
       </dd>

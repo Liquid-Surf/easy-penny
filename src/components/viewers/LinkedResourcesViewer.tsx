@@ -83,7 +83,7 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
           : setThing(createSolidDataset(), firstControl);
         try {
           await saveAclFor(resourceWithAcl, newAcl, { fetch: fetch });
-          aclDataset.revalidate();
+          aclDataset.mutate();
           toast(l10n.getString("linked-resources-acl-add-toast-success"), { type: "info" });
         } catch(e) {
           toast(l10n.getString("linked-resources-acl-add-toast-error-other"), { type: "error" });

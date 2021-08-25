@@ -49,10 +49,8 @@ export function useResource (url: UrlString | null): CachedResource | null {
         }, false);
         try {
           await overwriteFile(getSourceUrl(resource.data), newResource, { fetch: fetch });
-          // // Refetch to obtain ETag:
-          // resource.mutate();
         } catch (e) {
-          await resource.revalidate();
+          await resource.mutate();
           throw e;
         }
       } else {
@@ -65,7 +63,7 @@ export function useResource (url: UrlString | null): CachedResource | null {
           // then refetch to fetch potential changes performed in a different tab:
           resource.mutate(savedData, true);
         } catch (e) {
-          await resource.revalidate();
+          await resource.mutate();
           throw e;
         }
       }

@@ -100,7 +100,7 @@ export const DatasetViewer: FC<Props> = (props) => {
       );
       toast.update(deletionToast.current, { render: deletionMessage });
       deletionToast.current = null;
-      props.dataset.revalidate();
+      props.dataset.mutate();
     } catch(e) {
       let deletionMessage;
       if (e instanceof FetchError && e.statusCode === 403) {

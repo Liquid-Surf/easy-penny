@@ -34,7 +34,7 @@ export const FileViewer: FC<Props> = (props) => {
     try {
       await deleteFile(fileUrl, { fetch: fetch });
       toast(l10n.getString("file-delete-toast-success"), { type: "info" });
-      props.file.revalidate();
+      props.file.mutate();
     } catch(e) {
       if (e instanceof FetchError && e.statusCode === 403) {
         toast(l10n.getString("file-delete-toast-error-not-allowed"), { type: "error" });

@@ -28,7 +28,7 @@ export const FileAdder: FC<Props> = (props) => {
           },
         );
       }));
-      props.container.revalidate();
+      props.container.mutate();
       toast(l10n.getString("file-add-toast-success", { fileCount: selectedFiles.length }), { type: "info" });
     } catch (e) {
       if (e instanceof FetchError && e.statusCode === 403) {

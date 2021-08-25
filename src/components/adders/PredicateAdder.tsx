@@ -6,6 +6,7 @@ import { ObjectAdder } from "./ObjectAdder";
 import { PredicateUrl } from "../viewers/PredicateUrl";
 import { ClientLocalized } from "../ClientLocalized";
 import { LoadedCachedDataset } from "../../hooks/dataset";
+import { useNavigationBlock } from "../../hooks/navigationBlock";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -16,6 +17,8 @@ interface Props {
 export const PredicateAdder: FC<Props> = (props) => {
   const [predicate, setPredicate] = useState("");
   const [phase, setPhase] = useState<"initial" | "setPredicate" | "setObject">("initial");
+
+  useNavigationBlock(phase !== "initial" || predicate !== "");
 
   if (phase === "setObject") {
     const onSetObject = (previousThing: ThingPersisted) => {

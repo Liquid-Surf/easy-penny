@@ -4,6 +4,7 @@ import React, { FC, FormEventHandler, useState } from "react";
 import { MdAdd, MdCheck, MdLink, MdTextFields, MdTranslate } from "react-icons/md";
 import { VscCalendar, VscLink } from "react-icons/vsc";
 import { LoadedCachedDataset } from "../../hooks/dataset";
+import { useNavigationBlock } from "../../hooks/navigationBlock";
 import { ClientLocalized } from "../ClientLocalized";
 
 interface Props {
@@ -25,6 +26,8 @@ export const ObjectAdder: FC<Props> = (props) => {
   const [newDate, setNewDate] = useState("");
   const [newTime, setNewTime] = useState("");
   const { l10n } = useLocalization();
+
+  useNavigationBlock(typeof objectType !== "undefined");
 
   let form: JSX.Element | null = null;
   if (objectType === "url") {

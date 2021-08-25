@@ -3,6 +3,7 @@ import { createThing, getSourceUrl, ThingPersisted } from "@inrupt/solid-client"
 import React, { FC, FormEventHandler, useState } from "react";
 import { MdAdd, MdCheck } from "react-icons/md";
 import { LoadedCachedDataset } from "../../hooks/dataset";
+import { useNavigationBlock } from "../../hooks/navigationBlock";
 import { ClientLocalized } from "../ClientLocalized";
 import { ThingViewer } from "../viewers/ThingViewer";
 
@@ -15,6 +16,8 @@ export const ThingAdder: FC<Props> = (props) => {
   const [thingUrl, setThingUrl] = useState(getSourceUrl(props.dataset.data) + `#${Date.now()}`);
   const [phase, setPhase] = useState<"initial" | "setThingUrl" | "addPredicate">("initial");
   const { l10n } = useLocalization();
+
+  useNavigationBlock(phase !== "initial");
 
   if (phase === "addPredicate") {
     const onSetPredicate = (updatedThing: ThingPersisted) => {

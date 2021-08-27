@@ -19,15 +19,6 @@ if (typeof document === "object") {
   Modal.setAppElement(appElement);
 }
 
-const contextClass = {
-  success: "bg-blue-600",
-  error: "bg-red-600",
-  info: "bg-gray-600",
-  warning: "bg-orange-400 text-black",
-  default: "bg-coolGray-700 text-white",
-  dark: "bg-white-600 text-gray-300",
-};
-
 const ToastCloseButton = <MdClose className="flex-shrink" aria-label="Close"/>;
 const motionMediaQueryList = process.browser ? window.matchMedia("(prefers-reduced-motion)") : undefined;
 const Transition = motionMediaQueryList?.matches
@@ -67,14 +58,13 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
           <>
             <Component {...pageProps} />
             <ToastContainer
-              toastClassName={(props) => contextClass[props?.type ?? "default"] +
-                " rounded justify-between shadow mt-5"
-              }
               bodyClassName={() => "font-white block p-3 flex-grow leading-5"}
               position="bottom-left"
               closeButton={false}
               autoClose={5000}
               transition={Transition}
+              icon={false}
+              theme="dark"
             />
           </>
         </LocalizationProvider>

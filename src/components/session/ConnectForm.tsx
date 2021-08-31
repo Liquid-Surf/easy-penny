@@ -102,6 +102,7 @@ export const ConnectForm: FC = (props) => {
           <option value="https://broker.pod.inrupt.com"/>
           <option value="https://solidcommunity.net"/>
           <option value="https://solidweb.org"/>
+          <option value="https://solidweb.me"/>
           <option value="https://inrupt.net"/>
           <option value="https://css.verborgh.org"/>
         </datalist>

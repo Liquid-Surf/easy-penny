@@ -18,7 +18,7 @@ profile-button = Perfil
 connect-button = Connectar Pod
 connect-button-tooltip = Connecta amb el teu Solid Pod
 disconnect-button = Desconnectar
-disconnect-button-tooltip = Desconnecta del teu Solid Pod
+disconnect-button-tooltip = Desconnecta del teu Solid Pod: {$webId}
 
 ## Connecting to your Pod
 connectmodal-label = Connecta amb el teu Solid Pod

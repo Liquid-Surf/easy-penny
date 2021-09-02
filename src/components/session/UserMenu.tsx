@@ -74,7 +74,7 @@ export const UserMenu: FC = () => {
           <button
             className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
             onClick={(e) => {e.preventDefault(); logout();}}
-            title={l10n.getString("disconnect-button-tooltip")}
+            title={l10n.getString("disconnect-button-tooltip", { webId: sessionInfo?.webId ?? "" })}
           >
             <span className="w-8">
               <img

@@ -18,7 +18,7 @@ profile-button = Profil Anda
 connect-button = Pasang Pod
 connect-button-tooltip = Pasang Solid Pod Anda
 disconnect-button = Putus talian
-disconnect-button-tooltip = Putus talian Solid Pod
+disconnect-button-tooltip = Putus talian Solid Pod: {$webId}
 
 ## Connecting to your Pod
 connectmodal-label = Pasang Solid Pod Anda

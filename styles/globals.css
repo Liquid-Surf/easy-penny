@@ -5,6 +5,10 @@
   scroll-behavior: smooth;
 }
 
+* {
+  accent-color: theme("colors.coolGray.700");
+}
+
 /* Start purging... */
 @import "tailwindcss/components";
 /* Stop purging. */

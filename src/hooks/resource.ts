@@ -1,7 +1,7 @@
 import { FetchError, getSourceUrl, hasServerResourceInfo, isRawData, overwriteFile, responseToResourceInfo, responseToSolidDataset, saveSolidDatasetAt, SolidDataset, UrlString, WithServerResourceInfo } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { useCallback } from "react";
-import useSwr, { responseInterface } from "swr";
+import useSwr, { SWRResponse } from "swr";
 import { useSessionInfo } from "./sessionInfo";
 
 export type FileData = WithServerResourceInfo & {
@@ -23,7 +23,7 @@ const fetcher = async (url: UrlString): Promise<FileData | (SolidDataset & WithS
   return dataset;
 };
 
-export type CachedResource = responseInterface<(SolidDataset & WithServerResourceInfo) | FileData, FetchError> & { save: (resource: SolidDataset | Blob) => Promise<void> };
+export type CachedResource = SWRResponse<(SolidDataset & WithServerResourceInfo) | FileData, FetchError> & { save: (resource: SolidDataset | Blob) => Promise<void> };
 
 export function isFileData(data?: Record<string, unknown>): data is FileData {
   return typeof data === "object" &&

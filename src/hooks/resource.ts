@@ -36,7 +36,7 @@ export function useResource (url: UrlString | null): CachedResource | null;
 export function useResource (url: UrlString | null): CachedResource | null {
   const resourceUrl = url ? getResourceUrl(url) : null;
   const sessionInfo = useSessionInfo();
-  const resource = useSwr([resourceUrl, sessionInfo?.webId], fetcher);
+  const resource = useSwr(resourceUrl ? [resourceUrl, sessionInfo?.webId] : null, fetcher);
 
   const update = useCallback(async (newResource: SolidDataset | Blob) => {
     if (hasServerResourceInfo(resource.data)) {

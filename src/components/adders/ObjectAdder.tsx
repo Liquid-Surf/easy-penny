@@ -268,7 +268,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         <ClientLocalized id="object-add-url">
           <AddButton icon={<MdLink/>} onClick={() => setObjectType("url")}>URL</AddButton>
         </ClientLocalized>
-        <ClientLocalized id="object-add-string">
+        <ClientLocalized id="object-add-string-label">
           <AddButton icon={<MdTextFields/>} onClick={() => setObjectType("stringNoLocale")}>String</AddButton>
         </ClientLocalized>
         <ClientLocalized id="object-add-integer">

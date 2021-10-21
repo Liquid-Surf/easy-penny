@@ -6,9 +6,7 @@ module.exports = {
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.ftl/,
-      // When Next.js migrates to Webpack 5, use this and uninstall raw-loader:
-      // type: "asset/source",
-      use: ["raw-loader"],
+      type: "asset/source",
     });
 
     return config;

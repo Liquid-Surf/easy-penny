@@ -13,7 +13,7 @@ export function getL10n() {
     const locale = fileName.substring("./".length, fileName.length - ".ftl".length);
 
     if (locale) {
-        RESOURCES[locale] = new FluentResource(translationsContext(fileName).default)
+        RESOURCES[locale] = new FluentResource(translationsContext(fileName))
     }
   }
 

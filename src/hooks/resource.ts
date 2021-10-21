@@ -25,7 +25,7 @@ const fetcher = async (url: UrlString): Promise<FileData | (SolidDataset & WithS
 
 export type CachedResource = responseInterface<(SolidDataset & WithServerResourceInfo) | FileData, FetchError> & { save: (resource: SolidDataset | Blob) => Promise<void> };
 
-export function isFileData(data?: object): data is FileData {
+export function isFileData(data?: Record<string, unknown>): data is FileData {
   return typeof data === "object" &&
     typeof (data as FileData).blob === "object";
 }

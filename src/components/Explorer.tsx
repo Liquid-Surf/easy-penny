@@ -17,25 +17,22 @@ interface Props {
 }
 
 export const Explorer: React.FC<Props> = (props) => {
-  if (typeof props.url === "undefined") {
-    return null;
-  }
-  const resource = useResource(props.url);
+  const resource = useResource(typeof props.url === "string" ? props.url : null);
   const sessionInfo = useSessionInfo();
 
-  const datasetViewer = isLoadedDataset(resource)
+  const datasetViewer = resource !== null && isLoadedDataset(resource)
     ? <DatasetViewer dataset={resource}/>
     : null;
 
-  const containerViewer = isLoadedDataset(resource) && isContainer(resource.data)
+  const containerViewer = resource !== null && isLoadedDataset(resource) && isContainer(resource.data)
     ? <ContainerViewer dataset={resource}/>
     : null;
 
-  const fileViewer = isLoadedFileData(resource)
+  const fileViewer = resource !== null && isLoadedFileData(resource)
     ? <FileViewer file={resource}/>
     : null;
 
-  const errorViewer = typeof sessionInfo === "undefined" || (!isLoadedDataset(resource) && resource.isValidating)
+  const errorViewer = typeof sessionInfo === "undefined" || resource === null || (!isLoadedDataset(resource) && resource.isValidating)
     ? <Spinner/>
     : <FetchErrorViewer error={resource.error}/>;
 

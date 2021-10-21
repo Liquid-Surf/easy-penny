@@ -1,40 +1,53 @@
-import { handleIncomingRedirect, onLogout, onSessionRestore } from "@inrupt/solid-client-authn-browser";
+import {
+  handleIncomingRedirect,
+  onLogout,
+  onSessionRestore,
+} from "@inrupt/solid-client-authn-browser";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import Modal from "react-modal";
 import { ToastContainer, cssTransition, Slide } from "react-toastify";
 import { MdClose } from "react-icons/md";
-import { SSRProvider } from '@react-aria/ssr';
+import { SSRProvider } from "@react-aria/ssr";
 
 import { SessionContext, SessionInfo } from "../contexts/session";
 import "../../styles/globals.css";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import * as storage from "../functions/localStorage";
 import { LocalizationProvider } from "@fluent/react";
 import { getL10n } from "../functions/getL10n";
 
 if (typeof document === "object") {
-  const appElement = document.querySelector("#appWrapper > *:first-child") as HTMLElement;
+  const appElement = document.querySelector(
+    "#appWrapper > *:first-child"
+  ) as HTMLElement;
   Modal.setAppElement(appElement);
 }
 
-const ToastCloseButton = <MdClose className="flex-shrink" aria-label="Close"/>;
-const motionMediaQueryList = process.browser ? window.matchMedia("(prefers-reduced-motion)") : undefined;
+const ToastCloseButton = <MdClose className="flex-shrink" aria-label="Close" />;
+const motionMediaQueryList = process.browser
+  ? window.matchMedia("(prefers-reduced-motion)")
+  : undefined;
 const Transition = motionMediaQueryList?.matches
   ? cssTransition({
-    enter: "none",
-    exit: "none",
-  })
+      enter: "none",
+      exit: "none",
+    })
   : Slide;
 
 export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
-  const [sessionInfo, setSessionInfo] = useState<SessionInfo | null | undefined>(null);
+  const [sessionInfo, setSessionInfo] = useState<
+    SessionInfo | null | undefined
+  >(null);
   const router = useRouter();
 
   useEffect(() => {
     setSessionInfo(undefined);
-    handleIncomingRedirect({ restorePreviousSession: false, useEssSession: false }).then((info) => {
+    handleIncomingRedirect({
+      restorePreviousSession: false,
+      useEssSession: false,
+    }).then((info) => {
       if (info && info.isLoggedIn) {
         const lastAttemptedIdp = storage.getItem("last-attempted-idp");
         if (typeof lastAttemptedIdp === "string") {
@@ -48,8 +61,8 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
     onLogout(() => setSessionInfo(null));
     onSessionRestore((currentUrl) => {
       router.replace(currentUrl);
-    })
-  }, []);
+    });
+  }, [router]);
 
   return (
     <SSRProvider>
@@ -71,6 +84,6 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
       </SessionContext.Provider>
     </SSRProvider>
   );
-}
+};
 
 export default MyApp;

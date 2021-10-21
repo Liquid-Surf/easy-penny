@@ -68,7 +68,7 @@ export function useResource (url: UrlString | null): CachedResource | null {
         }
       }
     }
-  }, [url, resource]);
+  }, [resource]);
 
   const cached: CachedResource = {
     ...resource,

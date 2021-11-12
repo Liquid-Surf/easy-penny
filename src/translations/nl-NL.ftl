@@ -92,6 +92,7 @@ dataset-update-toast-success = Opgeslagen. <undo-button>Ongedaan maken.</undo-bu
 dataset-things-heading = Things
 
 danger-zone-heading = Gevarenzone
+dataset-view-turtle = Rauwe Turtle
 dataset-delete = Resource verwijderen
 dataset-delete-confirm-heading = Zeker weten?
 dataset-delete-confirm-lead-container = Weet je zeker dat je deze container en alle resources erin wil verwijderen? Dit kan niet ongedaan worden gemaakt.
@@ -263,3 +264,11 @@ preview-video-error-playback =
   Je kan wel <download-link>het bestand downloaden</download-link>.
 
 preview-text-heading = Bestandsinhoud
+
+## TurtleViewer
+turtle-heading = Rauwe Turtle
+turtle-danger-warning = Waarschuwing: syntactische fouten kunnen je data onleesbaar maken.
+turtle-dataset-viewer-link = Ga terug.
+turtle-save-button = Opslaan
+turtle-update-toast-success = Opgeslagen. <undo-button>Ongedaan maken.</undo-button>
+turtle-update-toast-error = Onbekende fout bij het opslaan van je Turtle.

@@ -93,6 +93,7 @@ dataset-update-toast-success = Saved. <undo-button>Undo.</undo-button>
 dataset-things-heading = Things
 
 danger-zone-heading = Danger Zone
+dataset-view-turtle = Raw Turtle
 dataset-delete = Delete resource
 dataset-delete-confirm-heading = Are you sure?
 dataset-delete-confirm-lead-container = Are you sure you want to delete this Container resource and its contained resources? This can not be undone.
@@ -264,3 +265,11 @@ preview-video-error-playback =
   You can <download-link>download it</download-link> instead.
 
 preview-text-heading = File Contents
+
+## TurtleViewer
+turtle-heading = Raw Turtle
+turtle-danger-warning = Warning: typos and other syntactic errors can make your data unreadable.
+turtle-dataset-viewer-link = Back to safety.
+turtle-save-button = Save
+turtle-update-toast-success = Saved. <undo-button>Undo.</undo-button>
+turtle-update-toast-error = There was an error saving your Turtle.

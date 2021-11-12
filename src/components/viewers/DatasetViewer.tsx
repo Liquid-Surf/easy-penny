@@ -20,18 +20,20 @@ import React, {
   useRef,
   useState,
 } from "react";
+import Link from "next/link";
 import { toast } from "react-toastify";
+import { VscCode, VscTrash } from "react-icons/vsc";
 import { ThingAdder } from "../adders/ThingAdder";
 import { ThingViewer } from "./ThingViewer";
 import { ConfirmOperation } from "../ConfirmOperation";
 import { SectionHeading } from "../ui/headings";
-import { VscTrash } from "react-icons/vsc";
 import { deleteRecursively } from "../../functions/recursiveDelete";
 import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "../ClientLocalized";
 import { LinkedResourcesViewer } from "./LinkedResourcesViewer";
 import { HasAccess } from "../HasAccess";
 import { LoadedCachedDataset } from "../../hooks/dataset";
+import { NotIntegrated } from "../integrated/NotIntegrated";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -209,16 +211,31 @@ export const DatasetViewer: FC<Props> = (props) => {
           <ClientLocalized id="danger-zone-heading">
             <SectionHeading>Danger Zone</SectionHeading>
           </ClientLocalized>
-          {deletionModal}
-          <button
-            className="w-full md:w-1/2 p-5 rounded border-4 border-red-700 text-red-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-red-700 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:outline-none focus:ring-opacity-50"
-            onClick={onDeleteFile}
-          >
-            <VscTrash aria-hidden="true" />
-            <ClientLocalized id="dataset-delete">
-              <span>Delete resource</span>
-            </ClientLocalized>
-          </button>
+          <div className="grid sm:grid-cols-2 gap-5 pb-5">
+            {/* When running in integrated mode on a Pod itself, /turtle/ is not available. */}
+            <NotIntegrated>
+              <Link
+                href={`/turtle/?url=${encodeURIComponent(
+                  getSourceUrl(props.dataset.data)
+                )}`}
+              >
+                <a className="p-5 rounded border-4 border-coolGray-700 text-coolGray-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-coolGray-700 hover:bg-coolGray-700 focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50">
+                  <VscCode aria-hidden="true" />
+                  <span>{l10n.getString("dataset-view-turtle")}</span>
+                </a>
+              </Link>
+            </NotIntegrated>
+            {deletionModal}
+            <button
+              className="p-5 rounded border-4 border-red-700 text-red-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-red-700 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:outline-none focus:ring-opacity-50"
+              onClick={onDeleteFile}
+            >
+              <VscTrash aria-hidden="true" />
+              <ClientLocalized id="dataset-delete">
+                <span>Delete resource</span>
+              </ClientLocalized>
+            </button>
+          </div>
         </div>
       </HasAccess>
     </>

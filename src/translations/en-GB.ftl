@@ -37,6 +37,10 @@ connecterror-not-solidcommunity =
   Could not find a Solid Pod to connect to.
   <solidcommunity-button>Did you mean <pod-url>{$suggested-pod-url}</pod-url>?</solidcommunity-button>
 
+fetcherror-no-permission = You do not have permission to view this Resource.
+fetcherror-does-not-exist = This Resource does not exist.
+fetcherror-unknown = An unknown error ({$statusCode}) occurred.
+
 ## Homepage
 pod-listing-heading = Pod(s) of: <owner-link>{$owner-name}</owner-link>
 pod-listing-tooltip = Browse Pod `{$pod-url}`

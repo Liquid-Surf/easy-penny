@@ -37,6 +37,10 @@ connecterror-not-solidcommunity =
   Kon niet verbinden met een Solid Pod.
   <solidcommunity-button>Bedoelde je <pod-url>{$suggested-pod-url}</pod-url>?</solidcommunity-button>
 
+fetcherror-no-permission = Je hebt onvoldoende rechten om deze Resource te bekijken.
+fetcherror-does-not-exist = Deze Resource bestaat niet.
+fetcherror-unknown = Er is een onbekende fout ({$statusCode}) opgetreden.
+
 ## Homepage
 pod-listing-heading = Pod(s) van: <owner-link>{$owner-name}</owner-link>
 pod-listing-tooltip = Pod `{$pod-url}` bekijken

@@ -1,3 +1,4 @@
+import { useLocalization } from "@fluent/react";
 import { FetchError } from "@inrupt/solid-client";
 import { FC } from "react";
 import { ConnectForm } from "../session/ConnectForm";
@@ -8,6 +9,8 @@ interface Props {
 }
 
 export const FetchErrorViewer: FC<Props> = (props) => {
+  const { l10n } = useLocalization();
+
   if (!props.error) {
     return null;
   }
@@ -20,7 +23,7 @@ export const FetchErrorViewer: FC<Props> = (props) => {
     return (
       <>
         <div className="bg-red-100 border-red-600 border-2 rounded p-5">
-          You do not have permission to view this Resource.
+          {l10n.getString("fetcherror-no-permission")}
         </div>
         <LoggedOut>
           <div className="pt-10">
@@ -37,11 +40,17 @@ export const FetchErrorViewer: FC<Props> = (props) => {
     return (
       <>
         <div className="bg-red-100 border-red-600 border-2 rounded p-5">
-          This Resource does not exist.
+          {l10n.getString("fetcherror-does-not-exist")}
         </div>
       </>
     );
   }
 
-  return <>An unknown error ({props.error.statusCode}) occurred.</>;
+  return (
+    <>
+      {l10n.getString("fetcherror-unknown", {
+        statusCode: props.error.statusCode,
+      })}
+    </>
+  );
 };

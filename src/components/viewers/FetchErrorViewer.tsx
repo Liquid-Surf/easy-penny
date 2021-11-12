@@ -16,7 +16,7 @@ export const FetchErrorViewer: FC<Props> = (props) => {
     return <>An unknown error occurred.</>;
   }
 
-  if (props.error.statusCode === 401) {
+  if (props.error.statusCode === 401 || props.error.statusCode === 403) {
     return (
       <>
         <div className="bg-red-100 border-red-600 border-2 rounded p-5">
@@ -25,7 +25,7 @@ export const FetchErrorViewer: FC<Props> = (props) => {
         <LoggedOut>
           <div className="pt-10">
             <div className="shadow p-5">
-              <ConnectForm/>
+              <ConnectForm />
             </div>
           </div>
         </LoggedOut>

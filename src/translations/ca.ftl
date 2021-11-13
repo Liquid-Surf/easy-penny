@@ -37,6 +37,10 @@ connecterror-not-solidcommunity =
   No s'ha trobat un Solid Pod per connectar.
   <solidcommunity-button>Volies dir <pod-url>{$suggested-pod-url}</pod-url>?</solidcommunity-button>
 
+fetcherror-no-permission = No tens permisos per veure aquest Recurs.
+fetcherror-does-not-exist = Aquest Recurs no existeix.
+fetcherror-unknown = S'ha produït un error desconegut ({$statusCode}).
+
 ## Homepage
 pod-listing-heading = Pod(s) de: <owner-link>{$owner-name}</owner-link>
 pod-listing-tooltip = Inspecciona el teu Pod a `{$pod-url}`
@@ -88,6 +92,7 @@ dataset-update-toast-success = Guardat. <undo-button>Desfer.</undo-button>
 dataset-things-heading = Coses
 
 danger-zone-heading = Zona perillosa
+dataset-view-turtle = Turtle en cru
 dataset-delete = Eliminar Recurs
 dataset-delete-confirm-heading = Estàs segur?
 dataset-delete-confirm-lead-container = Estàs segur que vols eliminar aquest Contenidor i tots els seus Recursos? Aquesta operació no es podrà desfer.
@@ -256,3 +261,11 @@ preview-video-error-playback =
   Com a alternativa, pots <download-link>descarregar-lo</download-link>.
 
 preview-text-heading = Contingut del fitxer
+
+## TurtleViewer
+turtle-heading = Turtle en cru
+turtle-danger-warning = Atenció: errors tipogràfics i sintàctics poden fer el fitxer illegible.
+turtle-dataset-viewer-link = Torna a la zona segura.
+turtle-save-button = Guardar
+turtle-update-toast-success = Guardat. <undo-button>Desfer.</undo-button>
+turtle-update-toast-error = Hi ha hagut un error guardant el fitxer.

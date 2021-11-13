@@ -37,6 +37,10 @@ connecterror-not-solidcommunity =
   No se ha encontrado un Solid Pod para conectar.
   <solidcommunity-button>¿Querías decir <pod-url>{$suggested-pod-url}</pod-url>?</solidcommunity-button>
 
+fetcherror-no-permission = No tienes permisos para ver este Recurso.
+fetcherror-does-not-exist = Este Recurso no existe.
+fetcherror-unknown = Se ha producido un error desconocido ({$statusCode}).
+
 ## Homepage
 pod-listing-heading = Pod(s) de: <owner-link>{$owner-name}</owner-link>
 pod-listing-tooltip = Inspecciona tu Pod en `{$pod-url}`
@@ -88,6 +92,7 @@ dataset-update-toast-success = Guardado. <undo-button>Deshacer.</undo-button>
 dataset-things-heading = Cosas
 
 danger-zone-heading = Zona peligrosa
+dataset-view-turtle = Turtle en crudo
 dataset-delete = Eliminar Recurso
 dataset-delete-confirm-heading = ¿Estás seguro?
 dataset-delete-confirm-lead-container = ¿Estás seguro de que quieres eliminar este Contenedor junto con todos sus Recursos? Esta operación no se podrá deshacer.
@@ -256,3 +261,11 @@ preview-video-error-playback =
   Como alternativa, puedes <download-link>descargarlo</download-link>.
 
 preview-text-heading = Contenido del archivo
+
+## TurtleViewer
+turtle-heading = Turtle en crudo
+turtle-danger-warning = Atención: errores tipográficos y sintácticos pueden hacer el archivo ilegible.
+turtle-dataset-viewer-link = Vuelve a la zona segura.
+turtle-save-button = Guardar
+turtle-update-toast-success = Guardado. <undo-button>Deshacer.</undo-button>
+turtle-update-toast-error = Ha ocurrido un error guardando el archivo.

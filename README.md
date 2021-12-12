@@ -18,6 +18,8 @@ For an example of how to set this up for the [Solid Community
 Server](https://github.com/solid/community-server/), see [this
 recipe](https://github.com/solid/community-server-recipes/tree/main/penny).
 
+Note that server UI use is currently experimental.
+
 ## Deploying elsewhere
 
 Although the app is deployed at https://Penny.VincentTunru.com, you can also

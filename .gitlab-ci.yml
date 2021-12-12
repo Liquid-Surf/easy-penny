@@ -45,6 +45,7 @@ test:
   stage: test
   script:
   - npm ci
+  - npm test
 
 publish_npm:
   stage: release

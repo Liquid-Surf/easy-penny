@@ -17,38 +17,58 @@ export const LocationBar: FC<Props> = (props) => {
   locationUrl.search = "";
   locationUrl.hash = "";
 
-  const trailingSlash = locationUrl.href.endsWith("/")
-    ? <span className={queryParams.length === 0 ? "mx-1" : ""}>/</span>
-    : null;
+  const trailingSlash = locationUrl.href.endsWith("/") ? (
+    <span className={queryParams.length === 0 ? "mx-1" : ""}>/</span>
+  ) : null;
   const pathParts = url.pathname.split("/");
-  const pathElements = pathParts.map((resourceName, i) => {
-    let pathUrl = url.origin + pathParts.slice(0, i + 1).join("/");
-    if (pathUrl.length < props.location.length) {
-      pathUrl += "/";
-    }
-    const isCurrent = pathUrl === locationUrl.href || pathUrl === locationUrl.href + "/";
-    const activeSeparatorClass = isCurrent ? "" : "hidden lg:inline"
-    const displayName = isCurrent
-      ? <span className="font-bold">{decodeURIComponent(resourceName)}{trailingSlash}{queryParams}</span>
-      : (
-        <Link
-          key={pathUrl + "_breadcrumb"}
-          href={getExplorePath(pathUrl)}
-        >
-          <a key={pathUrl + "_breadcrumbLink"} className="hidden lg:inline focus:underline focus:text-coolGray-700 focus:outline-none break-words">{decodeURIComponent(resourceName)}</a>
+  const pathElements = pathParts
+    .map((resourceName, i) => {
+      let pathUrl = url.origin + pathParts.slice(0, i + 1).join("/");
+      if (pathUrl.length < props.location.length) {
+        pathUrl += "/";
+      }
+      const isCurrent =
+        pathUrl === locationUrl.href || pathUrl === locationUrl.href + "/";
+      const activeSeparatorClass = isCurrent ? "" : "hidden lg:inline";
+      const displayName = isCurrent ? (
+        <span className="font-bold">
+          {decodeURIComponent(resourceName)}
+          {trailingSlash}
+          {queryParams}
+        </span>
+      ) : (
+        <Link key={pathUrl + "_breadcrumb"} href={getExplorePath(pathUrl)}>
+          <a
+            key={pathUrl + "_breadcrumbLink"}
+            className="hidden lg:inline focus:underline focus:text-coolGray-700 focus:outline-none break-words"
+          >
+            {decodeURIComponent(resourceName)}
+          </a>
         </Link>
       );
-    return (
-      <Fragment key={pathUrl + "_fragment"}>
-        <span key={pathUrl + "_separator"} className={`mx-1 ${activeSeparatorClass}`}>/</span>
-        <wbr key={pathUrl + "_lineBreakOpportinity"}/>
-        {displayName}
-      </Fragment>
+      return (
+        <Fragment key={pathUrl + "_fragment"}>
+          <span
+            key={pathUrl + "_separator"}
+            className={`mx-1 ${activeSeparatorClass}`}
+          >
+            /
+          </span>
+          <wbr key={pathUrl + "_lineBreakOpportinity"} />
+          {displayName}
+        </Fragment>
+      );
+    })
+    .slice(
+      1,
+      url.pathname.endsWith("/") ? pathParts.length - 1 : pathParts.length
     );
-  }).slice(1, url.pathname.endsWith("/") ? pathParts.length - 1 : pathParts.length);
 
   let parentPath = url.pathname.endsWith("/")
-    ? url.pathname.substring(0, url.pathname.substring(0, url.pathname.length - 1).lastIndexOf("/") + 1)
+    ? url.pathname.substring(
+        0,
+        url.pathname.substring(0, url.pathname.length - 1).lastIndexOf("/") + 1
+      )
     : url.pathname.substring(0, url.pathname.lastIndexOf("/") + 1);
   if (parentPath === "/") {
     // The origin does not have a trailing slash to indicate that it's a Container:
@@ -57,12 +77,10 @@ export const LocationBar: FC<Props> = (props) => {
 
   // On small screens, we display a "go to parent" link rather than the full path,
   // unless we're at the origin, of course.
-  const parentNavigatorClass = pathElements.length >= 1
-    ? "lg:hidden"
-    : "hidden";
-  const originClass = pathElements.length >= 1
-    ? "hidden lg:inline"
-    : "font-bold";
+  const parentNavigatorClass =
+    pathElements.length >= 1 ? "lg:hidden" : "hidden";
+  const originClass =
+    pathElements.length >= 1 ? "hidden lg:inline" : "font-bold";
 
   return (
     <>
@@ -76,17 +94,27 @@ export const LocationBar: FC<Props> = (props) => {
               ..
             </a>
           </Link>
-          <Link key={url.origin + "_breadcrumb"} href={getExplorePath(url.origin)}>
-            <a className={`${originClass} hover:underline focus:underline focus:text-coolGray-700 focus:outline-none`}>{url.hostname}</a>
+          <Link
+            key={url.origin + "_breadcrumb"}
+            href={getExplorePath(url.origin)}
+          >
+            <a
+              className={`${originClass} hover:underline focus:underline focus:text-coolGray-700 focus:outline-none`}
+            >
+              {url.host}
+            </a>
           </Link>
           {pathElements}
           <NotIntegrated>
             <button
-              onClick={(e) => {e.preventDefault(); props.onEdit()}}
+              onClick={(e) => {
+                e.preventDefault();
+                props.onEdit();
+              }}
               title="View another Resource"
               className="text-coolGray-400 hover:text-coolGray-700 focus:text-coolGray-700 p-2 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
             >
-              <MdEdit aria-label="Change Resource URL"/>
+              <MdEdit aria-label="Change Resource URL" />
             </button>
           </NotIntegrated>
         </span>

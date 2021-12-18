@@ -81,7 +81,7 @@ export const UserMenu: FC = () => {
                 width={352 / 10}
                 height={322 / 10}
                 alt=""
-                src="/solid-emblem.svg"
+                src={getAssetLink("/solid-emblem.svg")}
                 aria-hidden="true"
               />
             </span>

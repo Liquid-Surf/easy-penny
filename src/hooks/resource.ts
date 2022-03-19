@@ -27,9 +27,9 @@ const fetcher = async (
   const urlObject = new URL(url);
   // Ensure that when we fetch a Container that contains an `index.html`,
   // the server doesn't serve us that HTML file:
-  const headers = new Headers(
-    urlObject.pathname.endsWith("/") ? { Accept: "text/turtle" } : {}
-  );
+  const headers = urlObject.pathname.endsWith("/")
+    ? { Accept: "text/turtle" }
+    : ({} as HeadersInit);
   const response = await fetch(url, { headers: headers });
   const resourceInfo = responseToResourceInfo(response);
   if (isRawData(resourceInfo)) {

@@ -1,20 +1,20 @@
 import {
   getSolidDataset,
   getThing,
-  getUrl,
+  getUrlAll,
   UrlString,
 } from "@inrupt/solid-client";
 import { solid } from "rdf-namespaces";
 
-export async function fetchIdp(webId: UrlString): Promise<string | null> {
+export async function fetchIdps(webId: UrlString): Promise<UrlString[]> {
   try {
     const webIdDoc = await getSolidDataset(webId);
     const webIdThing = getThing(webIdDoc, webId);
     if (!webIdThing) {
-      return null;
+      return [];
     }
-    return getUrl(webIdThing, solid.oidcIssuer);
+    return getUrlAll(webIdThing, solid.oidcIssuer);
   } catch (_e) {
-    return null;
+    return [];
   }
 }

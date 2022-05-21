@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import { toast } from "react-toastify";
-import { fetchIdp } from "../../functions/fetchIdp";
+import { fetchIdps } from "../../functions/fetchIdp";
 import * as storage from "../../functions/localStorage";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { ClientLocalized } from "../ClientLocalized";
@@ -56,8 +56,12 @@ export const ConnectForm: FC = (props) => {
           </span>
         </ClientLocalized>
       );
-      const detectedIdp = await fetchIdp(idp);
-      if (detectedIdp !== null) {
+      const detectedIdps = await fetchIdps(idp);
+      if (detectedIdps.length > 0) {
+        // If the user has one or more Solid Identity Providers listed in their profile doc,
+        // pick a random one to suggest (if the user has multiple Identity Providers,
+        // they'll probably know to enter its URL rather than their WebID):
+        const detectedIdp = detectedIdps[0];
         const connectToDetectedIdp: MouseEventHandler = (event) => {
           event.preventDefault();
           setIdp(detectedIdp);

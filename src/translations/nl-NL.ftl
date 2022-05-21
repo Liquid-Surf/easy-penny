@@ -28,12 +28,15 @@ connectform-label = Verbind je Pod op:
 connectform-button =
   .value = Verbinden
 
-connecterror-no-pod = 
+connecterror-no-pod =
   Kon geen Solid Pod vinden op <pod-url>{$pod-url}</pod-url>. Controleer de URL en probeer het nog eens.
-connecterror-not-inrupt = 
+connecterror-webid =
+  Je Pod lijkt zich te bevinden op <pod-url>{$detected-pod-url}</pod-url>.
+  <idp-button>Daarvan gebruik maken om je Pod te verbinden?</idp-button>
+connecterror-not-inrupt =
   Kon niet verbinden met een Solid Pod.
   <inrupt-button>Bedoelde je <pod-url>{$suggested-pod-url}</pod-url>?</inrupt-button>
-connecterror-not-solidcommunity = 
+connecterror-not-solidcommunity =
   Kon niet verbinden met een Solid Pod.
   <solidcommunity-button>Bedoelde je <pod-url>{$suggested-pod-url}</pod-url>?</solidcommunity-button>
 
@@ -55,7 +58,7 @@ intro-get-started-logged-out =
   Verbind je Pod om de data te bekijken,
   of vul bovenaan de pagina handmatig een URL in.
   Als je feedback hebt, <contact-link>laat het weten</contact-link>!
-intro-get-started-logged-in = 
+intro-get-started-logged-in =
   Volg de bovenstaande links om de data op de Pod te bekijken,
   of vul bovenaan de pagina handmatig een URL in.
   Als je feedback hebt, <contact-link>laat het weten</contact-link>!

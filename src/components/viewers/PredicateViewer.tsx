@@ -1,7 +1,37 @@
-import { FetchError, getBooleanAll, getDatetimeAll, getDecimalAll, getIntegerAll, getSourceUrl, getStringByLocaleAll, getStringNoLocaleAll, getTermAll, getUrlAll, removeBoolean, removeDatetime, removeDecimal, removeInteger, removeLiteral, removeStringNoLocale, removeStringWithLocale, removeUrl, setThing, solidDatasetAsMarkdown, thingAsMarkdown, ThingPersisted, UrlString } from "@inrupt/solid-client";
+import {
+  FetchError,
+  getBooleanAll,
+  getDatetimeAll,
+  getDecimalAll,
+  getIntegerAll,
+  getSourceUrl,
+  getStringByLocaleAll,
+  getStringNoLocaleAll,
+  getTermAll,
+  getUrlAll,
+  removeBoolean,
+  removeDatetime,
+  removeDecimal,
+  removeInteger,
+  removeLiteral,
+  removeStringNoLocale,
+  removeStringWithLocale,
+  removeUrl,
+  setThing,
+  solidDatasetAsMarkdown,
+  thingAsMarkdown,
+  ThingPersisted,
+  UrlString,
+} from "@inrupt/solid-client";
 import React, { FC } from "react";
 import { MdContentCopy, MdLink, MdTextFields } from "react-icons/md";
-import { VscCalendar, VscPrimitiveSquare, VscQuestion, VscSymbolBoolean, VscTrash } from "react-icons/vsc";
+import {
+  VscCalendar,
+  VscPrimitiveSquare,
+  VscQuestion,
+  VscSymbolBoolean,
+  VscTrash,
+} from "react-icons/vsc";
 import { toast } from "react-toastify";
 import { Url } from "../data/Url";
 import { ObjectAdder } from "../adders/ObjectAdder";
@@ -23,7 +53,10 @@ interface Props {
 export const PredicateViewer: FC<Props> = (props) => {
   const { l10n } = useLocalization();
   const urlValues = getUrlAll(props.thing, props.predicate);
-  const stringNoLocaleValues = getStringNoLocaleAll(props.thing, props.predicate);
+  const stringNoLocaleValues = getStringNoLocaleAll(
+    props.thing,
+    props.predicate
+  );
   const integerValues = getIntegerAll(props.thing, props.predicate);
   const decimalValues = getDecimalAll(props.thing, props.predicate);
   const datetimeValues = getDatetimeAll(props.thing, props.predicate);
@@ -35,22 +68,23 @@ export const PredicateViewer: FC<Props> = (props) => {
   // i.e. Array<[locale: string, value: string]>:
   const localeStringValues = Array.from(stringsByLocale.entries())
     .map(([locale, stringValues]) => {
-      return stringValues.map(stringValue => [locale, stringValue]);
+      return stringValues.map((stringValue) => [locale, stringValue]);
     })
     .flat();
 
-  const dataOfUnkownType = allValues.find(term => {
+  const dataOfUnkownType = allValues.find((term) => {
     return term.termType !== "Literal" && term.termType !== "NamedNode";
   });
-  const unknownObject = dataOfUnkownType
-    ? (
-      <li className="pl-0">
-        <ObjectViewer type={<VscQuestion/>}>Data of unknown type.</ObjectViewer>
-      </li>
-    )
-    : null;
-  const dataOfUnsupportedType = allValues.filter(term => {
-    return term.termType === "Literal" &&
+  const unknownObject = dataOfUnkownType ? (
+    <li className="pl-0">
+      <ObjectViewer type={<VscQuestion />}>
+        {l10n.getString("object-unknown")}
+      </ObjectViewer>
+    </li>
+  ) : null;
+  const dataOfUnsupportedType = allValues.filter((term) => {
+    return (
+      term.termType === "Literal" &&
       ![
         "http://www.w3.org/2001/XMLSchema#boolean",
         "http://www.w3.org/2001/XMLSchema#dateTime",
@@ -58,12 +92,13 @@ export const PredicateViewer: FC<Props> = (props) => {
         "http://www.w3.org/2001/XMLSchema#integer",
         "http://www.w3.org/2001/XMLSchema#string",
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-      ].includes(term.datatype.value);
+      ].includes(term.datatype.value)
+    );
   });
   const unsupportedTypes = dataOfUnsupportedType.map((data) => (
     <li className="pl-0" key={data.value}>
       <ObjectViewer
-        type={<VscPrimitiveSquare/>}
+        type={<VscPrimitiveSquare />}
         options={[
           {
             element: (
@@ -75,8 +110,12 @@ export const PredicateViewer: FC<Props> = (props) => {
                 }}
               >
                 <VscTrash
-                  title={`Delete value "${data.value}" of unknown type "${(data as any).datatype.value}"`}
-                  aria-label={`Delete value "${data.value}" of unknown type "${(data as any).datatype.value}"`}
+                  title={`Delete value "${data.value}" of unknown type "${
+                    (data as any).datatype.value
+                  }"`}
+                  aria-label={`Delete value "${data.value}" of unknown type "${
+                    (data as any).datatype.value
+                  }"`}
                 />
               </ClientLocalized>
             ),
@@ -85,7 +124,13 @@ export const PredicateViewer: FC<Props> = (props) => {
           },
         ]}
       >
-        <samp title={l10n.getString("object-unknown-tooltip", { type: (data as any).datatype.value })}>{data.value}</samp>
+        <samp
+          title={l10n.getString("object-unknown-tooltip", {
+            type: (data as any).datatype.value,
+          })}
+        >
+          {data.value}
+        </samp>
       </ObjectViewer>
     </li>
   ));
@@ -97,7 +142,9 @@ export const PredicateViewer: FC<Props> = (props) => {
       props.onUpdate(props.thing);
     } catch (e) {
       if (e instanceof FetchError && e.statusCode === 403) {
-        toast(l10n.getString("thing-toast-error-not-allowed"), { type: "error" });
+        toast(l10n.getString("thing-toast-error-not-allowed"), {
+          type: "error",
+        });
       } else {
         throw e;
       }
@@ -108,35 +155,48 @@ export const PredicateViewer: FC<Props> = (props) => {
     await navigator.clipboard.writeText(value);
     toast(l10n.getString("object-copy-toast-success-url"), { type: "info" });
   };
-  const deleteUrl = (url: UrlString) => updateThing(removeUrl(props.thing, props.predicate, url));
-  const deleteStringNoLocale = (string: string) => updateThing(removeStringNoLocale(props.thing, props.predicate, string));
-  const deleteStringWithLocale = (string: string, locale: string) => updateThing(removeStringWithLocale(props.thing, props.predicate, string, locale));
-  const deleteInteger = (integer: number) => updateThing(removeInteger(props.thing, props.predicate, integer));
-  const deleteDecimal = (decimal: number) => updateThing(removeDecimal(props.thing, props.predicate, decimal));
-  const deleteDatetime = (datetime: Date) => updateThing(removeDatetime(props.thing, props.predicate, datetime));
-  const deleteBoolean = (boolean: boolean) => updateThing(removeBoolean(props.thing, props.predicate, boolean));
-  const deleteUnsupportedType = (value: unknown) => updateThing(removeLiteral(props.thing, props.predicate, value as any));
+  const deleteUrl = (url: UrlString) =>
+    updateThing(removeUrl(props.thing, props.predicate, url));
+  const deleteStringNoLocale = (string: string) =>
+    updateThing(removeStringNoLocale(props.thing, props.predicate, string));
+  const deleteStringWithLocale = (string: string, locale: string) =>
+    updateThing(
+      removeStringWithLocale(props.thing, props.predicate, string, locale)
+    );
+  const deleteInteger = (integer: number) =>
+    updateThing(removeInteger(props.thing, props.predicate, integer));
+  const deleteDecimal = (decimal: number) =>
+    updateThing(removeDecimal(props.thing, props.predicate, decimal));
+  const deleteDatetime = (datetime: Date) =>
+    updateThing(removeDatetime(props.thing, props.predicate, datetime));
+  const deleteBoolean = (boolean: boolean) =>
+    updateThing(removeBoolean(props.thing, props.predicate, boolean));
+  const deleteUnsupportedType = (value: unknown) =>
+    updateThing(removeLiteral(props.thing, props.predicate, value as any));
 
   return (
     <dl>
       <dt>
-        <PredicateUrl url={props.predicate}/>
+        <PredicateUrl url={props.predicate} />
       </dt>
       <dd>
         <ul>
-          {urlValues.sort().map(value => (
+          {urlValues.sort().map((value) => (
             <li key={value + "_urlObject"} className="pl-0">
               <ObjectViewer
-                type={<MdLink/>}
+                type={<MdLink />}
                 options={[
                   {
                     element: (
                       <ClientLocalized
                         id="object-copy-button-url"
-                        attrs={{ "title": true, "aria-label": true }}
+                        attrs={{ title: true, "aria-label": true }}
                         vars={{ value: value }}
                       >
-                        <MdContentCopy title={`Copy "${value}"`} aria-label={`Copy "${value}"`}/>
+                        <MdContentCopy
+                          title={`Copy "${value}"`}
+                          aria-label={`Copy "${value}"`}
+                        />
                       </ClientLocalized>
                     ),
                     callback: () => copyToClipboard(value),
@@ -145,10 +205,13 @@ export const PredicateViewer: FC<Props> = (props) => {
                     element: (
                       <ClientLocalized
                         id="object-delete-button-url"
-                        attrs={{ "title": true, "aria-label": true }}
+                        attrs={{ title: true, "aria-label": true }}
                         vars={{ value: value }}
                       >
-                        <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>
+                        <VscTrash
+                          title={`Delete "${value}"`}
+                          aria-label={`Delete "${value}"`}
+                        />
                       </ClientLocalized>
                     ),
                     callback: () => deleteUrl(value),
@@ -156,24 +219,27 @@ export const PredicateViewer: FC<Props> = (props) => {
                   },
                 ]}
               >
-                <Url url={value} sourceUrl={getSourceUrl(props.dataset.data)}/>
+                <Url url={value} sourceUrl={getSourceUrl(props.dataset.data)} />
               </ObjectViewer>
             </li>
           ))}
 
-          {stringNoLocaleValues.sort().map(value => (
+          {stringNoLocaleValues.sort().map((value) => (
             <li key={value + "_stringNoLocaleObject"} className="pl-0">
               <ObjectViewer
-                type={<MdTextFields/>}
+                type={<MdTextFields />}
                 options={[
                   {
                     element: (
                       <ClientLocalized
                         id="object-delete-button-string"
-                        attrs={{ "title": true, "aria-label": true }}
+                        attrs={{ title: true, "aria-label": true }}
                         vars={{ value: value }}
                       >
-                        <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>
+                        <VscTrash
+                          title={`Delete "${value}"`}
+                          aria-label={`Delete "${value}"`}
+                        />
                       </ClientLocalized>
                     ),
                     callback: () => deleteStringNoLocale(value),
@@ -189,16 +255,19 @@ export const PredicateViewer: FC<Props> = (props) => {
           {localeStringValues.sort().map(([locale, value]) => (
             <li key={value + "_stringNoLocaleObject"} className="pl-0">
               <ObjectViewer
-                type={<MdTextFields/>}
+                type={<MdTextFields />}
                 options={[
                   {
                     element: (
                       <ClientLocalized
                         id="object-delete-button-string-locale"
-                        attrs={{ "title": true, "aria-label": true }}
+                        attrs={{ title: true, "aria-label": true }}
                         vars={{ value: value, locale: locale }}
                       >
-                        <VscTrash title={`Delete "${value} (${locale})"`} aria-label={`Delete "${value} (${locale})"`}/>
+                        <VscTrash
+                          title={`Delete "${value} (${locale})"`}
+                          aria-label={`Delete "${value} (${locale})"`}
+                        />
                       </ClientLocalized>
                     ),
                     callback: () => deleteStringWithLocale(value, locale),
@@ -211,7 +280,7 @@ export const PredicateViewer: FC<Props> = (props) => {
             </li>
           ))}
 
-          {integerValues.sort().map(value => (
+          {integerValues.sort().map((value) => (
             <li key={value + "_integerObject"} className="pl-0">
               <ObjectViewer
                 type={<>1</>}
@@ -220,10 +289,13 @@ export const PredicateViewer: FC<Props> = (props) => {
                     element: (
                       <ClientLocalized
                         id="object-delete-button-integer"
-                        attrs={{ "title": true, "aria-label": true }}
+                        attrs={{ title: true, "aria-label": true }}
                         vars={{ value: value }}
                       >
-                        <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>
+                        <VscTrash
+                          title={`Delete "${value}"`}
+                          aria-label={`Delete "${value}"`}
+                        />
                       </ClientLocalized>
                     ),
                     callback: () => deleteInteger(value),
@@ -236,7 +308,7 @@ export const PredicateViewer: FC<Props> = (props) => {
             </li>
           ))}
 
-          {decimalValues.sort().map(value => (
+          {decimalValues.sort().map((value) => (
             <li key={value + "_decimalObject"} className="pl-0">
               <ObjectViewer
                 type={<>1.0</>}
@@ -245,10 +317,13 @@ export const PredicateViewer: FC<Props> = (props) => {
                     element: (
                       <ClientLocalized
                         id="object-delete-button-decimal"
-                        attrs={{ "title": true, "aria-label": true }}
+                        attrs={{ title: true, "aria-label": true }}
                         vars={{ value: value }}
                       >
-                        <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>
+                        <VscTrash
+                          title={`Delete "${value}"`}
+                          aria-label={`Delete "${value}"`}
+                        />
                       </ClientLocalized>
                     ),
                     callback: () => deleteDecimal(value),
@@ -261,44 +336,102 @@ export const PredicateViewer: FC<Props> = (props) => {
             </li>
           ))}
 
-          {datetimeValues.sort((a, b) => a.getTime() - b.getTime()).map(value => (
-            <li key={value.toISOString() + "_datetimeObject"} className="pl-0">
-              <ObjectViewer
-                type={<><VscCalendar/></>}
-                options={[
-                  {
-                    element: (
-                      <ClientLocalized
-                        id="object-delete-button-datetime"
-                        attrs={{ "title": true, "aria-label": true }}
-                        vars={{ value: value.toLocaleString() }}
-                      >
-                        <VscTrash title={`Delete "${value.toLocaleString()}"`} aria-label={`Delete "${value.toLocaleString()}"`}/>
-                      </ClientLocalized>
-                    ),
-                    callback: () => deleteDatetime(value),
-                    when: hasAccess(props.dataset.data, ["write"]),
-                  },
-                ]}
-              >
-                <time title={value.toISOString()} dateTime={value.toISOString()}>{value.toLocaleString()}</time>
-              </ObjectViewer>
-            </li>
-          ))}
+          {datetimeValues
+            .sort((a, b) => a.getTime() - b.getTime())
+            .map((value) => {
+              if (isNaN(value.getTime())) {
+                const datetimes = getTermAll(
+                  props.thing,
+                  props.predicate
+                ).filter(
+                  (term) =>
+                    term.termType === "Literal" &&
+                    term.datatype.value ===
+                      "http://www.w3.org/2001/XMLSchema#dateTime"
+                );
+                if (datetimes.length === 1) {
+                  // If there's just one value of type dateTime, it must be the current one,
+                  // so we can display the invalid value:
+                  console.log({ d: datetimes[0] });
+                  return (
+                    <li className="pl-0">
+                      <ObjectViewer type={<VscQuestion />}>
+                        {l10n.getString("object-invalid-date-known", {
+                          date: datetimes[0].value,
+                        })}
+                      </ObjectViewer>
+                    </li>
+                  );
+                }
+                return (
+                  <li className="pl-0">
+                    <ObjectViewer type={<VscQuestion />}>
+                      {l10n.getString("object-invalid-date")}
+                    </ObjectViewer>
+                  </li>
+                );
+              }
+              return (
+                <li
+                  key={value.toISOString() + "_datetimeObject"}
+                  className="pl-0"
+                >
+                  <ObjectViewer
+                    type={
+                      <>
+                        <VscCalendar />
+                      </>
+                    }
+                    options={[
+                      {
+                        element: (
+                          <ClientLocalized
+                            id="object-delete-button-datetime"
+                            attrs={{ title: true, "aria-label": true }}
+                            vars={{ value: value.toLocaleString() }}
+                          >
+                            <VscTrash
+                              title={`Delete "${value.toLocaleString()}"`}
+                              aria-label={`Delete "${value.toLocaleString()}"`}
+                            />
+                          </ClientLocalized>
+                        ),
+                        callback: () => deleteDatetime(value),
+                        when: hasAccess(props.dataset.data, ["write"]),
+                      },
+                    ]}
+                  >
+                    <time
+                      title={value.toISOString()}
+                      dateTime={value.toISOString()}
+                    >
+                      {value.toLocaleString()}
+                    </time>
+                  </ObjectViewer>
+                </li>
+              );
+            })}
 
-          {booleanValues.map(value => (
+          {booleanValues.map((value) => (
             <li key={value.toString() + "_booleanObject"} className="pl-0">
               <ObjectViewer
-                type={<><VscSymbolBoolean/></>}
+                type={
+                  <>
+                    <VscSymbolBoolean />
+                  </>
+                }
                 options={[
                   {
                     element: (
                       <ClientLocalized
                         id="object-delete-button-boolean"
-                        attrs={{ "title": true, "aria-label": true }}
+                        attrs={{ title: true, "aria-label": true }}
                         vars={{ value: value.toString() }}
                       >
-                        <VscTrash title={`Delete "${value}"`} aria-label={`Delete "${value}"`}/>
+                        <VscTrash
+                          title={`Delete "${value}"`}
+                          aria-label={`Delete "${value}"`}
+                        />
                       </ClientLocalized>
                     ),
                     callback: () => deleteBoolean(value),
@@ -315,9 +448,8 @@ export const PredicateViewer: FC<Props> = (props) => {
           {unknownObject}
 
           <HasAccess access={["append"]} resource={props.dataset.data}>
-            <ObjectAdder {...props}/>
+            <ObjectAdder {...props} />
           </HasAccess>
-
         </ul>
       </dd>
     </dl>

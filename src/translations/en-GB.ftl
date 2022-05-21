@@ -173,7 +173,10 @@ predicate-add-url-submit = Save
 predicate-urlcopy-button-tooltip = Copy this Predicate URL
 predicate-urlcopy-toast-success = Predicate URL copied to clipboard.
 
+object-unknown = Data of unknown type
 object-unknown-tooltip = Data of unknown type {$type}
+object-invalid-date = Invalid date
+object-invalid-date-known = Invalid date ({$date})
 object-delete-button-unknown =
   .title = Delete value `{$value}` of unknown type `{$type}`
   .aria-label = Delete value `{$value}` of unknown type `{$type}`

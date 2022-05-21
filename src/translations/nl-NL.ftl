@@ -171,7 +171,10 @@ predicate-add-url-submit = Opslaan
 predicate-urlcopy-button-tooltip = Kopieer de URL van deze property.
 predicate-urlcopy-toast-success = URL van deze property is gekopieerd naar het klembord.
 
+object-unknown = Data van onbekend type
 object-unknown-tooltip = Data van onbekend type {$type}
+object-invalid-date = Ongeldige datum
+object-invalid-date-known = Ongeldige datum ({$date})
 object-delete-button-unknown =
   .title = Waarde `{$value}` van onbekend type `{$type}` verwijderen
   .aria-label = Waarde `{$value}` van onbekend type `{$type}` verwijderen

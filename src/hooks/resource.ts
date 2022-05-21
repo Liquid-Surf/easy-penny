@@ -1,5 +1,6 @@
 import {
   FetchError,
+  getSolidDataset,
   getSourceUrl,
   hasServerResourceInfo,
   isRawData,
@@ -38,6 +39,12 @@ const fetcher = async (
       blob: await response.blob(),
       etag: response.headers.get("ETag"),
     };
+  }
+  if (response.headers.get("Content-Type") === "application/ld+json") {
+    // Some Solid servers (at least NSS) will default to serving content
+    // available as JSON-LD as JSON-LD. Since we only ship a Turtle parser,
+    // re-request it as Turtle instead:
+    return await getSolidDataset(url);
   }
   const dataset = await responseToSolidDataset(response);
   return dataset;

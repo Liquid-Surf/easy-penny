@@ -28,12 +28,16 @@ connectform-label = Connect your Pod at:
 connectform-button =
   .value = Connect
 
-connecterror-no-pod = 
+connecterror-no-pod =
   Could not find a Solid Pod at <pod-url>{$pod-url}</pod-url>. Please check the name and try again.
-connecterror-not-inrupt = 
+# This error is shown if the user enters their WebID instead of their Solid Identity Provider.
+connecterror-webid =
+  It looks like your Pod is located at <pod-url>{$detected-pod-url}</pod-url>.
+  <idp-button>Use that to connect your Pod?</idp-button>
+connecterror-not-inrupt =
   Could not find a Solid Pod to connect to.
   <inrupt-button>Did you mean <pod-url>{$suggested-pod-url}</pod-url>?</inrupt-button>
-connecterror-not-solidcommunity = 
+connecterror-not-solidcommunity =
   Could not find a Solid Pod to connect to.
   <solidcommunity-button>Did you mean <pod-url>{$suggested-pod-url}</pod-url>?</solidcommunity-button>
 
@@ -55,7 +59,7 @@ intro-get-started-logged-out =
   To get started, connect to your Pod to inspect its data,
   or manually enter a URL to inspect at the top of the page.
   And if you have feedback, please <contact-link>get in touch</contact-link>!
-intro-get-started-logged-in = 
+intro-get-started-logged-in =
   To get started, follow the links above to browse your Pod,
   or manually enter a URL to inspect at the top of the page.
   And if you have feedback, please&nbsp;

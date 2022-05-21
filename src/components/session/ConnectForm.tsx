@@ -6,6 +6,7 @@ import React, {
   useState,
 } from "react";
 import { toast } from "react-toastify";
+import { fetchIdp } from "../../functions/fetchIdp";
 import * as storage from "../../functions/localStorage";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { ClientLocalized } from "../ClientLocalized";
@@ -55,6 +56,33 @@ export const ConnectForm: FC = (props) => {
           </span>
         </ClientLocalized>
       );
+      const detectedIdp = await fetchIdp(idp);
+      if (detectedIdp !== null) {
+        const connectToDetectedIdp: MouseEventHandler = (event) => {
+          event.preventDefault();
+          setIdp(detectedIdp);
+          storage.setItem("last-attempted-idp", detectedIdp);
+          login({ oidcIssuer: detectedIdp, clientName: "Penny" });
+        };
+        toastMesagge = (
+          <ClientLocalized
+            id="connecterror-webid"
+            vars={{ "pod-url": idp, "detected-pod-url": detectedIdp }}
+            elems={{
+              "pod-url": <samp className="font-mono" />,
+              "idp-button": (
+                <button className="text-left" onClick={connectToDetectedIdp} />
+              ),
+            }}
+          >
+            <span>
+              It looks like your Pod is located at{" "}
+              <samp className="font-mono">{detectedIdp}</samp> Use that to
+              connect your Pod?
+            </span>
+          </ClientLocalized>
+        );
+      }
       if (["https://pod.inrupt.com", "https://inrupt.com"].includes(idp)) {
         const suggestedServer = "https://broker.pod.inrupt.com";
         const connectToInrupt: MouseEventHandler = (event) => {

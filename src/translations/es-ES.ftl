@@ -165,7 +165,10 @@ predicate-add-url-submit = Guardar
 predicate-urlcopy-button-tooltip = Copiar la URL de este predicado
 predicate-urlcopy-toast-success = La URL del predicado se ha copiado al portapapeles.
 
+object-unknown = Datos de tipo desconocido
 object-unknown-tooltip = Datos de tipo desconocido {$type}
+object-invalid-date = Formato de fecha incorrecto
+object-invalid-date-known = Formato de fecha incorrecto ({$date})
 object-delete-button-unknown =
   .title = Eliminar valor `{$value}` de tipo desconocido `{$type}`
   .aria-label = Eliminar valor `{$value}` de tipo desconocido `{$type}`

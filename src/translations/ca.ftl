@@ -165,7 +165,10 @@ predicate-add-url-submit = Guardar
 predicate-urlcopy-button-tooltip = Copiar l'URL d'aquest predicat
 predicate-urlcopy-toast-success = L'URL del predicat s'ha copiat al porta-retalls.
 
+object-unknown = Dades de tipus desconegut
 object-unknown-tooltip = Dades de tipus desconegut {$type}
+object-invalid-date = Format de data incorrecte
+object-invalid-date-known = Format de data incorrecte ({$date})
 object-delete-button-unknown =
   .title = Eliminar valor `{$value}` de tipus desconegut `{$type}`
   .aria-label = Eliminar valor `{$value}` de tipus desconegut `{$type}`

@@ -281,3 +281,15 @@ turtle-dataset-viewer-link = Ga terug.
 turtle-save-button = Opslaan
 turtle-update-toast-success = Opgeslagen. <undo-button>Ongedaan maken.</undo-button>
 turtle-update-toast-error = Onbekende fout bij het opslaan van je Turtle.
+
+## Client ID editor
+clientid-editor-heading = Client Identifier
+clientid-editor-clientname-label = Naam Client
+clientid-editor-clientname-input =
+  .placeholder = bijv. "Mijn app"
+clientid-editor-redirect-urls-heading = Redirect-URLs
+clientid-editor-redirect-url-label = Redirect-URL
+clientid-editor-redirect-url-input =
+  .placeholder = bijv. https://…
+  .title = Redirect-URL
+clientid-update-toast-success = Opgeslagen

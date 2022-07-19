@@ -17,24 +17,36 @@ interface Props {
 }
 
 export const Explorer: React.FC<Props> = (props) => {
-  const resource = useResource(typeof props.url === "string" ? props.url : null);
+  const resource = useResource(
+    typeof props.url === "string" ? props.url : null
+  );
   const sessionInfo = useSessionInfo();
 
-  const datasetViewer = resource !== null && isLoadedDataset(resource)
-    ? <DatasetViewer dataset={resource}/>
-    : null;
+  const datasetViewer =
+    resource !== null && isLoadedDataset(resource) ? (
+      <DatasetViewer dataset={resource} />
+    ) : null;
 
-  const containerViewer = resource !== null && isLoadedDataset(resource) && isContainer(resource.data)
-    ? <ContainerViewer dataset={resource}/>
-    : null;
+  const containerViewer =
+    resource !== null &&
+    isLoadedDataset(resource) &&
+    isContainer(resource.data) ? (
+      <ContainerViewer dataset={resource} />
+    ) : null;
 
-  const fileViewer = resource !== null && isLoadedFileData(resource)
-    ? <FileViewer file={resource}/>
-    : null;
+  const fileViewer =
+    resource !== null && isLoadedFileData(resource) ? (
+      <FileViewer file={resource} />
+    ) : null;
 
-  const errorViewer = typeof sessionInfo === "undefined" || resource === null || (!isLoadedDataset(resource) && resource.isValidating)
-    ? <Spinner/>
-    : <FetchErrorViewer error={resource.error}/>;
+  const errorViewer =
+    typeof sessionInfo === "undefined" ||
+    resource === null ||
+    (!isLoadedDataset(resource) && resource.isValidating) ? (
+      <Spinner />
+    ) : (
+      <FetchErrorViewer error={resource.error} />
+    );
 
   return (
     <Layout path={props.url}>
@@ -44,7 +56,7 @@ export const Explorer: React.FC<Props> = (props) => {
       <div className="lg:w-4/5 xl:w-2/3 2xl:w-1/2 mx-auto p-5 md:pt-20">
         {errorViewer}
         {containerViewer}
-        {fileViewer || datasetViewer}
+        {fileViewer ?? datasetViewer}
       </div>
     </Layout>
   );

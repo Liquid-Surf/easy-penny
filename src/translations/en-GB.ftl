@@ -32,7 +32,7 @@ connecterror-no-pod =
   Could not find a Solid Pod at <pod-url>{$pod-url}</pod-url>. Please check the name and try again.
 # This error is shown if the user enters their WebID instead of their Solid Identity Provider.
 connecterror-webid =
-  It looks like your Pod is located at <pod-url>{$detected-pod-url}</pod-url>.
+  It looks like you need to login at <pod-url>{$detected-pod-url}</pod-url>.
   <idp-button>Use that to connect your Pod?</idp-button>
 connecterror-not-inrupt =
   Could not find a Solid Pod to connect to.

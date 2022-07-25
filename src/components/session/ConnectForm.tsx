@@ -39,24 +39,30 @@ export const ConnectForm: FC = (props) => {
 
     setLoading(true);
 
+    let issuer = idp;
+
+    if (!idp.startsWith("https://") && !idp.startsWith("http://")) {
+      issuer = `https://${idp}`;
+    }
+
     try {
-      storage.setItem("last-attempted-idp", idp);
-      await login({ oidcIssuer: idp, clientName: "Penny" });
+      storage.setItem("last-attempted-idp", issuer);
+      await login({ oidcIssuer: issuer, clientName: "Penny" });
     } catch (e) {
       let toastMesagge = (
         <ClientLocalized
           id="connecterror-no-pod"
-          vars={{ "pod-url": idp }}
+          vars={{ "pod-url": issuer }}
           elems={{ "pod-url": <samp className="font-mono" /> }}
         >
           <span>
             Could not find a Solid Pod at{" "}
-            <samp className="font-mono">{idp}</samp>. Please check the name and
-            try again.
+            <samp className="font-mono">{issuer}</samp>. Please check the name
+            and try again.
           </span>
         </ClientLocalized>
       );
-      const detectedIdps = await fetchIdps(idp);
+      const detectedIdps = await fetchIdps(issuer);
       if (detectedIdps.length > 0) {
         // If the user has one or more Solid Identity Providers listed in their profile doc,
         // pick a random one to suggest (if the user has multiple Identity Providers,
@@ -83,14 +89,14 @@ export const ConnectForm: FC = (props) => {
             }}
           >
             <span>
-              It looks like your Pod is located at{" "}
+              It looks like you need to login at{" "}
               <samp className="font-mono">{detectedIdp}</samp> Use that to
               connect your Pod?
             </span>
           </ClientLocalized>
         );
       }
-      if (["https://pod.inrupt.com", "https://inrupt.com"].includes(idp)) {
+      if (["https://pod.inrupt.com", "https://inrupt.com"].includes(issuer)) {
         const suggestedServer = "https://broker.pod.inrupt.com";
         const connectToInrupt: MouseEventHandler = (event) => {
           event.preventDefault();
@@ -101,7 +107,7 @@ export const ConnectForm: FC = (props) => {
         toastMesagge = (
           <ClientLocalized
             id="connecterror-not-inrupt"
-            vars={{ "pod-url": idp, "suggested-pod-url": suggestedServer }}
+            vars={{ "pod-url": issuer, "suggested-pod-url": suggestedServer }}
             elems={{
               "pod-url": <samp className="font-mono" />,
               "inrupt-button": (
@@ -119,7 +125,7 @@ export const ConnectForm: FC = (props) => {
           </ClientLocalized>
         );
       }
-      if (idp === "https://solid.community") {
+      if (issuer === "https://solid.community") {
         const suggestedServer = "https://solidcommunity.net";
         const connectToSolidCommunity: MouseEventHandler = (event) => {
           event.preventDefault();
@@ -166,7 +172,8 @@ export const ConnectForm: FC = (props) => {
         </ClientLocalized>
         <TextField
           id="idp"
-          type="url"
+          type="text"
+          inputMode="url"
           value={idp}
           list="idps"
           onChange={setIdp}

@@ -13,7 +13,7 @@ interface Props {
    */
   sourceUrl?: UrlString;
   openInline?: boolean;
-};
+}
 
 export const Url: FC<Props> = (props) => {
   const profile = useProfile();
@@ -23,19 +23,29 @@ export const Url: FC<Props> = (props) => {
     : [];
 
   if (props.sourceUrl) {
-    browsableOrigins.push((new URL(props.sourceUrl)).origin + "/");
+    browsableOrigins.push(new URL(props.sourceUrl).origin + "/");
   }
 
-  const matchingOrigin = browsableOrigins.find(storageUrl => props.url.substring(0, storageUrl.length) === storageUrl);
+  const matchingOrigin = browsableOrigins.find(
+    (storageUrl) => props.url.substring(0, storageUrl.length) === storageUrl
+  );
 
-  const shortUrl = matchingOrigin
-    ? props.url.substring(matchingOrigin.length - 1)
-    : props.url;
+  const shortUrl =
+    matchingOrigin &&
+    typeof props.sourceUrl === "string" &&
+    props.sourceUrl.startsWith(matchingOrigin)
+      ? props.url.substring(matchingOrigin.length - 1)
+      : props.url;
 
   if (matchingOrigin || props.openInline) {
     return (
       <Link href={getExplorePath(props.url, encodeURIComponent(props.url))}>
-        <a className="focus:underline focus:text-coolGray-700 focus:outline-none break-words">{shortUrl}</a>
+        <a
+          className="focus:underline focus:text-coolGray-700 focus:outline-none break-words"
+          title={props.url}
+        >
+          {shortUrl}
+        </a>
       </Link>
     );
   }
@@ -46,7 +56,7 @@ export const Url: FC<Props> = (props) => {
       target="_blank"
       rel="noopener noreferrer"
       className="focus:underline focus:text-coolGray-700 focus:outline-none break-words"
-        >
+    >
       {props.url}
     </a>
   );

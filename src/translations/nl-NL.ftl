@@ -36,6 +36,9 @@ connecterror-webid =
 connecterror-not-inrupt =
   Kon niet verbinden met een Solid Pod.
   <inrupt-button>Bedoelde je <pod-url>{$suggested-pod-url}</pod-url>?</inrupt-button>
+connecterror-deprecated-inrupt =
+  Inrupt heeft broker.pod.inrupt.com vervangen.
+  <inrupt-button>Wil je verbinden met <pod-url>{$suggested-pod-url}</pod-url>?</inrupt-button>
 connecterror-not-solidcommunity =
   Kon niet verbinden met een Solid Pod.
   <solidcommunity-button>Bedoelde je <pod-url>{$suggested-pod-url}</pod-url>?</solidcommunity-button>

@@ -40,6 +40,11 @@ export const ConnectForm: FC = (props) => {
     setLoading(true);
 
     try {
+      if (idp === "https://broker.pod.inrupt.com") {
+        throw new Error(
+          "Immediately caught; broker.pod.inrupt.com will appear to work, but return an invalid WebID. Thus, let's pre-emptively get us to the error path."
+        );
+      }
       storage.setItem("last-attempted-idp", idp);
       await login({ oidcIssuer: idp, clientName: "Penny" });
     } catch (e) {
@@ -91,7 +96,7 @@ export const ConnectForm: FC = (props) => {
         );
       }
       if (["https://pod.inrupt.com", "https://inrupt.com"].includes(idp)) {
-        const suggestedServer = "https://broker.pod.inrupt.com";
+        const suggestedServer = "https://login.inrupt.com";
         const connectToInrupt: MouseEventHandler = (event) => {
           event.preventDefault();
           setIdp(suggestedServer);
@@ -115,6 +120,35 @@ export const ConnectForm: FC = (props) => {
             <span>
               Could not find a Solid Pod to connect to. Did you mean{" "}
               {suggestedServer}?
+            </span>
+          </ClientLocalized>
+        );
+      }
+      if (idp === "https://broker.pod.inrupt.com") {
+        const suggestedServer = "https://login.inrupt.com";
+        const connectToInrupt: MouseEventHandler = (event) => {
+          event.preventDefault();
+          setIdp(suggestedServer);
+          storage.setItem("last-attempted-idp", suggestedServer);
+          login({ oidcIssuer: suggestedServer, clientName: "Penny" });
+        };
+        toastMesagge = (
+          <ClientLocalized
+            id="connecterror-deprecated-inrupt"
+            vars={{ "pod-url": idp, "suggested-pod-url": suggestedServer }}
+            elems={{
+              "pod-url": <samp className="font-mono" />,
+              "inrupt-button": (
+                <button
+                  className="text-left underline hover:text-coolGray-300"
+                  onClick={connectToInrupt}
+                />
+              ),
+            }}
+          >
+            <span>
+              Inrupt has deprecated broker.pod.inrupt.com. Would you like to
+              connect to {suggestedServer} instead?
             </span>
           </ClientLocalized>
         );
@@ -174,7 +208,7 @@ export const ConnectForm: FC = (props) => {
           autoFocus={true}
         />
         <datalist id="idps">
-          <option value="https://broker.pod.inrupt.com" />
+          <option value="https://login.inrupt.com" />
           <option value="https://solidcommunity.net" />
           <option value="https://solidweb.org" />
           <option value="https://solidweb.me" />

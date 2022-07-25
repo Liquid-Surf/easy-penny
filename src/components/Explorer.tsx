@@ -17,24 +17,45 @@ interface Props {
 }
 
 export const Explorer: React.FC<Props> = (props) => {
-  const resource = useResource(typeof props.url === "string" ? props.url : null);
   const sessionInfo = useSessionInfo();
+  const resource = useResource(
+    typeof props.url === "string" ? props.url : null,
+    {
+      // Ensure that, if we're browsing the user's profile document,
+      // it's fetched as `text/turtle`. This is a workaround for ESS returning
+      // HTML when no Accept header is present.
+      requestContentType:
+        sessionInfo && sessionInfo.webId === props.url
+          ? "text/turtle"
+          : undefined,
+    }
+  );
 
-  const datasetViewer = resource !== null && isLoadedDataset(resource)
-    ? <DatasetViewer dataset={resource}/>
-    : null;
+  const datasetViewer =
+    resource !== null && isLoadedDataset(resource) ? (
+      <DatasetViewer dataset={resource} />
+    ) : null;
 
-  const containerViewer = resource !== null && isLoadedDataset(resource) && isContainer(resource.data)
-    ? <ContainerViewer dataset={resource}/>
-    : null;
+  const containerViewer =
+    resource !== null &&
+    isLoadedDataset(resource) &&
+    isContainer(resource.data) ? (
+      <ContainerViewer dataset={resource} />
+    ) : null;
 
-  const fileViewer = resource !== null && isLoadedFileData(resource)
-    ? <FileViewer file={resource}/>
-    : null;
+  const fileViewer =
+    resource !== null && isLoadedFileData(resource) ? (
+      <FileViewer file={resource} />
+    ) : null;
 
-  const errorViewer = typeof sessionInfo === "undefined" || resource === null || (!isLoadedDataset(resource) && resource.isValidating)
-    ? <Spinner/>
-    : <FetchErrorViewer error={resource.error}/>;
+  const errorViewer =
+    typeof sessionInfo === "undefined" ||
+    resource === null ||
+    (!isLoadedDataset(resource) && resource.isValidating) ? (
+      <Spinner />
+    ) : (
+      <FetchErrorViewer error={resource.error} />
+    );
 
   return (
     <Layout path={props.url}>

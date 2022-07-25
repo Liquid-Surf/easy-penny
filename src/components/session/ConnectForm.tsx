@@ -91,7 +91,7 @@ export const ConnectForm: FC = (props) => {
         );
       }
       if (["https://pod.inrupt.com", "https://inrupt.com"].includes(idp)) {
-        const suggestedServer = "https://broker.pod.inrupt.com";
+        const suggestedServer = "https://login.inrupt.com";
         const connectToInrupt: MouseEventHandler = (event) => {
           event.preventDefault();
           setIdp(suggestedServer);
@@ -174,7 +174,7 @@ export const ConnectForm: FC = (props) => {
           autoFocus={true}
         />
         <datalist id="idps">
-          <option value="https://broker.pod.inrupt.com" />
+          <option value="https://login.inrupt.com" />
           <option value="https://solidcommunity.net" />
           <option value="https://solidweb.org" />
           <option value="https://solidweb.me" />

@@ -93,7 +93,7 @@ export const ConnectForm: FC = (props) => {
             }}
           >
             <span>
-              It looks like you need to login at{" "}
+              It looks like your Pod is located at{" "}
               <samp className="font-mono">{detectedIdp}</samp> Use that to
               connect your Pod?
             </span>

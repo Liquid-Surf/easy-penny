@@ -100,7 +100,14 @@ export const ConnectForm: FC = (props) => {
           </ClientLocalized>
         );
       }
-      if (["https://pod.inrupt.com", "https://inrupt.com"].includes(issuer)) {
+      if (
+        [
+          "https://pod.inrupt.com",
+          "https://inrupt.com",
+          "https://id.inrupt.com",
+          "https://storage.inrupt.com",
+        ].includes(issuer)
+      ) {
         const suggestedServer = "https://login.inrupt.com";
         const connectToInrupt: MouseEventHandler = (event) => {
           event.preventDefault();

@@ -30,7 +30,11 @@ const fetcher = async (
   // the server doesn't serve us that HTML file:
   const headers = urlObject.pathname.endsWith("/")
     ? { Accept: "text/turtle" }
-    : ({} as HeadersInit);
+    : {
+        // Otherwise ask the server to give us Turtle if it _can_ be served as
+        // Turtle. If not, serve it up in the most appropriate Content-Type:
+        Accept: "text/turtle;q=1.0, */*;q=0.5",
+      };
   const response = await fetch(url, { headers: headers });
   const resourceInfo = responseToResourceInfo(response);
   if (isRawData(resourceInfo)) {

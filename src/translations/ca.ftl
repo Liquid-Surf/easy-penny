@@ -33,6 +33,9 @@ connecterror-no-pod =
 connecterror-not-inrupt =
   No s'ha trobat un Solid Pod per connectar.
   <inrupt-button>Volies dir <pod-url>{$suggested-pod-url}</pod-url>?</inrupt-button>
+connecterror-deprecated-inrupt =
+  Inrupt ha deixat de fer servir broker.pod.inrupt.com.
+  <inrupt-button>Vols fer servir <pod-url>{$suggested-pod-url}</pod-url>?</inrupt-button>
 connecterror-not-solidcommunity =
   No s'ha trobat un Solid Pod per connectar.
   <solidcommunity-button>Volies dir <pod-url>{$suggested-pod-url}</pod-url>?</solidcommunity-button>

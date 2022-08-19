@@ -15,6 +15,7 @@
     "@fluent/langneg": "^0.6.0",
     "@fluent/react": "^0.14.0",
     "@inrupt/solid-client": "^1.11.0",
+    "@inrupt/vocab-common-rdf": "^1.0.3",
     "@inrupt/solid-client-authn-browser": "^1.12.1",
     "@react-aria/focus": "^3.2.4",
     "@react-aria/ssr": "^3.0.1",

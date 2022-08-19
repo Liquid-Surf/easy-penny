@@ -53,10 +53,14 @@ export const Explorer: React.FC<Props> = (props) => {
     );
 
   const card =
-    window.location.href.slice(-4) == "card" ||
-    window.location.href.slice(-4) == "d#me" ? (
-      <Card />
-    ) : null;
+    props.url.slice(-4) == "card" || props.url.slice(-4) == "d#me" ? (
+      <Card webidUrl={props.url} dataset={resource} />
+    ) : (
+      <span>
+        Not a WebID
+        <br />
+      </span>
+    );
 
   return (
     <Layout path={props.url}>

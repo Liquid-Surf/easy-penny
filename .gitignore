@@ -33,3 +33,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+css_recipe/node_modules
+css_recipe/data
+src/components/viewers/Card_old.tsx
+styles/card_old.css

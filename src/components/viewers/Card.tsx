@@ -20,9 +20,10 @@ import {
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
 import { LoadedCachedDataset } from "../../hooks/dataset";
+import { CachedResource } from "../../hooks/resource";
 
 interface CardProps {
-  dataset: LoadedCachedDataset | null;
+  dataset: CachedResource | null;
   webidUrl: string;
 }
 
@@ -37,52 +38,65 @@ export const Card: FC<CardProps> = (props) => {
     //    const role = getStringNoLocale(profile, VCARD.role);
   }
 
+  const sayHi = () => alert("hi");
+
   const [fn, setFn] = useState("...");
   const [role, setRole] = useState("role");
   const [note, setNote] = useState("note");
+
+  const [email, setEmail] = useState("");
+
   const profileDocumentURI = props.webidUrl.split("#")[0]; // remove the '#me'('#()
-  console.log("profileDocumentURI", profileDocumentURI);
+
   getSolidDataset(profileDocumentURI, { fetch: fetch }).then((myDataset) => {
     console.log("ds", myDataset);
-    const profile = getThing(myDataset, profileDocumentURI);
+    const profile = getThing(myDataset, profileDocumentURI)!;
 
-    setFn(getStringNoLocale(profile, VCARD.fn));
-    setRole(getStringNoLocale(profile, VCARD.role));
-    setNote(getStringNoLocale(profile, VCARD.note));
+    const fn = getStringNoLocale(profile, VCARD.fn)
+      ? getStringNoLocale(profile, VCARD.fn)
+      : "";
+    setFn(typeof fn === "string" ? fn : "");
+    const role = getStringNoLocale(profile, VCARD.role)
+      ? getStringNoLocale(profile, VCARD.role)
+      : "";
+    setRole(typeof role === "string" ? role : "");
+    const note = getStringNoLocale(profile, VCARD.note)
+      ? getStringNoLocale(profile, VCARD.note)
+      : "";
+    setNote(typeof note === "string" ? note : "");
+    const email = getStringNoLocale(profile, VCARD.email)
+      ? getStringNoLocale(profile, VCARD.email)
+      : "";
+    setEmail(typeof email === "string" ? email : "");
+
     console.log("fn", fn);
   });
 
-  //  // Get the Profile data from the retrieved SolidDataset
-  //  const profile = getThing(myDataset, props.webidUrl);
-
-  //  const fn = getStringNoLocale(profile, VCARD.fn);
-  //  const role = getStringNoLocale(profile, VCARD.role);
-
   return (
     <>
-      <div class="card">
-        <div class="img-avatar">
+      <div className="card">
+        <div className="img-avatar">
           <img
             src="http://localhost:3055/d/public/lif.jpg"
-            class="rounded"
+            className="rounded"
             width="155"
           />
         </div>
-        <div class="card-text">
-          <div class="portada"> </div>
-          <div class="title-total">
-            <div class="title">{role}</div>
+        <div className="card-text">
+          <div className="portada"> </div>
+          <div className="title-total">
+            <div className="title">{role}</div>
             <h2>{fn}</h2>
-            <div class="desc">{note}</div>
-            <div class="actions">
-              <button>
-                <i class="far fa-heart">
+            <div className="desc">{note}</div>
+            <div className="actions">
+              <button onClick={sayHi}>
+                <i className="far">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-heart"
+                    className="bi bi-heart"
                     viewBox="0 0 16 16"
                   >
                     {" "}
@@ -90,14 +104,14 @@ export const Card: FC<CardProps> = (props) => {
                   </svg>
                 </i>
               </button>
-              <button>
-                <i class="far fa-envelope">
+              <button onClick={sayHi}>
+                <i className="far">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-envelope"
+                    className="bi bi-envelope"
                     viewBox="0 0 16 16"
                   >
                     {" "}
@@ -105,8 +119,8 @@ export const Card: FC<CardProps> = (props) => {
                   </svg>
                 </i>
               </button>
-              <button>
-                <i class="fas fa-user-friends">
+              <button onClick={sayHi}>
+                <i className="far">
                   <svg
                     width="24"
                     height="24"

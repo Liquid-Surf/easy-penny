@@ -15,7 +15,7 @@ import { isLoadedFileData } from "../hooks/file";
 import { isLoadedDataset } from "../hooks/dataset";
 
 interface Props {
-  url?: UrlString;
+  url: UrlString;
 }
 
 export const Explorer: React.FC<Props> = (props) => {
@@ -53,7 +53,8 @@ export const Explorer: React.FC<Props> = (props) => {
     );
 
   const card =
-    props.url.slice(-4) == "card" || props.url.slice(-4) == "d#me" ? (
+    (props.url !== null && props.url.slice(-4) == "card") ||
+    props.url.slice(-4) == "d#me" ? (
       <Card webidUrl={props.url} dataset={resource} />
     ) : (
       <span>

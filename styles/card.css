@@ -89,19 +89,7 @@
   cursor: pointer;
   transition: 0.5s;
 }
-.fa,
-.far,
-.fas {
-  font-family: "Font Awesome 5 Free";
-}
 .far {
-  font-weight: 400;
-}
-.fa,
-.fab,
-.fal,
-.far,
-.fas {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   display: inline-block;

@@ -3,7 +3,9 @@ import {
   FetchError,
   getContainedResourceUrlAll,
   getSourceUrl,
+  getThing,
   getThingAll,
+  getUrlAll,
   isContainer,
   setThing,
   SolidDataset,
@@ -34,6 +36,8 @@ import { LinkedResourcesViewer } from "./LinkedResourcesViewer";
 import { HasAccess } from "../HasAccess";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 import { NotIntegrated } from "../integrated/NotIntegrated";
+import { ClientIdViewer, solid_oidc } from "./ClientIdViewer";
+import { hasAccess } from "../../functions/hasAccess";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -300,28 +304,43 @@ export const DatasetViewer: FC<Props> = (props) => {
     );
   };
 
-  return (
-    <>
+  const clientIdThing = getThing(props.dataset.data, resourceUrl);
+  const isEditableClientId =
+    resourceUrl.endsWith("/clientid.jsonld") &&
+    hasAccess(props.dataset.data, ["write"]) &&
+    (things.length === 0 ||
+      (things.length === 1 &&
+        clientIdThing !== null &&
+        getUrlAll(clientIdThing, solid_oidc.redirect_uris).length > 0));
+
+  const datasetEditor = isEditableClientId ? (
+    <ClientIdViewer dataset={props.dataset} />
+  ) : (
+    <div className="space-y-10 pb-10">
       <ClientLocalized id="dataset-things-heading">
         <SectionHeading>Things</SectionHeading>
       </ClientLocalized>
-      <div className="space-y-10 pb-10">
-        {things.map((thing) => (
-          <div key={asUrl(thing) + "_thing"}>
-            <ThingViewer
-              dataset={props.dataset}
-              thing={thing}
-              onUpdate={onUpdateThing}
-              collapsed={collapsedThings.includes(asUrl(thing))}
-              onCollapse={getCollapseHandler(thing)}
-              isServerManaged={isServerManaged(thing)}
-            />
-          </div>
-        ))}
-        <HasAccess access={["append"]} resource={props.dataset.data}>
-          <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing} />
-        </HasAccess>
-      </div>
+      {things.map((thing) => (
+        <div key={asUrl(thing) + "_thing"}>
+          <ThingViewer
+            dataset={props.dataset}
+            thing={thing}
+            onUpdate={onUpdateThing}
+            collapsed={collapsedThings.includes(asUrl(thing))}
+            onCollapse={getCollapseHandler(thing)}
+            isServerManaged={isServerManaged(thing)}
+          />
+        </div>
+      ))}
+      <HasAccess access={["append"]} resource={props.dataset.data}>
+        <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing} />
+      </HasAccess>
+    </div>
+  );
+
+  return (
+    <>
+      {datasetEditor}
       <LinkedResourcesViewer dataset={props.dataset} />
       {dangerZone}
     </>

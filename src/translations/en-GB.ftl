@@ -283,3 +283,15 @@ turtle-dataset-viewer-link = Back to safety.
 turtle-save-button = Save
 turtle-update-toast-success = Saved. <undo-button>Undo.</undo-button>
 turtle-update-toast-error = There was an error saving your Turtle.
+
+## Client ID editor
+clientid-editor-heading = Client Identifier
+clientid-editor-clientname-label = Client name
+clientid-editor-clientname-input =
+  .placeholder = e.g. "My app"
+clientid-editor-redirect-urls-heading = Redirect URLs
+clientid-editor-redirect-url-label = Redirect URL
+clientid-editor-redirect-url-input =
+  .placeholder = e.g. https://…
+  .title = Redirect URL
+clientid-update-toast-success = Saved

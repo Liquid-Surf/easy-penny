@@ -1,4 +1,5 @@
 import {
+  getDefaultSession,
   handleIncomingRedirect,
   onLogout,
   onSessionRestore,
@@ -58,10 +59,21 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
         setSessionInfo(null);
       }
     });
-    onLogout(() => setSessionInfo(null));
-    onSessionRestore((currentUrl) => {
+    const defaultSession = getDefaultSession();
+    const logoutListener = () => setSessionInfo(null);
+    const sessionRestoreListener = (currentUrl: string) => {
       router.replace(currentUrl);
-    });
+    };
+    onLogout(logoutListener);
+    onSessionRestore(sessionRestoreListener);
+
+    return () => {
+      // Note: this is assuming SCAB doesn't change the event names. They are
+      //       currently defined at
+      //       https://github.com/inrupt/solid-client-authn-js/blob/22db704dfa433428a0d9966e7a5ba8cd733a871f/packages/core/src/constant.ts#L38-L42
+      defaultSession.removeListener("logout", logoutListener);
+      defaultSession.removeListener("sessionRestore", sessionRestoreListener);
+    };
   }, [router]);
 
   return (

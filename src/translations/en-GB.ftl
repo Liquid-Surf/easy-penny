@@ -27,6 +27,8 @@ connectmodal-close-label = Close
 connectform-label = Connect your Pod at:
 connectform-button =
   .value = Connect
+# Other potential values, in case they work better: "Connect automatically in the future", "automatically connect from now on"
+connectform-autoconnect-label = Always auto-connect
 
 connecterror-no-pod =
   Could not find a Solid Pod at <pod-url>{$pod-url}</pod-url>. Please check the name and try again.

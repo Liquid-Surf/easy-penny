@@ -46,7 +46,7 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   useEffect(() => {
     setSessionInfo(undefined);
     handleIncomingRedirect({
-      restorePreviousSession: false,
+      restorePreviousSession: storage.getItem("autoconnect") === "true",
       useEssSession: false,
     }).then((info) => {
       if (info && info.isLoggedIn) {

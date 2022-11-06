@@ -27,6 +27,7 @@ connectmodal-close-label = Sluiten
 connectform-label = Verbind je Pod op:
 connectform-button =
   .value = Verbinden
+connectform-autoconnect-label = Voortaan automatisch verbinden
 
 connecterror-no-pod =
   Kon geen Solid Pod vinden op <pod-url>{$pod-url}</pod-url>. Controleer de URL en probeer het nog eens.

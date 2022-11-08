@@ -18,8 +18,6 @@ import {
   removeStringWithLocale,
   removeUrl,
   setThing,
-  solidDatasetAsMarkdown,
-  thingAsMarkdown,
   ThingPersisted,
   UrlString,
 } from "@inrupt/solid-client";
@@ -439,7 +437,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                   },
                 ]}
               >
-                {value}
+                {value.toString()}
               </ObjectViewer>
             </li>
           ))}

@@ -27,6 +27,8 @@ connectmodal-close-label = Tancar
 connectform-label = Connecta amb el teu Pod a:
 connectform-button =
   .value = Connectar
+# Other potential values, in case they work better: "Connect automatically in the future", "automatically connect from now on"
+connectform-autoconnect-label = Connectar automàticament a partir d'ara
 
 connecterror-no-pod =
   No s'ha trobat el teu Solid Pod a <pod-url>{$pod-url}</pod-url>. Sisplau, comprova l'URL i torna-ho a provar.

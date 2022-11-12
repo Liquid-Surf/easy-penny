@@ -53,8 +53,9 @@ export const Explorer: React.FC<Props> = (props) => {
     );
 
   const card =
-    (props.url !== null && props.url.slice(-4) == "card") ||
-    props.url.slice(-4) == "d#me" ? (
+    resource !== null &&
+    (props.url.slice(-4) == "card" || props.url.slice(-4) == "d#me") ? (
+      // ? ( <Card webidUrl={props.url}  /> )
       <Card webidUrl={props.url} dataset={resource} />
     ) : (
       <span>

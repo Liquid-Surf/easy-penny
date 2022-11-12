@@ -23,20 +23,15 @@ import { LoadedCachedDataset } from "../../hooks/dataset";
 import { CachedResource } from "../../hooks/resource";
 
 interface CardProps {
-  dataset: CachedResource | null;
+  dataset: CachedResource;
   webidUrl: string;
+  // webidUrl: CachedResource;
 }
 
 export const Card: FC<CardProps> = (props) => {
-  if (props.dataset) {
-    // console.log("DS", props.dataset.data)
-    //  const myDataset = getThingAll(props.dataset.data);
-    //  const profile = getThing(myDataset, props.webidUrl);
-    //  console.log('profile')
-    //  console.log(profile)
-    //    const fn = getStringNoLocale(profile, VCARD.fn);
-    //    const role = getStringNoLocale(profile, VCARD.role);
-  }
+  console.log("dataset");
+  console.log(props.dataset);
+  const webidUrl = "";
 
   const sayHi = () => alert("hi");
 

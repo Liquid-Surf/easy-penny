@@ -62,18 +62,16 @@ export const UserMenu: FC = () => {
   return (
     <>
       <LoggedOut>
-        <button
-        className="sm:hidden lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
-          onClick={(e) => {
-            e.preventDefault();
-            setPromptOpen(true);
-          }}
-          title={l10n.getString("connect-button-tooltip")}
-        >
-          <span aria-hidden="true" className="px-2 sm:hidden md:inline">
-            Register
-          </span>
-        </button>
+        <Link href="/idp/register/">
+          <button
+            className="sm:hidden lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
+            title={l10n.getString("connect-button-tooltip")}
+          >
+            <span aria-hidden="true" className="px-2 sm:hidden md:inline">
+              Register
+            </span>
+          </button>
+        </Link>
         <button
           className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
           onClick={(e) => {
@@ -103,7 +101,7 @@ export const UserMenu: FC = () => {
             onClick={(e) => {
               e.preventDefault();
               storage.setItem("autoconnect", "false");
-            logout();
+              logout();
             }}
             title={l10n.getString("disconnect-button-tooltip", {
               webId: sessionInfo?.webId ?? "",

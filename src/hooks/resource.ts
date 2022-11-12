@@ -48,7 +48,7 @@ const fetcher = async (
     // Some Solid servers (at least NSS) will default to serving content
     // available as JSON-LD as JSON-LD. Since we only ship a Turtle parser,
     // re-request it as Turtle instead:
-    return await getSolidDataset(url);
+    return await getSolidDataset(url, { fetch: fetch });
   }
   const dataset = await responseToSolidDataset(response);
   return dataset;

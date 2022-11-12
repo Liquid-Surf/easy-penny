@@ -5,6 +5,7 @@ import { LoggedOut } from "./LoggedOut";
 import { ConnectForm } from "./ConnectForm";
 import { MdClose } from "react-icons/md";
 import Link from "next/link";
+import * as storage from "../../functions/localStorage";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { logout } from "@inrupt/solid-client-authn-browser";
 import { getAssetLink, getExplorePath } from "../../functions/integrate";
@@ -62,7 +63,7 @@ export const UserMenu: FC = () => {
     <>
       <LoggedOut>
         <button
-          className="sm:hidden lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
+        className="sm:hidden lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
           onClick={(e) => {
             e.preventDefault();
             setPromptOpen(true);
@@ -101,7 +102,8 @@ export const UserMenu: FC = () => {
             className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
             onClick={(e) => {
               e.preventDefault();
-              logout();
+              storage.setItem("autoconnect", "false");
+            logout();
             }}
             title={l10n.getString("disconnect-button-tooltip", {
               webId: sessionInfo?.webId ?? "",

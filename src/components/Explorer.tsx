@@ -20,7 +20,6 @@ interface Props {
 
 export const Explorer: React.FC<Props> = (props) => {
   const [show, setShow] = useState(false);
-
   const resource = useResource(
     typeof props.url === "string" ? props.url : null
   );
@@ -43,7 +42,7 @@ export const Explorer: React.FC<Props> = (props) => {
       <FileViewer file={resource} />
     ) : null;
 
-  const errorViewer =
+const errorViewer =
     typeof sessionInfo === "undefined" ||
     resource === null ||
     (!isLoadedDataset(resource) && resource.isValidating) ? (
@@ -77,6 +76,8 @@ export const Explorer: React.FC<Props> = (props) => {
           {show ? "Hide" : "Show"} advanced options
         </button>
         {fileViewer || show ? datasetViewer : null}
+
+        {fileViewer ?? datasetViewer}
       </div>
     </Layout>
   );

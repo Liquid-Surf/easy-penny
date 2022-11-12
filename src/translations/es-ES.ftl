@@ -27,9 +27,15 @@ connectmodal-close-label = Cerrar
 connectform-label = Conecta con tu Pod en:
 connectform-button =
   .value = Conectar
+# Other potential values, in case they work better: "Connect automatically in the future", "automatically connect from now on"
+connectform-autoconnect-label = Conectar automáticamente a partir de ahora
 
 connecterror-no-pod =
   No se ha encontrado tu Solid Pod en <pod-url>{$pod-url}</pod-url>. Por favor, comprueba la URL y vuelve a intentarlo.
+# This error is shown if the user enters their WebID instead of their Solid Identity Provider.
+connecterror-webid =
+  Parece que tu Pod está en <pod-url>{$detected-pod-url}</pod-url>.
+  <idp-button>¿Quieres utilizar esta url para conectarte?</idp-button>
 connecterror-not-inrupt =
   No se ha encontrado un Solid Pod para conectar.
   <inrupt-button>¿Querías decir <pod-url>{$suggested-pod-url}</pod-url>?</inrupt-button>
@@ -128,6 +134,9 @@ thing-expand-label = Expandir
 thing-expand-tooltip = Expande esto
 
 wac-control-title = Control de Acceso para:
+# When someone adds a new (but still empty) Thing,
+# a notification will be shown on top that will allow
+# adding the necessary data to turn it into an Access Control:
 wac-control-initialise = Convertir en Control de Acceso.
 wac-control-toast-saving = Guardando Control de Acceso…
 wac-control-toast-saved = Control de Acceso guardado.
@@ -275,3 +284,15 @@ turtle-dataset-viewer-link = Vuelve a la zona segura.
 turtle-save-button = Guardar
 turtle-update-toast-success = Guardado. <undo-button>Deshacer.</undo-button>
 turtle-update-toast-error = Ha ocurrido un error guardando el archivo.
+
+## Client ID editor
+clientid-editor-heading = Identificador del cliente
+clientid-editor-clientname-label = Nombre del cliente
+clientid-editor-clientname-input =
+  .placeholder = e.g. "Mi app"
+clientid-editor-redirect-urls-heading = URLs de redirección
+clientid-editor-redirect-url-label = URL de redirección
+clientid-editor-redirect-url-input =
+  .placeholder = e.g. https://…
+  .title = URL de redirección
+clientid-update-toast-success = Guardado

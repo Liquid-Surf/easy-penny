@@ -27,9 +27,15 @@ connectmodal-close-label = Tancar
 connectform-label = Connecta amb el teu Pod a:
 connectform-button =
   .value = Connectar
+# Other potential values, in case they work better: "Connect automatically in the future", "automatically connect from now on"
+connectform-autoconnect-label = Connectar automàticament a partir d'ara
 
 connecterror-no-pod =
   No s'ha trobat el teu Solid Pod a <pod-url>{$pod-url}</pod-url>. Sisplau, comprova l'URL i torna-ho a provar.
+# This error is shown if the user enters their WebID instead of their Solid Identity Provider.
+connecterror-webid =
+  Sembla que el teu Solid Pod està a <pod-url>{$detected-pod-url}</pod-url>.
+  <idp-button>Vols fer servir aquesta adreça per connectar?</idp-button>
 connecterror-not-inrupt =
   No s'ha trobat un Solid Pod per connectar.
   <inrupt-button>Volies dir <pod-url>{$suggested-pod-url}</pod-url>?</inrupt-button>
@@ -128,6 +134,9 @@ thing-expand-label = Expandir
 thing-expand-tooltip = Expandeix això
 
 wac-control-title = Control d'Accés per:
+# When someone adds a new (but still empty) Thing,
+# a notification will be shown on top that will allow
+# adding the necessary data to turn it into an Access Control:
 wac-control-initialise = Convertir a Control d'Accés.
 wac-control-toast-saving = Guardant Control d'Accés…
 wac-control-toast-saved = Control d'Accés guardat.
@@ -275,3 +284,15 @@ turtle-dataset-viewer-link = Torna a la zona segura.
 turtle-save-button = Guardar
 turtle-update-toast-success = Guardat. <undo-button>Desfer.</undo-button>
 turtle-update-toast-error = Hi ha hagut un error guardant el fitxer.
+
+## Client ID editor
+clientid-editor-heading = Identificador del client
+clientid-editor-clientname-label = Nom del client
+clientid-editor-clientname-input =
+  .placeholder = e.g. "La meva app"
+clientid-editor-redirect-urls-heading = URLs de redirecció
+clientid-editor-redirect-url-label = URL de redirecció
+clientid-editor-redirect-url-input =
+  .placeholder = e.g. https://…
+  .title = URL de redirecció
+clientid-update-toast-success = Guardat

@@ -245,25 +245,6 @@ export const DatasetViewer: FC<Props> = (props) => {
     </>
   );
 
-  if (things.length === 0) {
-    return (
-      <>
-        <div className="space-y-10 pb-10">
-          <ClientLocalized id="dataset-empty-warning">
-            <div className="rounded bg-yellow-200 p-5">
-              This resource is empty.
-            </div>
-          </ClientLocalized>
-          <HasAccess access={["append"]} resource={props.dataset.data}>
-            <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing} />
-          </HasAccess>
-        </div>
-        <LinkedResourcesViewer dataset={props.dataset} />
-        {dangerZone}
-      </>
-    );
-  }
-
   const getCollapseHandler = (thing: ThingPersisted) => {
     return (collapse: boolean, all: boolean) => {
       if (all) {
@@ -313,14 +294,13 @@ export const DatasetViewer: FC<Props> = (props) => {
         clientIdThing !== null &&
         getUrlAll(clientIdThing, solid_oidc.redirect_uris).length > 0));
 
-  const datasetEditor = isEditableClientId ? (
-    <ClientIdViewer dataset={props.dataset} />
-  ) : (
-    <div className="space-y-10 pb-10">
-      <ClientLocalized id="dataset-things-heading">
-        <SectionHeading>Things</SectionHeading>
+  const thingsListing =
+    things.length === 0 ? (
+      <ClientLocalized id="dataset-empty-warning">
+        <div className="rounded bg-yellow-200 p-5">This resource is empty.</div>
       </ClientLocalized>
-      {things.map((thing) => (
+    ) : (
+      things.map((thing) => (
         <div key={asUrl(thing) + "_thing"}>
           <ThingViewer
             dataset={props.dataset}
@@ -331,7 +311,17 @@ export const DatasetViewer: FC<Props> = (props) => {
             isServerManaged={isServerManaged(thing)}
           />
         </div>
-      ))}
+      ))
+    );
+
+  const datasetEditor = isEditableClientId ? (
+    <ClientIdViewer dataset={props.dataset} />
+  ) : (
+    <div className="space-y-10 pb-10">
+      <ClientLocalized id="dataset-things-heading">
+        <SectionHeading>Things</SectionHeading>
+      </ClientLocalized>
+      {thingsListing}
       <HasAccess access={["append"]} resource={props.dataset.data}>
         <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing} />
       </HasAccess>

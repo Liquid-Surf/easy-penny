@@ -1,5 +1,4 @@
 import { useLocalization } from "@fluent/react";
-import { login } from "@inrupt/solid-client-authn-browser";
 import { useId } from "react-aria";
 import React, {
   FC,
@@ -8,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import { toast } from "react-toastify";
+import { connect } from "../../functions/connect";
 import { fetchIdps } from "../../functions/fetchIdp";
 import * as storage from "../../functions/localStorage";
 import { useSessionInfo } from "../../hooks/sessionInfo";
@@ -62,7 +62,7 @@ export const ConnectForm: FC = (props) => {
         "autoconnect",
         autoconnectInput === true ? "true" : "false"
       );
-      await login({ oidcIssuer: issuer, clientName: "Penny" });
+      await connect(issuer);
     } catch (e) {
       let toastMesagge = (
         <ClientLocalized
@@ -91,7 +91,7 @@ export const ConnectForm: FC = (props) => {
             "autoconnect",
             autoconnectInput === true ? "true" : "false"
           );
-          login({ oidcIssuer: detectedIdp, clientName: "Penny" });
+          connect(detectedIdp);
         };
         toastMesagge = (
           <ClientLocalized
@@ -132,7 +132,7 @@ export const ConnectForm: FC = (props) => {
             "autoconnect",
             autoconnectInput === true ? "true" : "false"
           );
-          login({ oidcIssuer: suggestedServer, clientName: "Penny" });
+          connect(suggestedServer);
         };
         toastMesagge = (
           <ClientLocalized
@@ -165,7 +165,7 @@ export const ConnectForm: FC = (props) => {
             "autoconnect",
             autoconnectInput === true ? "true" : "false"
           );
-          login({ oidcIssuer: suggestedServer, clientName: "Penny" });
+          connect(suggestedServer);
         };
         toastMesagge = (
           <ClientLocalized
@@ -198,7 +198,7 @@ export const ConnectForm: FC = (props) => {
             "autoconnect",
             autoconnectInput === true ? "true" : "false"
           );
-          login({ oidcIssuer: suggestedServer, clientName: "Penny" });
+          connect(suggestedServer);
         };
         toastMesagge = (
           <ClientLocalized

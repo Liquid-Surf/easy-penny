@@ -55,6 +55,11 @@ export const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
           storage.setItem("last-successful-idp", lastAttemptedIdp);
         }
         setSessionInfo(info as SessionInfo);
+        const redirectUrl = storage.getItem("redirect-url");
+        if (typeof redirectUrl === "string") {
+          storage.removeItem("redirect-url");
+          router.replace(redirectUrl);
+        }
       } else {
         setSessionInfo(null);
       }

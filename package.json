@@ -28,7 +28,7 @@
     "rdf-namespaces": "^1.9.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-dropzone": "^11.2.4",
+    "react-dropzone": "^14.2.3",
     "react-icons": "^4.1.0",
     "react-modal": "^3.12.1",
     "react-toastify": "^9.1.1",

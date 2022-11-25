@@ -1,12 +1,12 @@
-import { FC } from "react";
+import { ReactNode } from "react";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 
-export const LoggedOut: FC = (props) => {
+export const LoggedOut = (props: { children: ReactNode }) => {
   const sessionInfo = useSessionInfo();
 
   if (sessionInfo === null) {
     return <>{props.children}</>;
   }
-  
+
   return null;
 };

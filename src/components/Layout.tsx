@@ -1,4 +1,10 @@
-import React, { FC, FormEventHandler, useEffect, useState } from "react";
+import React, {
+  FC,
+  FormEventHandler,
+  ReactNode,
+  useEffect,
+  useState,
+} from "react";
 import Link from "next/link";
 import { UrlString } from "@inrupt/solid-client";
 import { useRouter } from "next/router";
@@ -13,10 +19,11 @@ import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "./ClientLocalized";
 
 interface Props {
+  children: ReactNode;
   path?: UrlString;
 }
 
-export const Layout: FC<Props> = (props) => {
+export const Layout = (props: Props) => {
   const [isEditingPath, setIsEditingPath] = useState(false);
   const router = useRouter();
   const { l10n } = useLocalization();

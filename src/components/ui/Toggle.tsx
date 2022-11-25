@@ -1,12 +1,13 @@
 import { useFocusRing, useSwitch, VisuallyHidden } from "react-aria";
 import { useToggleState } from "react-stately";
-import { ChangeEventHandler, FC, useRef } from "react";
+import { ChangeEventHandler, ReactNode, useRef } from "react";
 
 interface Props {
   onChange: (on: boolean) => void;
   toggled: boolean;
+  children: ReactNode;
 }
-export const Toggle: FC<Props> = (props) => {
+export const Toggle = (props: Props) => {
   let state = useToggleState({ isSelected: props.toggled });
   let ref = useRef<HTMLInputElement>(null);
   let { inputProps } = useSwitch(props, state, ref);

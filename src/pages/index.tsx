@@ -1,6 +1,11 @@
 import * as React from "react";
 import Head from "next/head";
-import { asUrl, getStringNoLocale, getUrlAll, UrlString } from "@inrupt/solid-client";
+import {
+  asUrl,
+  getStringNoLocale,
+  getUrlAll,
+  UrlString,
+} from "@inrupt/solid-client";
 import { foaf, space, vcard, solid } from "rdf-namespaces";
 import Link from "next/link";
 import { useLocalization } from "@fluent/react";
@@ -16,12 +21,20 @@ const Home: React.FC = () => {
   const { l10n } = useLocalization();
 
   const name = profile
-    ? getStringNoLocale(profile.data, foaf.name) ?? getStringNoLocale(profile.data, vcard.fn) ?? asUrl(profile.data)
+    ? getStringNoLocale(profile.data, foaf.name) ??
+      getStringNoLocale(profile.data, vcard.fn) ??
+      asUrl(profile.data)
     : null;
   const webId = profile ? asUrl(profile.data) : "";
 
   const storages = profile
-    ? Array.from(new Set(getUrlAll(profile.data, space.storage).concat(getUrlAll(profile.data, solid.account))))
+    ? Array.from(
+        new Set(
+          getUrlAll(profile.data, space.storage).concat(
+            getUrlAll(profile.data, solid.account)
+          )
+        )
+      )
     : [];
 
   return (
@@ -34,24 +47,26 @@ const Home: React.FC = () => {
           <ClientLocalized
             id="pod-listing-heading"
             vars={{
-              "owner-name": name ?? webId
+              "owner-name": name ?? webId,
             }}
             elems={{
-              "owner-link": <OwnerLink webId={webId}/>
+              "owner-link": <OwnerLink webId={webId} />,
             }}
           >
-            <h3 className="text-lg block py-5">
-              Pod(s) of: {webId}
-            </h3>
+            <h3 className="text-lg block py-5">Pod(s) of: {webId}</h3>
           </ClientLocalized>
           <ul className="space-between-5">
-            {storages.map(storageUrl => (
+            {storages.map((storageUrl) => (
               <li key={storageUrl + "_storage"}>
                 <Link href={`/explore/?url=${encodeURIComponent(storageUrl)}`}>
                   <a
                     className="p-5 bg-coolGray-700 hover:bg-coolGray-900 rounded text-white block focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50"
-                    title={l10n.getString("pod-listing-tooltip", { "pod-url": storageUrl })}
-                  >{storageUrl}</a>
+                    title={l10n.getString("pod-listing-tooltip", {
+                      "pod-url": storageUrl,
+                    })}
+                  >
+                    {storageUrl}
+                  </a>
                 </Link>
               </li>
             ))}
@@ -59,42 +74,42 @@ const Home: React.FC = () => {
         </SessionGate>
         <section className="pt-28 space-y-5">
           <ClientLocalized id="intro-title">
-            <h2 className="text-xl font-bold">
-              What is this?
-            </h2>
+            <h2 className="text-xl font-bold">What is this?</h2>
           </ClientLocalized>
           <ClientLocalized
             id="intro-text"
             elems={{
-              "solid-link":
+              "solid-link": (
                 <a
                   href="https://solidproject.org/"
                   className="underline hover:no-underline hover:bg-coolGray-700 hover:text-white focus:outline-none focus:bg-coolGray-700 focus:text-white"
-                />,
+                />
+              ),
             }}
           >
             <p>
-              Penny is a tool for developers of Solid apps.
-              It allows you to inspect the data on your Pod and,
-              if you have the appropriate permissions, to modify and add new data.
-              It presumes familiarity with the concepts of Solid.
+              Penny is a tool for developers of Solid apps. It allows you to
+              inspect the data on your Pod and, if you have the appropriate
+              permissions, to modify and add new data. It presumes familiarity
+              with the concepts of Solid.
             </p>
           </ClientLocalized>
           <LoggedOut>
             <ClientLocalized
               id="intro-get-started-logged-out"
               elems={{
-                "contact-link":
+                "contact-link": (
                   <a
                     href="https://gitlab.com/vincenttunru/penny/-/issues/new"
                     className="underline hover:no-underline hover:bg-coolGray-700 hover:text-white focus:outline-none focus:bg-coolGray-700 focus:text-white"
-                  />,
+                  />
+                ),
               }}
             >
               <p>
-                To get started, connect to your Pod to inspect its data,
-                or manually enter a URL to inspect at the top of the page.
-                And if you have feedback, please get in touch!
+                To get started, connect to your Pod to inspect its data, or
+                manually enter a URL to inspect at the top of the page. And if
+                you have feedback, please get in touch!
               </p>
             </ClientLocalized>
           </LoggedOut>
@@ -102,35 +117,40 @@ const Home: React.FC = () => {
             <ClientLocalized
               id="intro-get-started-logged-in"
               elems={{
-                "contact-link":
+                "contact-link": (
                   <a
                     href="https://gitlab.com/vincenttunru/penny/-/issues/new"
                     className="underline hover:no-underline hover:bg-coolGray-700 hover:text-white focus:outline-none focus:bg-coolGray-700 focus:text-white"
-                  />,
+                  />
+                ),
               }}
             >
               <p>
-                To get started, follow the links above to browse your Pod,
-                or manually enter a URL to inspect at the top of the page.
-                And if you have feedback, please get in touch!
+                To get started, follow the links above to browse your Pod, or
+                manually enter a URL to inspect at the top of the page. And if
+                you have feedback, please get in touch!
               </p>
             </ClientLocalized>
           </LoggedIn>
-          <footer>
-            —Vincent
-          </footer>
+          <footer>—Vincent</footer>
         </section>
       </div>
     </Layout>
   );
 };
 
-const OwnerLink: React.FC<{webId: UrlString}> = (props) => <>
-  <Link href={`/explore/?url=${encodeURIComponent(props.webId)}#${encodeURIComponent(props.webId)}`}>
-    <a className="font-bold hover:text-coolGray-700 focus:underline focus:text-coolGray-700 focus:outline-none">
-      {props.children}
-    </a>
-  </Link>
-</>;
+const OwnerLink = (props: { webId: UrlString; children?: React.ReactNode }) => (
+  <>
+    <Link
+      href={`/explore/?url=${encodeURIComponent(
+        props.webId
+      )}#${encodeURIComponent(props.webId)}`}
+    >
+      <a className="font-bold hover:text-coolGray-700 focus:underline focus:text-coolGray-700 focus:outline-none">
+        {props.children}
+      </a>
+    </Link>
+  </>
+);
 
 export default Home;

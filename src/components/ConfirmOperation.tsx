@@ -1,4 +1,4 @@
-import { FC, FormEventHandler, useState } from "react";
+import { FormEventHandler, ReactNode, useState } from "react";
 import Modal from "react-modal";
 import { MdClose } from "react-icons/md";
 import { Button, SubmitButton, TextField } from "./ui/forms";
@@ -7,9 +7,10 @@ interface Props {
   confirmString: string;
   onConfirm: () => void;
   onCancel: () => void;
+  children: ReactNode;
 }
 
-export const ConfirmOperation: FC<Props> = (props) => {
+export const ConfirmOperation = (props: Props) => {
   const [promptOpen, setPromptOpen] = useState(true);
   const [enteredString, setEnteredString] = useState("");
 
@@ -41,18 +42,20 @@ export const ConfirmOperation: FC<Props> = (props) => {
     >
       <div className="flex flex-row-reverse -mt-4 -mr-4 md:-mt-8 md:-mr-8">
         <button onClick={() => setPromptOpen(false)}>
-          <MdClose aria-label="Close"/>
+          <MdClose aria-label="Close" />
         </button>
       </div>
       {props.children}
-      <form
-        onSubmit={onSubmit}
-        className="flex flex-col space-y-5 pt-5"
-      >
-        <label
-          htmlFor="confirmationString"
-          className=""
-        >Please enter <samp><kbd className="font-mono bg-coolGray-200 p-1 border-2 border-coolGray-300 rounded">{props.confirmString}</kbd></samp> to continue:</label>
+      <form onSubmit={onSubmit} className="flex flex-col space-y-5 pt-5">
+        <label htmlFor="confirmationString" className="">
+          Please enter{" "}
+          <samp>
+            <kbd className="font-mono bg-coolGray-200 p-1 border-2 border-coolGray-300 rounded">
+              {props.confirmString}
+            </kbd>
+          </samp>{" "}
+          to continue:
+        </label>
         <TextField
           onChange={setEnteredString}
           required={true}

@@ -1,8 +1,9 @@
-import { FC } from "react";
+import { ReactNode } from "react";
 import ReactModal from "react-modal";
 import { MdClose } from "react-icons/md";
 
 interface Props {
+  children: ReactNode;
   isOpen: boolean;
   onRequestClose: () => void;
   onAfterClose?: () => void;
@@ -10,10 +11,9 @@ interface Props {
   size?: "full" | "sm";
 }
 
-export const Modal: FC<Props> = (props) => {
-  const paddingClasses = props.size === "sm"
-    ? "p-5 md:py-20 md:px-40 lg:px-60 xl:px-96"
-    : "p-5";
+export const Modal = (props: Props) => {
+  const paddingClasses =
+    props.size === "sm" ? "p-5 md:py-20 md:px-40 lg:px-60 xl:px-96" : "p-5";
 
   return (
     <ReactModal
@@ -35,7 +35,7 @@ export const Modal: FC<Props> = (props) => {
     >
       <div className="flex flex-row-reverse -mt-4 -mr-4 md:-mt-8 md:-mr-8">
         <button onClick={props.onRequestClose}>
-          <MdClose aria-label="Close"/>
+          <MdClose aria-label="Close" />
         </button>
       </div>
       {props.children}

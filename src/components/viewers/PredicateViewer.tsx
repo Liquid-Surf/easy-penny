@@ -1,4 +1,5 @@
 import {
+  asUrl,
   FetchError,
   getBooleanAll,
   getDatetimeAll,
@@ -350,9 +351,13 @@ export const PredicateViewer: FC<Props> = (props) => {
                 if (datetimes.length === 1) {
                   // If there's just one value of type dateTime, it must be the current one,
                   // so we can display the invalid value:
-                  console.log({ d: datetimes[0] });
                   return (
-                    <li className="pl-0">
+                    <li
+                      key={`${asUrl(props.thing)}-${
+                        props.predicate
+                      }-invalid-datetime-${datetimes[0].value}`}
+                      className="pl-0"
+                    >
                       <ObjectViewer type={<VscQuestion />}>
                         {l10n.getString("object-invalid-date-known", {
                           date: datetimes[0].value,
@@ -362,7 +367,12 @@ export const PredicateViewer: FC<Props> = (props) => {
                   );
                 }
                 return (
-                  <li className="pl-0">
+                  <li
+                    key={`${asUrl(props.thing)}-${
+                      props.predicate
+                    }-object-invalid-date`}
+                    className="pl-0"
+                  >
                     <ObjectViewer type={<VscQuestion />}>
                       {l10n.getString("object-invalid-date")}
                     </ObjectViewer>

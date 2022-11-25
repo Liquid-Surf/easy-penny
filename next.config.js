@@ -2,7 +2,8 @@
 module.exports = {
   trailingSlash: true,
   reactStrictMode: true,
-  assetPrefix: process.env.NEXT_PUBLIC_MODE === "integrate" ? "/server-ui" : "",
+  assetPrefix:
+    process.env.NEXT_PUBLIC_MODE === "integrate" ? "/server-ui" : undefined,
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.ftl/,

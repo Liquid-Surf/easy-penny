@@ -1,6 +1,6 @@
 import { useLocalization } from "@fluent/react";
 import { login } from "@inrupt/solid-client-authn-browser";
-import { useSSRSafeId } from "@react-aria/ssr";
+import { useId } from "react-aria";
 import React, {
   FC,
   FormEventHandler,
@@ -29,7 +29,7 @@ export const ConnectForm: FC = (props) => {
   const [autoconnectInput, setAutoconnectInput] = useState(
     storage.getItem("autoconnect") === "true"
   );
-  const autoconnectInputId = useSSRSafeId();
+  const autoconnectInputId = useId();
   const [loading, setLoading] = useState(false);
   const sessionInfo = useSessionInfo();
 

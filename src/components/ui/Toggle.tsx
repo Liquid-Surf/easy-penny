@@ -1,7 +1,5 @@
-import { VisuallyHidden } from "@react-aria/visually-hidden";
-import { useToggleState } from "@react-stately/toggle";
-import { useFocusRing } from "@react-aria/focus";
-import { useSwitch } from "@react-aria/switch";
+import { useFocusRing, useSwitch, VisuallyHidden } from "react-aria";
+import { useToggleState } from "react-stately";
 import { ChangeEventHandler, FC, useRef } from "react";
 
 interface Props {

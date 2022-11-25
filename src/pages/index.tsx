@@ -58,15 +58,14 @@ const Home: React.FC = () => {
           <ul className="space-between-5">
             {storages.map((storageUrl) => (
               <li key={storageUrl + "_storage"}>
-                <Link href={`/explore/?url=${encodeURIComponent(storageUrl)}`}>
-                  <a
-                    className="p-5 bg-coolGray-700 hover:bg-coolGray-900 rounded text-white block focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50"
-                    title={l10n.getString("pod-listing-tooltip", {
-                      "pod-url": storageUrl,
-                    })}
-                  >
-                    {storageUrl}
-                  </a>
+                <Link
+                  href={`/explore/?url=${encodeURIComponent(storageUrl)}`}
+                  className="p-5 bg-coolGray-700 hover:bg-coolGray-900 rounded text-white block focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50"
+                  title={l10n.getString("pod-listing-tooltip", {
+                    "pod-url": storageUrl,
+                  })}
+                >
+                  {storageUrl}
                 </Link>
               </li>
             ))}
@@ -145,10 +144,9 @@ const OwnerLink = (props: { webId: UrlString; children?: React.ReactNode }) => (
       href={`/explore/?url=${encodeURIComponent(
         props.webId
       )}#${encodeURIComponent(props.webId)}`}
+      className="font-bold hover:text-coolGray-700 focus:underline focus:text-coolGray-700 focus:outline-none"
     >
-      <a className="font-bold hover:text-coolGray-700 focus:underline focus:text-coolGray-700 focus:outline-none">
-        {props.children}
-      </a>
+      {props.children}
     </Link>
   </>
 );

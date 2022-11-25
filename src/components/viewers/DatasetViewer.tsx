@@ -222,11 +222,10 @@ export const DatasetViewer: FC<Props> = (props) => {
                 href={`/turtle/?url=${encodeURIComponent(
                   getSourceUrl(props.dataset.data)
                 )}`}
+                className="p-5 rounded border-4 border-coolGray-700 text-coolGray-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-coolGray-700 hover:bg-coolGray-700 focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50"
               >
-                <a className="p-5 rounded border-4 border-coolGray-700 text-coolGray-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-coolGray-700 hover:bg-coolGray-700 focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50">
-                  <VscCode aria-hidden="true" />
-                  <span>{l10n.getString("dataset-view-turtle")}</span>
-                </a>
+                <VscCode aria-hidden="true" />
+                <span>{l10n.getString("dataset-view-turtle")}</span>
               </Link>
             </NotIntegrated>
             {deletionModal}

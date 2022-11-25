@@ -39,13 +39,12 @@ export const Url: FC<Props> = (props) => {
 
   if (matchingOrigin || props.openInline) {
     return (
-      <Link href={getExplorePath(props.url, encodeURIComponent(props.url))}>
-        <a
-          className="focus:underline focus:text-coolGray-700 focus:outline-none break-words"
-          title={props.url}
-        >
-          {shortUrl}
-        </a>
+      <Link
+        href={getExplorePath(props.url, encodeURIComponent(props.url))}
+        className="focus:underline focus:text-coolGray-700 focus:outline-none break-words"
+        title={props.url}
+      >
+        {shortUrl}
       </Link>
     );
   }

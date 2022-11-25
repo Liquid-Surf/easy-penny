@@ -1,5 +1,20 @@
 import { useLocalization } from "@fluent/react";
-import { addUrl, getPropertyAll, getSourceUrl, getThingAll, getUrl, getUrlAll, removeAll, removeUrl, setThing, setUrl, SolidDataset, ThingPersisted, WebId, WithResourceInfo } from "@inrupt/solid-client";
+import {
+  addUrl,
+  getPropertyAll,
+  getSourceUrl,
+  getThingAll,
+  getUrl,
+  getUrlAll,
+  removeAll,
+  removeUrl,
+  setThing,
+  setUrl,
+  SolidDataset,
+  ThingPersisted,
+  WebId,
+  WithResourceInfo,
+} from "@inrupt/solid-client";
 import Link from "next/link";
 import { acl, foaf, rdf } from "rdf-namespaces";
 import React, { FC, FormEventHandler, useState } from "react";
@@ -20,7 +35,9 @@ interface Props {
 
 export const WacControl: FC<Props> = (props) => {
   const types = getUrlAll(props.thing, rdf.type);
-  const targetResourceUrl = getUrl(props.thing, acl.accessTo) ?? getUrl(props.thing, acl.default__workaround);
+  const targetResourceUrl =
+    getUrl(props.thing, acl.accessTo) ??
+    getUrl(props.thing, acl.default__workaround);
   const { l10n } = useLocalization();
 
   type Target = "self" | "children";
@@ -42,7 +59,9 @@ export const WacControl: FC<Props> = (props) => {
       return currentModes.includes(acl.Read);
     }
     if (mode === "append") {
-      return currentModes.includes(acl.Append) || currentModes.includes(acl.Write);
+      return (
+        currentModes.includes(acl.Append) || currentModes.includes(acl.Write)
+      );
     }
     if (mode === "write") {
       return currentModes.includes(acl.Write);
@@ -53,8 +72,8 @@ export const WacControl: FC<Props> = (props) => {
     return false as never;
   };
   const currentModes: Array<Mode> = [];
-  possibleModes.forEach(mode => {
-    if(isCurrentMode(mode)) {
+  possibleModes.forEach((mode) => {
+    if (isCurrentMode(mode)) {
       currentModes.push(mode);
     }
   });
@@ -70,7 +89,9 @@ export const WacControl: FC<Props> = (props) => {
   async function saveControl(control: ThingPersisted) {
     const updatedDataset = setThing(props.dataset.data, control);
     if (!hasAtLeastOneController(updatedDataset)) {
-      toast(l10n.getString("wac-control-toast-error-no-controller"), { type: "error" });
+      toast(l10n.getString("wac-control-toast-error-no-controller"), {
+        type: "error",
+      });
       return;
     }
     await props.dataset.save(updatedDataset);
@@ -82,8 +103,12 @@ export const WacControl: FC<Props> = (props) => {
     // in this Resource, it is likely to be in an ACL, so if this Thing is
     // empty, offer initialising it as an Access Control:
     const targetOfOtherControls = getThingAll(props.dataset.data)
-      .map(otherThing => getUrl(otherThing, acl.accessTo) ?? getUrl(otherThing, acl.default__workaround))
-      .find(targetUrl => targetUrl !== null);
+      .map(
+        (otherThing) =>
+          getUrl(otherThing, acl.accessTo) ??
+          getUrl(otherThing, acl.default__workaround)
+      )
+      .find((targetUrl) => targetUrl !== null);
     if (
       hasAtLeastOneController(props.dataset.data) &&
       getPropertyAll(props.thing).length === 0 &&
@@ -91,14 +116,21 @@ export const WacControl: FC<Props> = (props) => {
     ) {
       const convertToControl = () => {
         let thingAsControl = addUrl(props.thing, rdf.type, acl.Authorization);
-        thingAsControl = addUrl(thingAsControl, acl.accessTo, targetOfOtherControls)
+        thingAsControl = addUrl(
+          thingAsControl,
+          acl.accessTo,
+          targetOfOtherControls
+        );
         saveControl(thingAsControl);
       };
 
       return (
         <ClientLocalized id="wac-control-initialise">
           <button
-            onClick={(e) => { e.preventDefault(); convertToControl(); }}
+            onClick={(e) => {
+              e.preventDefault();
+              convertToControl();
+            }}
             className="p-5 bg-blue-200 border-b-4 border-blue-200 w-full text-left hover:bg-blue-300 hover:border-blue-300 focus:underline focus:border-blue-400 focus:outline-none rounded-b-sm"
           >
             Convert to Access Control.
@@ -110,14 +142,21 @@ export const WacControl: FC<Props> = (props) => {
   }
 
   const setTarget = (target: Target, enable: boolean) => {
-    const resourceIri = getUrl(props.thing, acl.accessTo) ?? getUrl(props.thing, acl.default__workaround);
-    const predicate = target === "self" ? acl.accessTo : acl.default__workaround;
+    const resourceIri =
+      getUrl(props.thing, acl.accessTo) ??
+      getUrl(props.thing, acl.default__workaround);
+    const predicate =
+      target === "self" ? acl.accessTo : acl.default__workaround;
 
     if (typeof resourceIri !== "string") {
-      toast(l10n.getString("wac-control-toast-error-no-resource"), { type: "error" });
+      toast(l10n.getString("wac-control-toast-error-no-resource"), {
+        type: "error",
+      });
       return;
     }
-    const updatedControl = enable ? setUrl(props.thing, predicate, resourceIri) : removeAll(props.thing, predicate);
+    const updatedControl = enable
+      ? setUrl(props.thing, predicate, resourceIri)
+      : removeAll(props.thing, predicate);
     saveControl(updatedControl);
   };
 
@@ -132,11 +171,17 @@ export const WacControl: FC<Props> = (props) => {
     if (mode === "control") {
       modeIri = acl.Control;
     }
-    let updatedControl = enable ? addUrl(props.thing, acl.mode, modeIri) : removeUrl(props.thing, acl.mode, modeIri);
+    let updatedControl = enable
+      ? addUrl(props.thing, acl.mode, modeIri)
+      : removeUrl(props.thing, acl.mode, modeIri);
     if (mode === "append" && enable === false) {
       updatedControl = removeUrl(updatedControl, acl.mode, acl.Write);
     }
-    if (mode === "write" && enable === false && !getUrlAll(updatedControl, acl.mode).includes(acl.Append)) {
+    if (
+      mode === "write" &&
+      enable === false &&
+      !getUrlAll(updatedControl, acl.mode).includes(acl.Append)
+    ) {
       // Removing Write Access should not result in removing Append access:
       updatedControl = addUrl(updatedControl, acl.mode, acl.Append);
     }
@@ -167,39 +212,37 @@ export const WacControl: FC<Props> = (props) => {
       <header className="text-xl flex w-100 font-bold">
         <ClientLocalized id="wac-control-title">
           <div className="">Access Control for:</div>
-        </ClientLocalized>&nbsp;
-        <Link href={getExplorePath(targetResourceUrl)}>
-          <a className="focus:underline hover:text-coolGray-700">{targetResourceUrl}</a>
+        </ClientLocalized>
+        &nbsp;
+        <Link
+          href={getExplorePath(targetResourceUrl)}
+          className="focus:underline hover:text-coolGray-700"
+        >
+          {targetResourceUrl}
         </Link>
       </header>
       <div className="flex flex-row py-5">
         <ClientLocalized id="wac-control-target-label">
-          <div className="w-36 pr-5 py-2">
-            Applies to:
-          </div>
+          <div className="w-36 pr-5 py-2">Applies to:</div>
         </ClientLocalized>
         <div className="flex flex-col items-start justify-center">
           <div className={`flex space-x-1 py-2`}>
             <Toggle
-              onChange={enabled => setTarget("self", enabled)}
+              onChange={(enabled) => setTarget("self", enabled)}
               toggled={isCurrentTarget("self")}
             >
               <ClientLocalized id="wac-control-target-option-self">
-                <span>
-                  The Resource
-                </span>
+                <span>The Resource</span>
               </ClientLocalized>
             </Toggle>
           </div>
           <div className={`flex space-x-1 py-2`}>
             <Toggle
-              onChange={enabled => setTarget("children", enabled)}
+              onChange={(enabled) => setTarget("children", enabled)}
               toggled={isCurrentTarget("children")}
             >
               <ClientLocalized id="wac-control-target-option-children">
-                <span>
-                  Contained Resources
-                </span>
+                <span>Contained Resources</span>
               </ClientLocalized>
             </Toggle>
           </div>
@@ -207,56 +250,46 @@ export const WacControl: FC<Props> = (props) => {
       </div>
       <div className="flex flex-row py-5">
         <ClientLocalized id="wac-control-mode-label">
-          <div className="w-36 pr-5 py-2">
-            Grants:
-          </div>
+          <div className="w-36 pr-5 py-2">Grants:</div>
         </ClientLocalized>
         <div className="flex flex-col items-start justify-center lg:flex-wrap">
           <div className={`flex space-x-1 py-2`}>
             <Toggle
-              onChange={enabled => setMode("read", enabled)}
+              onChange={(enabled) => setMode("read", enabled)}
               toggled={isCurrentMode("read")}
             >
               <ClientLocalized id="wac-control-mode-option-read">
-                <span>
-                  Read
-                </span>
+                <span>Read</span>
               </ClientLocalized>
             </Toggle>
           </div>
           <div className={`flex space-x-1 py-2`}>
             <Toggle
-              onChange={enabled => setMode("append", enabled)}
+              onChange={(enabled) => setMode("append", enabled)}
               toggled={isCurrentMode("append")}
             >
               <ClientLocalized id="wac-control-mode-option-append">
-                <span>
-                  Append
-                </span>
+                <span>Append</span>
               </ClientLocalized>
             </Toggle>
           </div>
           <div className={`flex space-x-1 py-2`}>
             <Toggle
-              onChange={enabled => setMode("write", enabled)}
+              onChange={(enabled) => setMode("write", enabled)}
               toggled={isCurrentMode("write")}
             >
               <ClientLocalized id="wac-control-mode-option-write">
-                <span>
-                  Write
-                </span>
+                <span>Write</span>
               </ClientLocalized>
             </Toggle>
           </div>
           <div className={`flex space-x-1 py-2`}>
             <Toggle
-              onChange={enabled => setMode("control", enabled)}
+              onChange={(enabled) => setMode("control", enabled)}
               toggled={isCurrentMode("control")}
             >
               <ClientLocalized id="wac-control-mode-option-control">
-                <span>
-                  Control
-                </span>
+                <span>Control</span>
               </ClientLocalized>
             </Toggle>
           </div>
@@ -264,20 +297,16 @@ export const WacControl: FC<Props> = (props) => {
       </div>
       <div className="flex flex-row py-5">
         <ClientLocalized id="wac-control-agentClass-label">
-          <div className="w-36 pr-5 py-2">
-            To:
-          </div>
+          <div className="w-36 pr-5 py-2">To:</div>
         </ClientLocalized>
         <div className="flex flex-col items-start justify-center">
           <div className={`flex space-x-1 py-2`}>
             <Toggle
-              onChange={enabled => setAgentClass("Agent", enabled)}
+              onChange={(enabled) => setAgentClass("Agent", enabled)}
               toggled={isCurrentAgentClass("Agent")}
             >
               <ClientLocalized id="wac-control-agentClass-option-agent">
-                <span>
-                  Everyone
-                </span>
+                <span>Everyone</span>
               </ClientLocalized>
             </Toggle>
           </div>
@@ -285,32 +314,41 @@ export const WacControl: FC<Props> = (props) => {
       </div>
       <div className="flex flex-row py-5">
         <ClientLocalized id="wac-control-agent-label">
-          <div className="w-36 pr-5 py-2">
-            And Agents:
-          </div>
+          <div className="w-36 pr-5 py-2">And Agents:</div>
         </ClientLocalized>
         <div className="flex-grow space-y-2 items-start justify-center">
-          {getUrlAll(props.thing, acl.agent).map(agent => {
+          {getUrlAll(props.thing, acl.agent).map((agent) => {
             return (
               <div key={agent} className="flex items-center space-x-2 pl-2">
                 <code
                   className="font-mono p-2 truncate w-0 flex-grow"
                   title={agent}
                 >
-                  <Url url={agent} sourceUrl={getSourceUrl(props.dataset.data)} openInline={true}/>
+                  <Url
+                    url={agent}
+                    sourceUrl={getSourceUrl(props.dataset.data)}
+                    openInline={true}
+                  />
                 </code>
                 <button
                   className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
-                  onClick={(event) => {event.preventDefault(); removeAgent(agent);}}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    removeAgent(agent);
+                  }}
                 >
-                  <ClientLocalized id="wac-control-agent-remove-icon" attrs={{ "aria-label": true }} vars={{ agent: agent }}>
-                    <VscTrash aria-label={`Remove \`${agent}\``}/>
+                  <ClientLocalized
+                    id="wac-control-agent-remove-icon"
+                    attrs={{ "aria-label": true }}
+                    vars={{ agent: agent }}
+                  >
+                    <VscTrash aria-label={`Remove \`${agent}\``} />
                   </ClientLocalized>
                 </button>
               </div>
             );
           })}
-          <AgentAdder onSubmit={addAgent}/>
+          <AgentAdder onSubmit={addAgent} />
         </div>
       </div>
     </section>
@@ -331,7 +369,9 @@ const AgentAdder: FC<AgentAdderProps> = (props) => {
 
   return (
     <form onSubmit={onSubmit} className="flex items-center space-x-2">
-      <label htmlFor="webId" className="sr-only">WebID:</label>
+      <label htmlFor="webId" className="sr-only">
+        WebID:
+      </label>
       <input
         type="url"
         name="webId"
@@ -341,14 +381,20 @@ const AgentAdder: FC<AgentAdderProps> = (props) => {
         value={webId}
         onChange={(event) => setWebId(event.target.value)}
       />
-      <ClientLocalized id="wac-control-agent-add-button" attrs={{title: true}}>
+      <ClientLocalized
+        id="wac-control-agent-add-button"
+        attrs={{ title: true }}
+      >
         <button
           type="submit"
           className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
           title="Add Agent"
         >
-          <ClientLocalized id="wac-control-agent-add-icon" attrs={{"aria-label": true}}>
-            <MdCheck aria-label="Add"/>
+          <ClientLocalized
+            id="wac-control-agent-add-icon"
+            attrs={{ "aria-label": true }}
+          >
+            <MdCheck aria-label="Add" />
           </ClientLocalized>
         </button>
       </ClientLocalized>
@@ -356,18 +402,19 @@ const AgentAdder: FC<AgentAdderProps> = (props) => {
   );
 };
 
-function hasAtLeastOneController(dataset: SolidDataset & WithResourceInfo): boolean {
+function hasAtLeastOneController(
+  dataset: SolidDataset & WithResourceInfo
+): boolean {
   const things = getThingAll(dataset);
-  return things.some(thing => {
+  return things.some((thing) => {
     const isControl = getUrlAll(thing, rdf.type).includes(acl.Authorization);
     const hasControlMode = getUrlAll(thing, acl.mode).includes(acl.Control);
     const appliesToSelf = getUrl(thing, acl.accessTo) !== null;
-    const listsAgent = (
+    const listsAgent =
       getUrl(thing, acl.agent) !== null ||
       getUrl(thing, acl.agentGroup) !== null ||
       getUrlAll(thing, acl.agentClass).includes(foaf.Agent) ||
-      getUrlAll(thing, acl.agentClass).includes(acl.AuthenticatedAgent)
-    );
+      getUrlAll(thing, acl.agentClass).includes(acl.AuthenticatedAgent);
     return isControl && hasControlMode && appliesToSelf && listsAgent;
   });
 }

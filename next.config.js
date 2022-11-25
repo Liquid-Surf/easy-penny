@@ -1,4 +1,5 @@
 /* eslint-env node */
+/** @type {import('next').NextConfig} */
 module.exports = {
   trailingSlash: true,
   reactStrictMode: true,
@@ -11,5 +12,12 @@ module.exports = {
     });
 
     return config;
+  },
+  experimental: {
+    // This should allow us to view both Container and non-Container Resources
+    // in integrated mode.
+    // See https://github.com/vercel/next.js/discussions/23988#discussioncomment-4213430
+    // and https://gitlab.com/vincenttunru/penny/-/issues/17
+    skipTrailingSlashRedirect: true,
   },
 };

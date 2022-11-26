@@ -17,6 +17,7 @@
     "@fluent/react": "^0.14.1",
     "@inrupt/solid-client": "^1.11.0",
     "@inrupt/solid-client-authn-browser": "^1.12.2",
+    "@inrupt/vocab-common-rdf": "^1.0.3",
     "framer-motion": "^7.6.12",
     "next": "^13.0.5",
     "rdf-namespaces": "^1.9.2",

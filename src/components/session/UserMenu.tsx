@@ -51,31 +51,58 @@ export const UserMenu: FC = () => {
         encodeURIComponent(sessionInfo.webId)
       )}
       className="sm:hidden lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
-    >
+      legacyBehavior>
       {l10n.getString("profile-button")}
     </Link>
   ) : null;
 
-  return (
-    <>
-      <LoggedOut>
-        <Link href="/idp/register/">
-          <button
-            className="sm:hidden lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
-            title={l10n.getString("connect-button-tooltip")}
-          >
-            <span aria-hidden="true" className="px-2 sm:hidden md:inline">
-              Register
-            </span>
-          </button>
-        </Link>
+  return <>
+    <LoggedOut>
+      <button
+        className="lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
+        onClick={(e) => {
+          document.location.href = '/idp/register/'
+        }}
+        title={l10n.getString("connect-button-tooltip")}
+      >
+        <span aria-hidden="true" className="px-2 md:inline">
+          Register
+        </span>
+      </button>
+      <button
+        className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
+        onClick={(e) => {
+          e.preventDefault();
+          setPromptOpen(true);
+        }}
+        title={l10n.getString("connect-button-tooltip")}
+      >
+        <span className="w-8">
+          <img
+            width={352 / 10}
+            height={322 / 10}
+            alt=""
+            src={getAssetLink("/solid-emblem.svg")}
+          />
+        </span>
+        <span aria-hidden="true" className="px-2 md:inline">
+          {l10n.getString("connect-button")}
+        </span>
+      </button>
+    </LoggedOut>
+    <LoggedIn>
+      <div className="flex space-x-5">
+        {profileLink}
         <button
-          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
+          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
           onClick={(e) => {
             e.preventDefault();
-            setPromptOpen(true);
+            storage.setItem("autoconnect", "false");
+            logout();
           }}
-          title={l10n.getString("connect-button-tooltip")}
+          title={l10n.getString("disconnect-button-tooltip", {
+            webId: sessionInfo?.webId ?? "",
+          })}
         >
           <span className="w-8">
             <img
@@ -83,40 +110,12 @@ export const UserMenu: FC = () => {
               height={322 / 10}
               alt=""
               src={getAssetLink("/solid-emblem.svg")}
+              aria-hidden="true"
             />
           </span>
-          <span aria-hidden="true" className="px-2 sm:hidden md:inline">
-            {l10n.getString("connect-button")}
-          </span>
+          <span className="px-2">{l10n.getString("disconnect-button")}</span>
         </button>
-      </LoggedOut>
-      <LoggedIn>
-        <div className="flex space-x-5">
-          {profileLink}
-          <button
-            className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
-            onClick={(e) => {
-              e.preventDefault();
-              storage.setItem("autoconnect", "false");
-              logout();
-            }}
-            title={l10n.getString("disconnect-button-tooltip", {
-              webId: sessionInfo?.webId ?? "",
-            })}
-          >
-            <span className="w-8">
-              <img
-                width={352 / 10}
-                height={322 / 10}
-                alt=""
-                src={getAssetLink("/solid-emblem.svg")}
-                aria-hidden="true"
-              />
-            </span>
-            <span className="px-2">{l10n.getString("disconnect-button")}</span>
-          </button>
-        </div>
-      </LoggedIn>
-    </>
-  );
+      </div>
+    </LoggedIn>
+  </>;
 };

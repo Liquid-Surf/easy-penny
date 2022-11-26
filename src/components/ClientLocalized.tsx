@@ -1,5 +1,5 @@
 import { Localized, LocalizedProps } from "@fluent/react";
-import { useIsSSR } from "@react-aria/ssr";
+import { useIsSSR } from "react-aria";
 import { FC } from "react";
 
 /**
@@ -19,5 +19,5 @@ export const ClientLocalized: FC<LocalizedProps> = (props) => {
     return <>{props.children}</>;
   }
 
-  return <Localized {...props}/>;
+  return <Localized {...props} />;
 };

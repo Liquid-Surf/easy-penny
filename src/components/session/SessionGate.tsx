@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { ReactNode } from "react";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { ConnectForm } from "./ConnectForm";
 
-export const SessionGate: FC = (props) => {
+export const SessionGate = (props: { children: ReactNode }) => {
   const sessionInfo = useSessionInfo();
 
   if (sessionInfo) {
@@ -12,7 +12,7 @@ export const SessionGate: FC = (props) => {
   return (
     <>
       <div className="py-5">
-        <ConnectForm/>
+        <ConnectForm />
       </div>
     </>
   );

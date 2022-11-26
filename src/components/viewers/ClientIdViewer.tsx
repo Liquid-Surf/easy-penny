@@ -36,6 +36,7 @@ export const ClientIdViewer: React.FC<Props> = (props) => {
   const [clientNameInput, setClientNameInput] = useState(
     getStringNoLocale(clientIdThing, solid_oidc.client_name) ?? ""
   );
+  // TODO: Add warning if redirect URLs mix localhost and remote origins:
   const [redirectUrls, setRedirectUrls] = useState<UrlString[]>(
     getUrlAll(clientIdThing, solid_oidc.redirect_uris) ?? []
   );
@@ -78,6 +79,9 @@ export const ClientIdViewer: React.FC<Props> = (props) => {
       client_id: url,
       redirect_uris: redirectUrls,
       client_name: clientNameInput.length > 0 ? clientNameInput : undefined,
+      token_endpoint_auth_method: "none",
+      grant_types: ["refresh_token", "authorization_code"],
+      scope: "openid webid offline_access",
     };
 
     await overwriteFile(url, new Blob([JSON.stringify(clientId)]), {

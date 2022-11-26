@@ -222,11 +222,10 @@ export const DatasetViewer: FC<Props> = (props) => {
                 href={`/turtle/?url=${encodeURIComponent(
                   getSourceUrl(props.dataset.data)
                 )}`}
+                className="p-5 rounded border-4 border-coolGray-700 text-coolGray-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-coolGray-700 hover:bg-coolGray-700 focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50"
               >
-                <a className="p-5 rounded border-4 border-coolGray-700 text-coolGray-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-coolGray-700 hover:bg-coolGray-700 focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50">
-                  <VscCode aria-hidden="true" />
-                  <span>{l10n.getString("dataset-view-turtle")}</span>
-                </a>
+                <VscCode aria-hidden="true" />
+                <span>{l10n.getString("dataset-view-turtle")}</span>
               </Link>
             </NotIntegrated>
             {deletionModal}
@@ -244,25 +243,6 @@ export const DatasetViewer: FC<Props> = (props) => {
       </HasAccess>
     </>
   );
-
-  if (things.length === 0) {
-    return (
-      <>
-        <div className="space-y-10 pb-10">
-          <ClientLocalized id="dataset-empty-warning">
-            <div className="rounded bg-yellow-200 p-5">
-              This resource is empty.
-            </div>
-          </ClientLocalized>
-          <HasAccess access={["append"]} resource={props.dataset.data}>
-            <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing} />
-          </HasAccess>
-        </div>
-        <LinkedResourcesViewer dataset={props.dataset} />
-        {dangerZone}
-      </>
-    );
-  }
 
   const getCollapseHandler = (thing: ThingPersisted) => {
     return (collapse: boolean, all: boolean) => {
@@ -313,14 +293,13 @@ export const DatasetViewer: FC<Props> = (props) => {
         clientIdThing !== null &&
         getUrlAll(clientIdThing, solid_oidc.redirect_uris).length > 0));
 
-  const datasetEditor = isEditableClientId ? (
-    <ClientIdViewer dataset={props.dataset} />
-  ) : (
-    <div className="space-y-10 pb-10">
-      <ClientLocalized id="dataset-things-heading">
-        <SectionHeading>Things</SectionHeading>
+  const thingsListing =
+    things.length === 0 ? (
+      <ClientLocalized id="dataset-empty-warning">
+        <div className="rounded bg-yellow-200 p-5">This resource is empty.</div>
       </ClientLocalized>
-      {things.map((thing) => (
+    ) : (
+      things.map((thing) => (
         <div key={asUrl(thing) + "_thing"}>
           <ThingViewer
             dataset={props.dataset}
@@ -331,7 +310,17 @@ export const DatasetViewer: FC<Props> = (props) => {
             isServerManaged={isServerManaged(thing)}
           />
         </div>
-      ))}
+      ))
+    );
+
+  const datasetEditor = isEditableClientId ? (
+    <ClientIdViewer dataset={props.dataset} />
+  ) : (
+    <div className="space-y-10 pb-10">
+      <ClientLocalized id="dataset-things-heading">
+        <SectionHeading>Things</SectionHeading>
+      </ClientLocalized>
+      {thingsListing}
       <HasAccess access={["append"]} resource={props.dataset.data}>
         <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing} />
       </HasAccess>

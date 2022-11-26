@@ -1,4 +1,10 @@
-import React, { FC, FormEventHandler, useEffect, useState } from "react";
+import React, {
+  FC,
+  FormEventHandler,
+  ReactNode,
+  useEffect,
+  useState,
+} from "react";
 import Link from "next/link";
 import { UrlString } from "@inrupt/solid-client";
 import { useRouter } from "next/router";
@@ -13,10 +19,11 @@ import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "./ClientLocalized";
 
 interface Props {
+  children: ReactNode;
   path?: UrlString;
 }
 
-export const Layout: FC<Props> = (props) => {
+export const Layout = (props: Props) => {
   const [isEditingPath, setIsEditingPath] = useState(false);
   const router = useRouter();
   const { l10n } = useLocalization();
@@ -61,10 +68,11 @@ export const Layout: FC<Props> = (props) => {
         <header className="bg-coolGray-50">
           <div className="container mx-auto flex flex-col-reverse items-start sm:flex-row md:items-center space-y-5 md:space-y-0 px-5 pb-8 sm:pt-5 md:pt-8">
             <h1 className="hidden pr-10 md:mr-0 md:block text-xl md:text-2xl">
-              <Link href="/">
-                <a className="focus:underline focus:text-coolGray-700 focus:outline-none font-bold py-3 px-5 border-t-8 border-b-8 border-coolGray-50 hover:bg-white hover:border-red-500 hover:text-red-500">
-                  Penny
-                </a>
+              <Link
+                href="/"
+                className="focus:underline focus:text-coolGray-700 focus:outline-none font-bold py-3 px-5 border-t-8 border-b-8 border-coolGray-50 hover:bg-white hover:border-red-500 hover:text-red-500"
+              >
+                Penny
               </Link>
             </h1>
             <div className="flex-grow w-full">{locationBar}</div>

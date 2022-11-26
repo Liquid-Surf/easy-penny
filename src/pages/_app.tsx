@@ -10,7 +10,7 @@ import React, { FC, useEffect, useState } from "react";
 import Modal from "react-modal";
 import { ToastContainer, cssTransition, Slide } from "react-toastify";
 import { MdClose } from "react-icons/md";
-import { SSRProvider } from "@react-aria/ssr";
+import { SSRProvider } from "react-aria";
 
 import { SessionContext, SessionInfo } from "../contexts/session";
 import "../../styles/globals.css";

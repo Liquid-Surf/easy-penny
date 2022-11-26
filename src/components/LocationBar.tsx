@@ -37,13 +37,12 @@ export const LocationBar: FC<Props> = (props) => {
           {queryParams}
         </span>
       ) : (
-        <Link key={pathUrl + "_breadcrumb"} href={getExplorePath(pathUrl)}>
-          <a
-            key={pathUrl + "_breadcrumbLink"}
-            className="hidden lg:inline focus:underline focus:text-coolGray-700 focus:outline-none break-words"
-          >
-            {decodeURIComponent(resourceName)}
-          </a>
+        <Link
+          key={pathUrl + "_breadcrumb"}
+          href={getExplorePath(pathUrl)}
+          className="hidden lg:inline focus:underline focus:text-coolGray-700 focus:outline-none break-words"
+        >
+          {decodeURIComponent(resourceName)}
         </Link>
       );
       return (
@@ -86,23 +85,19 @@ export const LocationBar: FC<Props> = (props) => {
     <>
       <div className="flex items-center space-x-2">
         <span className="py-2 flex items-center">
-          <Link href={getExplorePath(url.origin + parentPath)}>
-            <a
-              className={`${parentNavigatorClass} hover:underline focus:underline focus:text-coolGray-700 focus:outline-none break-words`}
-              aria-hidden="true"
-            >
-              ..
-            </a>
+          <Link
+            href={getExplorePath(url.origin + parentPath)}
+            className={`${parentNavigatorClass} hover:underline focus:underline focus:text-coolGray-700 focus:outline-none break-words`}
+            aria-hidden="true"
+          >
+            ..
           </Link>
           <Link
             key={url.origin + "_breadcrumb"}
             href={getExplorePath(url.origin)}
+            className={`${originClass} hover:underline focus:underline focus:text-coolGray-700 focus:outline-none`}
           >
-            <a
-              className={`${originClass} hover:underline focus:underline focus:text-coolGray-700 focus:outline-none`}
-            >
-              {url.host}
-            </a>
+            {url.host}
           </Link>
           {pathElements}
           <NotIntegrated>

@@ -91,10 +91,11 @@ export const TurtleViewer: FC<Props> = (props) => {
               <div className="bg-yellow-100 border-yellow-600 border-2 rounded p-5">
                 <p>{l10n.getString("turtle-danger-warning")}</p>
                 <p>
-                  <Link href={getExplorePath(props.url)}>
-                    <a className="font-bold hover:underline">
-                      {l10n.getString("turtle-dataset-viewer-link")}
-                    </a>
+                  <Link
+                    href={getExplorePath(props.url)}
+                    className="font-bold hover:underline"
+                  >
+                    {l10n.getString("turtle-dataset-viewer-link")}
                   </Link>
                 </p>
               </div>

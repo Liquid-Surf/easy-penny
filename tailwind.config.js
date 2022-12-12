@@ -12,7 +12,6 @@ module.exports = {
     "./src/**/*.tsx",
     "./src/**/*.ts",
   ],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
     colors: colors,

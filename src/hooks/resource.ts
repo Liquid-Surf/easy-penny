@@ -22,9 +22,10 @@ export type FileData = WithServerResourceInfo & {
   etag: string | null;
 };
 
-const fetcher = async (
-  url: UrlString
-): Promise<FileData | (SolidDataset & WithServerResourceInfo)> => {
+const fetcher = async ([url, _webId]: [
+  UrlString,
+  UrlString | undefined
+]): Promise<FileData | (SolidDataset & WithServerResourceInfo)> => {
   const urlObject = new URL(url);
   // Ensure that when we fetch a Container that contains an `index.html`,
   // the server doesn't serve us that HTML file:

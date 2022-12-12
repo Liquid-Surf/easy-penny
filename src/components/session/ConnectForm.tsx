@@ -101,7 +101,7 @@ export const ConnectForm: FC = (props) => {
               "pod-url": <samp className="font-mono" />,
               "idp-button": (
                 <button
-                  className="text-left underline hover:text-coolGray-300"
+                  className="text-left underline hover:text-gray-300"
                   onClick={connectToDetectedIdp}
                 />
               ),
@@ -142,7 +142,7 @@ export const ConnectForm: FC = (props) => {
               "pod-url": <samp className="font-mono" />,
               "inrupt-button": (
                 <button
-                  className="text-left underline hover:text-coolGray-300"
+                  className="text-left underline hover:text-gray-300"
                   onClick={connectToInrupt}
                 />
               ),
@@ -175,7 +175,7 @@ export const ConnectForm: FC = (props) => {
               "pod-url": <samp className="font-mono" />,
               "inrupt-button": (
                 <button
-                  className="text-left underline hover:text-coolGray-300"
+                  className="text-left underline hover:text-gray-300"
                   onClick={connectToInrupt}
                 />
               ),
@@ -211,7 +211,7 @@ export const ConnectForm: FC = (props) => {
               "pod-url": <samp className="font-mono" />,
               "solidcommunity-button": (
                 <button
-                  className="text-left underline hover:text-coolGray-300"
+                  className="text-left underline hover:text-gray-300"
                   onClick={connectToSolidCommunity}
                 />
               ),

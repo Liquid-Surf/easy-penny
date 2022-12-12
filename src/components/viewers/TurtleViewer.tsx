@@ -105,7 +105,7 @@ export const TurtleViewer: FC<Props> = (props) => {
               <textarea
                 cols={60}
                 rows={20}
-                className="rounded border-4 border-coolGray-700 p-2 w-full h-96 overflow-scroll font-mono"
+                className="rounded border-4 border-gray-700 p-2 w-full h-96 overflow-scroll font-mono"
                 onChange={(e) => {
                   e.preventDefault();
                   setFormContent(e.target.value);
@@ -116,7 +116,7 @@ export const TurtleViewer: FC<Props> = (props) => {
                 <div className="grid sm:grid-cols-2 gap-5 pb-5">
                   <button
                     type="submit"
-                    className="p-5 rounded border-4 border-coolGray-700 text-coolGray-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-coolGray-700 hover:bg-coolGray-700 focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50"
+                    className="p-5 rounded border-4 border-gray-700 text-gray-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-gray-700 hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 focus:outline-none focus:ring-opacity-50"
                   >
                     <MdCheck aria-hidden="true" />
                     <span>{l10n.getString("turtle-save-button")}</span>

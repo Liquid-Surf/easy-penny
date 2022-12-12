@@ -1,4 +1,12 @@
-import { asUrl, FetchError, getPropertyAll, getSourceUrl, isContainer, removeThing, ThingPersisted } from "@inrupt/solid-client";
+import {
+  asUrl,
+  FetchError,
+  getPropertyAll,
+  getSourceUrl,
+  isContainer,
+  removeThing,
+  ThingPersisted,
+} from "@inrupt/solid-client";
 import { FC, MouseEventHandler } from "react";
 import { VscTrash } from "react-icons/vsc";
 import { PredicateViewer } from "./PredicateViewer";
@@ -28,7 +36,14 @@ interface Props {
 
 export const ThingViewer: FC<Props> = (props) => {
   const predicates = getPropertyAll(props.thing).sort();
-  const viewers = predicates.map(predicate => (<PredicateViewer key={predicate + "_predicate"} {...props} predicate={predicate} onUpdate={props.onUpdate}/>));
+  const viewers = predicates.map((predicate) => (
+    <PredicateViewer
+      key={predicate + "_predicate"}
+      {...props}
+      predicate={predicate}
+      onUpdate={props.onUpdate}
+    />
+  ));
   const shouldReduceMotion = useReducedMotion();
   const { l10n } = useLocalization();
 
@@ -39,7 +54,9 @@ export const ThingViewer: FC<Props> = (props) => {
       props.onUpdate(props.thing);
     } catch (e) {
       if (e instanceof FetchError && e.statusCode === 403) {
-        toast(l10n.getString("thing-toast-error-not-allowed"), { type: "error" });
+        toast(l10n.getString("thing-toast-error-not-allowed"), {
+          type: "error",
+        });
       } else {
         throw e;
       }
@@ -82,11 +99,11 @@ export const ThingViewer: FC<Props> = (props) => {
       // - https://some.pod/container/resource/child#thing, or
       // - https://some.pod/container/resource/, or
       signal = thingUrl.substring(resourcePartStart + 1);
-      if ((new URL(resourceUrl)).pathname === "/") {
+      if (new URL(resourceUrl).pathname === "/") {
         // Unless we're at the root Container, in which case `resourcePartStart` is not, in fact,
         // the last `/` before the Resource, but the first one in `https://`.
         // Thus, we explicitly cut off the origin (but keep a `/` in front) in that case.
-        signal = thingUrl.substring((new URL(resourceUrl)).origin.length);
+        signal = thingUrl.substring(new URL(resourceUrl).origin.length);
       }
     }
   }
@@ -101,12 +118,21 @@ export const ThingViewer: FC<Props> = (props) => {
       title={l10n.getString("thing-urlcopy-button-tooltip")}
       aria-hidden="true"
       onClick={copyThingUrl}
-      className="text-coolGray-400 p-2 rounded hover:text-white focus:text-white focus:ring-2 focus:ring-white focus:outline-none"
+      className="text-gray-400 p-2 rounded hover:text-white focus:text-white focus:ring-2 focus:ring-white focus:outline-none"
     >
-      <MdContentCopy className="inline-block"/>
+      <MdContentCopy className="inline-block" />
     </a>
   );
-  const title = <><span><span className="text-coolGray-400 font-normal">{decodeURIComponent(noise)}</span>{decodeURIComponent(signal)} {clipboardLink}</span></>;
+  const title = (
+    <>
+      <span>
+        <span className="text-gray-400 font-normal">
+          {decodeURIComponent(noise)}
+        </span>
+        {decodeURIComponent(signal)} {clipboardLink}
+      </span>
+    </>
+  );
 
   const collapseHandler: MouseEventHandler = (event) => {
     event.preventDefault();
@@ -116,37 +142,50 @@ export const ThingViewer: FC<Props> = (props) => {
     }
   };
 
-  const deletionButton = props.isServerManaged !== true
-    ? (
+  const deletionButton =
+    props.isServerManaged !== true ? (
       <button
-        onClick={(e) => {e.preventDefault(); deleteThing();}}
-        aria-label={l10n.getString("thing-delete-label", { thingUrl: asUrl(props.thing) })}
-        title={l10n.getString("thing-delete-tooltip", { thingUrl: asUrl(props.thing) })}
-        className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-coolGray-50 hover:border-red-700 focus:border-red-700 border-4 focus:outline-none"
+        onClick={(e) => {
+          e.preventDefault();
+          deleteThing();
+        }}
+        aria-label={l10n.getString("thing-delete-label", {
+          thingUrl: asUrl(props.thing),
+        })}
+        title={l10n.getString("thing-delete-tooltip", {
+          thingUrl: asUrl(props.thing),
+        })}
+        className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-gray-50 hover:border-red-700 focus:border-red-700 border-4 focus:outline-none"
       >
-        <VscTrash/>
+        <VscTrash />
       </button>
-    )
-    : null;
+    ) : null;
 
   return (
     <div
-      className="bg-coolGray-50 rounded-xl relative pb-5"
+      className="bg-gray-50 rounded-xl relative pb-5"
       id={encodeURIComponent(asUrl(props.thing))}
     >
-      <h3 className="flex items-center text-lg md:text-xl lg:text-2xl rounded-t-xl bg-coolGray-700 text-white p-5 font-bold break-words">
+      <h3 className="flex items-center text-lg md:text-xl lg:text-2xl rounded-t-xl bg-gray-700 text-white p-5 font-bold break-words">
         <span className="flex flex-grow items-center">{title}</span>
-        {typeof props.onCollapse === "function" && <button
-          aria-hidden="true"
-          className="flex items-center  text-coolGray-400 p-2 rounded focus:ring-2 focus:ring-white focus:outline-none hover:bg-white hover:text-coolGray-700"
-          onClick={collapseHandler}
-          title={l10n.getString(props.collapsed ? "thing-expand-tooltip" : "thing-collapse-tooltip")}
-        >
-          {props.collapsed
-            ? <MdExpandMore aria-label={l10n.getString("thing-expand-label")}/>
-            : <MdExpandLess aria-label={l10n.getString("thing-expand-label")}/>
-          }
-        </button>}
+        {typeof props.onCollapse === "function" && (
+          <button
+            aria-hidden="true"
+            className="flex items-center  text-gray-400 p-2 rounded focus:ring-2 focus:ring-white focus:outline-none hover:bg-white hover:text-gray-700"
+            onClick={collapseHandler}
+            title={l10n.getString(
+              props.collapsed
+                ? "thing-expand-tooltip"
+                : "thing-collapse-tooltip"
+            )}
+          >
+            {props.collapsed ? (
+              <MdExpandMore aria-label={l10n.getString("thing-expand-label")} />
+            ) : (
+              <MdExpandLess aria-label={l10n.getString("thing-expand-label")} />
+            )}
+          </button>
+        )}
       </h3>
       <AnimatePresence initial={false}>
         {!props.collapsed && (
@@ -157,16 +196,23 @@ export const ThingViewer: FC<Props> = (props) => {
             exit="collapsed"
             variants={{
               open: { opacity: 1, height: "auto" },
-              collapsed: { opacity: 0, height: 0 }
+              collapsed: { opacity: 0, height: 0 },
             }}
             transition={shouldReduceMotion ? { duration: 0 } : undefined}
           >
-            <WacControl dataset={props.dataset} thing={props.thing} onUpdate={props.onUpdate}/>
-            <div className="px-5 pt-5" style={{ contain: "content", contentVisibility: "auto" }}>
+            <WacControl
+              dataset={props.dataset}
+              thing={props.thing}
+              onUpdate={props.onUpdate}
+            />
+            <div
+              className="px-5 pt-5"
+              style={{ contain: "content", contentVisibility: "auto" }}
+            >
               {viewers}
             </div>
             <HasAccess access={["append"]} resource={props.dataset.data}>
-              <PredicateAdder {...props}/>
+              <PredicateAdder {...props} />
             </HasAccess>
           </motion.div>
         )}

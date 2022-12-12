@@ -274,7 +274,7 @@ export const PredicateViewer: FC<Props> = (props) => {
                   },
                 ]}
               >
-                {value} <span className="text-coolGray-500">({locale})</span>
+                {value} <span className="text-gray-500">({locale})</span>
               </ObjectViewer>
             </li>
           ))}

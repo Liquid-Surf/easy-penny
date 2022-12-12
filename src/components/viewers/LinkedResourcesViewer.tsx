@@ -67,7 +67,7 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
         <Link
           key={linkedResourceUrl}
           href={getExplorePath(linkedResourceUrl)}
-          className="bg-coolGray-700 text-white p-5 rounded hover:bg-coolGray-900 block focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50"
+          className="bg-gray-700 text-white p-5 rounded hover:bg-gray-900 block focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 focus:outline-none focus:ring-opacity-50"
         >
           {linkedResourceLabels[linkedResourceUrl]}
         </Link>
@@ -87,7 +87,7 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
       initialisationLinks.push(
         <div
           key={`acl-initialiser-${getSourceUrl(props.dataset.data)}`}
-          className="w-full flex items-center space-x-2 p-5 rounded border-4 border-dashed border-coolGray-200 text-coolGray-500"
+          className="w-full flex items-center space-x-2 p-5 rounded border-4 border-dashed border-gray-200 text-gray-500"
         >
           <Spinner />
         </div>
@@ -137,7 +137,7 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
       initialisationLinks.push(
         <button
           key={`acl-initialiser-${getSourceUrl(props.dataset.data)}`}
-          className="w-full flex items-center space-x-2 p-5 rounded border-4 border-dashed border-coolGray-200 text-coolGray-500 focus:text-coolGray-900 focus:border-coolGray-900 hover:text-coolGray-900 hover:border-coolGray-900 hover:bg-coolGray-100 focus:outline-none"
+          className="w-full flex items-center space-x-2 p-5 rounded border-4 border-dashed border-gray-200 text-gray-500 focus:text-gray-900 focus:border-gray-900 hover:text-gray-900 hover:border-gray-900 hover:bg-gray-100 focus:outline-none"
           onClick={(e) => {
             e.preventDefault();
             initialiseAcl();

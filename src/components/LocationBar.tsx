@@ -40,7 +40,7 @@ export const LocationBar: FC<Props> = (props) => {
         <Link
           key={pathUrl + "_breadcrumb"}
           href={getExplorePath(pathUrl)}
-          className="hidden lg:inline focus:underline focus:text-coolGray-700 focus:outline-none break-words"
+          className="hidden lg:inline focus:underline focus:text-gray-700 focus:outline-none break-words"
         >
           {decodeURIComponent(resourceName)}
         </Link>
@@ -87,7 +87,7 @@ export const LocationBar: FC<Props> = (props) => {
         <span className="py-2 flex items-center">
           <Link
             href={getExplorePath(url.origin + parentPath)}
-            className={`${parentNavigatorClass} hover:underline focus:underline focus:text-coolGray-700 focus:outline-none break-words`}
+            className={`${parentNavigatorClass} hover:underline focus:underline focus:text-gray-700 focus:outline-none break-words`}
             aria-hidden="true"
           >
             ..
@@ -95,7 +95,7 @@ export const LocationBar: FC<Props> = (props) => {
           <Link
             key={url.origin + "_breadcrumb"}
             href={getExplorePath(url.origin)}
-            className={`${originClass} hover:underline focus:underline focus:text-coolGray-700 focus:outline-none`}
+            className={`${originClass} hover:underline focus:underline focus:text-gray-700 focus:outline-none`}
           >
             {url.host}
           </Link>
@@ -107,7 +107,7 @@ export const LocationBar: FC<Props> = (props) => {
                 props.onEdit();
               }}
               title="View another Resource"
-              className="text-coolGray-400 hover:text-coolGray-700 focus:text-coolGray-700 p-2 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
+              className="text-gray-400 hover:text-gray-700 focus:text-gray-700 p-2 focus:outline-none focus:ring-2 focus:ring-gray-700 rounded"
             >
               <MdEdit aria-label="Change Resource URL" />
             </button>

@@ -41,7 +41,7 @@ export const Url: FC<Props> = (props) => {
     return (
       <Link
         href={getExplorePath(props.url, encodeURIComponent(props.url))}
-        className="focus:underline focus:text-coolGray-700 focus:outline-none break-words"
+        className="focus:underline focus:text-gray-700 focus:outline-none break-words"
         title={props.url}
       >
         {shortUrl}
@@ -54,7 +54,7 @@ export const Url: FC<Props> = (props) => {
       href={props.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="focus:underline focus:text-coolGray-700 focus:outline-none break-words"
+      className="focus:underline focus:text-gray-700 focus:outline-none break-words"
     >
       {props.url}
     </a>

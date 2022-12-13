@@ -33,7 +33,10 @@ export function getClientIdFor(issuer: string): string | null {
   // We don't have a stable long-term location for our ClientID yet,
   // so to limit our risk if e.g. our Client ID host goes down, only use the
   // client ID at a set of explicitly allowlisted IDPs:
-  const idpsWithClientIdEnabled = ["https://login.inrupt.com"];
+  const idpsWithClientIdEnabled = [
+    "https://login.inrupt.com",
+    "https://idp.use.id",
+  ];
   return idpsWithClientIdEnabled.includes(
     issuer.endsWith("/") ? issuer.substring(0, issuer.length - 1) : issuer
   )

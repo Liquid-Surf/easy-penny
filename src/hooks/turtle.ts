@@ -5,14 +5,16 @@ import {
   WithServerResourceInfo,
 } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
-import { response } from "rdf-namespaces/dist/link";
 import { useCallback } from "react";
 import useSwr, { SWRResponse } from "swr";
 import { useSessionInfo } from "./sessionInfo";
 
 type TurtleResponse = WithServerResourceInfo & { content: string };
 
-const fetcher = async (url: UrlString): Promise<TurtleResponse> => {
+const fetcher = async ([url, _webId]: [
+  UrlString,
+  UrlString?
+]): Promise<TurtleResponse> => {
   const response = await fetch(url, { headers: { Accept: "text/turtle" } });
   const resourceInfo = responseToResourceInfo(response);
   const contentType = getContentType(resourceInfo);

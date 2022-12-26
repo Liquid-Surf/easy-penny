@@ -10,6 +10,7 @@ import { useSessionInfo } from "../../hooks/sessionInfo";
 import { logout } from "@inrupt/solid-client-authn-browser";
 import { getAssetLink, getExplorePath } from "../../functions/integrate";
 import { useLocalization } from "@fluent/react";
+import { connect } from "../../functions/connect";
 
 export const UserMenu: FC = () => {
   const [promptOpen, setPromptOpen] = useState(false);
@@ -77,16 +78,32 @@ export const UserMenu: FC = () => {
         }}
         title={l10n.getString("connect-button-tooltip")}
       >
-        <span className="w-8">
-          <img
-            width={352 / 10}
-            height={322 / 10}
-            alt=""
-            src={getAssetLink("/solid-emblem.svg")}
-          />
-        </span>
         <span aria-hidden="true" className="px-2 md:inline">
           {l10n.getString("connect-button")}
+        </span>
+      </button>
+      <button
+        className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
+        onClick={async (e) => {
+          e.preventDefault();
+          let issuer = 
+            typeof document !== "undefined" 
+            	? document.location.protocol + '//' + document.location.host
+            	: null
+            try {
+              console.log("issuer=" + issuer)
+              issuer = "http://localhost:3055" // TODO remove me
+              await connect(issuer)
+            } catch(e) {
+              console.log("couldnt connect to issuer..")
+              console.log(e)
+              // TODO Catch error correctly ( check ConnectForm ) 
+            }
+        }}
+        title={l10n.getString("connect-button-tooltip")}
+      >
+        <span aria-hidden="true" className="px-2 md:inline">
+          {l10n.getString("connect-button") + " direct"}
         </span>
       </button>
     </LoggedOut>

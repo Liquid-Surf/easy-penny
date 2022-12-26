@@ -216,7 +216,7 @@ export const WacControl: FC<Props> = (props) => {
         &nbsp;
         <Link
           href={getExplorePath(targetResourceUrl)}
-          className="focus:underline hover:text-coolGray-700"
+          className="focus:underline hover:text-gray-700"
         >
           {targetResourceUrl}
         </Link>
@@ -331,7 +331,7 @@ export const WacControl: FC<Props> = (props) => {
                   />
                 </code>
                 <button
-                  className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
+                  className="p-3 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 rounded"
                   onClick={(event) => {
                     event.preventDefault();
                     removeAgent(agent);
@@ -376,7 +376,7 @@ const AgentAdder: FC<AgentAdderProps> = (props) => {
         type="url"
         name="webId"
         id="webId"
-        className="bg-white rounded flex-grow p-2 focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+        className="bg-white rounded flex-grow p-2 focus:outline-none focus:ring-2 focus:ring-gray-700"
         placeholder="e.g. https://example.com/profile/card#me"
         value={webId}
         onChange={(event) => setWebId(event.target.value)}
@@ -387,7 +387,7 @@ const AgentAdder: FC<AgentAdderProps> = (props) => {
       >
         <button
           type="submit"
-          className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
+          className="p-3 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 rounded"
           title="Add Agent"
         >
           <ClientLocalized

@@ -96,11 +96,8 @@ export const ClientIdViewer: React.FC<Props> = (props) => {
 
   return (
     <>
-      <form
-        onSubmit={onSubmit}
-        className="bg-coolGray-50 rounded-xl relative pb-5"
-      >
-        <h3 className="flex items-center text-lg md:text-xl lg:text-2xl rounded-t-xl bg-coolGray-700 text-white p-5 font-bold break-words">
+      <form onSubmit={onSubmit} className="bg-gray-50 rounded-xl relative pb-5">
+        <h3 className="flex items-center text-lg md:text-xl lg:text-2xl rounded-t-xl bg-gray-700 text-white p-5 font-bold break-words">
           {l10n.getString("clientid-editor-heading")}
         </h3>
         <div className="px-5 pt-5 flex flex-col space-y-5 items-start">
@@ -109,7 +106,7 @@ export const ClientIdViewer: React.FC<Props> = (props) => {
               {l10n.getString("clientid-editor-clientname-label")}
             </label>
             <div className="p-2 flex space-x-2 pb-5 items-center">
-              <span aria-hidden className="text-coolGray-500 p-2 w-10">
+              <span aria-hidden className="text-gray-500 p-2 w-10">
                 <MdLabelOutline />
               </span>
               <ClientLocalized
@@ -121,7 +118,7 @@ export const ClientIdViewer: React.FC<Props> = (props) => {
                   type="text"
                   value={clientNameInput}
                   onChange={(e) => setClientNameInput(e.target.value)}
-                  className="flex-grow w-80 p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+                  className="flex-grow w-80 p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-700"
                 />
               </ClientLocalized>
             </div>
@@ -134,7 +131,7 @@ export const ClientIdViewer: React.FC<Props> = (props) => {
           </fieldset>
           <button
             type="submit"
-            className="py-3 px-5 rounded border-2 border-coolGray-700 text-coolGray-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-coolGray-700 hover:bg-coolGray-700 focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50"
+            className="py-3 px-5 rounded border-2 border-gray-700 text-gray-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-gray-700 hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 focus:outline-none focus:ring-opacity-50"
           >
             <MdCheck aria-hidden />
             <span>{l10n.getString("resource-add-name-submit")}</span>
@@ -155,7 +152,7 @@ const RedirectUrlEditor: React.FC<RedirectUrlEditorProps> = (props) => {
 
   return (
     <div className="p-2 flex space-x-2 pb-5 items-center">
-      <label className="text-coolGray-500 p-2 w-10" htmlFor="newUrl">
+      <label className="text-gray-500 p-2 w-10" htmlFor="newUrl">
         <VscLink
           aria-label={l10n.getString("clientid-editor-redirect-url-label")}
         />
@@ -166,7 +163,7 @@ const RedirectUrlEditor: React.FC<RedirectUrlEditorProps> = (props) => {
       >
         <input
           type="url"
-          className="flex-grow w-80 p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+          className="flex-grow w-80 p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-700"
           placeholder="https://…"
           name="newUrl"
           id="newUrl"

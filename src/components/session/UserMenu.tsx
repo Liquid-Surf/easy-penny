@@ -50,8 +50,8 @@ export const UserMenu: FC = () => {
         sessionInfo.webId,
         encodeURIComponent(sessionInfo.webId)
       )}
-      className="sm:hidden lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
-      legacyBehavior>
+      className="sm:hidden lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-gray-200 items-center hover:bg-gray-700 hover:text-white hover:border-gray-700 focus:border-gray-700 focus:outline-none"
+    >
       {l10n.getString("profile-button")}
     </Link>
   ) : null;
@@ -94,7 +94,7 @@ export const UserMenu: FC = () => {
       <div className="flex space-x-5">
         {profileLink}
         <button
-          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
+          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-gray-200 rounded-lg flex items-center hover:bg-gray-700 hover:text-white hover:border-gray-700 focus:border-gray-700 focus:outline-none"
           onClick={(e) => {
             e.preventDefault();
             storage.setItem("autoconnect", "false");

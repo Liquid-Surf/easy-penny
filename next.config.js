@@ -3,6 +3,7 @@
 module.exports = {
   trailingSlash: true,
   reactStrictMode: true,
+  productionBrowserSourceMaps: true,
   assetPrefix:
     process.env.NEXT_PUBLIC_MODE === "integrate" ? "/server-ui" : undefined,
   webpack: (config, options) => {

@@ -28,8 +28,8 @@ export const Toggle = (props: Props) => {
       <div
         className={`${
           state.isSelected
-            ? "bg-coolGray-700 ring-sky-50 group-hover:bg-coolGray-500"
-            : "bg-gray-200 ring-coolGray-700 group-hover:bg-coolGray-300"
+            ? "bg-gray-700 ring-sky-50 group-hover:bg-gray-500"
+            : "bg-gray-200 ring-gray-700 group-hover:bg-gray-300"
         } ${
           isFocusVisible ? "ring-4" : "ring-0"
         } cursor-pointer relative inline-flex items-center h-6 rounded-xl w-11`}

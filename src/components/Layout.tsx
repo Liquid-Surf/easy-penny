@@ -65,7 +65,7 @@ export const Layout = (props: Props) => {
   return (
     <>
       <div className="flex flex-col min-h-screen">
-        <header className="bg-coolGray-50">
+        <header className="bg-gray-50">
           <div className="container mx-auto flex flex-col-reverse items-start sm:flex-row md:items-center space-y-5 md:space-y-0 px-5 pb-8 sm:pt-5 md:pt-8">
             <div className="flex-grow w-full">{locationBar}</div>
             <div className="pl-5 md:pl-10 flex self-end items-center py-2">
@@ -75,14 +75,14 @@ export const Layout = (props: Props) => {
         </header>
         <main className="flex-grow container mx-auto">{props.children}</main>
         <footer className="px-8 py-14">
-          <div className="flex items-center space-x-3 justify-center border-coolGray-50 border-t-2 pt-10 text-coolGray-700">
+          <div className="flex items-center space-x-3 justify-center border-gray-50 border-t-2 pt-10 text-gray-700">
             <ClientLocalized
               id="footer-author"
               elems={{
                 "author-link": (
                   <a
                     href="https://VincentTunru.com"
-                    className="border-coolGray-700 border-b-2 hover:text-coolGray-900 hover:border-b-4 focus:outline-none focus:bg-coolGray-700 focus:text-white"
+                    className="border-gray-700 border-b-2 hover:text-gray-900 hover:border-b-4 focus:outline-none focus:bg-gray-700 focus:text-white"
                   />
                 ),
               }}
@@ -92,21 +92,21 @@ export const Layout = (props: Props) => {
             <a
               href="https://twitter.com/VincentTunru"
               title={l10n.getString("twitter-tooltip")}
-              className="text-coolGray-500 p-2 border-2 border-white rounded hover:text-coolGray-700 hover:border-coolGray-700 focus:outline-none focus:text-coolGray-700 focus:border-coolGray-700"
+              className="text-gray-500 p-2 border-2 border-white rounded hover:text-gray-700 hover:border-gray-700 focus:outline-none focus:text-gray-700 focus:border-gray-700"
             >
               <VscTwitter aria-label={l10n.getString("twitter-label")} />
             </a>
             <a
               href="https://fosstodon.org/@VincentTunru"
               title={l10n.getString("mastodon-tooltip")}
-              className="text-coolGray-500 p-2 border-2 border-white rounded hover:text-coolGray-700 hover:border-coolGray-700 focus:outline-none focus:text-coolGray-700 focus:border-coolGray-700"
+              className="text-gray-500 p-2 border-2 border-white rounded hover:text-gray-700 hover:border-gray-700 focus:outline-none focus:text-gray-700 focus:border-gray-700"
             >
               <SiMastodon aria-label={l10n.getString("mastodon-label")} />
             </a>
             <a
               href="https://gitlab.com/VincentTunru/Penny/"
               title={l10n.getString("gitlab-tooltip")}
-              className="text-coolGray-500 p-2 border-2 border-white rounded hover:text-coolGray-700 hover:border-coolGray-700 focus:outline-none focus:text-coolGray-700 focus:border-coolGray-700"
+              className="text-gray-500 p-2 border-2 border-white rounded hover:text-gray-700 hover:border-gray-700 focus:outline-none focus:text-gray-700 focus:border-gray-700"
             >
               <SiGitlab aria-label={l10n.getString("gitlab-label")} />
             </a>

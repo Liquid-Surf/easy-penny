@@ -16,7 +16,9 @@ interface Props {
 
 export const PredicateAdder: FC<Props> = (props) => {
   const [predicate, setPredicate] = useState("");
-  const [phase, setPhase] = useState<"initial" | "setPredicate" | "setObject">("initial");
+  const [phase, setPhase] = useState<"initial" | "setPredicate" | "setObject">(
+    "initial"
+  );
 
   useNavigationBlock(phase !== "initial" || predicate !== "");
 
@@ -27,7 +29,7 @@ export const PredicateAdder: FC<Props> = (props) => {
     };
     return (
       <div className="p-5">
-        <PredicateUrl url={predicate}/>
+        <PredicateUrl url={predicate} />
         <ObjectAdder
           dataset={props.dataset}
           thing={props.thing}
@@ -41,7 +43,12 @@ export const PredicateAdder: FC<Props> = (props) => {
   if (phase === "setPredicate") {
     return (
       <div className="p-5">
-        <PredicateForm onSubmit={(predicate) => {setPredicate(predicate); setPhase("setObject"); }}/>
+        <PredicateForm
+          onSubmit={(predicate) => {
+            setPredicate(predicate);
+            setPhase("setObject");
+          }}
+        />
       </div>
     );
   }
@@ -50,10 +57,16 @@ export const PredicateAdder: FC<Props> = (props) => {
     <>
       <div className="p-5">
         <button
-          className="border-2 border-coolGray-200 border-dashed text-coolGray-500 hover:text-coolGray-900 focus:text-coolGray-900 hover:border-coolGray-900 focus:border-coolGray-900 focus:outline-none hover:border-solid focus:border-solid hover:bg-coolGray-100 rounded p-2 flex items-center space-x-2 w-full"
-          onClick={e => {e.preventDefault(); setPhase("setPredicate")}}
+          className="border-2 border-gray-200 border-dashed text-gray-500 hover:text-gray-900 focus:text-gray-900 hover:border-gray-900 focus:border-gray-900 focus:outline-none hover:border-solid focus:border-solid hover:bg-gray-100 rounded p-2 flex items-center space-x-2 w-full"
+          onClick={(e) => {
+            e.preventDefault();
+            setPhase("setPredicate");
+          }}
         >
-          <MdAdd aria-hidden={true}/> <ClientLocalized id="predicate-add-button"><span>New property</span></ClientLocalized>
+          <MdAdd aria-hidden={true} />{" "}
+          <ClientLocalized id="predicate-add-button">
+            <span>New property</span>
+          </ClientLocalized>
         </button>
       </div>
     </>

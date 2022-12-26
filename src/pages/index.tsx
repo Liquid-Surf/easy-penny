@@ -60,7 +60,7 @@ const Home: React.FC = () => {
               <li key={storageUrl + "_storage"}>
                 <Link
                   href={`/explore/?url=${encodeURIComponent(storageUrl)}`}
-                  className="p-5 bg-coolGray-700 hover:bg-coolGray-900 rounded text-white block focus:ring-2 focus:ring-offset-2 focus:ring-coolGray-700 focus:outline-none focus:ring-opacity-50"
+                  className="p-5 bg-gray-700 hover:bg-gray-900 rounded text-white block focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 focus:outline-none focus:ring-opacity-50"
                   title={l10n.getString("pod-listing-tooltip", {
                     "pod-url": storageUrl,
                   })}
@@ -81,7 +81,7 @@ const Home: React.FC = () => {
               "solid-link": (
                 <a
                   href="https://solidproject.org/"
-                  className="underline hover:no-underline hover:bg-coolGray-700 hover:text-white focus:outline-none focus:bg-coolGray-700 focus:text-white"
+                  className="underline hover:no-underline hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white"
                 />
               ),
             }}
@@ -100,7 +100,7 @@ const Home: React.FC = () => {
                 "contact-link": (
                   <a
                     href="https://gitlab.com/vincenttunru/penny/-/issues/new"
-                    className="underline hover:no-underline hover:bg-coolGray-700 hover:text-white focus:outline-none focus:bg-coolGray-700 focus:text-white"
+                    className="underline hover:no-underline hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white"
                   />
                 ),
               }}
@@ -119,7 +119,7 @@ const Home: React.FC = () => {
                 "contact-link": (
                   <a
                     href="https://gitlab.com/vincenttunru/penny/-/issues/new"
-                    className="underline hover:no-underline hover:bg-coolGray-700 hover:text-white focus:outline-none focus:bg-coolGray-700 focus:text-white"
+                    className="underline hover:no-underline hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white"
                   />
                 ),
               }}
@@ -144,7 +144,7 @@ const OwnerLink = (props: { webId: UrlString; children?: React.ReactNode }) => (
       href={`/explore/?url=${encodeURIComponent(
         props.webId
       )}#${encodeURIComponent(props.webId)}`}
-      className="font-bold hover:text-coolGray-700 focus:underline focus:text-coolGray-700 focus:outline-none"
+      className="font-bold hover:text-gray-700 focus:underline focus:text-gray-700 focus:outline-none"
     >
       {props.children}
     </Link>

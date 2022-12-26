@@ -13,7 +13,7 @@ interface Props {
 export const ObjectViewer = (props: Props) => {
   const type = props.type ? (
     <div className="flex-shrink flex flex-col justify-center">
-      <div className="p-2 mr-1 text-coolGray-500 w-10">{props.type}</div>
+      <div className="p-2 mr-1 text-gray-500 w-10">{props.type}</div>
     </div>
   ) : null;
 
@@ -28,7 +28,7 @@ export const ObjectViewer = (props: Props) => {
                 e.preventDefault();
                 option.callback();
               }}
-              className="ml-1 border-2 border-coolGray-50 hover:bg-coolGray-700 hover:text-white p-3 rounded-lg block focus:border-coolGray-700 focus:outline-none"
+              className="ml-1 border-2 border-gray-50 hover:bg-gray-700 hover:text-white p-3 rounded-lg block focus:border-gray-700 focus:outline-none"
             >
               {option.element}
             </button>

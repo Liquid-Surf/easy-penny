@@ -15,20 +15,18 @@ export const VideoPreview: FC<Props> = (props) => {
     <>
       <div className="pb-10">
         <ClientLocalized id="preview-video-heading">
-          <SectionHeading>
-            Video Preview
-          </SectionHeading>
+          <SectionHeading>Video Preview</SectionHeading>
         </ClientLocalized>
         <ClientLocalized
           id="preview-video-error-playback"
-          vars={{filename: fileName}}
+          vars={{ filename: fileName }}
           elems={{
-            "download-link": <a href={props.objectUrl} download={true}/>
+            "download-link": <a href={props.objectUrl} download={true} />,
           }}
         >
           <video
             src={props.objectUrl}
-            className="rounded max-w-full border-4 border-coolGray-700"
+            className="rounded max-w-full border-4 border-gray-700"
             controls={true}
           >
             Unfortunately your browser cannot provide a preview of `{fileName}`.

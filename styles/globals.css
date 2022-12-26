@@ -6,7 +6,7 @@
 }
 
 * {
-  accent-color: theme("colors.coolGray.700");
+  accent-color: theme("colors.gray.700");
 }
 
 /* Start purging... */

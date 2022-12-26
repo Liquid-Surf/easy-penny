@@ -69,7 +69,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         onSubmit={onSubmit}
         className="p-2 flex space-x-2 pb-5 items-center"
       >
-        <label className="text-coolGray-500 p-2 w-10" htmlFor="newUrl">
+        <label className="text-gray-500 p-2 w-10" htmlFor="newUrl">
           <VscLink aria-label={l10n.getString("object-add-url-label")} />
         </label>
         <ClientLocalized
@@ -78,7 +78,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         >
           <input
             type="url"
-            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-700"
             placeholder="https://…"
             name="newUrl"
             id="newUrl"
@@ -94,7 +94,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         <button
           type="submit"
           aria-label={l10n.getString("object-add-url-submit")}
-          className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
+          className="p-3 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 rounded"
         >
           <MdCheck />
         </button>
@@ -120,10 +120,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         onSubmit={onSubmit}
         className="p-2 flex space-x-2 pb-5 items-center"
       >
-        <label
-          className="text-coolGray-500 p-2 w-10"
-          htmlFor="newStringNoLocale"
-        >
+        <label className="text-gray-500 p-2 w-10" htmlFor="newStringNoLocale">
           <MdTextFields
             aria-label={l10n.getString("object-add-string-label")}
           />
@@ -134,7 +131,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         >
           <input
             type="text"
-            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-700"
             name="newStringNoLocale"
             id="newStringNoLocale"
             required={true}
@@ -148,7 +145,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         </ClientLocalized>
         <button
           onClick={() => setObjectType("stringWithLocale")}
-          className="flex space-x-2 items-center p-2 border-coolGray-200 text-coolGray-500 hover:text-coolGray-900 focus:text-coolGray-900 hover:border-coolGray-900 focus:border-coolGray-900 focus:outline-none hover:bg-coolGray-100 border-dashed hover:border-solid focus:border-solid border-2 rounded"
+          className="flex space-x-2 items-center p-2 border-gray-200 text-gray-500 hover:text-gray-900 focus:text-gray-900 hover:border-gray-900 focus:border-gray-900 focus:outline-none hover:bg-gray-100 border-dashed hover:border-solid focus:border-solid border-2 rounded"
           type="button"
         >
           <MdTranslate aria-hidden="true" />
@@ -159,7 +156,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         <button
           type="submit"
           aria-label={l10n.getString("object-add-string-submit")}
-          className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
+          className="p-3 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 rounded"
         >
           <MdCheck />
         </button>
@@ -186,10 +183,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         onSubmit={onSubmit}
         className="p-2 flex space-x-2 pb-5 items-center"
       >
-        <label
-          className="text-coolGray-500 p-2 w-10"
-          htmlFor="newStringWithLocale"
-        >
+        <label className="text-gray-500 p-2 w-10" htmlFor="newStringWithLocale">
           <MdTextFields
             aria-label={l10n.getString("object-add-string-label")}
           />
@@ -200,7 +194,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         >
           <input
             type="text"
-            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-700"
             name="newStringWithLocale"
             id="newStringWithLocale"
             required={true}
@@ -211,7 +205,7 @@ export const ObjectAdder: FC<Props> = (props) => {
             }}
           />
         </ClientLocalized>
-        <label className="text-coolGray-500 p-2 w-10" htmlFor="newLocale">
+        <label className="text-gray-500 p-2 w-10" htmlFor="newLocale">
           <MdTranslate aria-label={l10n.getString("object-add-locale-label")} />
         </label>
         <ClientLocalized
@@ -220,7 +214,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         >
           <input
             type="text"
-            className="p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            className="p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-700"
             name="newLocale"
             id="newLocale"
             required={true}
@@ -235,7 +229,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         <button
           type="submit"
           aria-label={l10n.getString("object-add-string-submit")}
-          className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
+          className="p-3 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 rounded"
         >
           <MdCheck />
         </button>
@@ -261,7 +255,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         onSubmit={onSubmit}
         className="p-2 flex space-x-2 pb-5 items-center"
       >
-        <label className="text-coolGray-500 p-2 w-10" htmlFor="newInteger">
+        <label className="text-gray-500 p-2 w-10" htmlFor="newInteger">
           <span aria-label={l10n.getString("object-add-integer-label")}>1</span>
         </label>
         <ClientLocalized
@@ -270,7 +264,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         >
           <input
             type="number"
-            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-700"
             name="newInteger"
             id="newInteger"
             required={true}
@@ -285,7 +279,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         <button
           type="submit"
           aria-label={l10n.getString("object-add-integer-submit")}
-          className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
+          className="p-3 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 rounded"
         >
           <MdCheck />
         </button>
@@ -311,7 +305,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         onSubmit={onSubmit}
         className="p-2 flex space-x-2 pb-5 items-center"
       >
-        <label className="text-coolGray-500 p-2 w-10" htmlFor="newDecimal">
+        <label className="text-gray-500 p-2 w-10" htmlFor="newDecimal">
           <span aria-label={l10n.getString("object-add-decimal-label")}>
             1.0
           </span>
@@ -323,7 +317,7 @@ export const ObjectAdder: FC<Props> = (props) => {
           <input
             type="number"
             step={0.1}
-            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-700"
             name="newDecimal"
             id="newDecimal"
             required={true}
@@ -338,7 +332,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         <button
           type="submit"
           aria-label={l10n.getString("object-add-decimal-submit")}
-          className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
+          className="p-3 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 rounded"
         >
           <MdCheck />
         </button>
@@ -368,7 +362,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         onSubmit={onSubmit}
         className="p-2 flex space-x-2 pb-5 items-center"
       >
-        <label className="text-coolGray-500 p-2 w-10" htmlFor="newDate">
+        <label className="text-gray-500 p-2 w-10" htmlFor="newDate">
           <VscCalendar aria-label={l10n.getString("object-add-date-label")} />
         </label>
         <ClientLocalized
@@ -377,7 +371,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         >
           <input
             type="date"
-            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-700"
             name="newDate"
             id="newDate"
             required={true}
@@ -398,7 +392,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         >
           <input
             type="time"
-            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-coolGray-700"
+            className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-700"
             name="newTime"
             id="newTime"
             required={true}
@@ -412,7 +406,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         <button
           type="submit"
           aria-label={l10n.getString("object-add-datetime-submit")}
-          className="p-3 hover:text-white hover:bg-coolGray-700 focus:outline-none focus:ring-2 focus:ring-coolGray-700 rounded"
+          className="p-3 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 rounded"
         >
           <MdCheck />
         </button>
@@ -424,7 +418,7 @@ export const ObjectAdder: FC<Props> = (props) => {
     <>
       {form}
       <div className="flex flex-wrap p-2 space-y-2 space-x-2 items-center pb-5">
-        <span className="text-coolGray-500 p-2 w-10">
+        <span className="text-gray-500 p-2 w-10">
           <MdAdd aria-label={l10n.getString("object-add-label")} />
         </span>
         <ClientLocalized id="object-add-url">
@@ -477,7 +471,7 @@ interface ButtonProps {
 const AddButton = (props: ButtonProps) => {
   return (
     <button
-      className="flex items-center p-1 border-coolGray-200 text-coolGray-500 hover:text-coolGray-900 focus:text-coolGray-900 hover:border-coolGray-900 focus:border-coolGray-900 focus:outline-none hover:bg-coolGray-100 border-dashed hover:border-solid focus:border-solid border-2 rounded"
+      className="flex items-center p-1 border-gray-200 text-gray-500 hover:text-gray-900 focus:text-gray-900 hover:border-gray-900 focus:border-gray-900 focus:outline-none hover:bg-gray-100 border-dashed hover:border-solid focus:border-solid border-2 rounded"
       onClick={(e) => {
         e.preventDefault();
         props.onClick();

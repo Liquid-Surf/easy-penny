@@ -50,7 +50,7 @@ export const ConfirmOperation = (props: Props) => {
         <label htmlFor="confirmationString" className="">
           Please enter{" "}
           <samp>
-            <kbd className="font-mono bg-coolGray-200 p-1 border-2 border-coolGray-300 rounded">
+            <kbd className="font-mono bg-gray-200 p-1 border-2 border-gray-300 rounded">
               {props.confirmString}
             </kbd>
           </samp>{" "}

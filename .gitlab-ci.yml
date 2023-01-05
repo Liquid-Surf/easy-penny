@@ -63,6 +63,7 @@ publish_npm:
     # the standalone app will be available pre-built on npm as well:
     - mv out standalone
     - npm version --no-git-tag-version $NEW_VERSION
+    - npx publint
     - npm publish
     - npm pack
     - mv "penny-pod-inspector-${NEW_VERSION}.tgz" package.tgz

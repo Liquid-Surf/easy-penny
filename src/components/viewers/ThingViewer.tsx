@@ -13,12 +13,12 @@ import { PredicateViewer } from "./PredicateViewer";
 import { toast } from "react-toastify";
 import { PredicateAdder } from "../adders/PredicateAdder";
 import { MdContentCopy, MdExpandLess, MdExpandMore } from "react-icons/md";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 // TODO: Memo:
 import { WacControl } from "./things/WacControl";
 import { useLocalization } from "@fluent/react";
 import { HasAccess } from "../HasAccess";
 import { LoadedCachedDataset } from "../../hooks/dataset";
+import { useMediaQuery } from "../../hooks/mediaQuery";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -44,7 +44,7 @@ export const ThingViewer: FC<Props> = (props) => {
       onUpdate={props.onUpdate}
     />
   ));
-  const shouldReduceMotion = useReducedMotion();
+  const isMotionSafe = useMediaQuery("(prefers-reduced-motion: no-preference)");
   const { l10n } = useLocalization();
 
   const deleteThing = async () => {
@@ -187,39 +187,41 @@ export const ThingViewer: FC<Props> = (props) => {
           </button>
         )}
       </h3>
-      <AnimatePresence initial={false}>
-        {!props.collapsed && (
-          <motion.div
-            key={`children-of-${encodeURIComponent(asUrl(props.thing))}`}
-            initial="open"
-            animate="open"
-            exit="collapsed"
-            variants={{
-              open: { opacity: 1, height: "auto" },
-              collapsed: { opacity: 0, height: 0 },
-            }}
-            transition={shouldReduceMotion ? { duration: 0 } : undefined}
+      <div
+        style={{
+          // A weird workaround to be able to animate from height: 0 to auto.
+          // See https://chriscoyier.net/2022/12/21/things-css-could-still-use-heading-into-2023/#animate-to-auto
+          display: "grid",
+          overflowY: "hidden",
+          gridTemplateRows: props.collapsed ? "0fr" : "1fr",
+          transition: `grid-template-rows ${
+            isMotionSafe ? "200ms" : "0"
+          } ease-in-out`,
+        }}
+      >
+        <div
+          style={{ minHeight: 0 }}
+          key={`children-of-${encodeURIComponent(asUrl(props.thing))}`}
+        >
+          <WacControl
+            dataset={props.dataset}
+            thing={props.thing}
+            onUpdate={props.onUpdate}
+          />
+          <div
+            className="px-5 pt-5"
+            style={{ contain: "content", contentVisibility: "auto" }}
           >
-            <WacControl
-              dataset={props.dataset}
-              thing={props.thing}
-              onUpdate={props.onUpdate}
-            />
-            <div
-              className="px-5 pt-5"
-              style={{ contain: "content", contentVisibility: "auto" }}
-            >
-              {viewers}
-            </div>
-            <HasAccess access={["append"]} resource={props.dataset.data}>
-              <PredicateAdder {...props} />
-            </HasAccess>
-          </motion.div>
-        )}
+            {viewers}
+          </div>
+          <HasAccess access={["append"]} resource={props.dataset.data}>
+            <PredicateAdder {...props} />
+          </HasAccess>
+        </div>
         <HasAccess access={["write"]} resource={props.dataset.data}>
           {deletionButton}
         </HasAccess>
-      </AnimatePresence>
+      </div>
     </div>
   );
 };

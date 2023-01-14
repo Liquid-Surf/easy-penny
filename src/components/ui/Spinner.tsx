@@ -1,17 +1,17 @@
-import { useReducedMotion } from "framer-motion";
 import { FC } from "react";
 import { VscLoading } from "react-icons/vsc";
+import { useMediaQuery } from "../../hooks/mediaQuery";
 
 export const Spinner: FC = () => {
-  const shouldReduceMotion = useReducedMotion();
+  const isMotionSafe = useMediaQuery("(prefers-reduced-motion: no-preference)");
 
-  if (shouldReduceMotion) {
+  if (!isMotionSafe) {
     return <>Loading…</>;
   }
 
   return (
     <>
-      <VscLoading aria-label="Loading…" size="2em" className="animate-spin"/>
+      <VscLoading aria-label="Loading…" size="2em" className="animate-spin" />
     </>
   );
 };

@@ -34,6 +34,9 @@ connecterror-no-pod =
 connecterror-webid =
   Je Pod lijkt zich te bevinden op <pod-url>{$detected-pod-url}</pod-url>.
   <idp-button>Daarvan gebruik maken om je Pod te verbinden?</idp-button>
+connecterror-not-useid =
+  Kon niet verbinden met een Solid Pod.
+  <useid-button>Bedoelde je <pod-url>{$suggested-pod-url}</pod-url>?</useid-button>
 connecterror-not-inrupt =
   Kon niet verbinden met een Solid Pod.
   <inrupt-button>Bedoelde je <pod-url>{$suggested-pod-url}</pod-url>?</inrupt-button>

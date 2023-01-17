@@ -30,6 +30,9 @@ connectform-button =
 
 connecterror-no-pod = 
   Tidak dapat cari suatu Solid Pod di <pod-url>{$pod-url}</pod-url>. Mohon periksa semula nama dan cuba lagi.
+connecterror-not-useid =
+  Tidak dapat cari suatu Solid Pod pun untuk dipasang.
+  <useid-button>Mungkin anda mahu memasang Pod <pod-url>{$suggested-pod-url}</pod-url> ini?</useid-button>
 connecterror-not-inrupt = 
   Tidak dapat cari suatu Solid Pod pun untuk dipasang.
   <inrupt-button>Mungkin anda mahu memasang Pod <pod-url>{$suggested-pod-url}</pod-url> ini?</inrupt-button>

@@ -46,10 +46,13 @@ export const ConnectForm: FC = (props) => {
 
     setLoading(true);
 
-    const issuer =
+    const issuerWithProtocol =
       issuerInput.startsWith("https://") || issuerInput.startsWith("http://")
         ? issuerInput
         : `https://${issuerInput}`;
+    const issuer = issuerWithProtocol.endsWith("/")
+      ? issuerWithProtocol.substring(0, issuerWithProtocol.length - 1)
+      : issuerWithProtocol;
 
     try {
       if (issuer === "https://broker.pod.inrupt.com") {
@@ -111,6 +114,43 @@ export const ConnectForm: FC = (props) => {
               It looks like your Pod is located at{" "}
               <samp className="font-mono">{detectedIdp}</samp> Use that to
               connect your Pod?
+            </span>
+          </ClientLocalized>
+        );
+      }
+      if (
+        ["https://use.id", "https://pods.use.id", "https://op.use.id"].includes(
+          issuer
+        )
+      ) {
+        const suggestedServer = "https://idp.use.id";
+        const connectToUseId: MouseEventHandler = (event) => {
+          event.preventDefault();
+          setIssuerInput(suggestedServer);
+          storage.setItem("last-attempted-idp", suggestedServer);
+          storage.setItem(
+            "autoconnect",
+            autoconnectInput === true ? "true" : "false"
+          );
+          connect(suggestedServer);
+        };
+        toastMesagge = (
+          <ClientLocalized
+            id="connecterror-not-useid"
+            vars={{ "pod-url": issuer, "suggested-pod-url": suggestedServer }}
+            elems={{
+              "pod-url": <samp className="font-mono" />,
+              "useid-button": (
+                <button
+                  className="text-left underline hover:text-gray-300"
+                  onClick={connectToUseId}
+                />
+              ),
+            }}
+          >
+            <span>
+              Could not find a Solid Pod to connect to. Did you mean{" "}
+              {suggestedServer}?
             </span>
           </ClientLocalized>
         );

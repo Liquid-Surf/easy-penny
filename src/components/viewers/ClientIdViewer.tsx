@@ -81,6 +81,7 @@ export const ClientIdViewer: React.FC<Props> = (props) => {
       client_name: clientNameInput.length > 0 ? clientNameInput : undefined,
       token_endpoint_auth_method: "none",
       grant_types: ["refresh_token", "authorization_code"],
+      response_types: ["code"],
       scope: "openid webid offline_access",
     };
 

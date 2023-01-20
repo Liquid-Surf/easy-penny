@@ -53,15 +53,9 @@ export const Explorer: React.FC<Props> = (props) => {
 
   const card =
     resource !== null &&
-    (props.url.slice(-4) == "card" || props.url.slice(-4) == "d#me") ? (
-      // ? ( <Card webidUrl={props.url}  /> )
-      <Card webidUrl={props.url} dataset={resource} />
-    ) : (
-      <span>
-        Not a WebID
-        <br />
-      </span>
-    );
+    (props.url.slice(-4) == "card" || props.url.slice(-7) == "cardd#me") 
+      ? ( <Card webidUrl={props.url} dataset={resource} /> ) 
+      : null;
 
   return (
     <Layout path={props.url}>
@@ -75,9 +69,8 @@ export const Explorer: React.FC<Props> = (props) => {
         <button onClick={() => setShow(!show)}>
           {show ? "Hide" : "Show"} advanced options
         </button>
-        {fileViewer || show ? datasetViewer : null}
+        {  fileViewer || ( show ? datasetViewer : null ) }
 
-        {fileViewer ?? datasetViewer}
       </div>
     </Layout>
   );

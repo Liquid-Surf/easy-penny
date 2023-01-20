@@ -41,7 +41,7 @@
   height: 100%;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
-  background-image: url(https://1000marcas.net/wp-content/uploads/2020/03/CERN-Logo-600x338.jpg);
+  background-image: url(/back.jpg);
   background-position: bottom center;
   background-size: cover;
 }

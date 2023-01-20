@@ -40,13 +40,12 @@ export const Card: FC<CardProps> = (props) => {
   const [note, setNote] = useState("note");
 
   const [email, setEmail] = useState("");
-
+  // TODO: find out when '#me' is added or not
   const profileDocumentURI = props.webidUrl.split("#")[0]; // remove the '#me'('#()
+  const meDocuementURI = profileDocumentURI + "#me"; // remove the '#me'('#()
 
   getSolidDataset(profileDocumentURI, { fetch: fetch }).then((myDataset) => {
-    console.log("ds", myDataset);
-    const profile = getThing(myDataset, props.webidUrl)!; // need the "#me" at the end
-
+    const profile = getThing(myDataset, meDocuementURI)!; // need the "#me" at the end
     const fn = getStringNoLocale(profile, VCARD.fn);
     setFn(typeof fn === "string" ? fn : "");
     const role = getStringNoLocale(profile, VCARD.role)
@@ -55,25 +54,19 @@ export const Card: FC<CardProps> = (props) => {
     setRole(typeof role === "string" ? role : "");
     const note = getStringNoLocale(profile, VCARD.note)
       ? getStringNoLocale(profile, VCARD.note)
-      : "-note";
+      : "--note";
     setNote(typeof note === "string" ? note : "");
     const email = getStringNoLocale(profile, VCARD.email)
       ? getStringNoLocale(profile, VCARD.email)
       : "-email";
     setEmail(typeof email === "string" ? email : "");
-
-    console.log("fn", fn);
   });
 
   return (
     <>
       <div className="card">
         <div className="img-avatar">
-          <img
-            src="http://localhost:3055/d/public/lif.jpg"
-            className="rounded"
-            width="155"
-          />
+          <img src="/chat.jpg" className="rounded" width="155" />
         </div>
         <div className="card-text">
           <div className="portada"> </div>

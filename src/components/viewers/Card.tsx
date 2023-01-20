@@ -45,23 +45,21 @@ export const Card: FC<CardProps> = (props) => {
 
   getSolidDataset(profileDocumentURI, { fetch: fetch }).then((myDataset) => {
     console.log("ds", myDataset);
-    const profile = getThing(myDataset, profileDocumentURI)!;
+    const profile = getThing(myDataset, props.webidUrl)!; // need the "#me" at the end
 
-    const fn = getStringNoLocale(profile, VCARD.fn)
-      ? getStringNoLocale(profile, VCARD.fn)
-      : "";
+    const fn = getStringNoLocale(profile, VCARD.fn);
     setFn(typeof fn === "string" ? fn : "");
     const role = getStringNoLocale(profile, VCARD.role)
       ? getStringNoLocale(profile, VCARD.role)
-      : "";
+      : "-role";
     setRole(typeof role === "string" ? role : "");
     const note = getStringNoLocale(profile, VCARD.note)
       ? getStringNoLocale(profile, VCARD.note)
-      : "";
+      : "-note";
     setNote(typeof note === "string" ? note : "");
     const email = getStringNoLocale(profile, VCARD.email)
       ? getStringNoLocale(profile, VCARD.email)
-      : "";
+      : "-email";
     setEmail(typeof email === "string" ? email : "");
 
     console.log("fn", fn);

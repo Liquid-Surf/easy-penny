@@ -94,7 +94,8 @@ export const UserMenu: FC = () => {
             try {
               console.log("issuer=" + issuer);
               // issuer = "http://localhost:3055" // TODO remove me
-              await connect(issuer);
+              if(issuer)
+                await connect(issuer);
             } catch (e) {
               console.log("couldnt connect to issuer..");
               console.log(e);

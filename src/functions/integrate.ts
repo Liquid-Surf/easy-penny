@@ -8,15 +8,17 @@ export function isIntegrated(): boolean {
 export function getExplorePath(url: string, hash?: string): string {
   const hashFragment = hash ? `#${hash}` : "";
   const targetUrl = new URL(url);
+  console.log("DEBUG Profile button");
+  console.log(targetUrl.pathname);
+  console.log(targetUrl.search);
+  console.log(hashFragment);
   return isIntegrated()
-    // If running on the Pod, the target URL is on the app's own domain:
-    ? targetUrl.pathname + targetUrl.search + hashFragment
-    // Otherwise, we have to pass the full target URL via a parameter:
-    : `/explore/?url=${encodeURIComponent(url)}` + hashFragment;
+    ? // If running on the Pod, the target URL is on the app's own domain:
+      targetUrl.pathname //+ targetUrl.search + hashFragment
+    : // Otherwise, we have to pass the full target URL via a parameter:
+      `/explore/?url=${encodeURIComponent(url)}` + hashFragment;
 }
 
 export function getAssetLink(assetPath: string): string {
-  return isIntegrated()
-    ? `/server-ui${assetPath}`
-    : assetPath;
+  return isIntegrated() ? `/server-ui${assetPath}` : assetPath;
 }

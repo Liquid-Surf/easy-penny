@@ -15,7 +15,7 @@ export const Loading: React.FC<Props> = (props) => {
         <title>Penny</title>
       </Head>
       <div className="md:w-4/5 lg:w-2/3 xl:w-1/2 mx-auto p-5 md:pt-20">
-        <Spinner/>
+        <Spinner />
       </div>
     </Layout>
   );

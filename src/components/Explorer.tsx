@@ -42,7 +42,7 @@ export const Explorer: React.FC<Props> = (props) => {
       <FileViewer file={resource} />
     ) : null;
 
-const errorViewer =
+  const errorViewer =
     typeof sessionInfo === "undefined" ||
     resource === null ||
     (!isLoadedDataset(resource) && resource.isValidating) ? (

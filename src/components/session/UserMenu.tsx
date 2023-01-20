@@ -57,82 +57,84 @@ export const UserMenu: FC = () => {
     </Link>
   ) : null;
 
-  return <>
-    <LoggedOut>
-      <button
-        className="lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
-        onClick={(e) => {
-          document.location.href = '/idp/register/'
-        }}
-        title={l10n.getString("connect-button-tooltip")}
-      >
-        <span aria-hidden="true" className="px-2 md:inline">
-          Register
-        </span>
-      </button>
-      <button
-        className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
-        onClick={(e) => {
-          e.preventDefault();
-          setPromptOpen(true);
-        }}
-        title={l10n.getString("connect-button-tooltip")}
-      >
-        <span aria-hidden="true" className="px-2 md:inline">
-          {l10n.getString("connect-button")}
-        </span>
-      </button>
-      <button
-        className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
-        onClick={async (e) => {
-          e.preventDefault();
-          let issuer = 
-            typeof document !== "undefined" 
-            	? document.location.protocol + '//' + document.location.host
-            	: null
-            try {
-              console.log("issuer=" + issuer)
-              issuer = "http://localhost:3055" // TODO remove me
-              await connect(issuer)
-            } catch(e) {
-              console.log("couldnt connect to issuer..")
-              console.log(e)
-              // TODO Catch error correctly ( check ConnectForm ) 
-            }
-        }}
-        title={l10n.getString("connect-button-tooltip")}
-      >
-        <span aria-hidden="true" className="px-2 md:inline">
-          {l10n.getString("connect-button") + " direct"}
-        </span>
-      </button>
-    </LoggedOut>
-    <LoggedIn>
-      <div className="flex space-x-5">
-        {profileLink}
+  return (
+    <>
+      <LoggedOut>
         <button
-          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-gray-200 rounded-lg flex items-center hover:bg-gray-700 hover:text-white hover:border-gray-700 focus:border-gray-700 focus:outline-none"
+          className="lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
+          onClick={(e) => {
+            document.location.href = "/idp/register/";
+          }}
+          title={l10n.getString("connect-button-tooltip")}
+        >
+          <span aria-hidden="true" className="px-2 md:inline">
+            Register
+          </span>
+        </button>
+        <button
+          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
           onClick={(e) => {
             e.preventDefault();
-            storage.setItem("autoconnect", "false");
-            logout();
+            setPromptOpen(true);
           }}
-          title={l10n.getString("disconnect-button-tooltip", {
-            webId: sessionInfo?.webId ?? "",
-          })}
+          title={l10n.getString("connect-button-tooltip")}
         >
-          <span className="w-8">
-            <img
-              width={352 / 10}
-              height={322 / 10}
-              alt=""
-              src={getAssetLink("/solid-emblem.svg")}
-              aria-hidden="true"
-            />
+          <span aria-hidden="true" className="px-2 md:inline">
+            {l10n.getString("connect-button")}
           </span>
-          <span className="px-2">{l10n.getString("disconnect-button")}</span>
         </button>
-      </div>
-    </LoggedIn>
-  </>;
+        <button
+          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
+          onClick={async (e) => {
+            e.preventDefault();
+            let issuer =
+              typeof document !== "undefined"
+                ? document.location.protocol + "//" + document.location.host
+                : null;
+            try {
+              console.log("issuer=" + issuer);
+              // issuer = "http://localhost:3055" // TODO remove me
+              await connect(issuer);
+            } catch (e) {
+              console.log("couldnt connect to issuer..");
+              console.log(e);
+              // TODO Catch error correctly ( check ConnectForm )
+            }
+          }}
+          title={l10n.getString("connect-button-tooltip")}
+        >
+          <span aria-hidden="true" className="px-2 md:inline">
+            {l10n.getString("connect-button") + " direct"}
+          </span>
+        </button>
+      </LoggedOut>
+      <LoggedIn>
+        <div className="flex space-x-5">
+          {profileLink}
+          <button
+            className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-gray-200 rounded-lg flex items-center hover:bg-gray-700 hover:text-white hover:border-gray-700 focus:border-gray-700 focus:outline-none"
+            onClick={(e) => {
+              e.preventDefault();
+              storage.setItem("autoconnect", "false");
+              logout();
+            }}
+            title={l10n.getString("disconnect-button-tooltip", {
+              webId: sessionInfo?.webId ?? "",
+            })}
+          >
+            <span className="w-8">
+              <img
+                width={352 / 10}
+                height={322 / 10}
+                alt=""
+                src={getAssetLink("/solid-emblem.svg")}
+                aria-hidden="true"
+              />
+            </span>
+            <span className="px-2">{l10n.getString("disconnect-button")}</span>
+          </button>
+        </div>
+      </LoggedIn>
+    </>
+  );
 };

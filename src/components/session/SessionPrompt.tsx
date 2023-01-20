@@ -25,7 +25,10 @@ export const SessionPrompt: FC<Props> = (props) => {
         <Button
           {...buttonProps}
           value={props.prompt}
-          onClick={(e) => { e.preventDefault(); setPromptOpen(true); }}
+          onClick={(e) => {
+            e.preventDefault();
+            setPromptOpen(true);
+          }}
         />
       </>
     );
@@ -50,9 +53,9 @@ export const SessionPrompt: FC<Props> = (props) => {
         closeTimeoutMS={150}
       >
         <div className="flex flex-row-reverse -mt-4 -mr-4 md:-mt-8 md:-mr-8">
-          <CloseButton onClick={() => setPromptOpen(false)}/>
+          <CloseButton onClick={() => setPromptOpen(false)} />
         </div>
-        <ConnectForm/>
+        <ConnectForm />
       </Modal>
     </>
   );

@@ -11,7 +11,7 @@ export const Spinner: FC = () => {
 
   return (
     <>
-      <VscLoading aria-label="Loading…" size="2em" className="animate-spin"/>
+      <VscLoading aria-label="Loading…" size="2em" className="animate-spin" />
     </>
   );
 };

@@ -15,22 +15,16 @@ export const AudioPreview: FC<Props> = (props) => {
     <>
       <div className="pb-10">
         <ClientLocalized id="preview-audio-heading">
-          <SectionHeading>
-            Audio Preview
-          </SectionHeading>
+          <SectionHeading>Audio Preview</SectionHeading>
         </ClientLocalized>
         <ClientLocalized
           id="preview-audio-error-playback"
-          vars={{filename: fileName}}
+          vars={{ filename: fileName }}
           elems={{
-            "download-link": <a href={props.objectUrl} download={true}/>
+            "download-link": <a href={props.objectUrl} download={true} />,
           }}
         >
-          <audio
-            src={props.objectUrl}
-            className="w-full"
-            controls={true}
-          >
+          <audio src={props.objectUrl} className="w-full" controls={true}>
             Unfortunately your browser cannot provide a preview of `{fileName}`.
             You can download it instead.
           </audio>

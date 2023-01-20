@@ -5,13 +5,13 @@ import { Loading } from "../components/Loading";
 
 const Explore: React.FC = () => {
   const router = useRouter();
-  const url = (router.query.url);
+  const url = router.query.url;
 
   if (typeof url !== "string") {
-    return <Loading/>;
+    return <Loading />;
   }
 
-  return <Explorer url={url}/>;
+  return <Explorer url={url} />;
 };
 
 export default Explore;

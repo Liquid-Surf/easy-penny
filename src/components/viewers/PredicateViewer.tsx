@@ -10,6 +10,7 @@ import {
   getStringNoLocaleAll,
   getTermAll,
   getUrlAll,
+  isContainer,
   removeBoolean,
   removeDatetime,
   removeDecimal,
@@ -41,6 +42,7 @@ import { ClientLocalized } from "../ClientLocalized";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 import { HasAccess } from "../HasAccess";
 import { hasAccess } from "../../functions/hasAccess";
+import { ldp } from "rdf-namespaces";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -214,7 +216,15 @@ export const PredicateViewer: FC<Props> = (props) => {
                       </ClientLocalized>
                     ),
                     callback: () => deleteUrl(value),
-                    when: hasAccess(props.dataset.data, ["write"]),
+                    when:
+                      hasAccess(props.dataset.data, ["write"]) &&
+                      // Don't show the deletion button for `ldp:contains`
+                      // statements; they can't be removed except by removing
+                      // the referenced Resource:
+                      !(
+                        isContainer(props.dataset.data) &&
+                        props.predicate === ldp.contains
+                      ),
                   },
                 ]}
               >

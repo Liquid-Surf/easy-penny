@@ -1,4 +1,26 @@
-View and manipulate the data in a Solid Pod.
+A fork from https://gitlab.com/vincenttunru/penny
+The fork is ment to be more user facing than developer facing.
+It is only developed for integrated mode, to be used with Solid Community Server.
+
+### notes
+
+`build_serverui.sh` doesnt work if parent folder contains an (eslint?) config file.
+Quick fix is to move this folder to another directory that doesn't contain any esling config to run `build_serverui.sh` , and move it back.
+
+### install
+
+```
+git clone
+npm ci
+bash build_serverui.sh
+```
+
+Then, in componentsjs' config.json
+
+- remove `css:config/util/index/default.json` if it exist
+- add `"./ui/config.json"` at the end of the `import` array
+
+Bellow Penny's original readme
 
 Try it out yourself at https://Penny.VincentTunru.com.
 

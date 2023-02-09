@@ -317,9 +317,6 @@ export const DatasetViewer: FC<Props> = (props) => {
     <ClientIdViewer dataset={props.dataset} />
   ) : (
     <div className="space-y-10 pb-10">
-      <ClientLocalized id="dataset-things-heading">
-        <SectionHeading>Things</SectionHeading>
-      </ClientLocalized>
       {thingsListing}
       <HasAccess access={["append"]} resource={props.dataset.data}>
         <ThingAdder dataset={props.dataset} onUpdate={onUpdateThing} />

@@ -49,9 +49,6 @@ export const ContainerViewer: FC<Props> = (props) => {
 
   return (
     <>
-      <ClientLocalized id="container-children-heading">
-        <SectionHeading>Contained Resources</SectionHeading>
-      </ClientLocalized>
       <div className="pb-10">
         <div className="grid sm:grid-cols-2 gap-5 pb-5">
           {containedResources}

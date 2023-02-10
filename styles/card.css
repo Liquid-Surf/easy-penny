@@ -41,7 +41,7 @@
   height: 100%;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
-  background-image: url(/back.jpg);
+  background-image: url(/bg.png);
   background-position: bottom center;
   background-size: cover;
 }

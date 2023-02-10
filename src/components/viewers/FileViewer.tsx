@@ -97,10 +97,8 @@ export const FileViewer: FC<Props> = (props) => {
 
   return (
     <>
+      {preview}
       <div className="pb-10">
-        <ClientLocalized id="file-heading">
-          <SectionHeading>File</SectionHeading>
-        </ClientLocalized>
         <a
           href={blobUrl}
           title={l10n.getString("file-download-button-tooltip", {
@@ -115,7 +113,6 @@ export const FileViewer: FC<Props> = (props) => {
           </ClientLocalized>
         </a>
       </div>
-      {preview}
       <HasAccess access={["write"]} resource={props.file.data}>
         <div className="pb-10">
           <ClientLocalized id="danger-zone-heading">

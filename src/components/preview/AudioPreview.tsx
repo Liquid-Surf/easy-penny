@@ -14,9 +14,6 @@ export const AudioPreview: FC<Props> = (props) => {
   return (
     <>
       <div className="pb-10">
-        <ClientLocalized id="preview-audio-heading">
-          <SectionHeading>Audio Preview</SectionHeading>
-        </ClientLocalized>
         <ClientLocalized
           id="preview-audio-error-playback"
           vars={{ filename: fileName }}
@@ -25,7 +22,7 @@ export const AudioPreview: FC<Props> = (props) => {
           }}
         >
           <audio src={props.objectUrl} className="w-full" controls={true}>
-            Unfortunately your browser cannot provide a preview of `{fileName}`.
+            Unfortunately your browser cannot provide an audio preview of `{fileName}`.
             You can download it instead.
           </audio>
         </ClientLocalized>

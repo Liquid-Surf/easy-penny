@@ -15,6 +15,7 @@ import { SSRProvider } from "react-aria";
 import { SessionContext, SessionInfo } from "../contexts/session";
 import "../../styles/globals.css";
 import "../../styles/card.css";
+import "../../styles/show_advanced.css";
 
 import "react-toastify/dist/ReactToastify.css";
 import * as storage from "../functions/localStorage";

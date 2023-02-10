@@ -91,7 +91,7 @@ export const Explorer: React.FC<Props> = (props) => {
         {containerViewer}
         {card}
         {fileViewer}
-        <div id="advanced-options" class={showAdvanced ? "open p-4" : ""}>
+        <div id="advanced-options" className={showAdvanced ? "open p-4" : ""}>
           <ClientLocalized id="TODO">
             <SectionHeading>Advanced Options</SectionHeading>
           </ClientLocalized>
@@ -99,7 +99,7 @@ export const Explorer: React.FC<Props> = (props) => {
         </div>
         <div
           id="overlay"
-          class={showAdvanced ? "open" : ""}
+          className={showAdvanced ? "open" : ""}
           onClick={() => setShow(!showAdvanced)}
         ></div>
       </div>

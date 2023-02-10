@@ -84,12 +84,12 @@ export const Explorer: React.FC<Props> = (props) => {
         {errorViewer}
         {containerViewer}
         {card}
-        <div id="advanced-options" class={showAdvanced ? "open p-4" : ""}>
+        <div id="advanced-options" className={showAdvanced ? "open p-4" : ""}>
           {fileViewer || (showAdvanced ? datasetViewer : null)}
         </div>
         <div
           id="overlay"
-          class={showAdvanced ? "open" : ""}
+          className={showAdvanced ? "open" : ""}
           onClick={() => setShow(!showAdvanced)}
         ></div>
       </div>

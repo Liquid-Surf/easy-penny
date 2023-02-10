@@ -9,6 +9,7 @@ import { SectionHeading } from "../ui/headings";
 import { ResourceAdder } from "../adders/ResourceAdder";
 import { LoggedOut } from "../session/LoggedOut";
 import { getExplorePath } from "../../functions/integrate";
+import { getFileTypeIcon } from "../../functions/explorer";
 import { ClientLocalized } from "../ClientLocalized";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 
@@ -27,8 +28,9 @@ export const ContainerViewer: FC<Props> = (props) => {
         <Link
           key={resourceUrl + "_containerChild"}
           href={getExplorePath(resourceUrl)}
-          className="bg-gray-700 text-white p-5 rounded hover:bg-gray-900 block focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 focus:outline-none focus:ring-opacity-50"
+          className="bg-gray-100 text-black p-5 rounded hover:bg-gray-200 block focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 focus:outline-none focus:ring-opacity-50"
         >
+          <span>{getFileTypeIcon(decodeURIComponent(name))} </span>
           {decodeURIComponent(name)}
         </Link>
       );

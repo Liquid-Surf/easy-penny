@@ -1,8 +1,9 @@
 #advanced-options {
   position: fixed;
   top: 0;
-  right: -80vw;
-  width: 80vw;
+  right: -800px;
+  width:100%;
+  max-width: 800px;
   height: 100%;
   background-color: white;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);

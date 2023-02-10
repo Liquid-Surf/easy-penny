@@ -21,6 +21,7 @@ import { fetch } from "@inrupt/solid-client-authn-browser";
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 import { CachedResource } from "../../hooks/resource";
+import { getAssetLink }  from "../../functions/integrate";
 
 interface CardProps {
   dataset: CachedResource;
@@ -66,10 +67,13 @@ export const Card: FC<CardProps> = (props) => {
     <>
       <div className="card">
         <div className="img-avatar">
-          <img src="/dog.jpeg" className="rounded" width="155" />
+          <img src={getAssetLink("/dog.jpeg")} className="rounded" width="155" />
         </div>
         <div className="card-text">
-          <div className="portada"> </div>
+          <div 
+          	className="portada" 
+          	style={{ backgroundImage: `url(${getAssetLink("/bg.png")})`}}  > 
+          </div>
           <div className="title-total">
             <div className="title">{role}</div>
             <h2>{fn}</h2>

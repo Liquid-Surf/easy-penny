@@ -42,10 +42,10 @@ export const Card: FC<CardProps> = (props) => {
   const [email, setEmail] = useState("");
   // TODO: find out when '#me' is added or not
   const profileDocumentURI = props.webidUrl.split("#")[0]; // remove the '#me'('#()
-  const meDocuementURI = profileDocumentURI + "#me"; // remove the '#me'('#()
+  const meDocumentURI = profileDocumentURI + "#me"; // remove the '#me'('#()
 
   getSolidDataset(profileDocumentURI, { fetch: fetch }).then((myDataset) => {
-    const profile = getThing(myDataset, meDocuementURI)!; // need the "#me" at the end
+    const profile = getThing(myDataset, meDocumentURI)!; // need the "#me" at the end
     const fn = getStringNoLocale(profile, VCARD.fn);
     setFn(typeof fn === "string" ? fn : "");
     const role = getStringNoLocale(profile, VCARD.role)
@@ -66,7 +66,7 @@ export const Card: FC<CardProps> = (props) => {
     <>
       <div className="card">
         <div className="img-avatar">
-          <img src="/chat.jpg" className="rounded" width="155" />
+          <img src="/dog.jpeg" className="rounded" width="155" />
         </div>
         <div className="card-text">
           <div className="portada"> </div>

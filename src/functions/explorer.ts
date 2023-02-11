@@ -1,9 +1,9 @@
 // These functions are useful for putting Penny in "integrate" mode,
 // i.e. preinstalled on a Pod as its native interface.
 
-export function getFileTypeIcon(filename: string): string {
+export function getFileTypeIcon(filename: string, isHome?: Boolean): string {
   	if (filename.slice(-1) == '/'){
-    	return '📁'
+    	return isHome ? '🏠' : '📁'
   	}
     const fileExtension = filename.split('.').pop();
     switch (fileExtension) {

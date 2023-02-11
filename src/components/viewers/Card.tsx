@@ -21,7 +21,11 @@ import { fetch } from "@inrupt/solid-client-authn-browser";
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 import { CachedResource } from "../../hooks/resource";
-import { getAssetLink }  from "../../functions/integrate";
+import {
+  getAssetLink,
+  getBackgroundPict,
+  getAvatarPict,
+} from "../../functions/integrate";
 
 interface CardProps {
   dataset: CachedResource;
@@ -30,8 +34,6 @@ interface CardProps {
 }
 
 export const Card: FC<CardProps> = (props) => {
-  console.log("dataset");
-  console.log(props.dataset);
   const webidUrl = "";
 
   const sayHi = () => alert("hi");
@@ -44,6 +46,18 @@ export const Card: FC<CardProps> = (props) => {
   // TODO: find out when '#me' is added or not
   const profileDocumentURI = props.webidUrl.split("#")[0]; // remove the '#me'('#()
   const meDocumentURI = profileDocumentURI + "#me"; // remove the '#me'('#()
+  // const await avatarPicture =
+  const [avatarPicture, setAvatarPicture] = useState(getAssetLink("/dog.jpeg"));
+  getAvatarPict(profileDocumentURI).then((url) =>
+    url ? setAvatarPicture(url) : null
+  );
+  const [backgroundPicture, setBackgroundPicture] = useState(
+    getAssetLink("/bg.png")
+  );
+  getBackgroundPict(profileDocumentURI).then((url) =>
+    url ? setBackgroundPicture(url) : null
+  );
+  //const backgroundPicture = getBackgroundPict(profileDocumentURI)
 
   getSolidDataset(profileDocumentURI, { fetch: fetch }).then((myDataset) => {
     const profile = getThing(myDataset, meDocumentURI)!; // need the "#me" at the end
@@ -67,13 +81,13 @@ export const Card: FC<CardProps> = (props) => {
     <>
       <div className="card">
         <div className="img-avatar">
-          <img src={getAssetLink("/dog.jpeg")} className="rounded" width="155" />
+          <img src={avatarPicture} className="rounded" width="155" />
         </div>
         <div className="card-text">
-          <div 
-          	className="portada" 
-          	style={{ backgroundImage: `url(${getAssetLink("/bg.png")})`}}  > 
-          </div>
+          <div
+            className="portada"
+            style={{ backgroundImage: `url(${backgroundPicture})` }}
+          ></div>
           <div className="title-total">
             <div className="title">{role}</div>
             <h2>{fn}</h2>

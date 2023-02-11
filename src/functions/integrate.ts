@@ -8,10 +8,6 @@ export function isIntegrated(): boolean {
 export function getExplorePath(url: string, hash?: string): string {
   const hashFragment = hash ? `#${hash}` : "";
   const targetUrl = new URL(url);
-  console.log("DEBUG Profile button");
-  console.log(targetUrl.pathname);
-  console.log(targetUrl.search);
-  console.log(hashFragment);
   return isIntegrated()
     ? // If running on the Pod, the target URL is on the app's own domain:
       targetUrl.pathname //+ targetUrl.search + hashFragment
@@ -21,4 +17,27 @@ export function getExplorePath(url: string, hash?: string): string {
 
 export function getAssetLink(assetPath: string): string {
   return isIntegrated() ? `/server-ui${assetPath}` : assetPath;
+}
+
+function getImageUrl(imageName: string): {};
+
+async function getProfilePict(webid: string, file: string): string | null {
+  const profileContainer = webid.split("/").slice(0, -1).join("/") + "/";
+  const imgLocation = profileContainer + file;
+  return await fetch(imgLocation, { method: "HEAD" })
+    .then((response) => {
+      if (response.ok) {
+        return imgLocation;
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => null);
+}
+
+export function getAvatarPict(webid: string) {
+  return getProfilePict(webid, "profile.png");
+}
+export function getBackgroundPict(webid: string) {
+  return getProfilePict(webid, "background.png");
 }

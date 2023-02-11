@@ -66,7 +66,8 @@ export const Explorer: React.FC<Props> = (props) => {
   const showAdvancedButton = (
     <div className="flex flex-row-reverse pb-4">
       <button className="" onClick={() => setShow(!showAdvanced)}>
-        <span>{showAdvanced ? "Hide" : "Show"} advanced options </span>
+        {/* <span>{showAdvanced ? "Hide" : "Show"} advanced options </span> */}
+        <span>Advanced </span>
         <svg
           className="inline"
           xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +86,7 @@ export const Explorer: React.FC<Props> = (props) => {
       <Head>
         <title>Penny: {props.url}</title>
       </Head>
-      <div className="lg:w-4/5 xl:w-2/3 2xl:w-1/2 mx-auto p-5 md:pt-20">
+      <div className="lg:w-4/5 xl:w-2/3 2xl:w-1/2 mx-auto p-5 md:pt-10">
         {fileViewer ? null : showAdvancedButton}
         {errorViewer}
         {containerViewer}

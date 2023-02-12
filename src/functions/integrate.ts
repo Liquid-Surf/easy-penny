@@ -19,12 +19,13 @@ export function getAssetLink(assetPath: string): string {
   return isIntegrated() ? `/server-ui${assetPath}` : assetPath;
 }
 
-function getImageUrl(imageName: string): {};
-
-async function getProfilePict(webid: string, file: string): string | null {
+async function getProfilePict(
+  webid: string,
+  file: string
+): Promise<string | null> {
   const profileContainer = webid.split("/").slice(0, -1).join("/") + "/";
   const imgLocation = profileContainer + file;
-  return await fetch(imgLocation, { method: "HEAD" })
+  return fetch(imgLocation, { method: "HEAD" })
     .then((response) => {
       if (response.ok) {
         return imgLocation;
@@ -35,9 +36,9 @@ async function getProfilePict(webid: string, file: string): string | null {
     .catch((error) => null);
 }
 
-export function getAvatarPict(webid: string) {
+export function getAvatarPict(webid: string): Promise<string | null> {
   return getProfilePict(webid, "profile.png");
 }
-export function getBackgroundPict(webid: string) {
+export function getBackgroundPict(webid: string): Promise<string | null> {
   return getProfilePict(webid, "background.png");
 }

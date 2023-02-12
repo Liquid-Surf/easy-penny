@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { isContainer, UrlString } from "@inrupt/solid-client";
 import { Layout } from "./Layout";
 import { useResource } from "../hooks/resource";
@@ -15,8 +16,8 @@ import { isLoadedFileData } from "../hooks/file";
 import { isLoadedDataset } from "../hooks/dataset";
 import { ClientLocalized } from "./ClientLocalized";
 import { SectionHeading } from "./ui/headings";
-import {  isRootContainter } from "../functions/explorer";
-import {  isIntegrated } from "../functions/integrate";
+import { isRootContainter } from "../functions/explorer";
+import { isIntegrated } from "../functions/integrate";
 
 interface Props {
   url: UrlString;
@@ -32,20 +33,43 @@ export const Explorer: React.FC<Props> = (props) => {
 
   //const isRoot = isRootContainter(resource);
 
-  const isRoot = 
-  	resource !== null && isLoadedDataset(resource) ? 
-  		isRootContainter(resource)
-  		: false
+  const isRoot =
+    resource !== null && isLoadedDataset(resource)
+      ? isRootContainter(resource)
+      : false;
 
-	const intro =  (
-  	<>
-    	<h3 className="text-2xl py-2">Welcome to your Personal Online Datastore!</h3>
-    	<p className="p-1"> This server provides space for you to store and access your online data created through Solid apps. Solid is a new way of storing and sharing data online, where <strong>you</strong> are in control your information and who has access to it. </p>
-    	<p className="p-1 pl-5"> ➡ You can create a  POD ( Personal Online Datastore ) by <a className="text-blue-600 underline" href="/idp/register/">registering</a></p>
-    	<p className="p-1 pl-5"> ➡ You can find Solid compatible apps on the <a className="text-blue-600 underline" href="https://solidapp.store">Solid app store</a></p>
-    	<p className="p-1 pb-10"> We are currently hosting the following PODs: </p>
- 		</> 
-	);
+  const intro = (
+    <>
+      <h3 className="text-2xl py-2">
+        Welcome to your Personal Online Datastore!
+      </h3>
+      <p className="p-1">
+        {" "}
+        This server provides space for you to store and access your online data
+        created through Solid apps. Solid is a new way of storing and sharing
+        data online, where <strong>you</strong> are in control your information
+        and who has access to it.{" "}
+      </p>
+      <p className="p-1 pl-5">
+        {" "}
+        ➡ You can create a POD ( Personal Online Datastore ) by{" "}
+        <Link className="text-blue-600 underline" href="/idp/register/">
+          registering
+        </Link>
+      </p>
+      <p className="p-1 pl-5">
+        {" "}
+        ➡ You can find Solid compatible apps on the{" "}
+        <Link className="text-blue-600 underline" href="https://solidapp.store">
+          Solid app store
+        </Link>
+      </p>
+      <p className="p-1 pb-10">
+        {" "}
+        We are currently hosting the following PODs:{" "}
+      </p>
+    </>
+  );
 
   const toggleShowAdvanced = (currentValue: boolean) => {
     setShow(!currentValue);
@@ -107,8 +131,9 @@ export const Explorer: React.FC<Props> = (props) => {
         <title>Penny: {props.url}</title>
       </Head>
       <div className="lg:w-4/5 xl:w-2/3 2xl:w-1/2 mx-auto p-5 md:pt-10">
-      	{/* {isRoot && isIntegrated() ? intro : null } */}
-      	{isRoot ? intro : null } {/* for dev purposes, otherwise use the above */}
+        {/* {isRoot && isIntegrated() ? intro : null } */}
+        {isRoot ? intro : null}{" "}
+        {/* for dev purposes, otherwise use the above */}
         {fileViewer || isRoot ? null : showAdvancedButton}
         {errorViewer}
         {containerViewer}

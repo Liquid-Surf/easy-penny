@@ -8,7 +8,7 @@ import Link from "next/link";
 import * as storage from "../../functions/localStorage";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { logout } from "@inrupt/solid-client-authn-browser";
-import { getAssetLink, getExplorePath } from "../../functions/integrate";
+import { getAssetLink, getExplorePath,  isIntegrated } from "../../functions/integrate";
 import { useLocalization } from "@fluent/react";
 import { connect } from "../../functions/connect";
 
@@ -57,21 +57,8 @@ export const UserMenu: FC = () => {
     </Link>
   ) : null;
 
-  return (
-    <>
-      <LoggedOut>
-        <button
-          className="lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
-          onClick={(e) => {
-            document.location.href = "/idp/register/";
-          }}
-          title={l10n.getString("connect-button-tooltip")}
-        >
-          <span aria-hidden="true" className="px-2 md:inline">
-            Register
-          </span>
-        </button>
-        <button
+	const connectButton =  
+				<button
           className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
           onClick={(e) => {
             e.preventDefault();
@@ -83,7 +70,9 @@ export const UserMenu: FC = () => {
             {l10n.getString("connect-button")}
           </span>
         </button>
-        <button
+
+	const connectButtonIntegrated =  
+				<button
           className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
           onClick={async (e) => {
             e.preventDefault();
@@ -105,9 +94,28 @@ export const UserMenu: FC = () => {
           title={l10n.getString("connect-button-tooltip")}
         >
           <span aria-hidden="true" className="px-2 md:inline">
-            {l10n.getString("connect-button") + " direct"}
+            {l10n.getString("connect-button")}
           </span>
         </button>
+
+	const registerButton = 
+				<button
+          className="lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
+          onClick={(e) => {
+            document.location.href = "/idp/register/";
+          }}
+          title={l10n.getString("connect-button-tooltip")}
+        >
+          <span aria-hidden="true" className="px-2 md:inline">
+            Register
+          </span>
+        </button>
+
+  return (
+    <>
+      <LoggedOut>
+      	{ isIntegrated() ? registerButton : null }
+        { isIntegrated() ? connectButtonIntegrated : connectButton }
       </LoggedOut>
       <LoggedIn>
         <div className="flex space-x-5">

@@ -25,13 +25,6 @@ export const FetchErrorViewer: FC<Props> = (props) => {
         <div className="bg-red-100 border-red-600 border-2 rounded p-5">
           {l10n.getString("fetcherror-no-permission")}
         </div>
-        <LoggedOut>
-          <div className="pt-10">
-            <div className="shadow p-5">
-              <ConnectForm />
-            </div>
-          </div>
-        </LoggedOut>
       </>
     );
   }

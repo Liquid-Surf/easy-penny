@@ -15,6 +15,7 @@ import { useProfile } from "../hooks/profile";
 import { LoggedOut } from "../components/session/LoggedOut";
 import { LoggedIn } from "../components/session/LoggedIn";
 import { ClientLocalized } from "../components/ClientLocalized";
+import { useRoot } from "../hooks/root";
 
 const Home: React.FC = () => {
   const profile = useProfile();
@@ -36,6 +37,18 @@ const Home: React.FC = () => {
         )
       )
     : [];
+
+  // If we could not find a `space.storage` in the user's profile (such as on
+  // CSS:
+  // https://github.com/CommunitySolidServer/CommunitySolidServer/issues/910),
+  // try traversing up from the WebID to find a Container that advertises itself
+  // as a `space.storage`:
+  const webIdRoot = useRoot(
+    webId.length > 0 && storages.length === 0 ? webId : null
+  );
+  if (typeof webIdRoot === "string") {
+    storages.push(webIdRoot);
+  }
 
   return (
     <Layout>

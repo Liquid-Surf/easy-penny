@@ -97,7 +97,7 @@ publish_npm:
     - mv "penny-pod-inspector-${NEW_VERSION}.tgz" package.tgz
   environment:
     name: production
-    url: https://www.npmjs.com/package/$CI_PROJECT_NAME
+    url: https://www.npmjs.com/package/penny-pod-inspector
   artifacts:
     expire_in: 1 month
     paths:

@@ -14,8 +14,8 @@ export function getExplorePath(url: string, hash?: string): string {
     const relativeUrl = targetUrl.pathname + targetUrl.search + hashFragment;
     const allowedProtocols = ["https:"];
     if (
-      !allowedProtocols.includes(targetUrl.protocol) ||
-      !relativeUrl.startsWith("/")
+      !allowedProtocols.includes(targetUrl.protocol) &&
+      !(targetUrl.protocol === "http:" && targetUrl.hostname === "localhost")
     ) {
       return encodeURIComponent(relativeUrl);
     }

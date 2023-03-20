@@ -81,7 +81,7 @@ export const Layout = (props: Props) => {
             </div>
           </div>
         </header>
-        <main className="flex-grow container mx-auto">{props.children}</main>
+        <main className="flex-grow w-full">{props.children}</main>
         <footer className="px-8 py-14">
           <div className="flex items-center space-x-3 justify-center border-gray-50 border-t-2 pt-10 text-gray-700">
             <ClientLocalized

@@ -73,6 +73,13 @@ intro-get-started-logged-in =
   And if you have feedback, please&nbsp;
   <contact-link>get in touch</contact-link>!
 
+## Tree view
+tree-expand-button-label = Open tree view
+tree-expand-button-tooltip = Expand tree view
+tree-collapse-button-label = Close tree view
+tree-collapse-button-tooltip = Collapse tree view
+tree-label = Pod Resources
+
 ## ContainerViewer
 container-children-heading = Contained resources
 container-empty-warning = This Container is empty.

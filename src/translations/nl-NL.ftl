@@ -70,6 +70,13 @@ intro-get-started-logged-in =
   of vul bovenaan de pagina handmatig een URL in.
   Als je feedback hebt, <contact-link>laat het weten</contact-link>!
 
+## Tree view
+tree-expand-button-label = Open resource-boom
+tree-expand-button-tooltip = Boom uitklappen
+tree-collapse-button-label = Sluit resource-boom
+tree-collapse-button-tooltip = Boom dichtklappen
+tree-label = Resources in je Pod
+
 ## ContainerViewer
 container-children-heading = Resources in deze container
 container-empty-warning = Deze container is leeg.

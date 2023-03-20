@@ -7,26 +7,69 @@ import {
 import { space } from "rdf-namespaces";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { useEffect, useState } from "react";
+import { useSessionInfo } from "./sessionInfo";
+
+const rootCache: string[] = [];
+
+const cacheRoot = (url: UrlString, webId?: UrlString) => {
+  const prefix = (webId ?? "") + "|";
+  const cacheValue = prefix + url;
+  if (!rootCache.includes(cacheValue)) {
+    rootCache.push(cacheValue);
+  }
+};
+const getCachedRoot = (
+  path: UrlString,
+  webId?: UrlString
+): UrlString | null => {
+  const prefix = (webId ?? "") + "|";
+
+  const cachedRoot = rootCache.find((cachedRoot) => {
+    return (
+      cachedRoot.substring(0, prefix.length) === prefix &&
+      path.startsWith(cachedRoot.substring(prefix.length))
+    );
+  });
+
+  return typeof cachedRoot === "string"
+    ? cachedRoot.substring(prefix.length)
+    : null;
+};
 
 export function useRoot(url: null): null;
 export function useRoot(url: UrlString | null): UrlString | undefined | null;
 export function useRoot(url: UrlString | null): UrlString | undefined | null {
   const [root, setRoot] = useState<string | undefined | null>();
+  const sessionInfo = useSessionInfo();
 
   useEffect(() => {
     if (typeof url !== "string") {
       setRoot(null);
       return;
     }
+
+    const cachedRoot = getCachedRoot(url, sessionInfo?.webId);
+    if (typeof cachedRoot === "string") {
+      setRoot(cachedRoot);
+      return;
+    }
+
     getRoot(url).then((root) => {
       setRoot(root);
+      if (root === null) {
+        return;
+      }
+      cacheRoot(root, sessionInfo?.webId);
     });
-  }, [url]);
+    // We're not technically using the user's WebID, but when they log in,
+    // we do want to refetch, because we might suddenly have access to Resources
+    // that we did not have access to before:
+  }, [url, sessionInfo?.webId]);
 
   return root;
 }
 
-async function getRoot(url: UrlString): Promise<UrlString | undefined | null> {
+async function getRoot(url: UrlString): Promise<UrlString | null> {
   try {
     const resourceInfo = await getResourceInfo(url, { fetch: fetch });
 

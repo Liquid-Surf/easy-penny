@@ -15,10 +15,16 @@ const IntegratedHome: React.FC = () => {
     return null;
   }
 
-  const url = typeof window !== "undefined"
-    ? window.location.origin + router.basePath + router.asPath
-    : undefined;
-  return <Explorer url={url}/>;
+  const url =
+    typeof window !== "undefined"
+      ? window.location.origin + router.basePath + router.asPath
+      : undefined;
+  return (
+    <Explorer
+      url={url}
+      onUrlChange={(url, options) => router.push(url, undefined, options)}
+    />
+  );
 };
 
 export default IntegratedHome;

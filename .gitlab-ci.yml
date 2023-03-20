@@ -47,6 +47,34 @@ test:
   - npm ci
   - npm test
 
+e2e_test_standalone:
+  stage: test
+  image: mcr.microsoft.com/playwright:v1.31.0-focal
+  dependencies:
+    - build
+  script:
+    - MODE="standalone" npx playwright test
+  artifacts:
+    paths:
+      - test-results
+      - playwright-report
+    when: always
+    expire_in: 1 week
+
+e2e_test_integrated:
+  stage: test
+  image: mcr.microsoft.com/playwright:v1.31.0-focal
+  dependencies:
+    - build_integrated
+  script:
+    - MODE="integrated" npx playwright test
+  artifacts:
+    paths:
+      - test-results
+      - playwright-report
+    when: always
+    expire_in: 1 week
+
 publish_npm:
   stage: release
   image: node:14

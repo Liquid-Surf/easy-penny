@@ -8,6 +8,12 @@
 # testing
 /coverage
 .eslintcache
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/e2e/community-solid-server/mock-pod/.acl
+/e2e/community-solid-server/mock-pod/.internal/
+/e2e/community-solid-server/mock-pod/.meta
 
 # next.js
 /.next/
@@ -15,6 +21,7 @@
 
 # production
 /build
+/server-ui
 
 # misc
 .DS_Store

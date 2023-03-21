@@ -14,6 +14,8 @@
 /e2e/community-solid-server/mock-pod/.acl
 /e2e/community-solid-server/mock-pod/.internal/
 /e2e/community-solid-server/mock-pod/.meta
+# These get created dynamically by the E2E test:
+/e2e/community-solid-server/mock-pod/del/malicious*.ttl
 
 # next.js
 /.next/

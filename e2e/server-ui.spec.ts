@@ -1,4 +1,6 @@
 import { test, expect } from "@playwright/test";
+import { writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
 
 test("browsing a Resource", async ({ page }) => {
   await page.goto("/container/malicious.ttl");
@@ -36,4 +38,45 @@ test("browsing a Resource", async ({ page }) => {
     name: "/malicious.ttl",
   });
   await expect(containedResourceLink).toBeVisible();
+});
+
+test("deleting a Resource that pretends to contain another Resource", async ({
+  page,
+}) => {
+  async function createMaliciousFile(): Promise<string> {
+    const random = Math.random().toString();
+    await writeFile(
+      resolve(
+        __dirname,
+        `./community-solid-server/mock-pod/del/malicious${random}.ttl`
+      ),
+      `
+      @prefix ldp: <http://www.w3.org/ns/ldp#>.
+      @prefix me: <>.
+      me:
+          a ldp:BasicContainer, ldp:Container;
+          ldp:contains <./dont-delete-me.ttl>.
+      `
+    );
+    return `malicious${random}.ttl`;
+  }
+  const fileName = await createMaliciousFile();
+  await page.goto(`/del/${fileName}`);
+
+  const deleteButton = await page.getByRole("button", {
+    name: "Delete resource",
+  });
+  await deleteButton.click();
+
+  const confirmationInput = await page.getByRole("textbox");
+  await confirmationInput.type(fileName);
+  await confirmationInput.press("Enter");
+
+  await page.goto("/del/dont-delete-me.ttl");
+
+  // Finding this message means that the file did not get delete,
+  // and hence that a previous recursive deletion vulnerability did not
+  // reoccur:
+  const emptyResourceNotice = await page.getByText("This resource is empty.");
+  await expect(emptyResourceNotice).toBeVisible();
 });

@@ -8,7 +8,11 @@ import Link from "next/link";
 import * as storage from "../../functions/localStorage";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { logout } from "@inrupt/solid-client-authn-browser";
-import { getAssetLink, getExplorePath } from "../../functions/integrate";
+import {
+  getAssetLink,
+  getExplorePath,
+  isIntegrated,
+} from "../../functions/integrate";
 import { useLocalization } from "@fluent/react";
 
 export const UserMenu: FC = () => {
@@ -44,17 +48,20 @@ export const UserMenu: FC = () => {
     );
   }
 
-  const profileLink = sessionInfo ? (
-    <Link
-      href={getExplorePath(
-        sessionInfo.webId,
-        encodeURIComponent(sessionInfo.webId)
-      )}
-      className="sm:hidden lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-gray-200 items-center hover:bg-gray-700 hover:text-white hover:border-gray-700 focus:border-gray-700 focus:outline-none"
-    >
-      {l10n.getString("profile-button")}
-    </Link>
-  ) : null;
+  const profileLink =
+    sessionInfo &&
+    (!isIntegrated() ||
+      new URL(sessionInfo.webId).origin === document.location.origin) ? (
+      <Link
+        href={getExplorePath(
+          sessionInfo.webId,
+          encodeURIComponent(sessionInfo.webId)
+        )}
+        className="sm:hidden lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-gray-200 items-center hover:bg-gray-700 hover:text-white hover:border-gray-700 focus:border-gray-700 focus:outline-none"
+      >
+        {l10n.getString("profile-button")}
+      </Link>
+    ) : null;
 
   return (
     <>

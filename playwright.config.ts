@@ -41,7 +41,7 @@ export default defineConfig({
     trace: "on-first-retry",
 
     screenshot: "on",
-    video: "on-first-retry",
+    video: process.env.CI ? "on-first-retry" : "on",
   },
 
   webServer: {

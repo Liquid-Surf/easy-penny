@@ -47,7 +47,7 @@ export default defineConfig({
   webServer: {
     command:
       process.env.MODE === "integrated"
-        ? "npx --package=@solid/community-server@5.0.0 community-solid-server --config ./e2e/community-solid-server/config.json --rootFilePath ./e2e/community-solid-server/mock-pod"
+        ? "npx --package=@solid/community-server@5.1.0 community-solid-server --config ./e2e/community-solid-server/config.json --rootFilePath ./e2e/community-solid-server/mock-pod"
         : process.env.MODE === "standalone"
         ? "npx serve --listen=3000 out"
         : "npm run dev",

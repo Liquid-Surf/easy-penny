@@ -14,6 +14,7 @@ import { useSessionInfo } from "../../hooks/sessionInfo";
 import { ClientLocalized } from "../ClientLocalized";
 import { SubmitButton, TextField } from "../ui/forms";
 import { Spinner } from "../ui/Spinner";
+import { useIntegratedIssuer } from "../../hooks/integratedIssuer";
 
 export const ConnectForm: FC = (props) => {
   const { l10n } = useLocalization();
@@ -32,6 +33,7 @@ export const ConnectForm: FC = (props) => {
   const autoconnectInputId = useId();
   const [loading, setLoading] = useState(false);
   const sessionInfo = useSessionInfo();
+  const integratedIssuer = useIntegratedIssuer();
 
   if (loading || typeof sessionInfo === "undefined") {
     return (
@@ -298,6 +300,9 @@ export const ConnectForm: FC = (props) => {
           <option value="https://idp.use.id" />
           <option value="https://inrupt.net" />
           <option value="https://css.verborgh.org" />
+          {typeof integratedIssuer === "string" && (
+            <option value={integratedIssuer} />
+          )}
         </datalist>
         <div className="flex space-x-2 items-center">
           <input

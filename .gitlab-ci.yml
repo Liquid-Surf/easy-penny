@@ -56,8 +56,10 @@ e2e_test_standalone:
     - MODE="standalone" npx playwright test
   artifacts:
     paths:
+      - playwright-report/index.html
       - test-results
       - playwright-report
+    expose_as: 'Playwrite report - standalone mode'
     when: always
     expire_in: 1 week
 
@@ -70,8 +72,10 @@ e2e_test_integrated:
     - MODE="integrated" npx playwright test
   artifacts:
     paths:
+      - playwright-report/index.html
       - test-results
       - playwright-report
+    expose_as: 'Playwrite report - integrated mode'
     when: always
     expire_in: 1 week
 

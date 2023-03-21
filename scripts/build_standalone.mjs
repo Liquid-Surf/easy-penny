@@ -1,7 +1,7 @@
 #!/usr/bin/env zx
 import "zx/globals";
 
-await fs.move("src/pages/server_ui.tsx", "scripts/.cache/src/pages/server_ui.tsx");
+await fs.move("src/pages/server_ui.tsx", "scripts/.cache/src/pages/server_ui.tsx", { overwrite: true });
 
 let exitCode = 0;
 let error = "";

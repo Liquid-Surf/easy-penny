@@ -1,7 +1,30 @@
 #!/usr/bin/env zx
 import "zx/globals";
 
-await fs.move("src/pages/server_ui.tsx", "scripts/.cache/src/pages/server_ui.tsx", { overwrite: true });
+const unneededPages = ["src/pages/server_ui.tsx"];
+await Promise.all(
+  unneededPages.map(async (page) => {
+    await fs.move(page, `scripts/.cache/${page}`, { overwrite: true });
+  })
+);
+
+let restoreStarted = false;
+async function restore() {
+  if (restoreStarted) {
+    return;
+  }
+  restoreStarted = true;
+
+  await Promise.all(
+    unneededPages.map((page) =>
+      fs.move(`scripts/.cache/${page}`, page, { overwrite: true })
+    )
+  );
+}
+
+process.on("SIGINT", async () => {
+  await restore();
+});
 
 let exitCode = 0;
 let error = "";
@@ -15,7 +38,7 @@ try {
   error = output.error;
 }
 
-await fs.move("scripts/.cache/src/pages/server_ui.tsx", "src/pages/server_ui.tsx");
+await restore();
 
 if (exitCode !== 0) {
   console.error(error);

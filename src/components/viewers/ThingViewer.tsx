@@ -125,11 +125,14 @@ export const ThingViewer: FC<Props> = (props) => {
   );
   const title = (
     <>
-      <span>
-        <span className="text-gray-400 font-normal">
-          {decodeURIComponent(noise)}
+      <span className="shrink min-w-0 flex items-center">
+        <span className="truncate" title={decodeURIComponent(noise + signal)}>
+          <span className="text-gray-400 font-normal">
+            {decodeURIComponent(noise)}
+          </span>
+          {decodeURIComponent(signal)}
         </span>
-        {decodeURIComponent(signal)} {clipboardLink}
+        <span className="shrink-0">{clipboardLink}</span>
       </span>
     </>
   );
@@ -167,7 +170,9 @@ export const ThingViewer: FC<Props> = (props) => {
       id={encodeURIComponent(asUrl(props.thing))}
     >
       <h3 className="flex items-center text-lg md:text-xl lg:text-2xl rounded-t-xl bg-gray-700 text-white p-5 font-bold break-words">
-        <span className="flex flex-grow items-center">{title}</span>
+        <span className="shrink min-w-0 flex flex-grow items-center">
+          {title}
+        </span>
         {typeof props.onCollapse === "function" && (
           <button
             aria-hidden="true"

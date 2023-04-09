@@ -44,26 +44,21 @@ export const Explorer: React.FC<Props> = (props) => {
     }
   }, [isTreeViewExpanded]);
 
-  const datasetViewer =
-    resource !== null && isLoadedDataset(resource) ? (
-      <DatasetViewer dataset={resource} />
-    ) : null;
+  const datasetViewer = isLoadedDataset(resource) ? (
+    <DatasetViewer dataset={resource} />
+  ) : null;
 
   const containerViewer =
-    resource !== null &&
-    isLoadedDataset(resource) &&
-    isContainer(resource.data) ? (
+    isLoadedDataset(resource) && isContainer(resource.data) ? (
       <ContainerViewer dataset={resource} />
     ) : null;
 
-  const fileViewer =
-    resource !== null && isLoadedFileData(resource) ? (
-      <FileViewer file={resource} />
-    ) : null;
+  const fileViewer = isLoadedFileData(resource) ? (
+    <FileViewer file={resource} />
+  ) : null;
 
   const errorViewer =
     typeof sessionInfo === "undefined" ||
-    resource === null ||
     (!isLoadedDataset(resource) && resource.isValidating) ? (
       <Spinner />
     ) : (

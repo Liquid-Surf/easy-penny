@@ -66,10 +66,7 @@ export function isFileData(data?: Record<string, unknown>): data is FileData {
   );
 }
 
-export function useResource(url: UrlString): CachedResource;
-export function useResource(url: null): null;
-export function useResource(url: UrlString | null): CachedResource | null;
-export function useResource(url: UrlString | null): CachedResource | null {
+export function useResource(url: UrlString | null): CachedResource {
   const resourceUrl = url ? getResourceUrl(url) : null;
   const sessionInfo = useSessionInfo();
   const resource = useSwr(

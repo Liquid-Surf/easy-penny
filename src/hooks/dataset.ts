@@ -3,12 +3,15 @@ import {
   UrlString,
   WithServerResourceInfo,
 } from "@inrupt/solid-client";
-import { CachedResource, FileData, useResource } from "./resource";
+import { CachedResource, FileData, isFileData, useResource } from "./resource";
 
-export type LoadedCachedDataset = CachedResource & {
-  data: Exclude<CachedResource["data"], undefined | FileData> &
-    WithServerResourceInfo;
+export type CachedDataset = CachedResource & {
+  data: Exclude<CachedResource["data"], FileData>;
 } & { save: (dataset: SolidDataset) => Promise<void> };
+
+export type LoadedCachedDataset = CachedDataset & {
+  data: Exclude<CachedDataset["data"], undefined>;
+};
 
 export function isLoadedDataset(
   dataset: CachedResource
@@ -20,15 +23,14 @@ export function isLoadedDataset(
   );
 }
 
-export function useDataset(url: UrlString): LoadedCachedDataset | null;
-export function useDataset(url: null): null;
-export function useDataset(url: UrlString | null): LoadedCachedDataset | null;
-export function useDataset(url: UrlString | null): LoadedCachedDataset | null {
+export function useDataset(url: UrlString | null): CachedDataset {
   const resource = useResource(url);
 
-  if (resource === null || !isLoadedDataset(resource)) {
-    return null;
-  }
+  const solidDataset =
+    resource?.data && !isFileData(resource.data) ? resource.data : undefined;
 
-  return resource;
+  return {
+    ...resource,
+    data: solidDataset,
+  };
 }

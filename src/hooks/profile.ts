@@ -1,22 +1,33 @@
-import { getThing, setThing, Thing, ThingPersisted } from "@inrupt/solid-client";
+import {
+  getThing,
+  setThing,
+  Thing,
+  ThingPersisted,
+} from "@inrupt/solid-client";
 import { useCallback } from "react";
 import { useSessionInfo } from "./sessionInfo";
 import { useProfileDoc } from "./profileDoc";
 
-export function useProfile(): { data: ThingPersisted, save: (profile: Thing) => void } | null {
+export function useProfile(): {
+  data: ThingPersisted;
+  save: (profile: Thing) => void;
+} | null {
   const sessionInfo = useSessionInfo();
   const profileDoc = useProfileDoc();
 
-  const update = useCallback((profile: Thing) => {
-    if (!profileDoc) {
-      return;
-    }
+  const update = useCallback(
+    (profile: Thing) => {
+      if (!profileDoc?.data) {
+        return;
+      }
 
-    const updatedProfileDoc = setThing(profileDoc.data, profile);
-    profileDoc.save(updatedProfileDoc);
-  }, [profileDoc]);
+      const updatedProfileDoc = setThing(profileDoc.data, profile);
+      profileDoc.save(updatedProfileDoc);
+    },
+    [profileDoc]
+  );
 
-  if (profileDoc === null || typeof sessionInfo?.webId === "undefined") {
+  if (!profileDoc?.data || typeof sessionInfo?.webId === "undefined") {
     return null;
   }
 

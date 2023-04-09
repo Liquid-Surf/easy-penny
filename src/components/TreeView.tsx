@@ -79,7 +79,10 @@ const TreeViewChildren = (props: TreeViewChildrenProps) => {
     currentChild ? [currentChild] : []
   );
 
-  if (!dataset || !isLoadedDataset(dataset)) {
+  if (
+    !dataset ||
+    (typeof dataset.error === "undefined" && !isLoadedDataset(dataset))
+  ) {
     return (
       <div className={`py-2 pl-${props.indent + 1}`}>
         <Spinner />

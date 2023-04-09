@@ -15,10 +15,10 @@ import { PredicateAdder } from "../adders/PredicateAdder";
 import { MdContentCopy, MdExpandLess, MdExpandMore } from "react-icons/md";
 // TODO: Memo:
 import { WacControl } from "./things/WacControl";
-import { useLocalization } from "@fluent/react";
 import { HasAccess } from "../HasAccess";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 import { useMediaQuery } from "../../hooks/mediaQuery";
+import { useL10n } from "../../hooks/l10n";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -45,7 +45,7 @@ export const ThingViewer: FC<Props> = (props) => {
     />
   ));
   const isMotionSafe = useMediaQuery("(prefers-reduced-motion: no-preference)");
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   const deleteThing = async () => {
     const updatedDataset = removeThing(props.dataset.data, props.thing);

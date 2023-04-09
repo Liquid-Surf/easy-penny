@@ -1,6 +1,6 @@
-import { useLocalization } from "@fluent/react";
 import { UrlString } from "@inrupt/solid-client";
 import React, { FC, MouseEventHandler, useState } from "react";
+import { useL10n } from "../../hooks/l10n";
 import { ClientLocalized } from "../ClientLocalized";
 import { SectionHeading } from "../ui/headings";
 import { Modal } from "../ui/modal";
@@ -13,7 +13,7 @@ interface Props {
 export const ImagePreview: FC<Props> = (props) => {
   const fileName = props.fileUrl.substring(props.fileUrl.lastIndexOf("/") + 1);
   const [modalPreview, setModalPreview] = useState(false);
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   const openPreviewModal: MouseEventHandler = (event) => {
     event.preventDefault();

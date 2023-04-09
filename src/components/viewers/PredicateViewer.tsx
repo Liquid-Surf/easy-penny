@@ -37,12 +37,12 @@ import { Url } from "../data/Url";
 import { ObjectAdder } from "../adders/ObjectAdder";
 import { ObjectViewer } from "./ObjectViewer";
 import { PredicateUrl } from "./PredicateUrl";
-import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "../ClientLocalized";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 import { HasAccess } from "../HasAccess";
 import { hasAccess } from "../../functions/hasAccess";
 import { ldp } from "rdf-namespaces";
+import { useL10n } from "../../hooks/l10n";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -52,7 +52,7 @@ interface Props {
 }
 
 export const PredicateViewer: FC<Props> = (props) => {
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
   const urlValues = getUrlAll(props.thing, props.predicate);
   const stringNoLocaleValues = getStringNoLocaleAll(
     props.thing,

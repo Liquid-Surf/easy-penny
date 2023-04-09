@@ -8,7 +8,6 @@ import {
 } from "@inrupt/solid-client";
 import { foaf, space, vcard, solid } from "rdf-namespaces";
 import Link from "next/link";
-import { useLocalization } from "@fluent/react";
 import { Layout } from "../components/Layout";
 import { SessionGate } from "../components/session/SessionGate";
 import { useProfile } from "../hooks/profile";
@@ -16,10 +15,11 @@ import { LoggedOut } from "../components/session/LoggedOut";
 import { LoggedIn } from "../components/session/LoggedIn";
 import { ClientLocalized } from "../components/ClientLocalized";
 import { useRoot } from "../hooks/root";
+import { useL10n } from "../hooks/l10n";
 
 const Home: React.FC = () => {
   const profile = useProfile();
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   const name = profile
     ? getStringNoLocale(profile.data, foaf.name) ??

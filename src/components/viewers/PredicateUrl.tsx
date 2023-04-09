@@ -1,8 +1,8 @@
-import { useLocalization } from "@fluent/react";
 import { UrlString } from "@inrupt/solid-client";
 import { FC, MouseEventHandler } from "react";
 import { toast } from "react-toastify";
 import { MdContentCopy } from "react-icons/md";
+import { useL10n } from "../../hooks/l10n";
 
 interface Props {
   url: UrlString;
@@ -15,7 +15,7 @@ export const PredicateUrl: FC<Props> = (props) => {
   );
   const noise = props.url.substring(0, importantSeparatorIndex + 1);
   const signal = props.url.substring(importantSeparatorIndex + 1);
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   const copyPredicateUrl: MouseEventHandler = async (event) => {
     event.preventDefault();

@@ -13,12 +13,12 @@ import {
   getExplorePath,
   isIntegrated,
 } from "../../functions/integrate";
-import { useLocalization } from "@fluent/react";
+import { useL10n } from "../../hooks/l10n";
 
 export const UserMenu: FC = () => {
   const [promptOpen, setPromptOpen] = useState(false);
   const sessionInfo = useSessionInfo();
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   if (promptOpen) {
     return (

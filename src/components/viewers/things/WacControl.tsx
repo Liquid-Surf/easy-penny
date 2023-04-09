@@ -1,4 +1,3 @@
-import { useLocalization } from "@fluent/react";
 import {
   addUrl,
   getPropertyAll,
@@ -26,6 +25,7 @@ import { Url } from "../../data/Url";
 import { ClientLocalized } from "../../ClientLocalized";
 import { Toggle } from "../../ui/Toggle";
 import { LoadedCachedDataset } from "../../../hooks/dataset";
+import { useL10n } from "../../../hooks/l10n";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -38,7 +38,7 @@ export const WacControl: FC<Props> = (props) => {
   const targetResourceUrl =
     getUrl(props.thing, acl.accessTo) ??
     getUrl(props.thing, acl.default__workaround);
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   type Target = "self" | "children";
   const isCurrentTarget = (target: Target): boolean => {

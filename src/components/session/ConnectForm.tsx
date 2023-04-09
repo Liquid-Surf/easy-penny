@@ -1,4 +1,3 @@
-import { useLocalization } from "@fluent/react";
 import { useId } from "react-aria";
 import React, {
   FC,
@@ -15,9 +14,10 @@ import { ClientLocalized } from "../ClientLocalized";
 import { SubmitButton, TextField } from "../ui/forms";
 import { Spinner } from "../ui/Spinner";
 import { useIntegratedIssuer } from "../../hooks/integratedIssuer";
+import { useL10n } from "../../hooks/l10n";
 
 export const ConnectForm: FC = (props) => {
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
   const suggestedSolidServer =
     typeof document !== "undefined"
       ? new URLSearchParams(document.location.search).get("solid_server")

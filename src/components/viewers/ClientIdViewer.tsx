@@ -1,4 +1,3 @@
-import { useLocalization } from "@fluent/react";
 import {
   createThing,
   getSourceUrl,
@@ -15,6 +14,7 @@ import { MdCheck, MdLabelOutline } from "react-icons/md";
 import { VscLink } from "react-icons/vsc";
 import { toast } from "react-toastify";
 import { LoadedCachedDataset } from "../../hooks/dataset";
+import { useL10n } from "../../hooks/l10n";
 import { ClientLocalized } from "../ClientLocalized";
 
 export type Props = {
@@ -29,7 +29,7 @@ export const solid_oidc = {
 };
 
 export const ClientIdViewer: React.FC<Props> = (props) => {
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
   const url = getSourceUrl(props.dataset.data);
   const clientIdThing =
     getThing(props.dataset.data, url) ?? createThing({ url: url });
@@ -149,7 +149,7 @@ type RedirectUrlEditorProps = {
   required?: boolean;
 };
 const RedirectUrlEditor: React.FC<RedirectUrlEditorProps> = (props) => {
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   return (
     <div className="p-2 flex space-x-2 pb-5 items-center">

@@ -30,7 +30,6 @@ import { ThingViewer } from "./ThingViewer";
 import { ConfirmOperation } from "../ConfirmOperation";
 import { SectionHeading } from "../ui/headings";
 import { deleteRecursively } from "../../functions/recursiveDelete";
-import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "../ClientLocalized";
 import { LinkedResourcesViewer } from "./LinkedResourcesViewer";
 import { HasAccess } from "../HasAccess";
@@ -38,6 +37,7 @@ import { LoadedCachedDataset } from "../../hooks/dataset";
 import { NotIntegrated } from "../integrated/NotIntegrated";
 import { ClientIdViewer, solid_oidc } from "./ClientIdViewer";
 import { hasAccess } from "../../functions/hasAccess";
+import { useL10n } from "../../hooks/l10n";
 
 interface Props {
   dataset: LoadedCachedDataset;
@@ -53,7 +53,7 @@ export const DatasetViewer: FC<Props> = (props) => {
   const [collapsedThings, setCollapsedThings] = useState<string[]>(
     getContainedResourceUrlAll(props.dataset.data)
   );
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   useEffect(() => {
     if (!thingToRestore) {

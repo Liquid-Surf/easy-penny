@@ -1,8 +1,8 @@
-import { useLocalization } from "@fluent/react";
 import { UrlString } from "@inrupt/solid-client";
 import React, { FC, FormEventHandler, lazy, Suspense, useState } from "react";
 import { MdCheck } from "react-icons/md";
 import { VscLink } from "react-icons/vsc";
+import { useL10n } from "../../hooks/l10n";
 import { ClientLocalized } from "../ClientLocalized";
 
 const NamespaceDatalist = lazy(() =>
@@ -17,7 +17,7 @@ interface Props {
 
 export const PredicateForm: FC<Props> = (props) => {
   const [newPredicate, setNewPredicate] = useState("");
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   const onSubmit: FormEventHandler = (event) => {
     event.preventDefault();

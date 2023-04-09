@@ -1,4 +1,3 @@
-import { useLocalization } from "@fluent/react";
 import {
   addDatetime,
   addDecimal,
@@ -22,6 +21,7 @@ import {
 } from "react-icons/md";
 import { VscCalendar, VscLink } from "react-icons/vsc";
 import { LoadedCachedDataset } from "../../hooks/dataset";
+import { useL10n } from "../../hooks/l10n";
 import { useNavigationBlock } from "../../hooks/navigationBlock";
 import { ClientLocalized } from "../ClientLocalized";
 
@@ -50,7 +50,7 @@ export const ObjectAdder: FC<Props> = (props) => {
   const [newDecimal, setNewDecimal] = useState("0.0");
   const [newDate, setNewDate] = useState("");
   const [newTime, setNewTime] = useState("");
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   useNavigationBlock(typeof objectType !== "undefined");
 

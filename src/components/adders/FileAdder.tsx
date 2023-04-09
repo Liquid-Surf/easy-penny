@@ -9,8 +9,8 @@ import { fetch } from "@inrupt/solid-client-authn-browser";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { DropzoneOptions, useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
-import { useLocalization } from "@fluent/react";
 import { LoadedCachedDataset } from "../../hooks/dataset";
+import { useL10n } from "../../hooks/l10n";
 
 interface Props {
   container: LoadedCachedDataset;
@@ -18,7 +18,7 @@ interface Props {
 
 export const FileAdder: FC<Props> = (props) => {
   const sessionInfo = useSessionInfo();
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   const onDrop: DropzoneOptions["onDrop"] = async (selectedFiles) => {
     try {

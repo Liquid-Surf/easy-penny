@@ -4,7 +4,6 @@ import Link from "next/link";
 import Head from "next/head";
 import { toast } from "react-toastify";
 import { MdCheck } from "react-icons/md";
-import { useLocalization } from "@fluent/react";
 import { SectionHeading } from "../ui/headings";
 import { getExplorePath } from "../../functions/integrate";
 import { ClientLocalized } from "../ClientLocalized";
@@ -12,6 +11,7 @@ import { HasAccess } from "../HasAccess";
 import { useTurtle } from "../../hooks/turtle";
 import { Loading } from "../Loading";
 import { Layout } from "../Layout";
+import { useL10n } from "../../hooks/l10n";
 
 interface Props {
   url: UrlString;
@@ -22,7 +22,7 @@ export const TurtleViewer: FC<Props> = (props) => {
 
   const [turtleToRestore, setTurtleToRestore] = useState<string>();
   const [formContent, setFormContent] = useState(file.data?.content ?? "");
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   useEffect(() => {
     if (!turtleToRestore) {

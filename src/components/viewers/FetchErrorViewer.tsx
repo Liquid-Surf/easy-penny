@@ -1,6 +1,6 @@
-import { useLocalization } from "@fluent/react";
 import { FetchError } from "@inrupt/solid-client";
 import { FC } from "react";
+import { useL10n } from "../../hooks/l10n";
 import { ConnectForm } from "../session/ConnectForm";
 import { LoggedOut } from "../session/LoggedOut";
 
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const FetchErrorViewer: FC<Props> = (props) => {
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   if (!props.error) {
     return null;

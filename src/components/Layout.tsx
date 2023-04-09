@@ -15,8 +15,8 @@ import { VscTwitter } from "react-icons/vsc";
 import { SiMastodon, SiGitlab } from "react-icons/si";
 import { getExplorePath } from "../functions/integrate";
 import { NotIntegrated } from "./integrated/NotIntegrated";
-import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "./ClientLocalized";
+import { useL10n } from "../hooks/l10n";
 
 interface Props {
   children: ReactNode;
@@ -26,7 +26,7 @@ interface Props {
 export const Layout = (props: Props) => {
   const [isEditingPath, setIsEditingPath] = useState(false);
   const router = useRouter();
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   const locationBarClass =
     props.path && props.path.length > 100

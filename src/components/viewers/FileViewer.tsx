@@ -15,10 +15,10 @@ import { ImagePreview } from "../preview/ImagePreview";
 import { AudioPreview } from "../preview/AudioPreview";
 import { VideoPreview } from "../preview/VideoPreview";
 import { TextPreview } from "../preview/TextPreview";
-import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "../ClientLocalized";
 import { HasAccess } from "../HasAccess";
 import { LoadedCachedFileData } from "../../hooks/file";
+import { useL10n } from "../../hooks/l10n";
 
 interface Props {
   file: LoadedCachedFileData;
@@ -28,7 +28,7 @@ export const FileViewer: FC<Props> = (props) => {
   const fileUrl = getSourceUrl(props.file.data);
   const [isRequestingDeletion, setIsRequestingDeletion] = useState(false);
   const fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   const blobUrl = URL.createObjectURL(props.file.data.blob);
 

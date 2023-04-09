@@ -1,4 +1,3 @@
-import { useLocalization } from "@fluent/react";
 import {
   addUrl,
   createAclFromFallbackAcl,
@@ -22,6 +21,7 @@ import { MdAdd } from "react-icons/md";
 import { toast } from "react-toastify";
 import { getExplorePath } from "../../functions/integrate";
 import { isLoadedDataset, LoadedCachedDataset } from "../../hooks/dataset";
+import { useL10n } from "../../hooks/l10n";
 import { useResource } from "../../hooks/resource";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { ClientLocalized } from "../ClientLocalized";
@@ -43,7 +43,7 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
   const acrDataset = useResource(acrUrl);
   const aclUrl = linkedResourceUrls.acl?.[0] ?? null;
   const aclDataset = useResource(aclUrl);
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
   const [isInitialisingAcl, setIsInitialisingAcl] = useState(false);
 
   const linkedResourceLabels: Record<UrlString, string> = {};

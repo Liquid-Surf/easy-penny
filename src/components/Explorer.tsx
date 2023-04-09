@@ -16,7 +16,7 @@ import { isLoadedDataset } from "../hooks/dataset";
 import { TreeView } from "./TreeView";
 import { useRoot } from "../hooks/root";
 import * as storage from "../functions/localStorage";
-import { useLocalization } from "@fluent/react";
+import { useL10n } from "../hooks/l10n";
 
 /** Next.js doesn't export this type, at the time of writing: */
 export type TransitionOptions = Parameters<Router["push"]>[2];
@@ -26,7 +26,7 @@ interface Props {
 }
 
 export const Explorer: React.FC<Props> = (props) => {
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
   const root = useRoot(props.url ?? null);
   const resource = useResource(
     typeof props.url === "string" ? props.url : null

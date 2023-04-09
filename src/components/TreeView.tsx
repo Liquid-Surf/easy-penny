@@ -1,9 +1,9 @@
-import { useLocalization } from "@fluent/react";
 import { getContainedResourceUrlAll, UrlString } from "@inrupt/solid-client";
 import { KeyboardEventHandler, useEffect, useRef, useState } from "react";
 import { FocusScope, useFocusManager } from "react-aria";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { isLoadedDataset, useDataset } from "../hooks/dataset";
+import { useL10n } from "../hooks/l10n";
 import { Spinner } from "./ui/Spinner";
 
 export interface Props {
@@ -21,7 +21,7 @@ export const TreeView = (props: Props) => {
   useEffect(() => {
     setHasRendered(true);
   }, []);
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   return (
     <div

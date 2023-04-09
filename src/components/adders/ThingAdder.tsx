@@ -1,4 +1,3 @@
-import { useLocalization } from "@fluent/react";
 import {
   createThing,
   getSourceUrl,
@@ -7,6 +6,7 @@ import {
 import React, { FC, FormEventHandler, useState } from "react";
 import { MdAdd, MdCheck } from "react-icons/md";
 import { LoadedCachedDataset } from "../../hooks/dataset";
+import { useL10n } from "../../hooks/l10n";
 import { useNavigationBlock } from "../../hooks/navigationBlock";
 import { ClientLocalized } from "../ClientLocalized";
 import { ThingViewer } from "../viewers/ThingViewer";
@@ -23,7 +23,7 @@ export const ThingAdder: FC<Props> = (props) => {
   const [phase, setPhase] = useState<
     "initial" | "setThingUrl" | "addPredicate"
   >("initial");
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   useNavigationBlock(phase !== "initial");
 

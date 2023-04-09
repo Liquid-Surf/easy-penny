@@ -1,3 +1,5 @@
+// *Other files* should use <ClientLocalized>, but this file can import from Fluent:
+// eslint-disable-next-line no-restricted-imports
 import { Localized, LocalizedProps } from "@fluent/react";
 import { useIsSSR } from "react-aria";
 import { FC } from "react";

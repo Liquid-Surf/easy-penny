@@ -17,9 +17,9 @@ import Link from "next/link";
 import { useSessionInfo } from "../../hooks/sessionInfo";
 import { FileAdder } from "./FileAdder";
 import { getExplorePath } from "../../functions/integrate";
-import { useLocalization } from "@fluent/react";
 import { ClientLocalized } from "../ClientLocalized";
 import { LoadedCachedDataset } from "../../hooks/dataset";
+import { useL10n } from "../../hooks/l10n";
 
 interface Props {
   container: LoadedCachedDataset;
@@ -29,7 +29,7 @@ export const ResourceAdder: FC<Props> = (props) => {
   const sessionInfo = useSessionInfo();
   const [phase, setPhase] = useState<"initial" | "chooseName">("initial");
   const [newResourceName, setNewResourceName] = useState("");
-  const { l10n } = useLocalization();
+  const l10n = useL10n();
 
   if (!sessionInfo) {
     return null;

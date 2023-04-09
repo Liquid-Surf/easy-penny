@@ -22,7 +22,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import Link from "next/link";
 import { toast } from "react-toastify";
 import { VscCode, VscTrash } from "react-icons/vsc";
 import { ThingAdder } from "../adders/ThingAdder";
@@ -34,16 +33,18 @@ import { ClientLocalized } from "../ClientLocalized";
 import { LinkedResourcesViewer } from "./LinkedResourcesViewer";
 import { HasAccess } from "../HasAccess";
 import { LoadedCachedDataset } from "../../hooks/dataset";
-import { NotIntegrated } from "../integrated/NotIntegrated";
 import { ClientIdViewer, solid_oidc } from "./ClientIdViewer";
 import { hasAccess } from "../../functions/hasAccess";
 import { useL10n } from "../../hooks/l10n";
+import { SWRConfig } from "swr";
+import { TurtleViewer } from "./TurtleViewer";
 
 interface Props {
   dataset: LoadedCachedDataset;
 }
 
 export const DatasetViewer: FC<Props> = (props) => {
+  const resourceUrl = getSourceUrl(props.dataset.data);
   const [thingToRestore, setThingToRestore] = useState<ThingPersisted>();
   const things = getThingAll(props.dataset.data).sort(
     getThingSorter(props.dataset.data)
@@ -65,6 +66,27 @@ export const DatasetViewer: FC<Props> = (props) => {
       setThingToRestore(undefined);
     });
   }, [thingToRestore, props.dataset]);
+
+  const [showRawTurtle, setShowRawTurtle] = useState(false);
+  useEffect(() => {
+    setShowRawTurtle(false);
+  }, [resourceUrl]);
+  if (showRawTurtle) {
+    return (
+      // We need a separate SWR cache provider because <TurtleViewer> does not parse the Resource
+      // into a SolidDataset. So when the same URL is loaded in the <DatasetViewer>,
+      // it shouldn't come from the <TurtleViewer>s cache:
+      <SWRConfig value={{ provider: () => new Map() }}>
+        <TurtleViewer
+          url={resourceUrl}
+          onClose={() => {
+            props.dataset.mutate();
+            setShowRawTurtle(false);
+          }}
+        />
+      </SWRConfig>
+    );
+  }
 
   const onUpdateThing = (changedThing: ThingPersisted) => {
     // The restoration needs to be triggered after the updated SolidDataset has been passed to
@@ -100,12 +122,11 @@ export const DatasetViewer: FC<Props> = (props) => {
           id="dataset-delete-toast-prepare"
           elems={{ "dataset-url": <samp /> }}
           vars={{
-            datasetUrl: decodeURIComponent(getSourceUrl(props.dataset.data)),
+            datasetUrl: decodeURIComponent(resourceUrl),
           }}
         >
           <span>
-            Preparing deletion of{" "}
-            <samp>{decodeURIComponent(getSourceUrl(props.dataset.data))}</samp>
+            Preparing deletion of <samp>{decodeURIComponent(resourceUrl)}</samp>
             &hellip;
           </span>
         </ClientLocalized>,
@@ -145,13 +166,12 @@ export const DatasetViewer: FC<Props> = (props) => {
           }
           elems={{ "dataset-url": <samp /> }}
           vars={{
-            datasetUrl: decodeURIComponent(getSourceUrl(props.dataset.data)),
+            datasetUrl: decodeURIComponent(resourceUrl),
           }}
         >
           <span>
-            Deleted{" "}
-            <samp>{decodeURIComponent(getSourceUrl(props.dataset.data))}</samp>{" "}
-            and its children.
+            Deleted <samp>{decodeURIComponent(resourceUrl)}</samp> and its
+            children.
           </span>
         </ClientLocalized>
       );
@@ -179,7 +199,6 @@ export const DatasetViewer: FC<Props> = (props) => {
     }
   };
 
-  const resourceUrl = getSourceUrl(props.dataset.data);
   const resourcePartStart = isContainer(props.dataset.data)
     ? resourceUrl.substring(0, resourceUrl.lastIndexOf("/")).lastIndexOf("/")
     : resourceUrl.lastIndexOf("/");
@@ -216,18 +235,13 @@ export const DatasetViewer: FC<Props> = (props) => {
             <SectionHeading>Danger Zone</SectionHeading>
           </ClientLocalized>
           <div className="grid sm:grid-cols-2 gap-5 pb-5">
-            {/* When running in integrated mode on a Pod itself, /turtle/ is not available. */}
-            <NotIntegrated>
-              <Link
-                href={`/turtle/?url=${encodeURIComponent(
-                  getSourceUrl(props.dataset.data)
-                )}`}
-                className="p-5 rounded border-4 border-gray-700 text-gray-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-gray-700 hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 focus:outline-none focus:ring-opacity-50"
-              >
-                <VscCode aria-hidden="true" />
-                <span>{l10n.getString("dataset-view-turtle")}</span>
-              </Link>
-            </NotIntegrated>
+            <button
+              onClick={() => setShowRawTurtle(true)}
+              className="p-5 rounded border-4 border-gray-700 text-gray-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-gray-700 hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 focus:outline-none focus:ring-opacity-50"
+            >
+              <VscCode aria-hidden="true" />
+              <span>{l10n.getString("dataset-view-turtle")}</span>
+            </button>
             {deletionModal}
             <button
               className="p-5 rounded border-4 border-red-700 text-red-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-red-700 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:outline-none focus:ring-opacity-50"
@@ -278,8 +292,7 @@ export const DatasetViewer: FC<Props> = (props) => {
     // or the Resource itself and the Resource is a Container, then it was
     // automatically added by the server:
     return (
-      (getSourceUrl(props.dataset.data) === thingUrl &&
-        containedResourceUrls.length > 0) ||
+      (resourceUrl === thingUrl && containedResourceUrls.length > 0) ||
       containedResourceUrls.includes(thingUrl)
     );
   };

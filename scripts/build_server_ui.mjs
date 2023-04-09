@@ -4,7 +4,6 @@ import "zx/globals";
 const unneededPages = [
   "src/pages/index.tsx",
   "src/pages/explore.tsx",
-  "src/pages/turtle.tsx",
 ];
 await Promise.all(
   unneededPages.map(async (page) => {

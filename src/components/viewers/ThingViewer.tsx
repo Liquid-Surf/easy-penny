@@ -166,7 +166,7 @@ export const ThingViewer: FC<Props> = (props) => {
 
   return (
     <div
-      className="bg-gray-50 rounded-xl relative pb-5"
+      className="bg-gray-50 rounded-xl rounded-t-2xl relative pb-5 target:outline target:outline-4 target:outline-gray-700"
       id={encodeURIComponent(asUrl(props.thing))}
     >
       <h3 className="flex items-center text-lg md:text-xl lg:text-2xl rounded-t-xl bg-gray-700 text-white p-5 font-bold break-words">

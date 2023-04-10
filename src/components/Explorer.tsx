@@ -30,7 +30,7 @@ export const Explorer: React.FC<Props> = (props) => {
   const resource = useResource(
     typeof props.url === "string" ? props.url : null
   );
-  const root = useRoot(resource.data ?? null);
+  const root = useRoot(resource.data ?? props.url ?? null);
   const sessionInfo = useSessionInfo();
   const [isTreeViewExpanded, setIsTreeViewExpanded] = React.useState(
     storage.getItem("expand-tree-view") === "true"

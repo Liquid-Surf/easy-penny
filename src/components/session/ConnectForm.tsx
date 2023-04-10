@@ -299,7 +299,6 @@ export const ConnectForm: FC = (props) => {
           <option value="https://solidweb.me" />
           <option value="https://idp.use.id" />
           <option value="https://inrupt.net" />
-          <option value="https://css.verborgh.org" />
           {typeof integratedIssuer === "string" && (
             <option value={integratedIssuer} />
           )}

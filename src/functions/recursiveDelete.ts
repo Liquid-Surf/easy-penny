@@ -4,6 +4,7 @@ import {
   getContainedResourceUrlAll,
   getSolidDataset,
   getSourceUrl,
+  isContainer,
   SolidDataset,
   UrlString,
   WithResourceInfo,
@@ -18,11 +19,7 @@ export async function deleteRecursively(
   options: DeleteOptions,
   ownOptions: OwnOptions = {}
 ) {
-  const datasetUrl = getSourceUrl(dataset);
-  const containedResourceUrls = getContainedResourceUrlAll(dataset).filter(
-    (containedUrl) =>
-      datasetUrl.endsWith("/") && containedUrl.startsWith(datasetUrl)
-  );
+  const containedResourceUrls = getContainedChildrenUrls(dataset);
   const containedDatasets = await Promise.all(
     containedResourceUrls.map(async (resourceUrl) => {
       try {
@@ -50,4 +47,29 @@ export async function deleteRecursively(
     ownOptions.onPrepareDelete(getSourceUrl(dataset));
   }
   return await deleteSolidDataset(dataset, options);
+}
+
+function getContainedChildrenUrls(
+  container: SolidDataset & WithResourceInfo
+): UrlString[] {
+  if (!isContainer(container)) {
+    return [];
+  }
+
+  const containerUrl = getSourceUrl(container);
+  function isValidChild(childUrl: UrlString | null): childUrl is UrlString {
+    return childUrl !== null && childUrl.startsWith(containerUrl);
+  }
+
+  const childrenUrls = getContainedResourceUrlAll(container)
+    .map((url) => {
+      try {
+        return new URL(url).href;
+      } catch {
+        return null;
+      }
+    })
+    .filter(isValidChild);
+
+  return childrenUrls;
 }

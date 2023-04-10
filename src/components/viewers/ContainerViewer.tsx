@@ -1,6 +1,7 @@
 import {
   getContainedResourceUrlAll,
   getSourceUrl,
+  isContainer,
   UrlString,
 } from "@inrupt/solid-client";
 import React, { FC } from "react";
@@ -64,12 +65,10 @@ export const ContainerViewer: FC<Props> = (props) => {
 };
 
 function compareResourceUrls(a: UrlString, b: UrlString): number {
-  const aIsContainer = a.endsWith("/");
-  const bIsContainer = b.endsWith("/");
-  if (aIsContainer && !bIsContainer) {
+  if (isContainer(a) && !isContainer(b)) {
     return -1;
   }
-  if (!aIsContainer && bIsContainer) {
+  if (!isContainer(a) && isContainer(b)) {
     return 1;
   }
 

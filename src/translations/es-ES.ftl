@@ -10,6 +10,7 @@ gitlab-label = Código fuente
 
 ## Layout - header
 urlbar-label = URL:
+urlbar-error-invalid = Por favor, introduce una URL válida
 urlbar-button-label =
   .value = Ir
 
@@ -71,6 +72,13 @@ intro-get-started-logged-in =
   Para empezar, utiliza los links de arriba para inspeccionar tu Pod,
   o introduce una URL directamente en la parte superior de la página.
   ¡Si tienes sugerencias, por favor <contact-link>ponte en contacto</contact-link>!
+
+## Tree view
+tree-expand-button-label = Abrir vista de árbol
+tree-expand-button-tooltip = Expandir vista de árbol
+tree-collapse-button-label = Cerrar vista de árbol
+tree-collapse-button-tooltip = Colapsar vista de árbol
+tree-label = Recursos en el Pod
 
 ## ContainerViewer
 container-children-heading = Recursos del Contenedor

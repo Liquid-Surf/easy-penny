@@ -10,6 +10,7 @@ gitlab-label = Codi font
 
 ## Layout - header
 urlbar-label = URL:
+urlbar-error-invalid = Si us plau, introdueix un URL vàlida
 urlbar-button-label =
   .value = Obre
 
@@ -65,12 +66,19 @@ intro-text =
   Assumeix familiaritat amb els conceptes de Solid.
 intro-get-started-logged-out =
   Per començar, connecta amb el teu Pod per inspeccionar les dades,
-  o introdueix una URL directament a la part superior de la pàgina.
+  o introdueix un URL directament a la part superior de la pàgina.
   Si tens cap suggeriment, no dubtis en <contact-link>contactar amb nosaltres</contact-link>!
 intro-get-started-logged-in =
   Per començar, fes servir els links a la part de dalt per inspeccionar el teu Pod,
-  o introdueix una URL directament a la part superior de la pàgina.
+  o introdueix un URL directament a la part superior de la pàgina.
   Si tens cap suggeriment, no dubtis en <contact-link>contactar amb nosaltres</contact-link>!
+
+## Tree view
+tree-expand-button-label = Obrir vista d'arbre
+tree-expand-button-tooltip = Expandir vista d'arbre
+tree-collapse-button-label = Tancar vista d'arbre
+tree-collapse-button-tooltip = Col·lapsar vista d'arbre
+tree-label = Recursos en el Pod
 
 ## ContainerViewer
 container-children-heading = Recursos del Contenidor

@@ -27,10 +27,10 @@ interface Props {
 
 export const Explorer: React.FC<Props> = (props) => {
   const l10n = useL10n();
-  const root = useRoot(props.url ?? null);
   const resource = useResource(
     typeof props.url === "string" ? props.url : null
   );
+  const root = useRoot(resource.data ?? null);
   const sessionInfo = useSessionInfo();
   const [isTreeViewExpanded, setIsTreeViewExpanded] = React.useState(
     storage.getItem("expand-tree-view") === "true"

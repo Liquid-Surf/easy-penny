@@ -3,6 +3,7 @@ import {
   getResourceInfo,
   getSourceUrl,
   UrlString,
+  WithServerResourceInfo,
 } from "@inrupt/solid-client";
 import { space } from "rdf-namespaces";
 import { fetch } from "@inrupt/solid-client-authn-browser";
@@ -37,18 +38,23 @@ const getCachedRoot = (
 };
 
 export function useRoot(url: null): null;
-export function useRoot(url: UrlString | null): UrlString | undefined | null;
-export function useRoot(url: UrlString | null): UrlString | undefined | null {
+export function useRoot(
+  url: UrlString | WithServerResourceInfo | null
+): UrlString | undefined | null;
+export function useRoot(
+  url: UrlString | WithServerResourceInfo | null
+): UrlString | undefined | null {
   const [root, setRoot] = useState<string | undefined | null>();
   const sessionInfo = useSessionInfo();
 
   useEffect(() => {
-    if (typeof url !== "string") {
+    if (url === null) {
       setRoot(null);
       return;
     }
 
-    const cachedRoot = getCachedRoot(url, sessionInfo?.webId);
+    const urlString = typeof url === "string" ? url : getSourceUrl(url);
+    const cachedRoot = getCachedRoot(urlString, sessionInfo?.webId);
     if (typeof cachedRoot === "string") {
       setRoot(cachedRoot);
       return;
@@ -69,9 +75,15 @@ export function useRoot(url: UrlString | null): UrlString | undefined | null {
   return root;
 }
 
-async function getRoot(url: UrlString): Promise<UrlString | null> {
+async function getRoot(
+  url: UrlString | WithServerResourceInfo
+): Promise<UrlString | null> {
   try {
-    const resourceInfo = await getResourceInfo(url, { fetch: fetch });
+    const resourceInfo =
+      typeof url === "string"
+        ? await getResourceInfo(url, { fetch: fetch })
+        : url;
+    const urlString = typeof url === "string" ? url : getSourceUrl(url);
 
     if (
       resourceInfo &&
@@ -82,7 +94,7 @@ async function getRoot(url: UrlString): Promise<UrlString | null> {
       return getSourceUrl(resourceInfo);
     }
 
-    const parentUrl = getParentUrl(url);
+    const parentUrl = getParentUrl(urlString);
     if (!parentUrl) {
       return null;
     }

@@ -10,6 +10,7 @@ gitlab-label = Source code
 
 ## Layout - header
 urlbar-label = URL:
+urlbar-error-invalid = Please enter a valid URL
 urlbar-button-label =
   .value = Go
 

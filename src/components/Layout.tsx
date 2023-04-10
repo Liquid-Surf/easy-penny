@@ -130,13 +130,23 @@ interface UrlBarProps {
 }
 const UrlBar: FC<UrlBarProps> = (props) => {
   const router = useRouter();
+  const l10n = useL10n();
   const [url, setUrl] = useState(
     props.path ? decodeURIComponent(props.path) : ""
   );
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    const targetPath = getExplorePath(encodeURI(url));
+    const normalisedUrl = normaliseUrlInput(url, props.path);
+    if (normalisedUrl === null) {
+      const urlField = e.target;
+      if (urlField instanceof HTMLInputElement) {
+        urlField.setCustomValidity(l10n.getString("urlbar-error-invalid"));
+        urlField.reportValidity();
+      }
+      return;
+    }
+    const targetPath = getExplorePath(encodeURI(normalisedUrl));
     router.push(targetPath);
   };
 
@@ -151,7 +161,8 @@ const UrlBar: FC<UrlBarProps> = (props) => {
         </label>
       </ClientLocalized>
       <TextField
-        type="url"
+        // Not of type `url`, so the user can enter e.g. "../":
+        type="text"
         name="urlInput"
         id="urlInput"
         value={url}
@@ -159,6 +170,9 @@ const UrlBar: FC<UrlBarProps> = (props) => {
         autoFocus={true}
         onChange={setUrl}
         className="w-full p-2"
+        required={true}
+        autoComplete="url"
+        inputMode="url"
       />
       <ClientLocalized id="urlbar-button-label" attrs={{ value: true }}>
         <SubmitButton value="Go" className="px-5 py-2" />
@@ -166,3 +180,16 @@ const UrlBar: FC<UrlBarProps> = (props) => {
     </form>
   );
 };
+
+function normaliseUrlInput(
+  input: string,
+  baseUrl?: UrlString
+): UrlString | null {
+  const trimmedInput = input.trim();
+  try {
+    const normalisedUrl = new URL(trimmedInput, baseUrl);
+    return normalisedUrl.href;
+  } catch (e) {
+    return null;
+  }
+}

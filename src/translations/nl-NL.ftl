@@ -10,6 +10,7 @@ gitlab-label = Broncode
 
 ## Layout - header
 urlbar-label = URL:
+urlbar-error-invalid = Vul een geldige URL in
 urlbar-button-label =
   .value = Ga
 

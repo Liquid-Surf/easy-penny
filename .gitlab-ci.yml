@@ -41,7 +41,7 @@ test:
 
 e2e_test_standalone:
   stage: test
-  image: mcr.microsoft.com/playwright:v1.31.0-focal
+  image: mcr.microsoft.com/playwright:v1.33.0-focal
   dependencies:
     - build
   script:
@@ -57,7 +57,7 @@ e2e_test_standalone:
 
 e2e_test_integrated:
   stage: test
-  image: mcr.microsoft.com/playwright:v1.31.0-focal
+  image: mcr.microsoft.com/playwright:v1.33.0-focal
   dependencies:
     - build_integrated
   script:

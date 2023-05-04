@@ -77,6 +77,7 @@ publish_npm:
   dependencies:
     - build
     - build_integrated
+    - e2e_test_integrated
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $NPM_TOKEN'
       when: always

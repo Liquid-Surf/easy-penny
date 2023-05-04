@@ -53,6 +53,7 @@ export default defineConfig({
         : "npm run dev",
     port: 3000,
     reuseExistingServer: !process.env.CI,
+    timeout: 120 * 1000,
   },
   testIgnore:
     process.env.MODE === "integrated"

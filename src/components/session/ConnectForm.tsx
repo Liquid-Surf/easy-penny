@@ -297,6 +297,7 @@ export const ConnectForm: FC = (props) => {
           <option value="https://solidcommunity.net" />
           <option value="https://solidweb.org" />
           <option value="https://solidweb.me" />
+          <option value="https://solid.redpencil.io" />
           <option value="https://idp.use.id" />
           <option value="https://inrupt.net" />
           {typeof integratedIssuer === "string" && (

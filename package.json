@@ -14,9 +14,9 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@fluent/bundle": "^0.17.0",
+    "@fluent/bundle": "^0.18.0",
     "@fluent/langneg": "^0.7.0",
-    "@fluent/react": "^0.15.0",
+    "@fluent/react": "^0.15.2",
     "@inrupt/solid-client": "^1.11.0",
     "@inrupt/solid-client-authn-browser": "^1.12.2",
     "next": "^13.0.6",

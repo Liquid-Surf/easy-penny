@@ -19,7 +19,7 @@
     "@fluent/react": "^0.15.2",
     "@inrupt/solid-client": "^1.11.0",
     "@inrupt/solid-client-authn-browser": "^1.17.1",
-    "next": "^13.0.6",
+    "next": "^13.4.19",
     "rdf-namespaces": "^1.9.2",
     "react": "^18.2.0",
     "react-aria": "^3.28.0",

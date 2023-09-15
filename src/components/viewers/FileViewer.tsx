@@ -19,6 +19,7 @@ import { ClientLocalized } from "../ClientLocalized";
 import { HasAccess } from "../HasAccess";
 import { LoadedCachedFileData } from "../../hooks/file";
 import { useL10n } from "../../hooks/l10n";
+import { JsonPreview } from "../preview/JsonPreview";
 
 interface Props {
   file: LoadedCachedFileData;
@@ -92,6 +93,9 @@ export const FileViewer: FC<Props> = (props) => {
     }
     if (contentTypeParts[0] === "text") {
       preview = <TextPreview file={props.file.data.blob} />;
+    }
+    if (contentType === "application/json") {
+      preview = <JsonPreview file={props.file} />;
     }
   }
 

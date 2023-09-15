@@ -284,6 +284,11 @@ preview-video-error-playback =
   Je browser kan geen voorvertoning laten zien van `{$filename}`.
   Je kan wel <download-link>het bestand downloaden</download-link>.
 
+preview-json-heading = Bestandsinhoud
+preview-json-save-button = Opslaan
+preview-json-update-toast-success = Opgeslagen. <undo-button>Ongedaan maken.</undo-button>
+preview-json-update-toast-error = Onbekende fout bij het opslaan van je JSON.
+
 preview-text-heading = Bestandsinhoud
 
 ## TurtleViewer

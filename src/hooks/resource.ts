@@ -1,5 +1,6 @@
 import {
   FetchError,
+  getContentType,
   getSolidDataset,
   getSourceUrl,
   hasServerResourceInfo,
@@ -24,7 +25,7 @@ export type FileData = WithServerResourceInfo & {
 
 const fetcher = async ([url, _webId]: [
   UrlString,
-  UrlString | undefined
+  UrlString | undefined,
 ]): Promise<FileData | (SolidDataset & WithServerResourceInfo)> => {
   const urlObject = new URL(url);
   // Ensure that when we fetch a Container that contains an `index.html`,
@@ -71,7 +72,7 @@ export function useResource(url: UrlString | null): CachedResource {
   const sessionInfo = useSessionInfo();
   const resource = useSwr(
     resourceUrl ? [resourceUrl, sessionInfo?.webId] : null,
-    fetcher
+    fetcher,
   );
 
   const update = useCallback(
@@ -85,11 +86,12 @@ export function useResource(url: UrlString | null): CachedResource {
               blob: newResource,
               etag: null,
             },
-            false
+            false,
           );
           try {
             await overwriteFile(getSourceUrl(resource.data), newResource, {
               fetch: fetch,
+              contentType: getContentType(resource.data) ?? undefined,
             });
           } catch (e) {
             await resource.mutate();
@@ -103,7 +105,7 @@ export function useResource(url: UrlString | null): CachedResource {
             const savedData = await saveSolidDatasetAt(
               getSourceUrl(resource.data),
               newResource,
-              { fetch: fetch }
+              { fetch: fetch },
             );
             // Update local data with confirmed changes from the server,
             // then refetch to fetch potential changes performed in a different tab:
@@ -115,7 +117,7 @@ export function useResource(url: UrlString | null): CachedResource {
         }
       }
     },
-    [resource]
+    [resource],
   );
 
   const cached: CachedResource = {

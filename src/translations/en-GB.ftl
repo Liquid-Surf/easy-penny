@@ -287,6 +287,11 @@ preview-video-error-playback =
   Unfortunately your browser cannot provide a preview of `{$filename}`.
   You can <download-link>download it</download-link> instead.
 
+preview-json-heading = File Contents
+preview-json-save-button = Save
+preview-json-update-toast-success = Saved. <undo-button>Undo.</undo-button>
+preview-json-update-toast-error = There was an error saving your JSON.
+
 preview-text-heading = File Contents
 
 ## TurtleViewer

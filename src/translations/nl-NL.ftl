@@ -290,6 +290,9 @@ preview-json-update-toast-success = Opgeslagen. <undo-button>Ongedaan maken.</un
 preview-json-update-toast-error = Onbekende fout bij het opslaan van je JSON.
 
 preview-text-heading = Bestandsinhoud
+preview-text-save-button = Opslaan
+preview-text-update-toast-success = Opgeslagen. <undo-button>Ongedaan maken.</undo-button>
+preview-text-update-toast-error = Onbekende fout bij het opslaan van je tekstbestand.
 
 ## TurtleViewer
 turtle-heading = Rauwe Turtle

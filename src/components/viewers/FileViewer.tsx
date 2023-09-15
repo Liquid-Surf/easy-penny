@@ -92,7 +92,7 @@ export const FileViewer: FC<Props> = (props) => {
       preview = <VideoPreview fileUrl={fileUrl} objectUrl={blobUrl} />;
     }
     if (contentTypeParts[0] === "text") {
-      preview = <TextPreview file={props.file.data.blob} />;
+      preview = <TextPreview file={props.file} />;
     }
     if (contentType === "application/json") {
       preview = <JsonPreview file={props.file} />;

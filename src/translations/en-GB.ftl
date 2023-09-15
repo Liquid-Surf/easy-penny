@@ -293,6 +293,9 @@ preview-json-update-toast-success = Saved. <undo-button>Undo.</undo-button>
 preview-json-update-toast-error = There was an error saving your JSON.
 
 preview-text-heading = File Contents
+preview-text-save-button = Save
+preview-text-update-toast-success = Saved. <undo-button>Undo.</undo-button>
+preview-text-update-toast-error = There was an error saving your text file.
 
 ## TurtleViewer
 turtle-heading = Raw Turtle

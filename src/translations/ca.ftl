@@ -286,7 +286,15 @@ preview-video-error-playback =
   Desafortunadament, el teu navegador no permet mostrar una previsualització de `{$filename}`.
   Com a alternativa, pots <download-link>descarregar-lo</download-link>.
 
+preview-json-heading = Contingut del fitxer
+preview-json-save-button = Guardar
+preview-json-update-toast-success = Guardat. <undo-button>Desfer.</undo-button>
+preview-json-update-toast-error = Hi ha hagut un error guardant el fitxer JSON.
+
 preview-text-heading = Contingut del fitxer
+preview-text-save-button = Guardar
+preview-text-update-toast-success = Guardat. <undo-button>Desfer.</undo-button>
+preview-text-update-toast-error = Hi ha hagut un error guardant el fitxer de text.
 
 ## TurtleViewer
 turtle-heading = Turtle en cru

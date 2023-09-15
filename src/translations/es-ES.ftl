@@ -286,7 +286,15 @@ preview-video-error-playback =
   Desafortunadamente, tu navegador no permite mostrar una previsualización de `{$filename}`.
   Como alternativa, puedes <download-link>descargarlo</download-link>.
 
+preview-json-heading = Contenido del archivo
+preview-json-save-button = Guardar
+preview-json-update-toast-success = Guardado. <undo-button>Deshacer.</undo-button>
+preview-json-update-toast-error = Ha ocurrido un error guardando el archivo JSON.
+
 preview-text-heading = Contenido del archivo
+preview-text-save-button = Guardar
+preview-text-update-toast-success = Guardado. <undo-button>Deshacer.</undo-button>
+preview-text-update-toast-error = Ha ocurrido un error guardando el archivo de texto.
 
 ## TurtleViewer
 turtle-heading = Turtle en crudo

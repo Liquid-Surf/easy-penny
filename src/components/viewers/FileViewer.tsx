@@ -20,6 +20,7 @@ import { HasAccess } from "../HasAccess";
 import { LoadedCachedFileData } from "../../hooks/file";
 import { useL10n } from "../../hooks/l10n";
 import { JsonPreview } from "../preview/JsonPreview";
+import { LinkedResourcesViewer } from "./LinkedResourcesViewer";
 
 interface Props {
   file: LoadedCachedFileData;
@@ -120,6 +121,7 @@ export const FileViewer: FC<Props> = (props) => {
         </a>
       </div>
       {preview}
+      <LinkedResourcesViewer dataset={props.file} />
       <HasAccess access={["write"]} resource={props.file.data}>
         <div className="pb-10">
           <ClientLocalized id="danger-zone-heading">

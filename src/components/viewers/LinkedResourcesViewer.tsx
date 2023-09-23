@@ -27,9 +27,10 @@ import { useSessionInfo } from "../../hooks/sessionInfo";
 import { ClientLocalized } from "../ClientLocalized";
 import { SectionHeading } from "../ui/headings";
 import { Spinner } from "../ui/Spinner";
+import { LoadedCachedFileData } from "../../hooks/file";
 
 interface Props {
-  dataset: LoadedCachedDataset;
+  dataset: LoadedCachedDataset | LoadedCachedFileData;
 }
 
 export const LinkedResourcesViewer: FC<Props> = (props) => {
@@ -72,7 +73,7 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
           {linkedResourceLabels[linkedResourceUrl]}
         </Link>
       );
-    }
+    },
   );
 
   let initialisationLinks = [];
@@ -90,7 +91,7 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
           className="w-full flex items-center space-x-2 p-5 rounded border-4 border-dashed border-gray-200 text-gray-500"
         >
           <Spinner />
-        </div>
+        </div>,
       );
     } else {
       const initialiseAcl = async () => {
@@ -100,7 +101,7 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
         firstControl = addUrl(
           firstControl,
           acl.accessTo,
-          getSourceUrl(props.dataset.data)
+          getSourceUrl(props.dataset.data),
         );
         firstControl = addUrl(firstControl, acl.mode, acl.Read);
         firstControl = addUrl(firstControl, acl.mode, acl.Write);
@@ -108,13 +109,13 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
         firstControl = addUrl(firstControl, acl.agent, sessionInfo!.webId);
         const resourceWithAcl = await getSolidDatasetWithAcl(
           getSourceUrl(props.dataset.data),
-          { fetch: fetch }
+          { fetch: fetch },
         );
         if (!hasAccessibleAcl(resourceWithAcl)) {
           setIsInitialisingAcl(false);
           toast(
             l10n.getString("linked-resources-acl-add-toast-error-not-allowed"),
-            { type: "error" }
+            { type: "error" },
           );
           return;
         }
@@ -147,7 +148,7 @@ export const LinkedResourcesViewer: FC<Props> = (props) => {
           <ClientLocalized id="linked-resources-acl-add">
             <span>Add Access Control List</span>
           </ClientLocalized>
-        </button>
+        </button>,
       );
     }
   }

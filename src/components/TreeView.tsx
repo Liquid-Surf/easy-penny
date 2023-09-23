@@ -62,7 +62,7 @@ const TreeViewChildren = (props: TreeViewChildrenProps) => {
       ? getContainedResourceUrlAll(dataset.data)
       : [];
   const children = containedResourceUrls.filter((childUrl) =>
-    childUrl.startsWith(props.path)
+    childUrl.startsWith(props.path),
   );
   let currentChild: UrlString | undefined;
   if (
@@ -76,7 +76,7 @@ const TreeViewChildren = (props: TreeViewChildrenProps) => {
     currentChild = props.path + postPathParts[0] + suffix;
   }
   const [expandedChildren, setExpandedChildren] = useState<string[]>(
-    currentChild ? [currentChild] : []
+    currentChild ? [currentChild] : [],
   );
 
   if (
@@ -92,7 +92,7 @@ const TreeViewChildren = (props: TreeViewChildrenProps) => {
 
   const setExpanded = (childUrl: string, expand: boolean) => {
     const newExpandedChildren = expandedChildren.filter(
-      (child) => child !== childUrl
+      (child) => child !== childUrl,
     );
     if (expand) {
       newExpandedChildren.push(childUrl);
@@ -208,8 +208,14 @@ const TreeViewResource = (props: TreeViewResourceProps) => {
         style={{
           // Width of <MdKeyboardArrowRight>, used in <TreeViewContainer>:
           width: "16px",
+          textAlign: "center",
+          fontSize: "18px",
+          fontWeight: "bold",
+          lineHeight: "16px",
         }}
-      />
+      >
+        ·
+      </span>
       <span className="shrink truncate">
         {props.path.substring(props.parentPath.length)}
       </span>

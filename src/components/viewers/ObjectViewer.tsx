@@ -40,7 +40,9 @@ export const ObjectViewer = (props: Props) => {
   return (
     <div className="flex p-2">
       {type}
-      <div className="flex-grow bg-white p-2 rounded-lg">{props.children}</div>
+      <div className="flex-grow overflow-x-auto w-0 bg-white p-2 rounded-lg">
+        {props.children}
+      </div>
       {options}
     </div>
   );

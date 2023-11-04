@@ -25,10 +25,10 @@ export const ConnectForm: FC = (props) => {
   const [issuerInput, setIssuerInput] = useState(
     suggestedSolidServer ??
       storage.getItem("last-successful-idp") ??
-      "https://solidcommunity.net"
+      "https://solidcommunity.net",
   );
   const [autoconnectInput, setAutoconnectInput] = useState(
-    storage.getItem("autoconnect") === "true"
+    storage.getItem("autoconnect") === "true",
   );
   const autoconnectInputId = useId();
   const [loading, setLoading] = useState(false);
@@ -59,13 +59,13 @@ export const ConnectForm: FC = (props) => {
     try {
       if (issuer === "https://broker.pod.inrupt.com") {
         throw new Error(
-          "Immediately caught; broker.pod.inrupt.com will appear to work, but return an invalid WebID. Thus, let's pre-emptively get us to the error path."
+          "Immediately caught; broker.pod.inrupt.com will appear to work, but return an invalid WebID. Thus, let's pre-emptively get us to the error path.",
         );
       }
       storage.setItem("last-attempted-idp", issuer);
       storage.setItem(
         "autoconnect",
-        autoconnectInput === true ? "true" : "false"
+        autoconnectInput === true ? "true" : "false",
       );
       await connect(issuer);
     } catch (e) {
@@ -94,7 +94,7 @@ export const ConnectForm: FC = (props) => {
           storage.setItem("last-attempted-idp", detectedIdp);
           storage.setItem(
             "autoconnect",
-            autoconnectInput === true ? "true" : "false"
+            autoconnectInput === true ? "true" : "false",
           );
           connect(detectedIdp);
         };
@@ -122,7 +122,7 @@ export const ConnectForm: FC = (props) => {
       }
       if (
         ["https://use.id", "https://pods.use.id", "https://op.use.id"].includes(
-          issuer
+          issuer,
         )
       ) {
         const suggestedServer = "https://idp.use.id";
@@ -132,7 +132,7 @@ export const ConnectForm: FC = (props) => {
           storage.setItem("last-attempted-idp", suggestedServer);
           storage.setItem(
             "autoconnect",
-            autoconnectInput === true ? "true" : "false"
+            autoconnectInput === true ? "true" : "false",
           );
           connect(suggestedServer);
         };
@@ -172,7 +172,7 @@ export const ConnectForm: FC = (props) => {
           storage.setItem("last-attempted-idp", suggestedServer);
           storage.setItem(
             "autoconnect",
-            autoconnectInput === true ? "true" : "false"
+            autoconnectInput === true ? "true" : "false",
           );
           connect(suggestedServer);
         };
@@ -205,7 +205,7 @@ export const ConnectForm: FC = (props) => {
           storage.setItem("last-attempted-idp", suggestedServer);
           storage.setItem(
             "autoconnect",
-            autoconnectInput === true ? "true" : "false"
+            autoconnectInput === true ? "true" : "false",
           );
           connect(suggestedServer);
         };
@@ -238,7 +238,7 @@ export const ConnectForm: FC = (props) => {
           storage.setItem("last-attempted-idp", suggestedServer);
           storage.setItem(
             "autoconnect",
-            autoconnectInput === true ? "true" : "false"
+            autoconnectInput === true ? "true" : "false",
           );
           connect(suggestedServer);
         };
@@ -297,6 +297,7 @@ export const ConnectForm: FC = (props) => {
           <option value="https://solidcommunity.net" />
           <option value="https://solidweb.org" />
           <option value="https://solidweb.me" />
+          <option value="https://teamid.live" />
           <option value="https://solid.redpencil.io" />
           <option value="https://idp.use.id" />
           <option value="https://inrupt.net" />

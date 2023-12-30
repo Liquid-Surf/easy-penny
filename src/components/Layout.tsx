@@ -11,7 +11,6 @@ import { useRouter } from "next/router";
 import { LocationBar } from "./LocationBar";
 import { SubmitButton, TextField } from "./ui/forms";
 import { UserMenu } from "./session/UserMenu";
-import { VscTwitter } from "react-icons/vsc";
 import { SiMastodon, SiGitlab } from "react-icons/si";
 import { getExplorePath } from "../functions/integrate";
 import { NotIntegrated } from "./integrated/NotIntegrated";
@@ -98,13 +97,6 @@ export const Layout = (props: Props) => {
               <span>By Vincent Tunru.</span>
             </ClientLocalized>
             <a
-              href="https://twitter.com/VincentTunru"
-              title={l10n.getString("twitter-tooltip")}
-              className="text-gray-500 p-2 border-2 border-white rounded hover:text-gray-700 hover:border-gray-700 focus:outline-none focus:text-gray-700 focus:border-gray-700"
-            >
-              <VscTwitter aria-label={l10n.getString("twitter-label")} />
-            </a>
-            <a
               href="https://fosstodon.org/@VincentTunru"
               title={l10n.getString("mastodon-tooltip")}
               className="text-gray-500 p-2 border-2 border-white rounded hover:text-gray-700 hover:border-gray-700 focus:outline-none focus:text-gray-700 focus:border-gray-700"
@@ -132,7 +124,7 @@ const UrlBar: FC<UrlBarProps> = (props) => {
   const router = useRouter();
   const l10n = useL10n();
   const [url, setUrl] = useState(
-    props.path ? decodeURIComponent(props.path) : ""
+    props.path ? decodeURIComponent(props.path) : "",
   );
 
   const onSubmit: FormEventHandler = (e) => {
@@ -183,7 +175,7 @@ const UrlBar: FC<UrlBarProps> = (props) => {
 
 function normaliseUrlInput(
   input: string,
-  baseUrl?: UrlString
+  baseUrl?: UrlString,
 ): UrlString | null {
   const trimmedInput = input.trim();
   try {

@@ -13,7 +13,7 @@ stages:
   - release
 
 build:
-  image: node:18
+  image: node:20
   stage: build
   script:
   - npm ci
@@ -23,7 +23,7 @@ build:
     - out
 
 build_integrated:
-  image: node:18
+  image: node:20
   stage: build
   script:
   - npm ci
@@ -33,7 +33,7 @@ build_integrated:
     - server-ui
 
 test:
-  image: node:18
+  image: node:20
   stage: test
   script:
   - npm ci
@@ -73,7 +73,7 @@ e2e_test_integrated:
 
 publish_npm:
   stage: release
-  image: node:18
+  image: node:20
   dependencies:
     - build
     - build_integrated

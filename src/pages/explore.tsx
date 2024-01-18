@@ -18,7 +18,7 @@ const Explore: React.FC = () => {
         router.push(
           { query: { ...router.query, url: url } },
           undefined,
-          options
+          options,
         )
       }
     />

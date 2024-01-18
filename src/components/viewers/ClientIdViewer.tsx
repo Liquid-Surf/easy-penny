@@ -34,11 +34,11 @@ export const ClientIdViewer: React.FC<Props> = (props) => {
   const clientIdThing =
     getThing(props.dataset.data, url) ?? createThing({ url: url });
   const [clientNameInput, setClientNameInput] = useState(
-    getStringNoLocale(clientIdThing, solid_oidc.client_name) ?? ""
+    getStringNoLocale(clientIdThing, solid_oidc.client_name) ?? "",
   );
   // TODO: Add warning if redirect URLs mix localhost and remote origins:
   const [redirectUrls, setRedirectUrls] = useState<UrlString[]>(
-    getUrlAll(clientIdThing, solid_oidc.redirect_uris) ?? []
+    getUrlAll(clientIdThing, solid_oidc.redirect_uris) ?? [],
   );
 
   const redirectUrlEditors = redirectUrls.map((redirectUrl, index) => {
@@ -68,7 +68,7 @@ export const ClientIdViewer: React.FC<Props> = (props) => {
         setRedirectUrls(redirectUrls.concat([newRedirectUrl]))
       }
       required={redirectUrls.length === 0}
-    />
+    />,
   );
 
   const onSubmit: FormEventHandler = async (event) => {

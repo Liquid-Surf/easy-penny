@@ -181,7 +181,7 @@ export const ThingViewer: FC<Props> = (props) => {
             title={l10n.getString(
               props.collapsed
                 ? "thing-expand-tooltip"
-                : "thing-collapse-tooltip"
+                : "thing-collapse-tooltip",
             )}
           >
             {props.collapsed ? (

@@ -18,7 +18,7 @@ interface Props {
 
 export const ThingAdder: FC<Props> = (props) => {
   const [thingUrl, setThingUrl] = useState(
-    getSourceUrl(props.dataset.data) + `#${Date.now()}`
+    getSourceUrl(props.dataset.data) + `#${Date.now()}`,
   );
   const [phase, setPhase] = useState<
     "initial" | "setThingUrl" | "addPredicate"

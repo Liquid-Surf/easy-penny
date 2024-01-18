@@ -18,7 +18,7 @@ import { useIsSSR } from "react-aria";
 type GetFragment = (
   id: Parameters<ReactLocalization["getString"]>[0],
   args?: Parameters<ReactLocalization["getElement"]>[2],
-  fallback?: Parameters<ReactLocalization["getString"]>[2]
+  fallback?: Parameters<ReactLocalization["getString"]>[2],
 ) => ReturnType<ReactLocalization["getElement"]>;
 
 type ExtendedReactLocalization = ReactLocalization & {
@@ -42,7 +42,7 @@ export const useL10n = (): ExtendedReactLocalization => {
   const ssrSafeGetElement: typeof l10n.getElement = (
     sourceElement,
     id,
-    args
+    args,
   ) => {
     if (isSsr) {
       return sourceElement;

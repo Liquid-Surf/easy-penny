@@ -24,7 +24,7 @@ export function useProfile(): {
       const updatedProfileDoc = setThing(profileDoc.data, profile);
       profileDoc.save(updatedProfileDoc);
     },
-    [profileDoc]
+    [profileDoc],
   );
 
   if (!profileDoc?.data || typeof sessionInfo?.webId === "undefined") {

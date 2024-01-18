@@ -32,9 +32,9 @@ const Home: React.FC = () => {
     ? Array.from(
         new Set(
           getUrlAll(profile.data, space.storage).concat(
-            getUrlAll(profile.data, solid.account)
-          )
-        )
+            getUrlAll(profile.data, solid.account),
+          ),
+        ),
       )
     : [];
 
@@ -44,7 +44,7 @@ const Home: React.FC = () => {
   // try traversing up from the WebID to find a Container that advertises itself
   // as a `space.storage`:
   const webIdRoot = useRoot(
-    webId.length > 0 && storages.length === 0 ? webId : null
+    webId.length > 0 && storages.length === 0 ? webId : null,
   );
   if (typeof webIdRoot === "string") {
     storages.push(webIdRoot);
@@ -155,7 +155,7 @@ const OwnerLink = (props: { webId: UrlString; children?: React.ReactNode }) => (
   <>
     <Link
       href={`/explore/?url=${encodeURIComponent(
-        props.webId
+        props.webId,
       )}#${encodeURIComponent(props.webId)}`}
       className="font-bold hover:text-gray-700 focus:underline focus:text-gray-700 focus:outline-none"
     >

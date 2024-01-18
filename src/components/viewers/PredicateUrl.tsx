@@ -11,7 +11,7 @@ interface Props {
 export const PredicateUrl: FC<Props> = (props) => {
   const importantSeparatorIndex = Math.max(
     props.url.lastIndexOf("/"),
-    props.url.lastIndexOf("#")
+    props.url.lastIndexOf("#"),
   );
   const noise = props.url.substring(0, importantSeparatorIndex + 1);
   const signal = props.url.substring(importantSeparatorIndex + 1);

@@ -13,7 +13,7 @@ type TurtleResponse = WithServerResourceInfo & { content: string };
 
 const fetcher = async ([url, _webId]: [
   UrlString,
-  UrlString?
+  UrlString?,
 ]): Promise<TurtleResponse> => {
   const response = await fetch(url, { headers: { Accept: "text/turtle" } });
   const resourceInfo = responseToResourceInfo(response);
@@ -23,7 +23,7 @@ const fetcher = async ([url, _webId]: [
     contentType.substring(0, "text/turtle".length) !== "text/turtle"
   ) {
     throw new Error(
-      `The server could not produce Turtle for the Resource at ${url}.`
+      `The server could not produce Turtle for the Resource at ${url}.`,
     );
   }
   const content = await response.text();
@@ -45,7 +45,7 @@ export function useTurtle(url: UrlString | null): CachedTurtle | null {
   const sessionInfo = useSessionInfo();
   const resource = useSwr(
     resourceUrl ? [resourceUrl, sessionInfo?.webId] : null,
-    fetcher
+    fetcher,
   );
 
   const update = useCallback(
@@ -77,7 +77,7 @@ export function useTurtle(url: UrlString | null): CachedTurtle | null {
         throw e;
       }
     },
-    [resourceUrl, resource]
+    [resourceUrl, resource],
   );
 
   const cached: CachedTurtle = {

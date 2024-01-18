@@ -38,7 +38,7 @@ export function getClientIdFor(issuer: string): string | null {
     "https://idp.use.id",
   ];
   return idpsWithClientIdEnabled.includes(
-    issuer.endsWith("/") ? issuer.substring(0, issuer.length - 1) : issuer
+    issuer.endsWith("/") ? issuer.substring(0, issuer.length - 1) : issuer,
   )
     ? process.env.NEXT_PUBLIC_CLIENT_ID
     : null;

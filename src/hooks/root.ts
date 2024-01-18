@@ -21,7 +21,7 @@ const cacheRoot = (url: UrlString, webId?: UrlString) => {
 };
 const getCachedRoot = (
   path: UrlString,
-  webId?: UrlString
+  webId?: UrlString,
 ): UrlString | null => {
   const prefix = (webId ?? "") + "|";
 
@@ -39,10 +39,10 @@ const getCachedRoot = (
 
 export function useRoot(url: null): null;
 export function useRoot(
-  url: UrlString | WithServerResourceInfo | null
+  url: UrlString | WithServerResourceInfo | null,
 ): UrlString | undefined | null;
 export function useRoot(
-  url: UrlString | WithServerResourceInfo | null
+  url: UrlString | WithServerResourceInfo | null,
 ): UrlString | undefined | null {
   const [root, setRoot] = useState<string | undefined | null>();
   const sessionInfo = useSessionInfo();
@@ -76,7 +76,7 @@ export function useRoot(
 }
 
 async function getRoot(
-  url: UrlString | WithServerResourceInfo
+  url: UrlString | WithServerResourceInfo,
 ): Promise<UrlString | null> {
   try {
     const resourceInfo =
@@ -120,7 +120,7 @@ function getParentUrl(url: UrlString | null): UrlString | null {
     : path;
   const parentPath = pathWithoutTrailingSlash.substring(
     0,
-    pathWithoutTrailingSlash.lastIndexOf("/")
+    pathWithoutTrailingSlash.lastIndexOf("/"),
   );
 
   return urlObject.origin + parentPath + "/";

@@ -11,11 +11,11 @@ const allKnownPredicates: PredicateParts[] = Array.from(
     Object.entries(knownPredicates)
       .map(([namespace, namespaceContents]) =>
         Object.entries(namespaceContents).map(
-          ([abbr, url]) => [namespace, abbr, url] as const
-        )
+          ([abbr, url]) => [namespace, abbr, url] as const,
+        ),
       )
-      .flat()
-  )
+      .flat(),
+  ),
 );
 
 export const NamespaceDatalist: FC<Props> = (props) => {

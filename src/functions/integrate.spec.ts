@@ -16,13 +16,13 @@ describe("In integrated mode", () => {
   describe("getExplorePath", () => {
     it("URL-encodes filenames that pretend to be a URL with a non-HTTPS protocol", async () => {
       expect(getExplorePath("foo:javascript:alert(1)")).toBe(
-        "javascript%3Aalert(1)"
+        "javascript%3Aalert(1)",
       );
     });
 
     it("preserves HTTPS links", async () => {
       expect(getExplorePath("https://my.pod/some-container/")).toBe(
-        "/some-container/"
+        "/some-container/",
       );
     });
   });

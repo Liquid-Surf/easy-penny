@@ -17,7 +17,7 @@ type OwnOptions = {
 export async function deleteRecursively(
   dataset: SolidDataset & WithResourceInfo,
   options: DeleteOptions,
-  ownOptions: OwnOptions = {}
+  ownOptions: OwnOptions = {},
 ) {
   const containedResourceUrls = getContainedChildrenUrls(dataset);
   const containedDatasets = await Promise.all(
@@ -33,7 +33,7 @@ export async function deleteRecursively(
         await deleteFile(resourceUrl, options);
         return null;
       }
-    })
+    }),
   );
   await Promise.all(
     containedDatasets.map(async (containedDataset) => {
@@ -41,7 +41,7 @@ export async function deleteRecursively(
         return;
       }
       return await deleteRecursively(containedDataset, options, ownOptions);
-    })
+    }),
   );
   if (typeof ownOptions.onPrepareDelete === "function") {
     ownOptions.onPrepareDelete(getSourceUrl(dataset));
@@ -50,7 +50,7 @@ export async function deleteRecursively(
 }
 
 function getContainedChildrenUrls(
-  container: SolidDataset & WithResourceInfo
+  container: SolidDataset & WithResourceInfo,
 ): UrlString[] {
   if (!isContainer(container)) {
     return [];

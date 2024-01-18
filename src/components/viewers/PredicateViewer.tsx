@@ -56,7 +56,7 @@ export const PredicateViewer: FC<Props> = (props) => {
   const urlValues = getUrlAll(props.thing, props.predicate);
   const stringNoLocaleValues = getStringNoLocaleAll(
     props.thing,
-    props.predicate
+    props.predicate,
   );
   const integerValues = getIntegerAll(props.thing, props.predicate);
   const decimalValues = getDecimalAll(props.thing, props.predicate);
@@ -162,7 +162,7 @@ export const PredicateViewer: FC<Props> = (props) => {
     updateThing(removeStringNoLocale(props.thing, props.predicate, string));
   const deleteStringWithLocale = (string: string, locale: string) =>
     updateThing(
-      removeStringWithLocale(props.thing, props.predicate, string, locale)
+      removeStringWithLocale(props.thing, props.predicate, string, locale),
     );
   const deleteInteger = (integer: number) =>
     updateThing(removeInteger(props.thing, props.predicate, integer));
@@ -351,12 +351,12 @@ export const PredicateViewer: FC<Props> = (props) => {
               if (isNaN(value.getTime())) {
                 const datetimes = getTermAll(
                   props.thing,
-                  props.predicate
+                  props.predicate,
                 ).filter(
                   (term) =>
                     term.termType === "Literal" &&
                     term.datatype.value ===
-                      "http://www.w3.org/2001/XMLSchema#dateTime"
+                      "http://www.w3.org/2001/XMLSchema#dateTime",
                 );
                 if (datetimes.length === 1) {
                   // If there's just one value of type dateTime, it must be the current one,

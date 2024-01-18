@@ -80,7 +80,7 @@ export const ResourceAdder: FC<Props> = (props) => {
             {l10n.getString("resource-add-toast-success-view-button")}
           </Link>
         </>,
-        { type: "info" }
+        { type: "info" },
       );
     };
 

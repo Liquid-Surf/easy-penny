@@ -27,7 +27,7 @@ export const Url: FC<Props> = (props) => {
   }
 
   const matchingOrigin = browsableOrigins.find(
-    (storageUrl) => props.url.substring(0, storageUrl.length) === storageUrl
+    (storageUrl) => props.url.substring(0, storageUrl.length) === storageUrl,
   );
 
   const shortUrl =

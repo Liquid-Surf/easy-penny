@@ -56,7 +56,7 @@ export const TurtleViewer: FC<Props> = (props) => {
           >
             <span>Saved.</span>
           </ClientLocalized>,
-          { type: "info" }
+          { type: "info" },
         );
       })
       .catch(() => {
@@ -64,7 +64,7 @@ export const TurtleViewer: FC<Props> = (props) => {
           <ClientLocalized id="turtle-update-toast-error">
             <span>There was an error saving your Turtle.</span>
           </ClientLocalized>,
-          { type: "error" }
+          { type: "error" },
         );
       });
   };

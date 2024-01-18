@@ -5,9 +5,12 @@ import { Layout } from "../components/Layout";
 const NotFound: React.FC = () => {
   const router = useRouter();
 
-  const currentUrl = typeof window !== "undefined" ? new URL(window.location.origin + router.asPath) : undefined;
+  const currentUrl =
+    typeof window !== "undefined"
+      ? new URL(window.location.origin + router.asPath)
+      : undefined;
   const oldExploreRoute = currentUrl?.pathname.match(/\/explore\/(.+)/);
-  if(Array.isArray(oldExploreRoute) && oldExploreRoute.length === 2) {
+  if (Array.isArray(oldExploreRoute) && oldExploreRoute.length === 2) {
     router.replace(`/explore/?url=${oldExploreRoute[1]}`);
   }
 

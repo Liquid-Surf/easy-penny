@@ -28,12 +28,12 @@ interface Props {
 export const Explorer: React.FC<Props> = (props) => {
   const l10n = useL10n();
   const resource = useResource(
-    typeof props.url === "string" ? props.url : null
+    typeof props.url === "string" ? props.url : null,
   );
   const root = useRoot(resource.data ?? props.url ?? null);
   const sessionInfo = useSessionInfo();
   const [isTreeViewExpanded, setIsTreeViewExpanded] = React.useState(
-    storage.getItem("expand-tree-view") === "true"
+    storage.getItem("expand-tree-view") === "true",
   );
 
   React.useEffect(() => {
@@ -102,14 +102,14 @@ export const Explorer: React.FC<Props> = (props) => {
               title={l10n.getString(
                 isTreeViewExpanded
                   ? "tree-collapse-button-tooltip"
-                  : "tree-expand-button-tooltip"
+                  : "tree-expand-button-tooltip",
               )}
             >
               <VscListTree
                 aria-label={l10n.getString(
                   isTreeViewExpanded
                     ? "tree-collapse-button-label"
-                    : "tree-expand-button-label"
+                    : "tree-expand-button-label",
                 )}
               />
             </button>

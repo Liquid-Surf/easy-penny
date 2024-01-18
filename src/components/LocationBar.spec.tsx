@@ -10,7 +10,7 @@ describe("LocationBar", () => {
 
   it("properly renders the origin", () => {
     const { container } = render(
-      <LocationBar location="https://some-origin.example" onEdit={jest.fn()} />
+      <LocationBar location="https://some-origin.example" onEdit={jest.fn()} />,
     );
 
     expect(getDisplayedLocation(container)).toBe("some-origin.example");
@@ -21,7 +21,7 @@ describe("LocationBar", () => {
       <LocationBar
         location="https://some-origin.example:42"
         onEdit={jest.fn()}
-      />
+      />,
     );
 
     expect(getDisplayedLocation(container)).toBe("some-origin.example:42");
@@ -29,7 +29,7 @@ describe("LocationBar", () => {
 
   it("appends a trailing slash when viewing a Container", () => {
     const { container } = render(
-      <LocationBar location="https://some.pod/container/" onEdit={jest.fn()} />
+      <LocationBar location="https://some.pod/container/" onEdit={jest.fn()} />,
     );
 
     expect(getDisplayedLocation(container)).toBe("some.pod/container/");
@@ -40,7 +40,7 @@ describe("LocationBar", () => {
       <LocationBar
         location="https://some.pod/container/?ext=acr"
         onEdit={jest.fn()}
-      />
+      />,
     );
 
     expect(getDisplayedLocation(container)).toBe("some.pod/container/?ext=acr");
@@ -48,7 +48,7 @@ describe("LocationBar", () => {
 
   it("properly displays a Resource URL", () => {
     const { container } = render(
-      <LocationBar location="https://some.pod/resource" onEdit={jest.fn()} />
+      <LocationBar location="https://some.pod/resource" onEdit={jest.fn()} />,
     );
 
     expect(getDisplayedLocation(container)).toBe("some.pod/resource");
@@ -59,7 +59,7 @@ describe("LocationBar", () => {
       <LocationBar
         location="https://some.pod/resource?ext=acr"
         onEdit={jest.fn()}
-      />
+      />,
     );
 
     expect(getDisplayedLocation(container)).toBe("some.pod/resource?ext=acr");
@@ -70,11 +70,11 @@ describe("LocationBar", () => {
       <LocationBar
         location="https://some.pod:1337/resource?ext=acr"
         onEdit={jest.fn()}
-      />
+      />,
     );
 
     expect(getDisplayedLocation(container)).toBe(
-      "some.pod:1337/resource?ext=acr"
+      "some.pod:1337/resource?ext=acr",
     );
   });
 
@@ -83,7 +83,7 @@ describe("LocationBar", () => {
       <LocationBar
         location="https://some.pod/container/resource"
         onEdit={jest.fn()}
-      />
+      />,
     );
 
     const links = getAllByRole("link");
@@ -99,11 +99,11 @@ describe("LocationBar", () => {
       <LocationBar
         location="https://some.pod/resource%20with%20spaces"
         onEdit={jest.fn()}
-      />
+      />,
     );
 
     expect(getDisplayedLocation(container)).toBe(
-      "some.pod/resource with spaces"
+      "some.pod/resource with spaces",
     );
   });
 });

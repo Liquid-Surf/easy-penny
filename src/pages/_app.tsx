@@ -21,7 +21,7 @@ import { getL10n } from "../functions/getL10n";
 
 if (typeof document === "object") {
   const appElement = document.querySelector(
-    "#appWrapper > *:first-child"
+    "#appWrapper > *:first-child",
   ) as HTMLElement;
   Modal.setAppElement(appElement);
 }

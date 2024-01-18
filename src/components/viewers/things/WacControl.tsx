@@ -106,7 +106,7 @@ export const WacControl: FC<Props> = (props) => {
       .map(
         (otherThing) =>
           getUrl(otherThing, acl.accessTo) ??
-          getUrl(otherThing, acl.default__workaround)
+          getUrl(otherThing, acl.default__workaround),
       )
       .find((targetUrl) => targetUrl !== null);
     if (
@@ -119,7 +119,7 @@ export const WacControl: FC<Props> = (props) => {
         thingAsControl = addUrl(
           thingAsControl,
           acl.accessTo,
-          targetOfOtherControls
+          targetOfOtherControls,
         );
         saveControl(thingAsControl);
       };
@@ -403,7 +403,7 @@ const AgentAdder: FC<AgentAdderProps> = (props) => {
 };
 
 function hasAtLeastOneController(
-  dataset: SolidDataset & WithResourceInfo
+  dataset: SolidDataset & WithResourceInfo,
 ): boolean {
   const things = getThingAll(dataset);
   return things.some((thing) => {

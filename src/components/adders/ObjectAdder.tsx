@@ -108,7 +108,7 @@ export const ObjectAdder: FC<Props> = (props) => {
       const updatedThing = addStringNoLocale(
         props.thing,
         props.predicate,
-        newString
+        newString,
       );
       const updatedDataset = setThing(props.dataset.data, updatedThing);
       setNewString("");
@@ -171,7 +171,7 @@ export const ObjectAdder: FC<Props> = (props) => {
         props.thing,
         props.predicate,
         newString,
-        newLocale
+        newLocale,
       );
       const updatedDataset = setThing(props.dataset.data, updatedThing);
       setNewString("");
@@ -243,7 +243,7 @@ export const ObjectAdder: FC<Props> = (props) => {
       const updatedThing = addInteger(
         props.thing,
         props.predicate,
-        Number.parseInt(newInteger, 10)
+        Number.parseInt(newInteger, 10),
       );
       const updatedDataset = setThing(props.dataset.data, updatedThing);
       setNewInteger("0");
@@ -293,7 +293,7 @@ export const ObjectAdder: FC<Props> = (props) => {
       const updatedThing = addDecimal(
         props.thing,
         props.predicate,
-        Number.parseFloat(newDecimal)
+        Number.parseFloat(newDecimal),
       );
       const updatedDataset = setThing(props.dataset.data, updatedThing);
       setNewDecimal("0.0");

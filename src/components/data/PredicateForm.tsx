@@ -8,7 +8,7 @@ import { ClientLocalized } from "../ClientLocalized";
 const NamespaceDatalist = lazy(() =>
   import("./NamespaceDatalist").then((module) => ({
     default: module.NamespaceDatalist,
-  }))
+  })),
 );
 
 interface Props {

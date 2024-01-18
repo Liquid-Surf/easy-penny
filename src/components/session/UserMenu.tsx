@@ -55,7 +55,7 @@ export const UserMenu: FC = () => {
       <Link
         href={getExplorePath(
           sessionInfo.webId,
-          encodeURIComponent(sessionInfo.webId)
+          encodeURIComponent(sessionInfo.webId),
         )}
         className="sm:hidden lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-gray-200 items-center hover:bg-gray-700 hover:text-white hover:border-gray-700 focus:border-gray-700 focus:outline-none"
       >

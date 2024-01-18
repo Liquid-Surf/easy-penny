@@ -22,7 +22,7 @@ export const ContainerViewer: FC<Props> = (props) => {
     .sort(compareResourceUrls)
     .map((resourceUrl) => {
       const name = resourceUrl.substring(
-        getSourceUrl(props.dataset.data).length
+        getSourceUrl(props.dataset.data).length,
       );
       return (
         <Link

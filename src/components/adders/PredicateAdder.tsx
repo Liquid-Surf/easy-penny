@@ -17,7 +17,7 @@ interface Props {
 export const PredicateAdder: FC<Props> = (props) => {
   const [predicate, setPredicate] = useState("");
   const [phase, setPhase] = useState<"initial" | "setPredicate" | "setObject">(
-    "initial"
+    "initial",
   );
 
   useNavigationBlock(phase !== "initial" || predicate !== "");

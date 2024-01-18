@@ -47,12 +47,12 @@ export const DatasetViewer: FC<Props> = (props) => {
   const resourceUrl = getSourceUrl(props.dataset.data);
   const [thingToRestore, setThingToRestore] = useState<ThingPersisted>();
   const things = getThingAll(props.dataset.data).sort(
-    getThingSorter(props.dataset.data)
+    getThingSorter(props.dataset.data),
   ) as ThingPersisted[];
   const [isRequestingDeletion, setIsRequestingDeletion] = useState(false);
   const deletionToast = useRef<ReactText | null>(null);
   const [collapsedThings, setCollapsedThings] = useState<string[]>(
-    getContainedResourceUrlAll(props.dataset.data)
+    getContainedResourceUrlAll(props.dataset.data),
   );
   const l10n = useL10n();
 
@@ -111,7 +111,7 @@ export const DatasetViewer: FC<Props> = (props) => {
       >
         <span>Saved.</span>
       </ClientLocalized>,
-      { type: "info" }
+      { type: "info" },
     );
   };
 
@@ -130,7 +130,7 @@ export const DatasetViewer: FC<Props> = (props) => {
             &hellip;
           </span>
         </ClientLocalized>,
-        { type: "info" }
+        { type: "info" },
       );
       await deleteRecursively(
         props.dataset.data,
@@ -155,7 +155,7 @@ export const DatasetViewer: FC<Props> = (props) => {
               toast.update(deletionToast.current, { render: deletionMessage });
             }
           },
-        }
+        },
       );
       const deletionMessage = (
         <ClientLocalized
@@ -182,7 +182,7 @@ export const DatasetViewer: FC<Props> = (props) => {
       let deletionMessage;
       if (e instanceof FetchError && e.statusCode === 403) {
         deletionMessage = l10n.getString(
-          "dataset-delete-toast-error-not-allowed"
+          "dataset-delete-toast-error-not-allowed",
         );
       } else {
         deletionMessage = l10n.getString("dataset-delete-toast-error-other");
@@ -206,7 +206,7 @@ export const DatasetViewer: FC<Props> = (props) => {
   const warning = l10n.getString(
     getContainedResourceUrlAll(props.dataset.data).length > 0
       ? "dataset-delete-confirm-lead-container"
-      : "dataset-delete-confirm-lead-resource"
+      : "dataset-delete-confirm-lead-resource",
   );
   const deletionModal = isRequestingDeletion ? (
     <ConfirmOperation
@@ -270,13 +270,13 @@ export const DatasetViewer: FC<Props> = (props) => {
         const thingUrl = asUrl(thing);
         if (collapse) {
           setCollapsedThings((collapsedThings) =>
-            collapsedThings.concat(thingUrl)
+            collapsedThings.concat(thingUrl),
           );
         } else {
           setCollapsedThings((collapsedThings) =>
             collapsedThings.filter(
-              (collapsedThingUrl) => collapsedThingUrl !== thingUrl
-            )
+              (collapsedThingUrl) => collapsedThingUrl !== thingUrl,
+            ),
           );
         }
       }
@@ -286,7 +286,7 @@ export const DatasetViewer: FC<Props> = (props) => {
   const isServerManaged = (thing: ThingPersisted): boolean => {
     const thingUrl = asUrl(thing);
     const containedResourceUrls = getContainedResourceUrlAll(
-      props.dataset.data
+      props.dataset.data,
     );
     // If the Thing represents a Resource contained within the current Resource,
     // or the Resource itself and the Resource is a Container, then it was

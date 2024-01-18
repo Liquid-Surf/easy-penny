@@ -14,7 +14,7 @@ export type LoadedCachedDataset = CachedDataset & {
 };
 
 export function isLoadedDataset(
-  dataset: CachedResource
+  dataset: CachedResource,
 ): dataset is LoadedCachedDataset {
   return (
     typeof dataset.error === "undefined" &&

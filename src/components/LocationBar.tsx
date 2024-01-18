@@ -60,13 +60,13 @@ export const LocationBar: FC<Props> = (props) => {
     })
     .slice(
       1,
-      url.pathname.endsWith("/") ? pathParts.length - 1 : pathParts.length
+      url.pathname.endsWith("/") ? pathParts.length - 1 : pathParts.length,
     );
 
   let parentPath = url.pathname.endsWith("/")
     ? url.pathname.substring(
         0,
-        url.pathname.substring(0, url.pathname.length - 1).lastIndexOf("/") + 1
+        url.pathname.substring(0, url.pathname.length - 1).lastIndexOf("/") + 1,
       )
     : url.pathname.substring(0, url.pathname.lastIndexOf("/") + 1);
   if (parentPath === "/") {

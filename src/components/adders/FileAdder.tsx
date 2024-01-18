@@ -28,14 +28,14 @@ export const FileAdder: FC<Props> = (props) => {
             fetch: fetch,
             slug: file.name,
           });
-        })
+        }),
       );
       props.container.mutate();
       toast(
         l10n.getString("file-add-toast-success", {
           fileCount: selectedFiles.length,
         }),
-        { type: "info" }
+        { type: "info" },
       );
     } catch (e) {
       if (e instanceof FetchError && e.statusCode === 403) {
@@ -47,7 +47,7 @@ export const FileAdder: FC<Props> = (props) => {
           l10n.getString("file-add-toast-error-other", {
             fileCount: selectedFiles.length,
           }),
-          { type: "error" }
+          { type: "error" },
         );
       }
     }

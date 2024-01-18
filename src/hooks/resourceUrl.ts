@@ -17,9 +17,7 @@ export function useResourceUrl(path: string): UrlString | null {
   const normalisedStorageUrl = storageUrl.endsWith("/")
     ? storageUrl.substring(0, storageUrl.length - 1)
     : storageUrl;
-  const normalisedPath = path.startsWith("/")
-    ? path
-    : "/" + path;
+  const normalisedPath = path.startsWith("/") ? path : "/" + path;
 
   return normalisedStorageUrl + normalisedPath;
 }

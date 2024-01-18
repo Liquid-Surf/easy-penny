@@ -24,20 +24,20 @@ import { useEffect, useRef } from "react";
 // SOFTWARE.
 
 export function useBeforeUnload(handler?: EventListener) {
-	const eventListenerRef = useRef<typeof handler | null>(null);
+  const eventListenerRef = useRef<typeof handler | null>(null);
 
   useEffect(() => {
     eventListenerRef.current = (event) => {
-			if (typeof handler !== "function") {
-				eventListenerRef.current = null;
-				return;
-			}
+      if (typeof handler !== "function") {
+        eventListenerRef.current = null;
+        return;
+      }
       const returnValue = handler(event);
       // Handle legacy `event.returnValue` property
       // https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
       if (typeof returnValue === "string") {
-        ((event as any).returnValue = returnValue);
-				return returnValue;
+        (event as any).returnValue = returnValue;
+        return returnValue;
       }
       // Chrome doesn't support `event.preventDefault()` on `BeforeUnloadEvent`,
       // instead it requires `event.returnValue` to be set
@@ -49,16 +49,16 @@ export function useBeforeUnload(handler?: EventListener) {
   }, [handler]);
 
   useEffect(() => {
-		// Don't add an event listener if none is given,
-		// as it disables the browser's back/forward cache.
-		// See https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event#usage_notes.
-		if (typeof eventListenerRef.current !== "function") {
-			return;
-		}
-		const currentEventListener = eventListenerRef.current;
-    window.addEventListener('beforeunload', currentEventListener);
+    // Don't add an event listener if none is given,
+    // as it disables the browser's back/forward cache.
+    // See https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event#usage_notes.
+    if (typeof eventListenerRef.current !== "function") {
+      return;
+    }
+    const currentEventListener = eventListenerRef.current;
+    window.addEventListener("beforeunload", currentEventListener);
     return () => {
-      window.removeEventListener('beforeunload', currentEventListener);
+      window.removeEventListener("beforeunload", currentEventListener);
     };
   }, [eventListenerRef.current]);
 }

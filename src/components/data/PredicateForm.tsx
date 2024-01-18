@@ -25,11 +25,11 @@ export const PredicateForm: FC<Props> = (props) => {
     setNewPredicate("");
   };
   return (
-    <form onSubmit={onSubmit} className="flex space-x-2 items-center">
+    <form onSubmit={onSubmit} className="flex items-center space-x-2">
       <Suspense fallback={null}>
         <NamespaceDatalist id="knownPredicates" />
       </Suspense>
-      <label className="text-gray-500 p-2 w-10" htmlFor="newPredicate">
+      <label className="w-10 p-2 text-gray-500" htmlFor="newPredicate">
         <VscLink aria-label={l10n.getString("predicate-add-url-label")} />
       </label>
       <ClientLocalized
@@ -38,7 +38,7 @@ export const PredicateForm: FC<Props> = (props) => {
       >
         <input
           type="url"
-          className="flex-grow p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-700"
+          className="flex-grow rounded p-2 focus:outline-none focus:ring-2 focus:ring-gray-700"
           placeholder="https://…"
           name="newPredicate"
           id="newPredicate"
@@ -55,7 +55,7 @@ export const PredicateForm: FC<Props> = (props) => {
       <button
         type="submit"
         aria-label={l10n.getString("predicate-add-url-submit")}
-        className="p-3 focus:outline-none focus:ring-2 focus:ring-gray-700 rounded"
+        className="rounded p-3 focus:outline-none focus:ring-2 focus:ring-gray-700"
       >
         <MdCheck />
       </button>

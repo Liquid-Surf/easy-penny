@@ -118,16 +118,16 @@ export const ThingViewer: FC<Props> = (props) => {
       title={l10n.getString("thing-urlcopy-button-tooltip")}
       aria-hidden="true"
       onClick={copyThingUrl}
-      className="text-gray-400 p-2 rounded hover:text-white focus:text-white focus:ring-2 focus:ring-white focus:outline-none"
+      className="rounded p-2 text-gray-400 hover:text-white focus:text-white focus:outline-none focus:ring-2 focus:ring-white"
     >
       <MdContentCopy className="inline-block" />
     </a>
   );
   const title = (
     <>
-      <span className="shrink min-w-0 flex items-center">
+      <span className="flex min-w-0 shrink items-center">
         <span className="truncate" title={decodeURIComponent(noise + signal)}>
-          <span className="text-gray-400 font-normal">
+          <span className="font-normal text-gray-400">
             {decodeURIComponent(noise)}
           </span>
           {decodeURIComponent(signal)}
@@ -158,7 +158,7 @@ export const ThingViewer: FC<Props> = (props) => {
         title={l10n.getString("thing-delete-tooltip", {
           thingUrl: asUrl(props.thing),
         })}
-        className="object-right-top absolute -top-0.5 -right-0.5 bg-white hover:bg-red-700 hover:text-white p-1 -m-3 rounded-full border-gray-50 hover:border-red-700 focus:border-red-700 border-4 focus:outline-none"
+        className="absolute -right-0.5 -top-0.5 -m-3 rounded-full border-4 border-gray-50 bg-white object-right-top p-1 hover:border-red-700 hover:bg-red-700 hover:text-white focus:border-red-700 focus:outline-none"
       >
         <VscTrash />
       </button>
@@ -166,17 +166,17 @@ export const ThingViewer: FC<Props> = (props) => {
 
   return (
     <div
-      className="bg-gray-50 rounded-xl rounded-t-2xl relative pb-5 target:outline target:outline-4 target:outline-gray-700"
+      className="relative rounded-xl rounded-t-2xl bg-gray-50 pb-5 target:outline target:outline-4 target:outline-gray-700"
       id={encodeURIComponent(asUrl(props.thing))}
     >
-      <h3 className="flex items-center text-lg md:text-xl lg:text-2xl rounded-t-xl bg-gray-700 text-white p-5 font-bold break-words">
-        <span className="shrink min-w-0 flex flex-grow items-center">
+      <h3 className="flex items-center break-words rounded-t-xl bg-gray-700 p-5 text-lg font-bold text-white md:text-xl lg:text-2xl">
+        <span className="flex min-w-0 shrink flex-grow items-center">
           {title}
         </span>
         {typeof props.onCollapse === "function" && (
           <button
             aria-hidden="true"
-            className="flex items-center  text-gray-400 p-2 rounded focus:ring-2 focus:ring-white focus:outline-none hover:bg-white hover:text-gray-700"
+            className="flex items-center  rounded p-2 text-gray-400 hover:bg-white hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-white"
             onClick={collapseHandler}
             title={l10n.getString(
               props.collapsed

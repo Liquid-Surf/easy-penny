@@ -21,7 +21,7 @@ export const Toggle = (props: Props) => {
   };
 
   return (
-    <label className="cursor-pointer flex items-center group">
+    <label className="group flex cursor-pointer items-center">
       <VisuallyHidden>
         <input {...inputProps} {...focusProps} ref={ref} onChange={onChange} />
       </VisuallyHidden>
@@ -32,14 +32,14 @@ export const Toggle = (props: Props) => {
             : "bg-gray-200 ring-gray-700 group-hover:bg-gray-300"
         } ${
           isFocusVisible ? "ring-4" : "ring-0"
-        } cursor-pointer relative inline-flex items-center h-6 rounded-xl w-11`}
+        } relative inline-flex h-6 w-11 cursor-pointer items-center rounded-xl`}
       >
         <span
           className={`${
             state.isSelected
               ? "translate-x-6 rtl:-translate-x-6"
               : "translate-x-1 rtl:-translate-x-1"
-          } inline-block w-4 h-4 transform motion-safe:transition-transform duration-100 bg-white rounded-xl`}
+          } inline-block h-4 w-4 transform rounded-xl bg-white duration-100 motion-safe:transition-transform`}
         />
       </div>
       <span className="pl-2">{props.children}</span>

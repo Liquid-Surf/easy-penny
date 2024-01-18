@@ -55,7 +55,7 @@ const Home: React.FC = () => {
       <Head>
         <title>Penny</title>
       </Head>
-      <div className="md:w-4/5 lg:w-1/2 mx-auto p-5 md:pt-20">
+      <div className="mx-auto p-5 md:w-4/5 md:pt-20 lg:w-1/2">
         <SessionGate>
           <ClientLocalized
             id="pod-listing-heading"
@@ -66,14 +66,14 @@ const Home: React.FC = () => {
               "owner-link": <OwnerLink webId={webId} />,
             }}
           >
-            <h3 className="text-lg block py-5">Pod(s) of: {webId}</h3>
+            <h3 className="block py-5 text-lg">Pod(s) of: {webId}</h3>
           </ClientLocalized>
           <ul className="space-between-5">
             {storages.map((storageUrl) => (
               <li key={storageUrl + "_storage"}>
                 <Link
                   href={`/explore/?url=${encodeURIComponent(storageUrl)}`}
-                  className="p-5 bg-gray-700 hover:bg-gray-900 rounded text-white block focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 focus:outline-none focus:ring-opacity-50"
+                  className="block rounded bg-gray-700 p-5 text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-opacity-50 focus:ring-offset-2"
                   title={l10n.getString("pod-listing-tooltip", {
                     "pod-url": storageUrl,
                   })}
@@ -84,7 +84,7 @@ const Home: React.FC = () => {
             ))}
           </ul>
         </SessionGate>
-        <section className="pt-28 space-y-5">
+        <section className="space-y-5 pt-28">
           <ClientLocalized id="intro-title">
             <h2 className="text-xl font-bold">What is this?</h2>
           </ClientLocalized>
@@ -94,7 +94,7 @@ const Home: React.FC = () => {
               "solid-link": (
                 <a
                   href="https://solidproject.org/"
-                  className="underline hover:no-underline hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white"
+                  className="underline hover:bg-gray-700 hover:text-white hover:no-underline focus:bg-gray-700 focus:text-white focus:outline-none"
                 />
               ),
             }}
@@ -113,7 +113,7 @@ const Home: React.FC = () => {
                 "contact-link": (
                   <a
                     href="https://gitlab.com/vincenttunru/penny/-/issues/new"
-                    className="underline hover:no-underline hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white"
+                    className="underline hover:bg-gray-700 hover:text-white hover:no-underline focus:bg-gray-700 focus:text-white focus:outline-none"
                   />
                 ),
               }}
@@ -132,7 +132,7 @@ const Home: React.FC = () => {
                 "contact-link": (
                   <a
                     href="https://gitlab.com/vincenttunru/penny/-/issues/new"
-                    className="underline hover:no-underline hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white"
+                    className="underline hover:bg-gray-700 hover:text-white hover:no-underline focus:bg-gray-700 focus:text-white focus:outline-none"
                   />
                 ),
               }}
@@ -157,7 +157,7 @@ const OwnerLink = (props: { webId: UrlString; children?: React.ReactNode }) => (
       href={`/explore/?url=${encodeURIComponent(
         props.webId,
       )}#${encodeURIComponent(props.webId)}`}
-      className="font-bold hover:text-gray-700 focus:underline focus:text-gray-700 focus:outline-none"
+      className="font-bold hover:text-gray-700 focus:text-gray-700 focus:underline focus:outline-none"
     >
       {props.children}
     </Link>

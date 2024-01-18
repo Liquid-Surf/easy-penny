@@ -131,7 +131,7 @@ export const WacControl: FC<Props> = (props) => {
               e.preventDefault();
               convertToControl();
             }}
-            className="p-5 bg-blue-200 border-b-4 border-blue-200 w-full text-left hover:bg-blue-300 hover:border-blue-300 focus:underline focus:border-blue-400 focus:outline-none rounded-b-sm"
+            className="w-full rounded-b-sm border-b-4 border-blue-200 bg-blue-200 p-5 text-left hover:border-blue-300 hover:bg-blue-300 focus:border-blue-400 focus:underline focus:outline-none"
           >
             Convert to Access Control.
           </button>
@@ -208,22 +208,22 @@ export const WacControl: FC<Props> = (props) => {
   };
 
   return (
-    <section className="p-5 bg-blue-200 rounded-b-sm">
-      <header className="text-xl flex w-100 font-bold">
+    <section className="rounded-b-sm bg-blue-200 p-5">
+      <header className="w-100 flex text-xl font-bold">
         <ClientLocalized id="wac-control-title">
           <div className="">Access Control for:</div>
         </ClientLocalized>
         &nbsp;
         <Link
           href={getExplorePath(targetResourceUrl)}
-          className="focus:underline hover:text-gray-700"
+          className="hover:text-gray-700 focus:underline"
         >
           {targetResourceUrl}
         </Link>
       </header>
       <div className="flex flex-row py-5">
         <ClientLocalized id="wac-control-target-label">
-          <div className="w-36 pr-5 py-2">Applies to:</div>
+          <div className="w-36 py-2 pr-5">Applies to:</div>
         </ClientLocalized>
         <div className="flex flex-col items-start justify-center">
           <div className={`flex space-x-1 py-2`}>
@@ -250,7 +250,7 @@ export const WacControl: FC<Props> = (props) => {
       </div>
       <div className="flex flex-row py-5">
         <ClientLocalized id="wac-control-mode-label">
-          <div className="w-36 pr-5 py-2">Grants:</div>
+          <div className="w-36 py-2 pr-5">Grants:</div>
         </ClientLocalized>
         <div className="flex flex-col items-start justify-center lg:flex-wrap">
           <div className={`flex space-x-1 py-2`}>
@@ -297,7 +297,7 @@ export const WacControl: FC<Props> = (props) => {
       </div>
       <div className="flex flex-row py-5">
         <ClientLocalized id="wac-control-agentClass-label">
-          <div className="w-36 pr-5 py-2">To:</div>
+          <div className="w-36 py-2 pr-5">To:</div>
         </ClientLocalized>
         <div className="flex flex-col items-start justify-center">
           <div className={`flex space-x-1 py-2`}>
@@ -314,14 +314,14 @@ export const WacControl: FC<Props> = (props) => {
       </div>
       <div className="flex flex-row py-5">
         <ClientLocalized id="wac-control-agent-label">
-          <div className="w-36 pr-5 py-2">And Agents:</div>
+          <div className="w-36 py-2 pr-5">And Agents:</div>
         </ClientLocalized>
-        <div className="flex-grow space-y-2 items-start justify-center">
+        <div className="flex-grow items-start justify-center space-y-2">
           {getUrlAll(props.thing, acl.agent).map((agent) => {
             return (
               <div key={agent} className="flex items-center space-x-2 pl-2">
                 <code
-                  className="font-mono p-2 truncate w-0 flex-grow"
+                  className="w-0 flex-grow truncate p-2 font-mono"
                   title={agent}
                 >
                   <Url
@@ -331,7 +331,7 @@ export const WacControl: FC<Props> = (props) => {
                   />
                 </code>
                 <button
-                  className="p-3 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 rounded"
+                  className="rounded p-3 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-700"
                   onClick={(event) => {
                     event.preventDefault();
                     removeAgent(agent);
@@ -376,7 +376,7 @@ const AgentAdder: FC<AgentAdderProps> = (props) => {
         type="url"
         name="webId"
         id="webId"
-        className="bg-white rounded flex-grow p-2 focus:outline-none focus:ring-2 focus:ring-gray-700"
+        className="flex-grow rounded bg-white p-2 focus:outline-none focus:ring-2 focus:ring-gray-700"
         placeholder="e.g. https://example.com/profile/card#me"
         value={webId}
         onChange={(event) => setWebId(event.target.value)}
@@ -387,7 +387,7 @@ const AgentAdder: FC<AgentAdderProps> = (props) => {
       >
         <button
           type="submit"
-          className="p-3 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 rounded"
+          className="rounded p-3 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-700"
           title="Add Agent"
         >
           <ClientLocalized

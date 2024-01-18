@@ -199,7 +199,7 @@ const TreeViewResource = (props: TreeViewResourceProps) => {
       onKeyDown={onKeyDown}
       role="treeitem"
       aria-selected={props.currentUrl === props.path}
-      className={`flex items-center cursor-pointer mx-2 px-2 hover:bg-gray-700 hover:text-white py-1 rounded-md ${
+      className={`mx-2 flex cursor-pointer items-center rounded-md px-2 py-1 hover:bg-gray-700 hover:text-white ${
         props.currentUrl === props.path ? "font-bold" : ""
       }`}
     >
@@ -325,7 +325,7 @@ const TreeViewContainer = (props: TreeViewContainerProps) => {
         }}
         tabIndex={0}
         onKeyDown={onKeyDown}
-        className={`flex items-center cursor-pointer mx-2 px-2 hover:bg-gray-700 hover:text-white py-1 rounded-md ${
+        className={`mx-2 flex cursor-pointer items-center rounded-md px-2 py-1 hover:bg-gray-700 hover:text-white ${
           props.currentUrl === props.path ? "font-bold" : ""
         }`}
       >

@@ -28,7 +28,7 @@ export const PredicateUrl: FC<Props> = (props) => {
       title={l10n.getString("predicate-urlcopy-button-tooltip")}
       aria-hidden="true"
       onClick={copyPredicateUrl}
-      className="text-gray-400 p-2 rounded hover:text-gray-700 focus:text-gray-700 focus:ring-2 focus:ring-gray-700 focus:outline-none"
+      className="rounded p-2 text-gray-400 hover:text-gray-700 focus:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700"
     >
       <MdContentCopy className="inline-block" />
     </a>

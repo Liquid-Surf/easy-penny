@@ -49,8 +49,8 @@ export const ThingAdder: FC<Props> = (props) => {
       setPhase("addPredicate");
     };
     return (
-      <div className="text-2xl rounded-xl bg-gray-700 text-white p-5 font-bold">
-        <form onSubmit={onSubmit} className="flex space-x-2 items-center">
+      <div className="rounded-xl bg-gray-700 p-5 text-2xl font-bold text-white">
+        <form onSubmit={onSubmit} className="flex items-center space-x-2">
           <ClientLocalized id="thing-add-url-label">
             <label className="sr-only" htmlFor="newThingUrl">
               Thing URL:
@@ -62,7 +62,7 @@ export const ThingAdder: FC<Props> = (props) => {
           >
             <input
               type="url"
-              className="bg-white text-gray-900 text-lg flex-grow p-2 rounded focus:outline-none focus:ring-4 focus:ring-blue-500"
+              className="flex-grow rounded bg-white p-2 text-lg text-gray-900 focus:outline-none focus:ring-4 focus:ring-blue-500"
               placeholder="https://…"
               name="newThingUrl"
               id="newThingUrl"
@@ -78,7 +78,7 @@ export const ThingAdder: FC<Props> = (props) => {
           <button
             type="submit"
             aria-label={l10n.getString("thing-add-url-submit")}
-            className="p-2 border-2 border-gray-700 focus:outline-none focus:border-white hover:border-white rounded hover:bg-white hover:text-gray-900"
+            className="rounded border-2 border-gray-700 p-2 hover:border-white hover:bg-white hover:text-gray-900 focus:border-white focus:outline-none"
           >
             <MdCheck />
           </button>
@@ -90,7 +90,7 @@ export const ThingAdder: FC<Props> = (props) => {
   return (
     <>
       <button
-        className="border-2 border-gray-200 border-dashed text-gray-500 hover:text-gray-900 focus:text-gray-900 hover:border-gray-900 focus:border-gray-900 focus:outline-none hover:border-solid focus:border-solid rounded p-2 flex items-center space-x-2 w-full"
+        className="flex w-full items-center space-x-2 rounded border-2 border-dashed border-gray-200 p-2 text-gray-500 hover:border-solid hover:border-gray-900 hover:text-gray-900 focus:border-solid focus:border-gray-900 focus:text-gray-900 focus:outline-none"
         onClick={(e) => {
           e.preventDefault();
           setPhase("setThingUrl");

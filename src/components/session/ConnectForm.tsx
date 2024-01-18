@@ -278,7 +278,7 @@ export const ConnectForm: FC = (props) => {
         className="flex flex-col space-y-5 text-xl lg:text-2xl"
       >
         <ClientLocalized id="connectform-label">
-          <label htmlFor="idp" className="p-x-3 text-lg lg:text-2xl font-bold">
+          <label htmlFor="idp" className="p-x-3 text-lg font-bold lg:text-2xl">
             Connect your Pod at:
           </label>
         </ClientLocalized>
@@ -305,7 +305,7 @@ export const ConnectForm: FC = (props) => {
             <option value={integratedIssuer} />
           )}
         </datalist>
-        <div className="flex space-x-2 items-center">
+        <div className="flex items-center space-x-2">
           <input
             type="checkbox"
             name="autoconnect"

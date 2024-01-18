@@ -40,7 +40,7 @@ export const LocationBar: FC<Props> = (props) => {
         <Link
           key={pathUrl + "_breadcrumb"}
           href={getExplorePath(pathUrl)}
-          className="hidden lg:inline focus:underline focus:text-gray-700 focus:outline-none break-words"
+          className="hidden break-words focus:text-gray-700 focus:underline focus:outline-none lg:inline"
         >
           {decodeURIComponent(resourceName)}
         </Link>
@@ -84,10 +84,10 @@ export const LocationBar: FC<Props> = (props) => {
   return (
     <>
       <div className="flex items-center space-x-2">
-        <span className="py-2 flex items-center">
+        <span className="flex items-center py-2">
           <Link
             href={getExplorePath(url.origin + parentPath)}
-            className={`${parentNavigatorClass} hover:underline focus:underline focus:text-gray-700 focus:outline-none break-words`}
+            className={`${parentNavigatorClass} break-words hover:underline focus:text-gray-700 focus:underline focus:outline-none`}
             aria-hidden="true"
           >
             ..
@@ -95,7 +95,7 @@ export const LocationBar: FC<Props> = (props) => {
           <Link
             key={url.origin + "_breadcrumb"}
             href={getExplorePath(url.origin)}
-            className={`${originClass} hover:underline focus:underline focus:text-gray-700 focus:outline-none`}
+            className={`${originClass} hover:underline focus:text-gray-700 focus:underline focus:outline-none`}
           >
             {url.host}
           </Link>
@@ -107,7 +107,7 @@ export const LocationBar: FC<Props> = (props) => {
                 props.onEdit();
               }}
               title="View another Resource"
-              className="text-gray-400 hover:text-gray-700 focus:text-gray-700 p-2 focus:outline-none focus:ring-2 focus:ring-gray-700 rounded"
+              className="rounded p-2 text-gray-400 hover:text-gray-700 focus:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700"
             >
               <MdEdit aria-label="Change Resource URL" />
             </button>

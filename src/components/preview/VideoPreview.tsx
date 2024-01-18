@@ -26,7 +26,7 @@ export const VideoPreview: FC<Props> = (props) => {
         >
           <video
             src={props.objectUrl}
-            className="rounded max-w-full border-4 border-gray-700"
+            className="max-w-full rounded border-4 border-gray-700"
             controls={true}
           >
             Unfortunately your browser cannot provide a preview of `{fileName}`.

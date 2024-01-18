@@ -71,7 +71,7 @@ export const Explorer: React.FC<Props> = (props) => {
         <title>Penny: {props.url}</title>
       </Head>
       <div
-        className={`items-stretch grid transition-[grid-template-columns] ease ${
+        className={`ease grid items-stretch transition-[grid-template-columns] ${
           isTreeViewExpanded ? "duration-1000" : "duration-500"
         } ${
           root && isTreeViewExpanded
@@ -79,9 +79,9 @@ export const Explorer: React.FC<Props> = (props) => {
             : `grid-cols-[0fr_50px_1fr]`
         } pr-[50px]`}
       >
-        <div className="py-10 basis-96 min-w-0 overflow-hidden text-ellipsis">
+        <div className="min-w-0 basis-96 overflow-hidden text-ellipsis py-10">
           {root && (
-            <div className="hidden lg:block pl-2 py-5 h-full bg-gray-50">
+            <div className="hidden h-full bg-gray-50 py-5 pl-2 lg:block">
               <TreeView
                 root={root}
                 onExplore={(url) => props.onUrlChange(url, { scroll: false })}
@@ -94,7 +94,7 @@ export const Explorer: React.FC<Props> = (props) => {
           {root && (
             <button
               onClick={() => setIsTreeViewExpanded(!isTreeViewExpanded)}
-              className={`hidden lg:flex p-2 h-full items-start rounded-r-md border-2 bg-gray-50 border-gray-200 border-l-transparent duration-500 hover:bg-gray-700 hover:text-white ${
+              className={`hidden h-full items-start rounded-r-md border-2 border-gray-200 border-l-transparent bg-gray-50 p-2 duration-500 hover:bg-gray-700 hover:text-white lg:flex ${
                 isTreeViewExpanded
                   ? "border-transparent border-r-gray-200 hover:border-r-gray-900 focus-visible:border-gray-700"
                   : ""
@@ -115,7 +115,7 @@ export const Explorer: React.FC<Props> = (props) => {
             </button>
           )}
         </div>
-        <div className={"mx-auto p-5 md:pt-10 w-full xl:w-[50rem]"}>
+        <div className={"mx-auto w-full p-5 md:pt-10 xl:w-[50rem]"}>
           {errorViewer}
           {containerViewer}
           {fileViewer ?? datasetViewer}

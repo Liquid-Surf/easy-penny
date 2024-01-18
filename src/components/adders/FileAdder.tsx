@@ -65,7 +65,7 @@ export const FileAdder: FC<Props> = (props) => {
     <>
       <label
         {...getRootProps()}
-        className={`${dropTargetStyles} flex items-center space-x-2 p-5 cursor-pointer rounded border-4 border-dashed border-gray-200 text-gray-500 focus:text-gray-900 focus:border-gray-900 hover:text-gray-900 hover:border-gray-900 hover:bg-gray-100 focus:outline-none`}
+        className={`${dropTargetStyles} flex cursor-pointer items-center space-x-2 rounded border-4 border-dashed border-gray-200 p-5 text-gray-500 hover:border-gray-900 hover:bg-gray-100 hover:text-gray-900 focus:border-gray-900 focus:text-gray-900 focus:outline-none`}
       >
         <MdFileUpload aria-hidden="true" className="text-3xl" />
         <span>

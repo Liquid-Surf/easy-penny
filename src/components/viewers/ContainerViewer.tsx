@@ -28,7 +28,7 @@ export const ContainerViewer: FC<Props> = (props) => {
         <Link
           key={resourceUrl + "_containerChild"}
           href={getExplorePath(resourceUrl)}
-          className="bg-gray-700 text-white p-5 rounded hover:bg-gray-900 block focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 focus:outline-none focus:ring-opacity-50"
+          className="block rounded bg-gray-700 p-5 text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-opacity-50 focus:ring-offset-2"
         >
           {decodeURIComponent(name)}
         </Link>
@@ -54,7 +54,7 @@ export const ContainerViewer: FC<Props> = (props) => {
         <SectionHeading>Contained Resources</SectionHeading>
       </ClientLocalized>
       <div className="pb-10">
-        <div className="grid sm:grid-cols-2 gap-5 pb-5">
+        <div className="grid gap-5 pb-5 sm:grid-cols-2">
           {containedResources}
         </div>
         {emptyWarning}

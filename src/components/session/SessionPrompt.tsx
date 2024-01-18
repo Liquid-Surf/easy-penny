@@ -46,13 +46,13 @@ export const SessionPrompt: FC<Props> = (props) => {
           beforeClose: "",
         }}
         className={{
-          base: "transition-opacity duration-150 motion-safe:opacity-0 bg-white shadow-lg mx-auto p-5 md:p-10 rounded-lg",
+          base: "mx-auto rounded-lg bg-white p-5 shadow-lg transition-opacity duration-150 motion-safe:opacity-0 md:p-10",
           afterOpen: "motion-safe:opacity-100",
           beforeClose: "",
         }}
         closeTimeoutMS={150}
       >
-        <div className="flex flex-row-reverse -mt-4 -mr-4 md:-mt-8 md:-mr-8">
+        <div className="-mr-4 -mt-4 flex flex-row-reverse md:-mr-8 md:-mt-8">
           <CloseButton onClick={() => setPromptOpen(false)} />
         </div>
         <ConnectForm />

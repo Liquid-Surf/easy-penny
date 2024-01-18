@@ -34,13 +34,13 @@ export const ConfirmOperation = (props: Props) => {
         beforeClose: "",
       }}
       className={{
-        base: "transition-opacity duration-150 motion-safe:opacity-0 bg-white shadow-lg mx-auto p-5 md:p-10 rounded",
+        base: "mx-auto rounded bg-white p-5 shadow-lg transition-opacity duration-150 motion-safe:opacity-0 md:p-10",
         afterOpen: "motion-safe:opacity-100",
         beforeClose: "",
       }}
       closeTimeoutMS={150}
     >
-      <div className="flex flex-row-reverse -mt-4 -mr-4 md:-mt-8 md:-mr-8">
+      <div className="-mr-4 -mt-4 flex flex-row-reverse md:-mr-8 md:-mt-8">
         <button onClick={() => setPromptOpen(false)}>
           <MdClose aria-label="Close" />
         </button>
@@ -50,7 +50,7 @@ export const ConfirmOperation = (props: Props) => {
         <label htmlFor="confirmationString" className="">
           Please enter{" "}
           <samp>
-            <kbd className="font-mono bg-gray-200 p-1 border-2 border-gray-300 rounded">
+            <kbd className="rounded border-2 border-gray-300 bg-gray-200 p-1 font-mono">
               {props.confirmString}
             </kbd>
           </samp>{" "}

@@ -31,12 +31,12 @@ export const ImagePreview: FC<Props> = (props) => {
           href={props.objectUrl}
           title={l10n.getString("preview-image-thumbnail-tooltip")}
           onClick={openPreviewModal}
-          className="inline-block rounded hover:opacity-75 focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:outline-none"
+          className="inline-block rounded hover:opacity-75 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
         >
           <img
             src={props.objectUrl}
             alt={l10n.getString("preview-image-alt", { filename: fileName })}
-            className="rounded max-w-full border-4 border-gray-700"
+            className="max-w-full rounded border-4 border-gray-700"
           />
         </a>
         <Modal

@@ -57,7 +57,7 @@ export const PredicateAdder: FC<Props> = (props) => {
     <>
       <div className="p-5">
         <button
-          className="border-2 border-gray-200 border-dashed text-gray-500 hover:text-gray-900 focus:text-gray-900 hover:border-gray-900 focus:border-gray-900 focus:outline-none hover:border-solid focus:border-solid hover:bg-gray-100 rounded p-2 flex items-center space-x-2 w-full"
+          className="flex w-full items-center space-x-2 rounded border-2 border-dashed border-gray-200 p-2 text-gray-500 hover:border-solid hover:border-gray-900 hover:bg-gray-100 hover:text-gray-900 focus:border-solid focus:border-gray-900 focus:text-gray-900 focus:outline-none"
           onClick={(e) => {
             e.preventDefault();
             setPhase("setPredicate");

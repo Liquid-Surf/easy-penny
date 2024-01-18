@@ -81,7 +81,7 @@ export const TurtleViewer: FC<Props> = (props) => {
         </ClientLocalized>
         <div className="space-y-5 pb-10">
           <HasAccess access={["write"]} resource={file.data}>
-            <div className="bg-yellow-100 border-yellow-600 border-2 rounded p-5">
+            <div className="rounded border-2 border-yellow-600 bg-yellow-100 p-5">
               <p>{l10n.getString("turtle-danger-warning")}</p>
               <p>
                 <button
@@ -98,7 +98,7 @@ export const TurtleViewer: FC<Props> = (props) => {
             <textarea
               cols={60}
               rows={20}
-              className="rounded border-4 border-gray-700 p-2 w-full h-96 overflow-scroll font-mono"
+              className="h-96 w-full overflow-scroll rounded border-4 border-gray-700 p-2 font-mono"
               onChange={(e) => {
                 e.preventDefault();
                 setFormContent(e.target.value);
@@ -106,10 +106,10 @@ export const TurtleViewer: FC<Props> = (props) => {
               defaultValue={file.data.content}
             />
             <HasAccess access={["write"]} resource={file.data}>
-              <div className="grid sm:grid-cols-2 gap-5 pb-5">
+              <div className="grid gap-5 pb-5 sm:grid-cols-2">
                 <button
                   type="submit"
-                  className="p-5 rounded border-4 border-gray-700 text-gray-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-gray-700 hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 focus:outline-none focus:ring-opacity-50"
+                  className="flex items-center space-x-2 rounded border-4 border-gray-700 p-5 text-lg text-gray-700 hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-opacity-50 focus:ring-offset-2"
                 >
                   <MdCheck aria-hidden="true" />
                   <span>{l10n.getString("turtle-save-button")}</span>

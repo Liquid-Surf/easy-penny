@@ -65,7 +65,7 @@ export const FileViewer: FC<Props> = (props) => {
       onCancel={() => setIsRequestingDeletion(false)}
     >
       <ClientLocalized id="file-delete-confirm-heading">
-        <h2 className="text-2xl pb-2">Are you sure?</h2>
+        <h2 className="pb-2 text-2xl">Are you sure?</h2>
       </ClientLocalized>
       <ClientLocalized id="file-delete-confirm-lead">
         Are you sure you want to delete this file? This can not be undone.
@@ -129,7 +129,7 @@ export const FileViewer: FC<Props> = (props) => {
           </ClientLocalized>
           {deletionModal}
           <button
-            className="w-full md:w-1/2 p-5 rounded border-4 border-red-700 text-red-700 focus:text-white hover:text-white flex items-center space-x-2 text-lg focus:bg-red-700 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:outline-none focus:ring-opacity-50"
+            className="flex w-full items-center space-x-2 rounded border-4 border-red-700 p-5 text-lg text-red-700 hover:bg-red-700 hover:text-white focus:bg-red-700 focus:text-white focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-opacity-50 focus:ring-offset-2 md:w-1/2"
             onClick={onDeleteFile}
           >
             <VscTrash aria-hidden="true" />

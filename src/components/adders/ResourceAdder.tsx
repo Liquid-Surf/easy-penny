@@ -88,7 +88,7 @@ export const ResourceAdder: FC<Props> = (props) => {
       <>
         <form
           onSubmit={onSubmit}
-          className="flex space-x-2 items-center p-3 rounded bg-gray-700 text-white"
+          className="flex items-center space-x-2 rounded bg-gray-700 p-3 text-white"
           onBlur={onCancel}
         >
           <ClientLocalized id="resource-add-name-label">
@@ -104,7 +104,7 @@ export const ResourceAdder: FC<Props> = (props) => {
               type="text"
               name="resourceName"
               id="resourceName"
-              className="text-gray-900 flex-grow p-2 rounded focus:outline-none focus:ring-4 focus:ring-blue-500"
+              className="flex-grow rounded p-2 text-gray-900 focus:outline-none focus:ring-4 focus:ring-blue-500"
               placeholder="e.g. resource-name or container-name/"
               required={true}
               autoFocus={true}
@@ -118,7 +118,7 @@ export const ResourceAdder: FC<Props> = (props) => {
           </ClientLocalized>
           <button
             type="submit"
-            className="p-3 border-2 border-gray-700 hover:border-white hover:bg-white hover:text-gray-900 focus:border-white focus:outline-none rounded"
+            className="rounded border-2 border-gray-700 p-3 hover:border-white hover:bg-white hover:text-gray-900 focus:border-white focus:outline-none"
           >
             <MdCheck aria-label={l10n.getString("resource-add-name-submit")} />
           </button>
@@ -129,9 +129,9 @@ export const ResourceAdder: FC<Props> = (props) => {
 
   return (
     <>
-      <div className="grid sm:grid-cols-2 gap-5">
+      <div className="grid gap-5 sm:grid-cols-2">
         <button
-          className="flex items-center space-x-2 p-5 rounded border-4 border-dashed border-gray-200 text-gray-500 focus:text-gray-900 focus:border-gray-900 hover:text-gray-900 hover:border-gray-900 hover:bg-gray-100 focus:outline-none"
+          className="flex items-center space-x-2 rounded border-4 border-dashed border-gray-200 p-5 text-gray-500 hover:border-gray-900 hover:bg-gray-100 hover:text-gray-900 focus:border-gray-900 focus:text-gray-900 focus:outline-none"
           onClick={(e) => {
             e.preventDefault();
             setPhase("chooseName");

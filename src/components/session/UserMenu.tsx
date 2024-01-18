@@ -32,13 +32,13 @@ export const UserMenu: FC = () => {
           beforeClose: "",
         }}
         className={{
-          base: "transition-opacity duration-150 motion-safe:opacity-0 bg-white shadow-lg mx-auto p-5 md:p-10 rounded",
+          base: "mx-auto rounded bg-white p-5 shadow-lg transition-opacity duration-150 motion-safe:opacity-0 md:p-10",
           afterOpen: "motion-safe:opacity-100",
           beforeClose: "",
         }}
         closeTimeoutMS={150}
       >
-        <div className="flex flex-row-reverse -mt-4 -mr-4 md:-mt-8 md:-mr-8">
+        <div className="-mr-4 -mt-4 flex flex-row-reverse md:-mr-8 md:-mt-8">
           <button onClick={() => setPromptOpen(false)}>
             <MdClose aria-label={l10n.getString("connectmodal-close-label")} />
           </button>
@@ -57,7 +57,7 @@ export const UserMenu: FC = () => {
           sessionInfo.webId,
           encodeURIComponent(sessionInfo.webId),
         )}
-        className="sm:hidden lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-gray-200 items-center hover:bg-gray-700 hover:text-white hover:border-gray-700 focus:border-gray-700 focus:outline-none"
+        className="items-center whitespace-nowrap border-b-2 border-gray-200 p-2 hover:rounded hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none sm:hidden lg:flex"
       >
         {l10n.getString("profile-button")}
       </Link>
@@ -67,7 +67,7 @@ export const UserMenu: FC = () => {
     <>
       <LoggedOut>
         <button
-          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-gray-200 rounded-lg flex items-center hover:bg-gray-700 hover:text-white hover:border-gray-700 focus:border-gray-700 focus:outline-none"
+          className="flex items-center whitespace-nowrap rounded-lg border-2 border-gray-200 px-1 py-1 hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none md:px-2"
           onClick={(e) => {
             e.preventDefault();
             setPromptOpen(true);
@@ -91,7 +91,7 @@ export const UserMenu: FC = () => {
         <div className="flex space-x-5">
           {profileLink}
           <button
-            className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-gray-200 rounded-lg flex items-center hover:bg-gray-700 hover:text-white hover:border-gray-700 focus:border-gray-700 focus:outline-none"
+            className="flex items-center whitespace-nowrap rounded-lg border-2 border-gray-200 px-1 py-1 hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none md:px-2"
             onClick={(e) => {
               e.preventDefault();
               storage.setItem("autoconnect", "false");

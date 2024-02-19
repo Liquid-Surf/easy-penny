@@ -14,6 +14,7 @@ import {
   isIntegrated,
 } from "../../functions/integrate";
 import { useL10n } from "../../hooks/l10n";
+import { connect } from "../../functions/connect";
 
 export const UserMenu: FC = () => {
   const [promptOpen, setPromptOpen] = useState(false);
@@ -48,6 +49,8 @@ export const UserMenu: FC = () => {
     );
   }
 
+
+
   const profileLink =
     sessionInfo &&
     (!isIntegrated() ||
@@ -63,29 +66,65 @@ export const UserMenu: FC = () => {
       </Link>
     ) : null;
 
-  return (
-    <>
-      <LoggedOut>
-        <button
-          className="flex items-center whitespace-nowrap rounded-lg border-2 border-gray-200 px-1 py-1 hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none md:px-2"
+	const connectButton =  
+				<button
+          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
           onClick={(e) => {
             e.preventDefault();
             setPromptOpen(true);
           }}
           title={l10n.getString("connect-button-tooltip")}
         >
-          <span className="w-8">
-            <img
-              width={352 / 10}
-              height={322 / 10}
-              alt=""
-              src={getAssetLink("/solid-emblem.svg")}
-            />
-          </span>
-          <span aria-hidden="true" className="px-2 sm:hidden md:inline">
+          <span aria-hidden="true" className="px-2 md:inline">
             {l10n.getString("connect-button")}
           </span>
         </button>
+
+	const connectButtonIntegrated =  
+				<button
+          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
+          onClick={async (e) => {
+            e.preventDefault();
+            let issuer =
+              typeof document !== "undefined"
+                ? document.location.protocol + "//" + document.location.host
+                : null;
+            try {
+              console.log("issuer=" + issuer);
+              // issuer = "http://localhost:3055" // TODO remove me
+              if(issuer)
+                await connect(issuer);
+            } catch (e) {
+              console.log("couldnt connect to issuer..");
+              console.log(e);
+              // TODO Catch error correctly ( check ConnectForm )
+            }
+          }}
+          title={l10n.getString("connect-button-tooltip")}
+        >
+          <span aria-hidden="true" className="px-2 md:inline">
+            {l10n.getString("connect-button")}
+          </span>
+        </button>
+
+	const registerButton = 
+				<button
+          className="lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
+          onClick={(e) => {
+            document.location.href = "/idp/register/";
+          }}
+          title={l10n.getString("connect-button-tooltip")}
+        >
+          <span aria-hidden="true" className="px-2 md:inline">
+            Register
+          </span>
+        </button>
+
+  return (
+    <>
+      <LoggedOut>
+      	{ isIntegrated() ? registerButton : null }
+        { isIntegrated() ? connectButtonIntegrated : connectButton }
       </LoggedOut>
       <LoggedIn>
         <div className="flex space-x-5">

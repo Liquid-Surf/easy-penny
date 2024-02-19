@@ -17,7 +17,7 @@ type OwnOptions = {
 export async function deleteRecursively(
   dataset: SolidDataset & WithResourceInfo,
   options: DeleteOptions,
-  ownOptions: OwnOptions = {},
+  ownOptions: OwnOptions = {}
 ) {
   const containedResourceUrls = getContainedChildrenUrls(dataset);
   const containedDatasets = await Promise.all(

@@ -16,6 +16,7 @@ import { getExplorePath } from "../functions/integrate";
 import { NotIntegrated } from "./integrated/NotIntegrated";
 import { ClientLocalized } from "./ClientLocalized";
 import { useL10n } from "../hooks/l10n";
+import { Footer } from "./Footer"
 
 interface Props {
   children: ReactNode;
@@ -65,53 +66,14 @@ export const Layout = (props: Props) => {
     <>
       <div className="flex min-h-screen flex-col">
         <header className="bg-gray-50">
-          <div className="container mx-auto flex flex-col-reverse items-start space-y-5 px-5 pb-8 sm:flex-row sm:pt-5 md:items-center md:space-y-0 md:pt-8">
-            <h1 className="hidden pr-10 text-xl md:mr-0 md:block md:text-2xl">
-              <Link
-                href="/"
-                className="border-b-8 border-t-8 border-gray-50 px-5 py-3 font-bold hover:border-red-500 hover:bg-white hover:text-red-500 focus:text-gray-700 focus:underline focus:outline-none"
-              >
-                Penny
-              </Link>
-            </h1>
-            <div className="w-full flex-grow">{locationBar}</div>
-            <div className="flex items-center self-end py-2 pl-5 md:pl-10">
+          <div className="container mx-auto flex flex-col-reverse items-start sm:flex-row md:items-center space-y-5 md:space-y-0 px-5 pb-8 sm:pt-5 md:pt-8">
+            <div className="flex-grow w-full">{locationBar}</div>
+            <div className="pl-5 md:pl-10 flex self-end items-center py-2">
               <UserMenu />
             </div>
           </div>
         </header>
-        <main className="w-full flex-grow">{props.children}</main>
-        <footer className="px-8 py-14">
-          <div className="flex items-center justify-center space-x-3 border-t-2 border-gray-50 pt-10 text-gray-700">
-            <ClientLocalized
-              id="footer-author"
-              elems={{
-                "author-link": (
-                  <a
-                    href="https://VincentTunru.com"
-                    className="border-b-2 border-gray-700 hover:border-b-4 hover:text-gray-900 focus:bg-gray-700 focus:text-white focus:outline-none"
-                  />
-                ),
-              }}
-            >
-              <span>By Vincent Tunru.</span>
-            </ClientLocalized>
-            <a
-              href="https://fosstodon.org/@VincentTunru"
-              title={l10n.getString("mastodon-tooltip")}
-              className="rounded border-2 border-white p-2 text-gray-500 hover:border-gray-700 hover:text-gray-700 focus:border-gray-700 focus:text-gray-700 focus:outline-none"
-            >
-              <SiMastodon aria-label={l10n.getString("mastodon-label")} />
-            </a>
-            <a
-              href="https://gitlab.com/VincentTunru/Penny/"
-              title={l10n.getString("gitlab-tooltip")}
-              className="rounded border-2 border-white p-2 text-gray-500 hover:border-gray-700 hover:text-gray-700 focus:border-gray-700 focus:text-gray-700 focus:outline-none"
-            >
-              <SiGitlab aria-label={l10n.getString("gitlab-label")} />
-            </a>
-          </div>
-        </footer>
+        <main className="flex-grow container mx-auto">{props.children}</main>
       </div>
     </>
   );

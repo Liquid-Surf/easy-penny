@@ -29,3 +29,27 @@ export function getExplorePath(url: string, hash?: string): string {
 export function getAssetLink(assetPath: string): string {
   return isIntegrated() ? `/server-ui${assetPath}` : assetPath;
 }
+
+async function getProfilePict(
+  webid: string,
+  file: string
+): Promise<string | null> {
+  const profileContainer = webid.split("/").slice(0, -1).join("/") + "/";
+  const imgLocation = profileContainer + file;
+  return fetch(imgLocation, { method: "HEAD" })
+    .then((response) => {
+      if (response.ok) {
+        return imgLocation;
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => null);
+}
+
+export function getAvatarPict(webid: string): Promise<string | null> {
+  return getProfilePict(webid, "profile.png");
+}
+export function getBackgroundPict(webid: string): Promise<string | null> {
+  return getProfilePict(webid, "background.png");
+}

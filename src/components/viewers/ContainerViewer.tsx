@@ -10,6 +10,7 @@ import { SectionHeading } from "../ui/headings";
 import { ResourceAdder } from "../adders/ResourceAdder";
 import { LoggedOut } from "../session/LoggedOut";
 import { getExplorePath } from "../../functions/integrate";
+import { getFileTypeIcon, isRootContainter } from "../../functions/explorer";
 import { ClientLocalized } from "../ClientLocalized";
 import { LoadedCachedDataset } from "../../hooks/dataset";
 
@@ -30,6 +31,7 @@ export const ContainerViewer: FC<Props> = (props) => {
           href={getExplorePath(resourceUrl)}
           className="block rounded bg-gray-700 p-5 text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-opacity-50 focus:ring-offset-2"
         >
+          <span className="text-2xl">{getFileTypeIcon(decodeURIComponent(name), isRootContainter(props.dataset))} </span>
           {decodeURIComponent(name)}
         </Link>
       );
@@ -50,9 +52,6 @@ export const ContainerViewer: FC<Props> = (props) => {
 
   return (
     <>
-      <ClientLocalized id="container-children-heading">
-        <SectionHeading>Contained Resources</SectionHeading>
-      </ClientLocalized>
       <div className="pb-10">
         <div className="grid gap-5 pb-5 sm:grid-cols-2">
           {containedResources}

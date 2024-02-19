@@ -1,0 +1,34 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^5.0.0/components/context.jsonld",
+  "@graph": [
+    {
+      "comment": [
+        "A filesystem-based server with Penny as UI.",
+        "Derived from config/file-no-setup.json"
+      ]
+    },
+
+    {
+        "comment": "Serve Penny as default representation",
+        "@id": "urn:solid-server:default:DefaultUiConverter",
+        "@type": "ConstantConverter",
+        "contentType": "text/html",
+        "filePath": "./ui/server-ui/index.html",
+        "options_container": true,
+        "options_document": true,
+        "options_minQuality": 1
+      },
+
+      {
+        "comment": "Serve Penny static files.",
+        "@id": "urn:solid-server:default:StaticAssetHandler",
+        "@type": "StaticAssetHandler",
+        "assets": [
+          {
+            "StaticAssetHandler:_assets_key": "/server-ui/",
+            "StaticAssetHandler:_assets_value": "./ui/server-ui/"
+          }
+        ]
+      }
+  ]
+}

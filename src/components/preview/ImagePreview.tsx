@@ -24,6 +24,9 @@ export const ImagePreview: FC<Props> = (props) => {
   return (
     <>
       <div className="pb-10">
+        <ClientLocalized id="preview-image-heading">
+          <SectionHeading>Image Preview</SectionHeading>
+        </ClientLocalized>
         <a
           href={props.objectUrl}
           title={l10n.getString("preview-image-thumbnail-tooltip")}

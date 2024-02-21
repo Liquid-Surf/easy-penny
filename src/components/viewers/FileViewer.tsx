@@ -97,13 +97,15 @@ export const FileViewer: FC<Props> = (props) => {
     }
     if (contentType === "application/json") {
       preview = <JsonPreview file={props.file} />;
-    }
+    }   
   }
 
   return (
     <>
-      {preview}
       <div className="pb-10">
+        <ClientLocalized id="file-heading">
+          <SectionHeading>File</SectionHeading>
+        </ClientLocalized>
         <a
           href={blobUrl}
           title={l10n.getString("file-download-button-tooltip", {

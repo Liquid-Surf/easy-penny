@@ -74,6 +74,7 @@ export const Explorer: React.FC<Props> = (props) => {
           Solid app store
         </Link>
       </p>
+      */}
       <p className="p-1 pb-10">
         {" "}
         We are currently hosting the following PODs:{" "}

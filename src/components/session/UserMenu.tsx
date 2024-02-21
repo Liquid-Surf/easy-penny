@@ -111,7 +111,7 @@ export const UserMenu: FC = () => {
 				<button
           className="lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
           onClick={(e) => {
-            document.location.href = "/idp/register/";
+            document.location.href = "/.account/login/password/register/";
           }}
           title={l10n.getString("connect-button-tooltip")}
         >

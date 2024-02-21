@@ -63,10 +63,11 @@ export const Explorer: React.FC<Props> = (props) => {
       <p className="p-1 pl-5">
         {" "}
         ➡ You can create a POD ( Personal Online Datastore ) by{" "}
-        <Link className="text-blue-600 underline" href="/idp/register/">
+        <Link className="text-blue-600 underline" href="/.account/login/password/register/">
           registering
         </Link>
       </p>
+      {/*
       <p className="p-1 pl-5">
         {" "}
         ➡ You can find Solid compatible apps on the{" "}

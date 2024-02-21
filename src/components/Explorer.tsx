@@ -20,7 +20,6 @@ import { ClientLocalized } from "./ClientLocalized";
 import { SectionHeading } from "./ui/headings";
 import { isRootContainter } from "../functions/explorer";
 import { isIntegrated } from "../functions/integrate";
-import { TreeView } from "./TreeView";
 import { useRoot } from "../hooks/root";
 import * as storage from "../functions/localStorage";
 import { useL10n } from "../hooks/l10n";

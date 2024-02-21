@@ -131,6 +131,13 @@ export const Explorer: React.FC<Props> = (props) => {
       </button>
     </div>
   );
+  const noPreviewWarning = (
+    <>
+      <ClientLocalized id="preview-error">
+        <div className="rounded bg-yellow-200 p-5 m-2">Could not preview resource.</div>
+      </ClientLocalized>
+    </>
+  );
 
   return (
     <Layout path={props.url}>
@@ -139,13 +146,11 @@ export const Explorer: React.FC<Props> = (props) => {
       </Head>
       <div className="lg:w-4/5 xl:w-2/3 2xl:w-1/2 mx-auto p-5 md:pt-10">
         {/* {isRoot && isIntegrated() ? intro : null } */}
-        {isRoot ? intro : null}{" "}
+        {isRoot && containerViewer ? intro : null}
         {/* for dev purposes, otherwise use the above */}
-        {fileViewer || isRoot ? null : showAdvancedButton}
+        { showAdvancedButton }
+        {fileViewer || containerViewer  || card || noPreviewWarning}
         {errorViewer}
-        {containerViewer}
-        {card}
-        {fileViewer}
         <div id="advanced-options" className={showAdvanced ? "open p-4" : ""}>
           <ClientLocalized id="TODO">
             <SectionHeading>Advanced Options</SectionHeading>

@@ -153,7 +153,11 @@ export const Explorer: React.FC<Props> = (props) => {
         {errorViewer}
         <div id="advanced-options" className={showAdvanced ? "open p-4" : ""}>
           <ClientLocalized id="TODO">
-            <SectionHeading>Advanced Options</SectionHeading>
+            <div className="pb-5">
+              <h1 className="w-3/4 pt-5 text-3xl font-bold">
+                Advanced Options
+              </h1>
+            </div>
           </ClientLocalized>
           {showAdvanced ? datasetViewer : null}
         </div>

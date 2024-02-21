@@ -109,6 +109,7 @@ export const Explorer: React.FC<Props> = (props) => {
 
   const card =
     resource !== null &&
+    props.url &&
     (props.url.slice(-4) == "card" || props.url.slice(-7) == "card#me") ? (
       <Card webidUrl={props.url} dataset={resource} />
     ) : null;

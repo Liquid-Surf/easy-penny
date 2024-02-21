@@ -1,5 +1,5 @@
 {
-  "name": "penny-pod-inspector",
+  "name": "easy-penny-pod-inspector",
   "version": "0.1.0",
   "private": false,
   "main": "server-ui/index.html",

@@ -142,7 +142,7 @@ export const Explorer: React.FC<Props> = (props) => {
   return (
     <Layout path={props.url}>
       <Head>
-        <title>Penny: {props.url}</title>
+        <title>Liquid Pod: {props.url}</title>
       </Head>
       <div className="lg:w-4/5 xl:w-2/3 2xl:w-1/2 mx-auto p-5 md:pt-10">
         {/* {isRoot && isIntegrated() ? intro : null } */}

@@ -273,8 +273,6 @@ file-delete-toast-success = File deleted.
 file-delete-toast-error-not-allowed = You are not allowed to delete this file.
 file-delete-toast-error-other = Could not delete the file.
 
-preview-error = Could not preview resource.
-
 preview-image-heading = Image Preview
 preview-image-thumbnail-tooltip = View or download full image
 preview-image-alt = Preview of `{$filename}`

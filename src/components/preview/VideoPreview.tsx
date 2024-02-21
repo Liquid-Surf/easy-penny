@@ -14,9 +14,6 @@ export const VideoPreview: FC<Props> = (props) => {
   return (
     <>
       <div className="pb-10">
-      <ClientLocalized id="preview-video-heading">
-          <SectionHeading>Video Preview</SectionHeading>
-        </ClientLocalized>
         <ClientLocalized
           id="preview-video-error-playback"
           vars={{ filename: fileName }}

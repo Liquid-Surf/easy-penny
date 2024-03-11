@@ -1,6 +1,6 @@
 {
   "name": "easy-penny-pod-inspector",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": false,
   "main": "server-ui/index.html",
   "license": "AGPL-3.0-only",
@@ -9,6 +9,7 @@
     "build": "next build && next export",
     "build:server-ui": "zx scripts/build_server_ui.mjs",
     "build:standalone": "zx scripts/build_standalone.mjs",
+    "publish": "npm publish --access public",
     "start": "next start",
     "test": "next lint && jest",
     "prepare": "husky install"

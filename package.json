@@ -1,6 +1,6 @@
 {
   "name": "easy-penny-pod-inspector",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "main": "server-ui/index.html",
   "license": "AGPL-3.0-only",

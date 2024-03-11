@@ -107,6 +107,16 @@ export const Explorer: React.FC<Props> = (props) => {
       <FetchErrorViewer error={resource.error} />
     );
 
+  const noPreviewWarning = typeof sessionInfo === "undefined" ||
+    (!isLoadedDataset(resource) && resource.isValidating) ?
+    null : (
+    <>
+      <ClientLocalized id="preview-error">
+        <div className="rounded bg-yellow-200 p-5 m-2">Could not preview resource.</div>
+      </ClientLocalized>
+    </>
+  );
+
   const card =
     resource !== null &&
     props.url &&
@@ -131,13 +141,6 @@ export const Explorer: React.FC<Props> = (props) => {
       </button>
     </div>
   );
-  const noPreviewWarning = (
-    <>
-      <ClientLocalized id="preview-error">
-        <div className="rounded bg-yellow-200 p-5 m-2">Could not preview resource.</div>
-      </ClientLocalized>
-    </>
-  );
 
   return (
     <Layout path={props.url}>
@@ -152,6 +155,7 @@ export const Explorer: React.FC<Props> = (props) => {
         {fileViewer || containerViewer  || card || noPreviewWarning}
         {errorViewer}
         <div id="advanced-options" className={showAdvanced ? "open p-4" : ""}>
+          <button className="absolute right-5 top-5 underline" onClick={()=> setShow(!showAdvanced)}>close</button>
           <ClientLocalized id="TODO">
             <div className="pb-5">
               <h1 className="w-3/4 pt-5 text-3xl font-bold">

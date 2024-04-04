@@ -5,7 +5,7 @@ Used with https://github.com/liquid-surf/easy-penny-recipe to create https://pod
 The fork is ment to be more user facing than developer facing.
 It is only developed for integrated mode, to be used with Solid Community Server.
 
-Bellow Penny's original readme:
+Bellow Penny's original readme
 
 ---
 

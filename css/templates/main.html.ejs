@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title><%= extractTitle(htmlBody) %></title>
+  <link rel="stylesheet" href="/server-ui/_next/static/css/5c9acf5f5fc2dcd6.css" crossorigin="" data-n-g="">
+  <link rel="preload" href="/server-ui/_next/static/css/5c9acf5f5fc2dcd6.css" as="style" crossorigin="">
+  <link rel="stylesheet" href="<%= baseUrl -%>styles/main.css?v=7" type="text/css">
+  <script type="text/javascript" src="<%= baseUrl -%>.well-known/css/scripts/util.js?v=7"></script>
+
+</head>
+<body>
+  <header class="bg-gray-50">
+    <div class="container mx-auto flex flex-col-reverse items-start sm:flex-row md:items-center space-y-5 md:space-y-0 px-5 pb-8 sm:pt-5 md:pt-8">
+      <div class="flex-grow w-full">
+        <h2 class="text-md md:text-lg lg:text-xl">
+          <div class="flex items-center space-x-2">
+            <span class="flex items-center py-2">
+      <a class="hidden break-words hover:underline focus:text-gray-700 focus:underline focus:outline-none" aria-hidden="true" href="/">..</a>
+              <a class="font-bold hover:underline focus:text-gray-700 focus:underline focus:outline-none websiteName" href="/"></a>
+            </span>
+          </div>
+        </h2>
+      </div>
+      <div class="pl-5 md:pl-10 flex self-end items-center py-2">
+        <h2 class="text-md md:text-lg lg:text-xl">
+          <!-- My Accounts -->
+        </h2>
+    </div>
+  </div>
+</header>
+
+
+
+
+  <main class="flex-grow container mx-auto">
+		<div class="lg:w-4/5 xl:w-2/3 2xl:w-1/2 mx-auto p-5 md:pt-10">
+      <%- htmlBody %>
+		</div>
+  </main>
+  <footer>
+  </footer>
+  <script>
+    var websiteName = window.location.host;
+    var titleElement = document.querySelector('header .websiteName');
+    if (titleElement) {
+        titleElement.textContent = websiteName;
+    }
+  </script>
+</body>
+</html>
+
+<%
+
+function extractTitle(body) {
+  const match = /^<h1[^>]*>([^<]*)<\/h1>/u.exec(body);
+  return match ? match[1] : 'Solid';
+}
+
+
+%>

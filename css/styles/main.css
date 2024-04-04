@@ -1,0 +1,241 @@
+html {
+  --solid-purple: #7c4dff;
+  --solid-blue: #18a9e6;
+  --solid-dark: #162542;
+  --solid-gray: #6a6a6a;
+
+  --penny-dark: #374151;
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+main p {
+  margin: 0.75em 0;
+}
+main h1 + p,
+main h2 + p {
+  margin-top: 0.25em;
+}
+
+main h1 {
+  margin: 1em 0 0;
+
+  font-size: 2em;
+  font-weight: 700;
+}
+main h2 {
+  margin: 1em 0 0;
+
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--solid-gray);
+}
+strong {
+  font-weight: 600;
+}
+
+main a {
+  color: var(--solid-purple);
+  font-weight: 500;
+  text-decoration-line: underline;
+}
+
+main a:hover {
+  color: var(--solid-blue);
+}
+
+button {
+  cursor: pointer;
+  padding: 0.5em 2em;
+  border: 0 solid #ccc;
+  border-width: 2px;
+  border-radius: 0.5rem;
+  border-color: rgb(229 231 235);
+}
+button:hover {
+  background-color: var(--penny-dark);
+  color: white;
+}
+button[type="submit"] {
+  font-weight: 600;
+}
+button:disabled {
+  background-color: var(--solid-gray);
+}
+
+button.alternate {
+  display: block;
+  padding: 0;
+  margin: 0.5em 0;
+
+  background: none;
+  color: var(--solid-purple);
+  font-weight: normal;
+}
+button.alternate:hover {
+  color: var(--solid-blue);
+}
+
+ul {
+  margin: 0.75em 0;
+  padding-left: 2em;
+}
+li {
+  margin: 0.7em 0;
+}
+li p {
+  margin: 0;
+}
+ul ul,
+ol ul {
+  margin-top: 0;
+  padding-left: 1em;
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+  max-width: 600px;
+}
+fieldset > legend {
+  margin: 0.5em 0 0;
+
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--solid-gray);
+}
+fieldset > legend + p {
+  margin: 0 0 0.5em 0.25em;
+}
+fieldset > fieldset > legend {
+  font-size: 1.2em;
+}
+.hidden legend {
+  display: none;
+}
+fieldset ol {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 2em;
+}
+fieldset ol ol {
+  margin: 0 0 1em 0.5em;
+}
+fieldset ol li:not(.checkbox, .radio) {
+  display: grid;
+  grid-template-columns: 10em auto;
+  grid-gap: 1em;
+  align-items: center;
+}
+fieldset ol ol li:not(.checkbox, .radio) {
+  grid-template-columns: 7.5em auto;
+}
+fieldset li label {
+  font-weight: 600;
+  cursor: pointer;
+}
+fieldset li li label {
+  font-weight: 500;
+}
+fieldset li.checkbox > label > input,
+fieldset li.radio > label > input {
+  margin: 0 0.5em 0 0;
+}
+fieldset li p {
+  margin-top: 0.25em;
+}
+
+input {
+  border: 1px solid var(--solid-gray);
+}
+
+input:focus,
+button:focus {
+  outline: var(--solid-blue) solid 1.5px;
+}
+
+p.error {
+  color: #ad0f0f;
+  font-weight: 600;
+}
+p.error:empty {
+  display: none;
+}
+
+p.actions {
+  margin: 0.5em 0 1em 11em;
+}
+
+ul.actions {
+  padding: 0;
+  margin: 0 0 1em 11em;
+}
+ul.actions > li {
+  list-style-type: none;
+  display: inline;
+  margin-right: 1em;
+}
+
+.hidden {
+  display: none;
+}
+
+form.loaded * {
+  max-height: 1000px;
+  transition: max-height 0.2s;
+}
+form .hidden:not(button) {
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+}
+
+ul.container > li {
+  margin: 0.25em 0;
+  list-style-type: none;
+}
+ul.container > li.container > a {
+  font-weight: 800;
+}
+
+ol.breadcrumbs {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0 0.25em;
+  font-size: 90%;
+}
+ol.breadcrumbs > li {
+  display: inline;
+}
+ol.breadcrumbs > li > a {
+  color: var(--solid-gray);
+  font-weight: 400;
+  white-space: nowrap;
+}
+ol.breadcrumbs > li > a:hover {
+  color: var(--solid-purple);
+}
+ol.breadcrumbs > li:not(:last-child):after {
+  padding: 0 0.25em;
+  content: " > ";
+  font-weight: 300;
+  color: var(--solid-gray);
+}
+ol.breadcrumbs > li:last-child {
+  font-weight: 500;
+  color: var(--solid-purple);
+}
+ol.breadcrumbs > li:only-child {
+  display: none;
+}
+
+/*
+
+
+body, input, button {
+  font: 12pt/1.6 Raleway, sans-serif;
+  font-weight: 300;
+  color: var(--solid-dark);
+}
+*/

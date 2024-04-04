@@ -49,128 +49,128 @@ export const UserMenu: FC = () => {
     );
   }
 
-
-
   const profileLink =
     sessionInfo &&
     (!isIntegrated() ||
       new URL(sessionInfo.webId).origin === document.location.origin) ? (
       <Link
-        href={getExplorePath(
-          sessionInfo.webId,
-          encodeURIComponent(sessionInfo.webId),
-        )}
+        href={getExplorePath(sessionInfo.webId)}
         className="items-center whitespace-nowrap border-b-2 border-gray-200 p-2 hover:rounded hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none sm:hidden lg:flex"
       >
         {l10n.getString("profile-button")}
       </Link>
     ) : null;
 
-  const manageAccountLink =  
-    <button 
-          className="items-center whitespace-nowrap border-b-2 border-gray-200 p-2 hover:rounded hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none sm:hidden lg:flex mx-2"
-          onClick={(e) => {
-            document.location.href = "/.account/account/";
-          }}
-      >
-        Your account
-      </button> 
-	const connectButton =  
-				<button
-          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3 mx-2"
-          onClick={(e) => {
-            e.preventDefault();
-            setPromptOpen(true);
-          }}
-          title={l10n.getString("connect-button-tooltip")}
-        >
-          <span aria-hidden="true" className="px-2 md:inline">
-            {l10n.getString("connect-button")}
-          </span>
-        </button>
+  const manageAccountLink = (
+    <button
+      className="mx-2 items-center whitespace-nowrap border-b-2 border-gray-200 p-2 hover:rounded hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none sm:hidden lg:flex"
+      onClick={(e) => {
+        document.location.href = "/.account/account/";
+      }}
+    >
+      Your account
+    </button>
+  );
+  const connectButton = (
+    <button
+      className="mx-2 ml-3 flex items-center whitespace-nowrap rounded-lg border-2 border-coolGray-200 px-1 py-1 hover:border-coolGray-700 hover:bg-coolGray-700 hover:text-white focus:border-coolGray-700 focus:outline-none md:px-2"
+      onClick={(e) => {
+        e.preventDefault();
+        setPromptOpen(true);
+      }}
+      title={l10n.getString("connect-button-tooltip")}
+    >
+      <span aria-hidden="true" className="px-2 md:inline">
+        {l10n.getString("connect-button")}
+      </span>
+    </button>
+  );
 
-	const connectButtonIntegrated =  
-				<button
-          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3 mx-2"
-          onClick={async (e) => {
-            e.preventDefault();
-            let issuer =
-              typeof document !== "undefined"
-                ? document.location.protocol + "//" + document.location.host
-                : null;
-            try {
-              console.log("issuer=" + issuer);
-              if(issuer)
-                await connect(issuer);
-            } catch (e) {
-              console.log("couldnt connect to issuer..");
-              console.log(e);
-              // TODO Catch error correctly ( check ConnectForm )
-            }
-          }}
-          title={l10n.getString("connect-button-tooltip")}
-        >
-          <span aria-hidden="true" className="px-2 md:inline">
-            {l10n.getString("login-button")}
-          </span>
-        </button>
+  const connectButtonIntegrated = (
+    <button
+      className="mx-2 ml-3 flex items-center whitespace-nowrap rounded-lg border-2 border-coolGray-200 px-1 py-1 hover:border-coolGray-700 hover:bg-coolGray-700 hover:text-white focus:border-coolGray-700 focus:outline-none md:px-2"
+      onClick={async (e) => {
+        e.preventDefault();
+        let issuer =
+          typeof document !== "undefined"
+            ? document.location.protocol + "//" + document.location.host
+            : null;
+        try {
+          console.log("issuer=" + issuer);
+          if (issuer) await connect(issuer);
+        } catch (e) {
+          console.log("couldnt connect to issuer..");
+          console.log(e);
+          // TODO Catch error correctly ( check ConnectForm )
+        }
+      }}
+      title={l10n.getString("connect-button-tooltip")}
+    >
+      <span aria-hidden="true" className="px-2 md:inline">
+        {l10n.getString("login-button")}
+      </span>
+    </button>
+  );
 
-	const registerButton = 
-				<button
-          className="lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none mx-2"
-          onClick={(e) => {
-            document.location.href = "/.account/login/password/register/";
-          }}
-          title={l10n.getString("connect-button-tooltip")}
-        >
-          <span aria-hidden="true" className="px-2 md:inline">
-            Register
-          </span>
-        </button>
+  const registerButton = (
+    <button
+      className="mx-2 items-center whitespace-nowrap border-b-2 border-coolGray-200 p-2 hover:rounded hover:border-coolGray-700 hover:bg-coolGray-700 hover:text-white focus:border-coolGray-700 focus:outline-none lg:flex"
+      onClick={(e) => {
+        // document.location.href = "/account/register/";
+        document.location.href = "/.account/login/password/register/";
+      }}
+      title={l10n.getString("connect-button-tooltip")}
+    >
+      <span aria-hidden="true" className="px-2 md:inline">
+        Register
+      </span>
+    </button>
+  );
 
-   const disconnectButton = 
-          <button
-            className="flex items-center whitespace-nowrap rounded-lg border-2 border-gray-200 px-1 py-1 hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none md:px-2 mx-2"
-            onClick={(e) => {
-              e.preventDefault();
-              storage.setItem("autoconnect", "false");
-              logout();
-            }}
-            title={l10n.getString("disconnect-button-tooltip", {
-              webId: sessionInfo?.webId ?? "",
-            })}
-          >
-            <span className="w-8">
-              <img
-                width={352 / 10}
-                height={322 / 10}
-                alt=""
-                src={getAssetLink("/solid-emblem.svg")}
-                aria-hidden="true"
-              />
-            </span>
-            <span className="px-2">{l10n.getString("disconnect-button")}</span>
-          </button>
+  const disconnectButton = (
+    <button
+      className="mx-2 flex items-center whitespace-nowrap rounded-lg border-2 border-gray-200 px-1 py-1 hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none md:px-2"
+      onClick={(e) => {
+        e.preventDefault();
+        storage.setItem("autoconnect", "false");
+        logout();
+      }}
+      title={l10n.getString("disconnect-button-tooltip", {
+        webId: sessionInfo?.webId ?? "",
+      })}
+    >
+      <span className="w-8">
+        <img
+          width={352 / 10}
+          height={322 / 10}
+          alt=""
+          src={getAssetLink("/solid-emblem.svg")}
+          aria-hidden="true"
+        />
+      </span>
+      <span className="px-2">{l10n.getString("disconnect-button")}</span>
+    </button>
+  );
 
-	const editProfile =
-      <Link
-        href="/account/profile"
-        className="items-center whitespace-nowrap border-b-2 border-gray-200 p-2 hover:rounded hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none sm:hidden lg:flex"
-      >
-        Edit Profile {/* TODO l10n */}
-      </Link>
+  const editProfile = (
+    <Link
+      href="/account/profile"
+      className="items-center whitespace-nowrap border-b-2 border-gray-200 p-2 hover:rounded hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none sm:hidden lg:flex"
+    >
+      Edit Profile {/* TODO l10n */}
+    </Link>
+  );
 
   return (
     <>
       <LoggedOut>
-      	{ isIntegrated() ? registerButton : null }
-        { isIntegrated() ? connectButtonIntegrated : connectButton }
+        {isIntegrated() ? registerButton : null}
+        {isIntegrated() ? connectButtonIntegrated : connectButton}
       </LoggedOut>
       <LoggedIn>
-        <div className="flex space-x-5"> 
-          {isIntegrated() ? manageAccountLink : null}
-        </div>
+        <div className="flex space-x-5"></div>
         <div className="flex space-x-5">
+          {/*isIntegrated() ? manageAccountLink : null // see #1*/}
           {profileLink}
           {/* sessionInfo && isIntegrated() ? editProfile : null */}
         </div>

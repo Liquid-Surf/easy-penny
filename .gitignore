@@ -46,6 +46,4 @@ yarn-error.log*
 
 # fork
 server-ui
-src_svg_*
-src
-data
+css/data

@@ -151,6 +151,15 @@ export const UserMenu: FC = () => {
             </span>
             <span className="px-2">{l10n.getString("disconnect-button")}</span>
           </button>
+
+	const editProfile =
+      <Link
+        href="/account/profile"
+        className="items-center whitespace-nowrap border-b-2 border-gray-200 p-2 hover:rounded hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none sm:hidden lg:flex"
+      >
+        Edit Profile {/* TODO l10n */}
+      </Link>
+
   return (
     <>
       <LoggedOut>
@@ -163,6 +172,7 @@ export const UserMenu: FC = () => {
         </div>
         <div className="flex space-x-5">
           {profileLink}
+          {/* sessionInfo && isIntegrated() ? editProfile : null */}
         </div>
         {disconnectButton}
       </LoggedIn>

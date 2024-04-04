@@ -1,5 +1,7 @@
 A fork from https://gitlab.com/vincenttunru/penny
 
+Used with https://github.com/liquid-surf/easy-penny-recipe to create https://pod.liquid.surf
+
 The fork is ment to be more user facing than developer facing.
 It is only developed for integrated mode, to be used with Solid Community Server.
 

@@ -48,8 +48,8 @@ export const Explorer: React.FC<Props> = (props) => {
       : false;
 
   const intro = (
-    <>
-      <h3 className="text-2xl py-2">
+    <div className="bg-gray-100 rounded-lg p-4 mb-10">
+      <h3 className="text-2xl pb-2">
         Welcome to your Personal Online Datastore!
       </h3>
       <p className="p-1">
@@ -75,11 +75,11 @@ export const Explorer: React.FC<Props> = (props) => {
         </Link>
       </p>
       */}
-      <p className="p-1 pb-10">
+      <p className="p-1">
         {" "}
-        We are currently hosting the following PODs:{" "}
+        We are currently hosting the PODs bellow.{" "}
       </p>
-    </>
+    </div>
   );
 
   const toggleShowAdvanced = (currentValue: boolean) => {

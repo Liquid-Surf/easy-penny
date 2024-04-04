@@ -66,9 +66,18 @@ export const UserMenu: FC = () => {
       </Link>
     ) : null;
 
+  const manageAccountLink =  
+    <button 
+          className="items-center whitespace-nowrap border-b-2 border-gray-200 p-2 hover:rounded hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none sm:hidden lg:flex mx-2"
+          onClick={(e) => {
+            document.location.href = "/.account/account/";
+          }}
+      >
+        Your account
+      </button> 
 	const connectButton =  
 				<button
-          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
+          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3 mx-2"
           onClick={(e) => {
             e.preventDefault();
             setPromptOpen(true);
@@ -82,7 +91,7 @@ export const UserMenu: FC = () => {
 
 	const connectButtonIntegrated =  
 				<button
-          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3"
+          className="whitespace-nowrap px-1 md:px-2 py-1 border-2 border-coolGray-200 rounded-lg flex items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none ml-3 mx-2"
           onClick={async (e) => {
             e.preventDefault();
             let issuer =
@@ -91,7 +100,6 @@ export const UserMenu: FC = () => {
                 : null;
             try {
               console.log("issuer=" + issuer);
-              // issuer = "http://localhost:3055" // TODO remove me
               if(issuer)
                 await connect(issuer);
             } catch (e) {
@@ -103,13 +111,13 @@ export const UserMenu: FC = () => {
           title={l10n.getString("connect-button-tooltip")}
         >
           <span aria-hidden="true" className="px-2 md:inline">
-            {l10n.getString("connect-button")}
+            {l10n.getString("login-button")}
           </span>
         </button>
 
 	const registerButton = 
 				<button
-          className="lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none"
+          className="lg:flex whitespace-nowrap p-2 border-b-2 hover:rounded border-coolGray-200 items-center hover:bg-coolGray-700 hover:text-white hover:border-coolGray-700 focus:border-coolGray-700 focus:outline-none mx-2"
           onClick={(e) => {
             document.location.href = "/.account/login/password/register/";
           }}
@@ -120,17 +128,9 @@ export const UserMenu: FC = () => {
           </span>
         </button>
 
-  return (
-    <>
-      <LoggedOut>
-      	{ isIntegrated() ? registerButton : null }
-        { isIntegrated() ? connectButtonIntegrated : connectButton }
-      </LoggedOut>
-      <LoggedIn>
-        <div className="flex space-x-5">
-          {profileLink}
+   const disconnectButton = 
           <button
-            className="flex items-center whitespace-nowrap rounded-lg border-2 border-gray-200 px-1 py-1 hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none md:px-2"
+            className="flex items-center whitespace-nowrap rounded-lg border-2 border-gray-200 px-1 py-1 hover:border-gray-700 hover:bg-gray-700 hover:text-white focus:border-gray-700 focus:outline-none md:px-2 mx-2"
             onClick={(e) => {
               e.preventDefault();
               storage.setItem("autoconnect", "false");
@@ -151,7 +151,20 @@ export const UserMenu: FC = () => {
             </span>
             <span className="px-2">{l10n.getString("disconnect-button")}</span>
           </button>
+  return (
+    <>
+      <LoggedOut>
+      	{ isIntegrated() ? registerButton : null }
+        { isIntegrated() ? connectButtonIntegrated : connectButton }
+      </LoggedOut>
+      <LoggedIn>
+        <div className="flex space-x-5"> 
+          {isIntegrated() ? manageAccountLink : null}
         </div>
+        <div className="flex space-x-5">
+          {profileLink}
+        </div>
+        {disconnectButton}
       </LoggedIn>
     </>
   );

@@ -62,9 +62,11 @@ export const Explorer: React.FC<Props> = (props) => {
       <p className="p-1 pl-5">
         {" "}
         ➡ You can create a POD ( Personal Online Datastore ) by{" "}
-        <Link className="text-blue-600 underline" href="/.account/login/password/register/">
+        <button className="text-blue-600 underline"   
+          onClick={(e) => document.location.href = "/.account/login/password/register/" }
+          >
           registering
-        </Link>
+        </button>
       </p>
       {/*
       <p className="p-1 pl-5">

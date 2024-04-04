@@ -16,7 +16,11 @@ urlbar-button-label =
 
 profile-button = Your Profile
 
-connect-button = Connect Pod
+manage-account-button = Your account
+
+login-button = Login
+
+connect-button = Connect
 connect-button-tooltip = Connect your Solid Pod
 disconnect-button = Disconnect
 disconnect-button-tooltip = Disconnect from your Solid Pod: {$webId}

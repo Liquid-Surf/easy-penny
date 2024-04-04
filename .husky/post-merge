@@ -1,0 +1,30 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+echo "Triggering post-merge git hook on $CURRENT_BRANCH"
+CURRENT_BRANCH=$(git branch --show-current)
+
+if [ "$CURRENT_BRANCH" = "main" ]; then
+  logfile="../publish_hook.log"
+  echo "---" >> "$logfile"
+  echo "$(date): Publishing because the branch merged into 'mina'" >> "$logfile"
+  echo "Running npm publish..."
+    read -p "Do you want to publish to NPM?\n
+    y (default) - publish a npm patch\n
+    m - publish a minor version\n
+    M - publish a major version\n
+    n - do not publish to NPM\n
+    c - cancel merge" answer
+    case $answer in
+        [Yy]* )  echo "Publishing to NPM" | tee "$logfile";
+                   npm run pub >> "$logfile" 2>&1;;
+        [m]* )   echo "Publishing minor version to NPM"| tee "$logfile";
+                   npm run pub:min >> "$logfile" 2>&1;;
+        [M]* )   echo "Publishing major version to NPM" | tee "$logfile";
+                   npm run pub:maj >> "$logfile" 2>&1;;
+        [Nn]* )  echo "No Publishing to NPM"| tee "$logfile";;
+        [Cc]* )  echo "Aborting the merge"| tee "$logfile" ;  
+        * ) echo "Please answer correctly"; exit 1;;  # Handle invalid input
+  echo "npm publish completed" >> "$logfile"
+fi
+

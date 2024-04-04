@@ -2,3 +2,16 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npx --no-install lint-staged
+
+# Get the current branch name
+CURRENT_BRANCH=$(git branch --show-current)
+
+if [ "$CURRENT_BRANCH" = "main" ]; then
+    # Prompt the user for confirmation
+    read -p "You are about to commit to the main branch. Are you sure? Its better to commit to the develop branch and then merge to main (y/n) " yn
+    case $yn in
+        [Yy]* ) exit 0;;  # Continue with the commit
+        [Nn]* ) echo "Commit aborted."; exit 1;;  # Abort the commit
+        * ) echo "Please answer yes or no."; exit 1;;  # Handle invalid input
+    esac
+fi

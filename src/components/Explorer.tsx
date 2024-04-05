@@ -48,8 +48,8 @@ export const Explorer: React.FC<Props> = (props) => {
       : false;
 
   const intro = (
-    <div className="bg-gray-100 rounded-lg p-4 mb-10">
-      <h3 className="text-2xl pb-2">
+    <div className="mb-10 rounded-lg bg-gray-100 p-4">
+      <h3 className="pb-2 text-2xl">
         Welcome to your Personal Online Datastore!
       </h3>
       <p className="p-1">
@@ -62,9 +62,12 @@ export const Explorer: React.FC<Props> = (props) => {
       <p className="p-1 pl-5">
         {" "}
         ➡ You can create a POD ( Personal Online Datastore ) by{" "}
-        <button className="text-blue-600 underline"   
-          onClick={(e) => document.location.href = "/.account/login/password/register/" }
-          >
+        <button
+          className="text-blue-600 underline"
+          onClick={(e) =>
+            (document.location.href = "/.account/login/password/register/")
+          }
+        >
           registering
         </button>
       </p>
@@ -77,10 +80,7 @@ export const Explorer: React.FC<Props> = (props) => {
         </Link>
       </p>
       */}
-      <p className="p-1">
-        {" "}
-        We are currently hosting the PODs bellow.{" "}
-      </p>
+      <p className="p-1"> We are currently hosting the PODs bellow. </p>
     </div>
   );
 
@@ -109,15 +109,17 @@ export const Explorer: React.FC<Props> = (props) => {
       <FetchErrorViewer error={resource.error} />
     );
 
-  const noPreviewWarning = typeof sessionInfo === "undefined" ||
-    (!isLoadedDataset(resource) && resource.isValidating) ?
-    null : (
-    <>
-      <ClientLocalized id="preview-error">
-        <div className="rounded bg-yellow-200 p-5 m-2">Could not preview resource.</div>
-      </ClientLocalized>
-    </>
-  );
+  const noPreviewWarning =
+    typeof sessionInfo === "undefined" ||
+    (!isLoadedDataset(resource) && resource.isValidating) ? null : (
+      <>
+        <ClientLocalized id="preview-error">
+          <div className="m-2 rounded bg-yellow-200 p-5">
+            Could not preview resource.
+          </div>
+        </ClientLocalized>
+      </>
+    );
 
   const card =
     resource !== null &&
@@ -130,7 +132,7 @@ export const Explorer: React.FC<Props> = (props) => {
     <div className="flex flex-row-reverse pb-4">
       <button className="" onClick={() => setShow(!showAdvanced)}>
         {/* <span>{showAdvanced ? "Hide" : "Show"} advanced options </span> */}
-        <span>Advanced </span>
+        <span>Advanced Options</span>
         <svg
           className="inline"
           xmlns="http://www.w3.org/2000/svg"
@@ -149,15 +151,19 @@ export const Explorer: React.FC<Props> = (props) => {
       <Head>
         <title>Liquid Pod: {props.url}</title>
       </Head>
-      <div className="lg:w-4/5 xl:w-2/3 2xl:w-1/2 mx-auto p-5 md:pt-10">
+      <div className="mx-auto p-5 md:pt-10 lg:w-4/5 xl:w-2/3 2xl:w-1/2">
         {/* {isRoot && isIntegrated() ? intro : null } */}
         {isRoot && containerViewer ? intro : null}
-        {/* for dev purposes, otherwise use the above */}
-        { showAdvancedButton }
-        {fileViewer || containerViewer  || card || noPreviewWarning}
+        {showAdvancedButton}
+        {fileViewer || containerViewer || card || noPreviewWarning}
         {errorViewer}
         <div id="advanced-options" className={showAdvanced ? "open p-4" : ""}>
-          <button className="absolute right-5 top-5 underline" onClick={()=> setShow(!showAdvanced)}>close</button>
+          <button
+            className="absolute right-5 top-5 underline"
+            onClick={() => setShow(!showAdvanced)}
+          >
+            close
+          </button>
           <ClientLocalized id="TODO">
             <div className="pb-5">
               <h1 className="w-3/4 pt-5 text-3xl font-bold">

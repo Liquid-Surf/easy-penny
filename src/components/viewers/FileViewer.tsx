@@ -118,7 +118,6 @@ export const FileViewer: FC<Props> = (props) => {
           </ClientLocalized>
         </a>
       </div>
-      {preview}
       <LinkedResourcesViewer dataset={props.file} />
       <HasAccess access={["write"]} resource={props.file.data}>
         <div className="pb-10">

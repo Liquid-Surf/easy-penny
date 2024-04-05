@@ -15,10 +15,21 @@ const IntegratedHome: React.FC = () => {
     return null;
   }
 
-  const url =
+  const cleanUrlParams = (url: string, paramsToRemove: string[]): string => {
+      const urlObj = new URL(url);
+      paramsToRemove.forEach(param => urlObj.searchParams.delete(param));
+      return urlObj.toString();
+  };
+
+  const raw_url =
     typeof window !== "undefined"
       ? window.location.origin + router.basePath + router.asPath
       : undefined;
+
+  const url = raw_url  
+  	? cleanUrlParams(raw_url, ['code', 'state', 'iss']) // remove potential params remaining after authentification
+  	: undefined
+
   return (
     <Explorer
       url={url}
